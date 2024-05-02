@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+# Explore KZ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview and Purpose
 
-Currently, two official plugins are available:
+**Explore KZ** is a comprehensive eCommerce application designed to simplify online order tours inside Kazakhstan. From browsing tour to checkout, it provides a seamless order experience for users.
+The purpose of this project is to create a user-friendly platform where customers can shop tours from the comfort of their homes.
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Tours Browsing**: Browse through our extensive catalog of tours across multiple categories.
+- **Search and Filter**: Find exactly what you're looking for with our advanced search and filter options.
+- **Order Cart**: Add tour to your cart and manage them easily.
+- **User Profile**: Manage your profile, view orders.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technology Stack
+ - React
+ - Redux
+ - TypeScript
+ - Vite
+ - HTML
+ - CSS
+ - JEST
+ - ESlint
+ - Prettier
+ - Husky
 
--   Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-    // other rules...
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: ['./tsconfig.json', './tsconfig.node.json'],
-        tsconfigRootDir: __dirname,
-    },
-};
-```
 
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
