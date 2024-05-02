@@ -10,7 +10,8 @@
     "format": "prettier --write 'src/**/*.{ts,tsx,css}'",
     "ci:format": "prettier --check 'src/**/*.{ts,tsx,css}'",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "lint:fix": "eslint --fix ./src", 
+    "test": "jest"
   },
   "dependencies": {
     "react": "^18.2.0",
