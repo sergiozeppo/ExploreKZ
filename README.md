@@ -24,5 +24,11 @@ The purpose of this project is to create a user-friendly platform where customer
  - Prettier
  - Husky
 
+## Scripts
+**Here are the available scripts and description for each of them:**
 
-
+ - ```npm run format``` - For automatic **Prettier** format code within /src directory
+ - ```npm run ci:format``` - For **Prettier** checking code within /src directory 
+ - ```npm run lint``` - For **ESlint** checking
+ - ```npm run lint:fix``` - For automatic **ESlint** fix within /src directory
+ - ```npm run test``` - For start **JEST** tests
