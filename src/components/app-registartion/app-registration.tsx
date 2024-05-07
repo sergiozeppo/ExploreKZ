@@ -1,6 +1,6 @@
 import './app-registration.css';
 
-function Form() {
+function FormRegistration() {
     const fieldInputs = [
         { name: 'email', type: 'email', placeholder: 'Почта' },
         { name: 'password', type: 'password', placeholder: 'Почта' },
@@ -33,4 +33,4 @@ function Form() {
     );
 }
 
-export default Form;
+export default FormRegistration;
