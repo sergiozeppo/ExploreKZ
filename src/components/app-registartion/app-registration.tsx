@@ -1,23 +1,29 @@
 import './app-registration.css';
 
-const RegistrationLayout = () => {
+function Form() {
+    const fieldInputs = [
+        { name: 'email', type: 'email', placeholder: 'Почта' },
+        { name: 'password', type: 'password', placeholder: 'Почта' },
+        { name: 'name', placeholder: 'Имя' },
+        { name: 'surname', placeholder: 'Фамилия' },
+        { name: 'date', type: 'date' },
+        { name: 'street', placeholder: 'Улица' },
+        { name: 'city', placeholder: 'Город' },
+        { name: 'postalcode', placeholder: 'Почтовый Индекс' },
+        { name: 'country', placeholder: 'Страна' },
+    ];
     return (
         <form className="app-registration-form">
             <div className="registration-form-container">
-                <div className="registration-client-info">
-                    <input className="registration-email field" type="email" placeholder="Почта" required />
-                    <input className="registration-email field" type="password" placeholder="Пароль" required />
-                    <input className="registration-name field" placeholder="Имя" required />
-                    <input className="registration-surname field" placeholder="Фамилия" required />
-                    <input className="registration-birthday field" type="date" placeholder="Дата рождения" required />
-                </div>
-
-                <div className="registration-address-fields">
-                    <input className="registration-street field" placeholder="Улица" required />
-                    <input className="registration-city field" placeholder="Город" required />
-                    <input className="registration-postalcode field" placeholder="Почтовый Индекс" required />
-                    <input className="registration-country field" placeholder="Страна" required />
-                </div>
+                {fieldInputs.map((field, index) => (
+                    <input
+                        key={index}
+                        className={`registration-${field.name} field`}
+                        type={field.type || 'text'}
+                        placeholder={field.placeholder}
+                        required
+                    />
+                ))}
             </div>
 
             <button className="registration-btn-submit" type="submit">
@@ -25,6 +31,6 @@ const RegistrationLayout = () => {
             </button>
         </form>
     );
-};
+}
 
-export default RegistrationLayout;
+export default Form;
