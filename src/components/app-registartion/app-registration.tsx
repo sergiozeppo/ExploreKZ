@@ -1,9 +1,42 @@
+import { useState, ChangeEvent } from 'react';
 import './app-registration.css';
 
+interface FormFields {
+    email: string;
+    password: string;
+    name: string;
+    surname: string;
+    date: string;
+    street: string;
+    city: string;
+    postalcode: string;
+    country: string;
+}
+
 function FormRegistration() {
+    const [, setFileds] = useState<FormFields>({
+        email: '',
+        password: '',
+        name: '',
+        surname: '',
+        date: '',
+        street: '',
+        city: '',
+        postalcode: '',
+        country: '',
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFileds((prevFileds) => ({
+            ...prevFileds,
+            [name]: value,
+        }));
+    };
+
     const fieldInputs = [
         { name: 'email', type: 'email', placeholder: 'Почта' },
-        { name: 'password', type: 'password', placeholder: 'Почта' },
+        { name: 'password', type: 'password', placeholder: 'Пароль' },
         { name: 'name', placeholder: 'Имя' },
         { name: 'surname', placeholder: 'Фамилия' },
         { name: 'date', type: 'date' },
@@ -22,6 +55,7 @@ function FormRegistration() {
                         type={field.type || 'text'}
                         placeholder={field.placeholder}
                         required
+                        onChange={handleChange}
                     />
                 ))}
             </div>
