@@ -1,0 +1,30 @@
+.app-registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registration-form-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.registration-client-info,
+.registration-address-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.field {
+    min-width: 240px;
+    height: 25px;
+    padding-left: 5px;
+}
+
+.registration-btn-submit {
+    padding: 7px 13px;
+    margin-top: 20px;
+}
