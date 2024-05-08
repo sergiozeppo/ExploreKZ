@@ -15,11 +15,18 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^7.8.0",
+    "@commercetools/sdk-client-v2": "^2.5.0",
+    "@types/node": "^20.12.11",
+    "@types/react-router-dom": "^5.3.3",
+    "isomorphic-fetch": "^3.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
+    "@types/node-fetch": "^2.6.11",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -37,7 +44,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "3.2.5",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.2.2",
+    "typescript": "^5.4.5",
     "vite": "^5.2.0"
   }
 }
