@@ -13,7 +13,7 @@ interface FormFields {
     country: string;
 }
 
-function FormRegistration() {
+function Registration() {
     const [, setFileds] = useState<FormFields>({
         email: '',
         password: '',
@@ -67,4 +67,4 @@ function FormRegistration() {
     );
 }
 
-export default FormRegistration;
+export default Registration;
