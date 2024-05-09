@@ -54,8 +54,6 @@ function Registration() {
         const isValid = validateFields();
         if (isValid) {
             console.log('Оправить');
-        } else {
-            console.log('Ошибка');
         }
     };
 
