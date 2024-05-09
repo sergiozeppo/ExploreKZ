@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-import './app-registration.css';
+import './registration.css';
 
 interface FormFields {
     email: string;
@@ -14,7 +14,7 @@ interface FormFields {
 }
 
 function Registration() {
-    const [, setFileds] = useState<FormFields>({
+    const [, setFields] = useState<FormFields>({
         email: '',
         password: '',
         name: '',
@@ -25,11 +25,10 @@ function Registration() {
         postalcode: '',
         country: '',
     });
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFileds((prevFileds) => ({
-            ...prevFileds,
+        setFields((prevFields) => ({
+            ...prevFields,
             [name]: value,
         }));
     };
@@ -54,6 +53,7 @@ function Registration() {
                         className={`registration-${field.name} field`}
                         type={field.type || 'text'}
                         placeholder={field.placeholder}
+                        name={field.name}
                         required
                         onChange={handleChange}
                     />
