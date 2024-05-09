@@ -21,3 +21,14 @@
     padding: 7px 13px;
     margin-top: 20px;
 }
+
+.registration-form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.registration-error {
+    color: red;
+    font-size: 14px;
+}

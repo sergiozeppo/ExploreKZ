@@ -74,7 +74,7 @@ function Registration() {
         <form className="app-registration-form" onSubmit={handleSubmit}>
             <div className="registration-form-container">
                 {fieldInputs.map((field, index) => (
-                    <div key={index}>
+                    <div key={index} className="registration-form-item">
                         <input
                             key={index}
                             className={`registration-${field.name} field`}
