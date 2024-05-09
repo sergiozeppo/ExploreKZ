@@ -11,6 +11,7 @@ interface FormFields {
     city: string;
     postalcode: string;
     country: string;
+    [key: string]: string;
 }
 
 function Registration() {
@@ -42,15 +43,34 @@ function Registration() {
 
     const validateFields = () => {
         const newErrors: Partial<FormFields> = {};
+
         if (!(fields.password.length >= 8)) {
             newErrors.password = 'Длинна пароля должна быть не менее 8 символов';
-        } else if (!/\d/.test(fields.password)) {
+        }
+
+        if (!/\d/.test(fields.password)) {
             newErrors.password = 'Должен содержать минимум одну цифру';
-        } else if (!/[a-zа-я]/.test(fields.password)) {
+        }
+
+        if (!/[a-zа-я]/.test(fields.password)) {
             newErrors.password = 'Должен содержать минимум одну строчную букву';
-        } else if (!/[A-ZА-Я]/.test(fields.password)) {
+        }
+
+        if (!/[A-ZА-Я]/.test(fields.password)) {
             newErrors.password = 'Должен содержать минимум одну заглавную букву';
         }
+
+        if (fields.street.length === 0) {
+            newErrors.street = 'Должно содержать хотя бы один символ';
+        }
+
+        const noSpecSymbolsAndNumbersRegex = /^[a-zA-Zа-яА-Я]+$/u;
+        const requiredFields = ['name', 'surname', 'city'];
+        requiredFields.forEach((field) => {
+            if (!noSpecSymbolsAndNumbersRegex.test(fields[field])) {
+                newErrors[field] = 'Должно содержать хотя бы один символ и не содержать специальных символов или цифр';
+            }
+        });
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
