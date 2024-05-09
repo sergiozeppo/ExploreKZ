@@ -42,9 +42,16 @@ function Registration() {
 
     const validateFields = () => {
         const newErrors: Partial<FormFields> = {};
-        if (!(fields.email.length > 5)) {
-            newErrors.email = 'Введите корректный email';
+        if (!(fields.password.length >= 8)) {
+            newErrors.password = 'Длинна пароля должна быть не менее 8 символов';
+        } else if (!/\d/.test(fields.password)) {
+            newErrors.password = 'Должен содержать минимум одну цифру';
+        } else if (!/[a-zа-я]/.test(fields.password)) {
+            newErrors.password = 'Должен содержать минимум одну строчную букву';
+        } else if (!/[A-ZА-Я]/.test(fields.password)) {
+            newErrors.password = 'Должен содержать минимум одну заглавную букву';
         }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
