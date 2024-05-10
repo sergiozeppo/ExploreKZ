@@ -22,13 +22,18 @@ function Registration() {
                 <label>
                     Имя:
                     <input
-                        {...register('Имя', {
+                        {...register('name', {
                             required: 'Поле обязательно к заполнению',
                         })}
                         style={inputItems}
                     />
                 </label>
-                <select name="country" style={inputItems}>
+                <select
+                    {...register('city', {
+                        required: 'Поле обязательно к заполнению',
+                    })}
+                    style={inputItems}
+                >
                     <option value="Kazahstan">Kazahstan</option>
                 </select>
             </div>
