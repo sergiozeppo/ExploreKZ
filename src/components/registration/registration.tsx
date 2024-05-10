@@ -67,7 +67,11 @@ function Registration() {
                             required: 'Поле обязательно к заполнению',
                         })}
                         style={inputItems}
+                        defaultValue="Выберите страну*"
                     >
+                        <option value="Выберите страну*" disabled>
+                            Выберите страну*
+                        </option>
                         <option value="Kazahstan">Kazahstan</option>
                     </select>
                 </fieldset>
