@@ -15,31 +15,23 @@ function Registration() {
         console.log(JSON.stringify(data));
     };
 
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    const currentDateMinus13Years = new Date();
-    currentDateMinus13Years.setFullYear(currentDateMinus13Years.getFullYear() - 13);
-
-    const formattedDateMinus13Years = currentDateMinus13Years.toISOString().split('T')[0];
-
     const fieldsAboutUser: AboutUser[] = [
-        { name: 'email', placeholder: 'Почта' },
+        { name: 'email', placeholder: 'Почта', type: 'email' },
         {
             name: 'password',
             placeholder: 'Пароль',
-            validate: { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ },
+            validate: { pattern: /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d]{8,}$/ },
         },
         {
             name: 'name',
             placeholder: 'Имя',
-            validate: { pattern: /^[a-zA-Z]+$/ },
+            validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ },
         },
-        { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Z]+$/ } },
+        { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ } },
         {
             name: 'date',
             placeholder: 'Дата Рождения',
             type: 'date',
-            validate: { min: formattedDateMinus13Years, max: currentDate },
         },
     ];
 
