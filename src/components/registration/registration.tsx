@@ -15,10 +15,15 @@ function Registration() {
         { name: 'email', placeholder: 'Почта' },
         {
             name: 'password',
-            placeholder: 'Имя',
+            placeholder: 'Пароль',
             validate: { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ },
         },
-        { name: 'surname', placeholder: 'Фамилия', validate: {} },
+        {
+            name: 'name',
+            placeholder: 'Имя',
+            validate: { pattern: /^[a-zA-Z]+$/ },
+        },
+        { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Z]+$/ } },
         { name: 'date', placeholder: 'Дата Рождения', type: 'date', validate: {} },
     ];
 
