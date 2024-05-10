@@ -15,6 +15,13 @@ function Registration() {
         console.log(JSON.stringify(data));
     };
 
+    const calculateAge = (birthday: Date) => {
+        const today = new Date();
+        const diff = today.getTime() - birthday.getTime();
+        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        return age;
+    };
+
     const fieldsAboutUser: AboutUser[] = [
         { name: 'email', placeholder: 'Почта', type: 'email' },
         {
@@ -32,6 +39,13 @@ function Registration() {
             name: 'date',
             placeholder: 'Дата Рождения',
             type: 'date',
+            validate: {
+                validate: (value: string) => {
+                    const selectedDate = new Date(value);
+                    const age = calculateAge(selectedDate);
+                    return age >= 13;
+                },
+            },
         },
     ];
 
