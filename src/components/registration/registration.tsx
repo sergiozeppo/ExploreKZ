@@ -56,10 +56,10 @@ function Registration() {
                         <option value="Kazahstan">Kazahstan</option>
                     </select>
                     <input
-                        {...register('region', {
+                        {...register('street', {
                             required: 'Поле обязательно к заполнению',
                         })}
-                        placeholder="Регион"
+                        placeholder="Улица"
                         className="registration-delivery"
                     />
                 </div>
