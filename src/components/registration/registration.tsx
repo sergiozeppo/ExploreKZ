@@ -16,18 +16,28 @@ function Registration() {
         width: '100%',
     } as CSSProperties;
 
+    const fields = [
+        { name: 'email', label: 'Почта' },
+        { name: 'password', label: 'Имя' },
+        { name: 'surname', label: 'Фамилия' },
+    ];
+
     return (
         <form style={{ ...flexStyles, margin: '0 auto', maxWidth: '600px', gap: '5px' }}>
             <div style={{ ...flexStyles, gap: '5px' }}>
-                <label>
-                    Имя:
-                    <input
-                        {...register('name', {
-                            required: 'Поле обязательно к заполнению',
-                        })}
-                        style={inputItems}
-                    />
-                </label>
+                {fields.map((field) => (
+                    <div key={field.name}>
+                        <label>
+                            {field.label}:
+                            <input
+                                {...register(field.name, {
+                                    required: 'Поле обязательно к заполнению',
+                                })}
+                                style={inputItems}
+                            />
+                        </label>
+                    </div>
+                ))}
                 <select
                     {...register('city', {
                         required: 'Поле обязательно к заполнению',
