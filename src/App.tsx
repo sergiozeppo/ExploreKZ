@@ -5,6 +5,7 @@ import Login from './components/login/login';
 import Home from './components/home/home';
 import Registration from './components/registration/registration';
 import NotFound from './components/notFound/notFound';
+import './index.css';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 

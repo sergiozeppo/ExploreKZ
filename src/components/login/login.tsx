@@ -20,13 +20,12 @@ export default function Login() {
         // Здесь будет вызываться метод для отправки данныз юзера на сервак
         console.log(data);
     };
-    console.log('render');
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <label>
-                Email:
+                <span className="label-title">Email:</span>
                 <input
-                    className="login-input-email"
+                    className={`login-input-email ${errors?.email ? 'invalid-input' : ''}`}
                     {...register('email', {
                         required: 'Mandatory field!',
                         validate: {
@@ -45,12 +44,13 @@ export default function Login() {
                         },
                     })}
                 />
-                <div>{errors?.email && <span>{errors?.email?.message || 'Error'}</span>}</div>
+                {errors?.email && <span className="input-notice">{errors?.email?.message || 'Error'}</span>}
             </label>
             <label>
-                Password:
+                <span className="label-title">Password:</span>
                 <div className="login-input-psw">
                     <input
+                        className={`login-input-psw ${errors?.password ? 'invalid-input' : ''}`}
                         type={showPassword ? 'text' : 'password'}
                         {...register('password', {
                             required: 'Mandatory field!',
@@ -77,10 +77,10 @@ export default function Login() {
                         {showPassword ? <FiEyeOff /> : <FiEye />}
                     </div>
                 </div>
-                {errors.password && <span>{errors.password.message}</span>}
+                {errors.password && <span className="input-notice">{errors.password.message}</span>}
             </label>
             <button type="submit" disabled={!isValid}>
-                LOGIN
+                Login
             </button>
         </form>
     );
