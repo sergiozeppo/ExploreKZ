@@ -60,6 +60,10 @@ function Registration() {
                 regex: /^[a-zA-Zа-яА-Я]+$/u,
                 message: 'Город должен содержать только буквы.',
             },
+            postalcode: {
+                condition: (value: string) => value.length === 6,
+                message: 'POST код должен содержать 6 цифр',
+            },
         };
         let error = false;
 
