@@ -27,73 +27,78 @@ function Registration() {
         country: '',
     });
 
-    const [errors, setErrors] = useState<Partial<FormFields>>({});
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFields((prevFields) => ({
             ...prevFields,
             [name]: value,
         }));
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: undefined,
-        }));
     };
 
     const validateFields = () => {
-        const newErrors: Partial<FormFields> = {};
+        const fieldsToCheck: {
+            [key: string]: { regex?: RegExp; condition?: (value: string) => boolean; message: string };
+        } = {
+            password: {
+                regex: /^(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я])[a-zA-Zа-яА-Я\d]{8,}$/,
+                message:
+                    'Пароль должен содержать не менее 8 символов, хотя бы одну цифру, одну строчную и одну заглавную букву',
+            },
+            street: {
+                condition: (value: string) => value.length === 0,
+                message: 'Укажите улицу.',
+            },
+            name: {
+                regex: /^[a-zA-Zа-яА-Я]+$/u,
+                message: 'Имя должно содержать только буквы.',
+            },
+            surname: {
+                regex: /^[a-zA-Zа-яА-Я]+$/u,
+                message: 'Фамилия должна содержать только буквы.',
+            },
+            city: {
+                regex: /^[a-zA-Zа-яА-Я]+$/u,
+                message: 'Город должен содержать только буквы.',
+            },
+        };
+        let error = false;
 
-        if (!(fields.password.length >= 8)) {
-            newErrors.password = 'Длинна пароля должна быть не менее 8 символов';
-        }
+        for (const field in fieldsToCheck) {
+            const value = fields[field];
+            const fieldToCheck = fieldsToCheck[field];
 
-        if (!/\d/.test(fields.password)) {
-            newErrors.password = 'Должен содержать минимум одну цифру';
-        }
-
-        if (!/[a-zа-я]/.test(fields.password)) {
-            newErrors.password = 'Должен содержать минимум одну строчную букву';
-        }
-
-        if (!/[A-ZА-Я]/.test(fields.password)) {
-            newErrors.password = 'Должен содержать минимум одну заглавную букву';
-        }
-
-        if (fields.street.length === 0) {
-            newErrors.street = 'Должно содержать хотя бы один символ';
-        }
-
-        const noSpecSymbolsAndNumbersRegex = /^[a-zA-Zа-яА-Я]+$/u;
-        const requiredFields = ['name', 'surname', 'city'];
-        requiredFields.forEach((field) => {
-            if (!noSpecSymbolsAndNumbersRegex.test(fields[field])) {
-                newErrors[field] = 'Должно содержать хотя бы один символ и не содержать специальных символов или цифр';
+            if (fieldToCheck.regex && !fieldToCheck.regex.test(value)) {
+                error = true;
             }
-        });
 
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+            if (fieldToCheck.condition && fieldToCheck.condition(value)) {
+                error = true;
+            }
+        }
+
+        return error;
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const isValid = validateFields();
-        if (isValid) {
-            console.log('Оправить');
+        if (!isValid) {
+            console.log('Оправить Запрос');
+        } else {
+            throw new Error('Ошибка во введённых данных');
         }
     };
 
     const fieldInputs = [
-        { name: 'email', type: 'email', placeholder: 'Почта', error: errors.email },
-        { name: 'password', type: 'password', placeholder: 'Пароль', error: errors.password },
-        { name: 'name', placeholder: 'Имя', error: errors.name },
-        { name: 'surname', placeholder: 'Фамилия', error: errors.surname },
-        { name: 'date', type: 'date', error: errors.date },
-        { name: 'street', placeholder: 'Улица', error: errors.street },
-        { name: 'city', placeholder: 'Город', error: errors.city },
-        { name: 'postalcode', placeholder: 'Почтовый Индекс', error: errors.postalcode },
-        { name: 'country', placeholder: 'Страна', error: errors.country },
+        { name: 'email', type: 'email', placeholder: 'Почта' },
+        { name: 'password', type: 'password', placeholder: 'Пароль' },
+        { name: 'name', placeholder: 'Имя' },
+        { name: 'surname', placeholder: 'Фамилия' },
+        { name: 'date', type: 'date' },
+        { name: 'street', placeholder: 'Улица' },
+        { name: 'city', placeholder: 'Город' },
+        { name: 'postalcode', placeholder: 'Почтовый Индекс' },
+        { name: 'country', placeholder: 'Страна' },
     ];
     return (
         <form className="app-registration-form" onSubmit={handleSubmit}>
@@ -109,7 +114,6 @@ function Registration() {
                             required
                             onChange={handleChange}
                         />
-                        {field.error && <span className="registration-error">{field.error}</span>}
                     </div>
                 ))}
             </div>
