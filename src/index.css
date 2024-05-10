@@ -6,7 +6,7 @@
     list-style-type: none;
     text-decoration: none;
     transition: all 0.5s ease-in-out;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -21,17 +21,15 @@ button {
     padding: 4px 6px;
     font-size: 1em;
     cursor: pointer;
-    background-color: #1F4AA8;
-    color: #FFFFFF;
+    background-color: #1f4aa8;
+    color: #ffffff;
     line-height: 19.5px;
     transition: border-color 0.25s;
     border-radius: 39px;
     &:not(:disabled):hover {
-       border-color: #646cff; 
+        border-color: #646cff;
     }
     &:not(:disabled):active {
-        background-color: #343de8d6; 
+        background-color: #343de8d6;
     }
 }
-
-
