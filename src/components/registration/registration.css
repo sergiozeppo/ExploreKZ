@@ -1,25 +1,27 @@
 .flex-style {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .registration-wrapper {
-  margin: 0 auto;
-  max-width: 600px;
-  gap: 5px;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    gap: 5px;
 }
 
 .registration-item {
-  width: 100%;
+    width: 100%;
 }
 
 .registration-conatiner-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .registration-item input,
 .registration-conatiner-pair input {
-  height: 24px;
+    height: 24px;
 }
