@@ -1,14 +1,21 @@
 import './registration.css';
-import { useForm } from 'react-hook-form';
+import { useForm, RegisterOptions } from 'react-hook-form';
+
+interface AboutUser {
+    name: string;
+    placeholder: string;
+    validate: RegisterOptions;
+    type?: string;
+}
 
 function Registration() {
     const { register } = useForm();
 
-    const fieldsAboutUser = [
-        { name: 'email', placeholder: 'Почта' },
-        { name: 'password', placeholder: 'Имя' },
-        { name: 'surname', placeholder: 'Фамилия' },
-        { name: 'date', placeholder: 'Дата Рождения', type: 'date' },
+    const fieldsAboutUser: AboutUser[] = [
+        { name: 'email', placeholder: 'Почта', validate: {} },
+        { name: 'password', placeholder: 'Имя', validate: {} },
+        { name: 'surname', placeholder: 'Фамилия', validate: {} },
+        { name: 'date', placeholder: 'Дата Рождения', type: 'date', validate: {} },
     ];
 
     return (
