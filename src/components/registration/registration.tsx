@@ -102,7 +102,6 @@ function Registration() {
         { name: 'street', placeholder: 'Улица' },
         { name: 'city', placeholder: 'Город' },
         { name: 'postalcode', placeholder: 'Почтовый Индекс' },
-        { name: 'country', placeholder: 'Страна' },
     ];
     return (
         <form className="app-registration-form" onSubmit={handleSubmit}>
@@ -120,6 +119,9 @@ function Registration() {
                         />
                     </div>
                 ))}
+                <select name="country" className="registration-form-item">
+                    <option value="Kazahstan">Kazahstan</option>
+                </select>
             </div>
 
             <button className="registration-btn-submit" type="submit">
