@@ -1,0 +1,33 @@
+.login-form {
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 15px;
+    outline: 1px solid black;
+    gap: 10px;
+    & label {
+        display: flex;
+        flex-direction: column;
+    } 
+    input {
+        width: 100%;
+    }
+}
+
+.login-input-psw {
+    position: relative;
+}
+
+.psw-eye svg {
+    position: absolute;
+    right: 0;
+    padding-right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    &:hover {
+        fill: grey;
+    }
+}
