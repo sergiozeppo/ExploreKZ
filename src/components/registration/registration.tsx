@@ -58,6 +58,7 @@ function Registration() {
                     <input
                         {...register('street', {
                             required: 'Поле обязательно к заполнению',
+                            minLength: 1,
                         })}
                         placeholder="Улица"
                         className="registration-delivery"
