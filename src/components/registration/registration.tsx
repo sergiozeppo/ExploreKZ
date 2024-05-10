@@ -10,18 +10,25 @@ function Registration() {
         flexDirection: 'column',
     } as CSSProperties;
 
+    const inputItems = {
+        ...flexStyles,
+        height: '26px',
+        width: '100%',
+    } as CSSProperties;
+
     return (
-        <form style={{ ...flexStyles, margin: '0 auto', maxWidth: '600px' }}>
-            <div>
-                <label style={flexStyles}>
+        <form style={{ ...flexStyles, margin: '0 auto', maxWidth: '600px', gap: '5px' }}>
+            <div style={{ ...flexStyles, gap: '5px' }}>
+                <label>
                     Имя:
                     <input
                         {...register('Имя', {
-                            required: true,
+                            required: 'Поле обязательно к заполнению',
                         })}
+                        style={inputItems}
                     />
                 </label>
-                <select name="country">
+                <select name="country" style={inputItems}>
                     <option value="Kazahstan">Kazahstan</option>
                 </select>
             </div>
