@@ -24,7 +24,7 @@ function Registration() {
             validate: { pattern: /^[a-zA-Z]+$/ },
         },
         { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Z]+$/ } },
-        { name: 'date', placeholder: 'Дата Рождения', type: 'date', validate: {} },
+        { name: 'date', placeholder: 'Дата Рождения', type: 'date' },
     ];
 
     return (
@@ -77,20 +77,13 @@ function Registration() {
                         <input
                             {...register('postalCode', {
                                 required: 'Поле обязательно к заполнению',
+                                minLength: 6,
+                                maxLength: 6,
                             })}
                             placeholder="Post Код"
                             className="registration-delivery"
                         />
                     </div>
-                </div>
-                <div key="street">
-                    <input
-                        {...register('address', {
-                            required: 'Поле обязательно к заполнению',
-                        })}
-                        placeholder="Адрес"
-                        className="registration-delivery"
-                    />
                 </div>
             </fieldset>
 
