@@ -15,6 +15,13 @@ function Registration() {
         console.log(JSON.stringify(data));
     };
 
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    const currentDateMinus13Years = new Date();
+    currentDateMinus13Years.setFullYear(currentDateMinus13Years.getFullYear() - 13);
+
+    const formattedDateMinus13Years = currentDateMinus13Years.toISOString().split('T')[0];
+
     const fieldsAboutUser: AboutUser[] = [
         { name: 'email', placeholder: 'Почта' },
         {
@@ -28,7 +35,12 @@ function Registration() {
             validate: { pattern: /^[a-zA-Z]+$/ },
         },
         { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Z]+$/ } },
-        { name: 'date', placeholder: 'Дата Рождения', type: 'date' },
+        {
+            name: 'date',
+            placeholder: 'Дата Рождения',
+            type: 'date',
+            validate: { min: formattedDateMinus13Years, max: currentDate },
+        },
     ];
 
     return (
