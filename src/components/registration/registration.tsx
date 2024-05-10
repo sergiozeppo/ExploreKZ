@@ -68,6 +68,8 @@ function Registration() {
                         <input
                             {...register('city', {
                                 required: 'Поле обязательно к заполнению',
+                                pattern: /^[a-zA-Zа-яА-Я\s]+$/,
+                                minLength: 1,
                             })}
                             placeholder="Город"
                             className="registration-delivery"
