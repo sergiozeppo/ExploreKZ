@@ -4,7 +4,7 @@ import { useForm, RegisterOptions } from 'react-hook-form';
 interface AboutUser {
     name: string;
     placeholder: string;
-    validate: RegisterOptions;
+    validate?: RegisterOptions;
     type?: string;
 }
 
@@ -12,8 +12,12 @@ function Registration() {
     const { register } = useForm();
 
     const fieldsAboutUser: AboutUser[] = [
-        { name: 'email', placeholder: 'Почта', validate: {} },
-        { name: 'password', placeholder: 'Имя', validate: {} },
+        { name: 'email', placeholder: 'Почта' },
+        {
+            name: 'password',
+            placeholder: 'Имя',
+            validate: { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ },
+        },
         { name: 'surname', placeholder: 'Фамилия', validate: {} },
         { name: 'date', placeholder: 'Дата Рождения', type: 'date', validate: {} },
     ];
