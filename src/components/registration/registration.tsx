@@ -20,6 +20,7 @@ function Registration() {
         { name: 'email', label: 'Почта' },
         { name: 'password', label: 'Имя' },
         { name: 'surname', label: 'Фамилия' },
+        { name: 'date', label: 'Дата Рождения', type: 'date' },
     ];
 
     return (
@@ -34,6 +35,7 @@ function Registration() {
                                     required: 'Поле обязательно к заполнению',
                                 })}
                                 style={inputItems}
+                                type={field.type}
                             />
                         </label>
                     </div>
