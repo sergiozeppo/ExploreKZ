@@ -1,105 +1,75 @@
 import './registration.css';
-import { CSSProperties } from 'react';
 import { useForm } from 'react-hook-form';
 
 function Registration() {
     const { register } = useForm();
 
-    const flexStyles = {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-    } as CSSProperties;
-
-    const inputItems = {
-        ...flexStyles,
-        height: '26px',
-        width: '100%',
-    } as CSSProperties;
-
     const fieldsAboutUser = [
-        { name: 'email', label: 'Почта' },
-        { name: 'password', label: 'Имя' },
-        { name: 'surname', label: 'Фамилия' },
-        { name: 'date', label: 'Дата Рождения', type: 'date' },
+        { name: 'email', placeholder: 'Почта' },
+        { name: 'password', placeholder: 'Имя' },
+        { name: 'surname', placeholder: 'Фамилия' },
+        { name: 'date', placeholder: 'Дата Рождения', type: 'date' },
     ];
 
     return (
-        <form style={{ ...flexStyles, margin: '0 auto', maxWidth: '600px', gap: '5px' }}>
-            <div style={{ ...flexStyles, gap: '5px' }}>
+        <form className="registration-wrapper flex-style">
+            <div className="registration-wrapper flex-style">
                 {fieldsAboutUser.map((field) => (
                     <div key={field.name}>
-                        <label>
-                            {field.label}:
-                            <input
-                                {...register(field.name, {
-                                    required: 'Поле обязательно к заполнению',
-                                })}
-                                style={inputItems}
-                                type={field.type}
-                            />
-                        </label>
+                        <input
+                            {...register(field.name, {
+                                required: 'Поле обязательно к заполнению',
+                            })}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                        />
                     </div>
                 ))}
                 <fieldset>
                     <legend>Адрес доставки</legend>
                     <div className="registration-conatiner-pair">
                         <select
-                            {...register('city', {
+                            {...register('country', {
                                 required: 'Поле обязательно к заполнению',
                             })}
-                            style={inputItems}
-                            defaultValue="Выберите страну*"
                         >
-                            <option value="Выберите страну*" disabled>
+                            <option value="Выберите страну*" disabled selected>
                                 Выберите страну*
                             </option>
                             <option value="Kazahstan">Kazahstan</option>
                         </select>
-                        <label>
-                            Регион
-                            <input
-                                {...register('region', {
-                                    required: 'Поле обязательно к заполнению',
-                                })}
-                                style={inputItems}
-                            />
-                        </label>
+                        <input
+                            {...register('region', {
+                                required: 'Поле обязательно к заполнению',
+                            })}
+                            placeholder="Регион"
+                        />
                     </div>
                     <div className="registration-conatiner-pair">
                         <div key="city">
-                            <label>
-                                Город
-                                <input
-                                    {...register('city', {
-                                        required: 'Поле обязательно к заполнению',
-                                    })}
-                                    style={inputItems}
-                                />
-                            </label>
+                            <input
+                                {...register('city', {
+                                    required: 'Поле обязательно к заполнению',
+                                })}
+                                placeholder="Город"
+                            />
                         </div>
                         <div key="postalCode">
-                            <label>
-                                Post Код
-                                <input
-                                    {...register('postalCode', {
-                                        required: 'Поле обязательно к заполнению',
-                                    })}
-                                    style={inputItems}
-                                />
-                            </label>
+                            <input
+                                {...register('postalCode', {
+                                    required: 'Поле обязательно к заполнению',
+                                })}
+                                placeholder="Post Код"
+                            />
                         </div>
                     </div>
                     <div key="street">
-                        <label>
-                            Адрес
-                            <input
-                                {...register('address', {
-                                    required: 'Поле обязательно к заполнению',
-                                })}
-                                style={inputItems}
-                            />
-                        </label>
+                        <input
+                            {...register('address', {
+                                required: 'Поле обязательно к заполнению',
+                            })}
+                            placeholder="Адрес"
+                        />
                     </div>
                 </fieldset>
             </div>
