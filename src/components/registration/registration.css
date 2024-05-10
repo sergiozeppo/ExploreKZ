@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .flex-style {
     display: flex;
     justify-content: center;
@@ -7,13 +11,22 @@
 
 .registration-wrapper {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
     gap: 5px;
 }
 
-.registration-item {
+.registration-wrapper-delivery {
     width: 100%;
+    font-size: 20px;
+}
+
+.registration-container,
+.registration-about-user,
+.registration-delivery {
+    width: 100%;
+    height: 60px;
+    font-size: 20px;
 }
 
 .registration-conatiner-pair {
@@ -21,7 +34,6 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.registration-item input,
-.registration-conatiner-pair input {
-    height: 24px;
+.registration-item {
+    width: 100%;
 }
