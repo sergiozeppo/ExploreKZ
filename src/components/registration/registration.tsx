@@ -1,3 +1,4 @@
+import './registration.css';
 import { CSSProperties } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -23,12 +24,6 @@ function Registration() {
         { name: 'date', label: 'Дата Рождения', type: 'date' },
     ];
 
-    const fieldsAboutDelivery = [
-        { name: 'street', label: 'Улица' },
-        { name: 'city', label: 'Город' },
-        { name: 'postalCode', label: 'Post Код' },
-    ];
-
     return (
         <form style={{ ...flexStyles, margin: '0 auto', maxWidth: '600px', gap: '5px' }}>
             <div style={{ ...flexStyles, gap: '5px' }}>
@@ -48,32 +43,64 @@ function Registration() {
                 ))}
                 <fieldset>
                     <legend>Адрес доставки</legend>
-                    {fieldsAboutDelivery.map((field) => (
-                        <div key={field.name}>
+                    <div className="registration-conatiner-pair">
+                        <select
+                            {...register('city', {
+                                required: 'Поле обязательно к заполнению',
+                            })}
+                            style={inputItems}
+                            defaultValue="Выберите страну*"
+                        >
+                            <option value="Выберите страну*" disabled>
+                                Выберите страну*
+                            </option>
+                            <option value="Kazahstan">Kazahstan</option>
+                        </select>
+                        <label>
+                            Регион
+                            <input
+                                {...register('region', {
+                                    required: 'Поле обязательно к заполнению',
+                                })}
+                                style={inputItems}
+                            />
+                        </label>
+                    </div>
+                    <div className="registration-conatiner-pair">
+                        <div key="city">
                             <label>
-                                {field.label}
+                                Город
                                 <input
-                                    {...register(field.name, {
+                                    {...register('city', {
                                         required: 'Поле обязательно к заполнению',
                                     })}
                                     style={inputItems}
                                 />
                             </label>
                         </div>
-                    ))}
-
-                    <select
-                        {...register('city', {
-                            required: 'Поле обязательно к заполнению',
-                        })}
-                        style={inputItems}
-                        defaultValue="Выберите страну*"
-                    >
-                        <option value="Выберите страну*" disabled>
-                            Выберите страну*
-                        </option>
-                        <option value="Kazahstan">Kazahstan</option>
-                    </select>
+                        <div key="postalCode">
+                            <label>
+                                Post Код
+                                <input
+                                    {...register('postalCode', {
+                                        required: 'Поле обязательно к заполнению',
+                                    })}
+                                    style={inputItems}
+                                />
+                            </label>
+                        </div>
+                    </div>
+                    <div key="street">
+                        <label>
+                            Адрес
+                            <input
+                                {...register('address', {
+                                    required: 'Поле обязательно к заполнению',
+                                })}
+                                style={inputItems}
+                            />
+                        </label>
+                    </div>
                 </fieldset>
             </div>
 
