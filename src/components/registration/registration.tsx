@@ -9,7 +9,11 @@ interface AboutUser {
 }
 
 function Registration() {
-    const { register } = useForm();
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data: object) => {
+        console.log(JSON.stringify(data));
+    };
 
     const fieldsAboutUser: AboutUser[] = [
         { name: 'email', placeholder: 'Почта' },
@@ -28,7 +32,7 @@ function Registration() {
     ];
 
     return (
-        <form className="registration-wrapper flex-style">
+        <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
             {fieldsAboutUser.map((field) => (
                 <div key={field.name} className="registration-container">
                     <input
