@@ -34,6 +34,7 @@ function Registration() {
                     <input
                         {...register(field.name, {
                             required: 'Поле обязательно к заполнению',
+                            ...field.validate,
                         })}
                         type={field.type}
                         placeholder={field.placeholder}
