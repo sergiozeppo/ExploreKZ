@@ -97,7 +97,7 @@ function Registration() {
                 validate: (value: string) => {
                     const selectedDate = new Date(value);
                     const age = calculateAge(selectedDate);
-                    return age >= 13;
+                    return age >= 13 ? true : 'You must be at least 13 years old to proceed.';
                 },
             },
         },
