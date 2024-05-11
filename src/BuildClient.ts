@@ -41,8 +41,8 @@ type AnonymousAuthMiddlewareOptions = {
 };
 
 const options: AnonymousAuthMiddlewareOptions = {
-    // host: import.meta.env.VITE_CTP_AUTH_URL,
-    host: 'test-project-key',
+    host: import.meta.env.VITE_CTP_AUTH_URL,
+    // host: 'test-project-key',
     projectKey,
     credentials: {
         clientId: import.meta.env.VITE_CTP_CLIENT_ID,

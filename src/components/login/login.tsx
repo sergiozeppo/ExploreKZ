@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
+import { clientBuilder } from '../../BuildClient';
 
 type Inputs = {
     email: string;
@@ -16,9 +17,15 @@ export default function Login() {
         handleSubmit,
     } = useForm<Inputs>({ mode: 'onChange' });
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        // Здесь будет вызываться метод для отправки данныз юзера на сервак
-        console.log(data);
+    const onSubmit: SubmitHandler<Inputs> = (userData) => {
+        clientBuilder('auth')
+            .login()
+            .post({
+                body: userData,
+            })
+            .execute()
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
