@@ -31,10 +31,10 @@ function Registration() {
         },
         {
             name: 'name',
-            placeholder: 'Name',
+            placeholder: 'First name',
             validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ },
         },
-        { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ } },
+        { name: 'surname', placeholder: 'Last name', validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ } },
         {
             name: 'date',
             type: 'date',
@@ -64,7 +64,7 @@ function Registration() {
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
-                <legend>Адрес доставки</legend>
+                <legend>Delivery address</legend>
                 <div className="registration-conatiner-pair">
                     <select
                         {...register('country', {
