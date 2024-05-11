@@ -1,0 +1,35 @@
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url('/fonts/PoppinsRegular.ttf');
+    font-family: 'Poppins';
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url('/fonts/MontserratBold.ttf');
+    font-family: 'Montserrat';
+    font-weight: 700;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url('/fonts/MontserratSemiBold.ttf');
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url('/fonts/MontserratRegular.ttf');
+    font-family: 'Montserrat';
+    font-weight: 400;
+}
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url('/fonts/PoppinsMedium.ttf');
+    font-family: 'Poppins';
+    font-weight: 500;
+}

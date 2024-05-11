@@ -1,0 +1,175 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat;
+}
+* {
+    box-sizing: border-box;
+    line-height: normal;
+    font-family: inherit;
+    margin: unset;
+}
+a {
+    text-decoration: none;
+    display: block;
+}
+ul {
+    margin: 0;
+    margin-inline: unset;
+    padding: 0;
+    list-style: none;
+}
+input:focus {
+    outline: none;
+}
+.react-datepicker-wrapper,
+.react-datepicker-wrapper input {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    padding: 0px;
+}
+.react-datepicker-popper {
+    z-index: 3;
+}
+input {
+    background-color: transparent;
+    width: 100%;
+}
+.container {
+    width: 100%;
+    background-color: #222831;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+}
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+}
+.hero-section {
+    align-self: stretch;
+    height: 600px;
+    background: url('/images/hero_image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+footer {
+    display: flex;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    padding-bottom: 130px;
+    background-color: rgb(19 59 92);
+}
+.hero-gradient {
+    object-fit: cover;
+    width: 100%;
+    margin-top: 68px;
+    height: 91px;
+    background: linear-gradient(180deg, rgba(34, 40, 49, 0) 0%, #222831 100%);
+}
+.h1 {
+    font-size: 4.5rem;
+    line-height: 1;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+.h2 {
+    line-height: 1.75rem;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: #fff;
+}
+.h6 {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #fff;
+    text-align: left;
+}
+.header-wrapper {
+    display: flex;
+    padding-top: 2.5rem;
+    flex-direction: column;
+    align-items: center;
+    background-color: #00000059;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1242px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    object-fit: contain;
+    height: 42px;
+    width: 140px;
+}
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+.nav-item {
+    font-family: 'Poppins';
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 400;
+    color: #fff;
+}
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.button {
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    padding-left: 35px;
+    padding-right: 35px;
+    background-color: #1f4aa8;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    min-width: 160px;
+    height: 50px;
+    display: flex;
+    cursor: pointer;
+    border-width: 0;
+}
+.title-block {
+    margin-top: 117px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 782px;
+    max-width: 1242px;
+}
+.tagline {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
