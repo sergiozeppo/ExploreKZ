@@ -9,7 +9,11 @@ interface AboutUser {
 }
 
 function Registration() {
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
 
     const onSubmit = (data: object) => {
         console.log(JSON.stringify(data));
@@ -21,6 +25,12 @@ function Registration() {
         const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
         return age;
     };
+
+    function Error({ message, name }: { message: string | undefined; name: string | undefined }) {
+        if (typeof message === 'string' && typeof name === 'string') {
+            return errors?.[name] && <span>{message || 'Error'}</span>;
+        }
+    }
 
     const fieldsAboutUser: AboutUser[] = [
         {
@@ -116,6 +126,7 @@ function Registration() {
                         placeholder={field.placeholder}
                         className="registration-about-user"
                     />
+                    <Error message={errors?.[field.name]?.message?.toString()} name={field.name} />
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
@@ -144,6 +155,7 @@ function Registration() {
                         placeholder="Street"
                         className="registration-delivery"
                     />
+                    <Error message={errors?.street?.message?.toString()} name="street" />
                 </div>
                 <div className="registration-conatiner-pair">
                     <div key="city">
@@ -163,6 +175,7 @@ function Registration() {
                             placeholder="City"
                             className="registration-delivery"
                         />
+                        <Error message={errors?.city?.message?.toString()} name="city" />
                     </div>
                     <div key="postalCode">
                         <input
@@ -176,6 +189,7 @@ function Registration() {
                             placeholder="Postal Code"
                             className="registration-delivery"
                         />
+                        <Error message={errors?.postalCode?.message?.toString()} name="postalCode" />
                     </div>
                 </div>
             </fieldset>
