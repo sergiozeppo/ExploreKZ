@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { clientBuilder } from './BuildClient';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import Login from './components/login/login';
-import Home from './components/home/home';
-import Registration from './components/registration/registration';
-import NotFound from './components/notFound/notFound';
-import './index.css';
+import Login from './pages/login';
+import Home from './pages/home';
+import Registration from './pages/registration';
+import NotFound from './pages/notFound';
+import './styles/index.css';
+import './styles/font.css';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
