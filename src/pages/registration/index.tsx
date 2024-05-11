@@ -23,11 +23,44 @@ function Registration() {
     };
 
     const fieldsAboutUser: AboutUser[] = [
-        { name: 'email', placeholder: 'Email', type: 'email' },
+        {
+            name: 'email',
+            placeholder: 'Email',
+            type: 'email',
+            validate: {
+                validate: {
+                    noWhitespace: (value) =>
+                        value.trim() === value || 'Email address must not contain leading or trailing whitespace',
+                    hasAtSymbol: (value) =>
+                        value.includes('@') ||
+                        'Email address must contain an "@" symbol separating local part and domain name',
+                    hasDomainName: (value) =>
+                        /^.+@.+\..+$/.test(value) || 'Email address must contain a domain name (e.g., example.com)',
+                    isEmail: (value) =>
+                        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
+                        'Email address must be properly formatted (e.g., user@example.com)',
+                },
+            },
+        },
         {
             name: 'password',
             placeholder: 'Password',
-            validate: { pattern: /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d]{8,}$/ },
+            validate: {
+                minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters long',
+                },
+                validate: {
+                    hasUpperCase: (value) =>
+                        /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
+                    hasLowerCase: (value) =>
+                        /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
+                    hasNumber: (value) => /\d/.test(value) || 'Password must contain at least one digit (0-9)',
+                    hasSpecialCharacter: (value) =>
+                        /[!@#$%^&*]/.test(value) || 'Password must contain at least one special character (!@#$%^&*)',
+                    noWhitespace: (value) => value.trim() === value || 'No leading or trailing whitespace allowed',
+                },
+            },
         },
         {
             name: 'name',
