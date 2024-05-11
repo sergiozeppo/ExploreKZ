@@ -28,7 +28,7 @@ function Registration() {
 
     function Error({ message, name }: { message: string | undefined; name: string | undefined }) {
         if (typeof message === 'string' && typeof name === 'string') {
-            return errors?.[name] && <span>{message || 'Error'}</span>;
+            return errors?.[name] && <span className="input-notice-register">{message}</span>;
         }
     }
 
@@ -132,30 +132,39 @@ function Registration() {
             <fieldset className="registration-wrapper-delivery">
                 <legend>Delivery address</legend>
                 <div className="registration-conatiner-pair">
-                    <select
-                        {...register('country', {
-                            required: 'This field is required',
-                        })}
-                        className="registration-delivery"
-                        defaultValue={'Choose a country*'}
-                    >
-                        <option value="Choose a country*" disabled>
-                            Choose a country*
-                        </option>
-                        <option value="Kazahstan">Kazahstan</option>
-                    </select>
-                    <input
-                        {...register('street', {
-                            required: 'This field is required',
-                            minLength: {
-                                value: 1,
-                                message: 'Street must contain at least one character',
-                            },
-                        })}
-                        placeholder="Street"
-                        className="registration-delivery"
-                    />
-                    <Error message={errors?.street?.message?.toString()} name="street" />
+                    <div>
+                        <select
+                            {...register('country', {
+                                required: 'This field is required',
+                                validate: {
+                                    notHasInitValue: (value) =>
+                                        value !== 'Choose a country*' ? '' : 'Country must contain country',
+                                },
+                            })}
+                            className="registration-delivery"
+                            defaultValue={'Choose a country*'}
+                        >
+                            <option value="Choose a country*" disabled>
+                                Choose a country*
+                            </option>
+                            <option value="Kazahstan">Kazahstan</option>
+                        </select>
+                        <Error message={errors?.country?.message?.toString()} name="country" />
+                    </div>
+                    <div>
+                        <input
+                            {...register('street', {
+                                required: 'This field is required',
+                                minLength: {
+                                    value: 1,
+                                    message: 'Street must contain at least one character',
+                                },
+                            })}
+                            placeholder="Street"
+                            className="registration-delivery"
+                        />
+                        <Error message={errors?.street?.message?.toString()} name="street" />
+                    </div>
                 </div>
                 <div className="registration-conatiner-pair">
                     <div key="city">
