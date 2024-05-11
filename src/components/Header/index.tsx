@@ -1,23 +1,28 @@
+import { Link } from 'react-router-dom';
 import { Button, Text, Img } from './..';
 
 export default function Header() {
     return (
         <header className="navbar">
-            <a href="/">
+            <Link to="/">
                 <Img src="/images/header_logo.svg" alt="header logo" className="logo" />
-            </a>
+            </Link>
             <ul className="nav">
                 <li>
-                    <a href="/">
+                    <Link to="/">
                         <Text as="p" className="nav-item">
                             Home
                         </Text>
-                    </a>
+                    </Link>
                 </li>
             </ul>
             <div className="buttons">
-                <Button className="button">Login</Button>
-                <Button className="button">Sign Up</Button>
+                <Link to="/login">
+                    <Button className="button">Login</Button>
+                </Link>
+                <Link to="/registration">
+                    <Button className="button">Sign Up</Button>
+                </Link>
             </div>
         </header>
     );
