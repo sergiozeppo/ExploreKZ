@@ -65,9 +65,31 @@ function Registration() {
         {
             name: 'name',
             placeholder: 'First name',
-            validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ },
+            validate: {
+                minLength: {
+                    value: 1,
+                    message: 'First Name must contain at least one character',
+                },
+                validate: {
+                    noSpecialCharacter: (value) =>
+                        /^[^\W\d_]+$/.test(value) || 'First name must contain not special characters',
+                },
+            },
         },
-        { name: 'surname', placeholder: 'Last name', validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ } },
+        {
+            name: 'surname',
+            placeholder: 'Last name',
+            validate: {
+                minLength: {
+                    value: 1,
+                    message: 'Last name must contain at least one character',
+                },
+                validate: {
+                    noSpecialCharacter: (value) =>
+                        /^[^\W\d_]+$/.test(value) || 'Last name must contain not special characters',
+                },
+            },
+        },
         {
             name: 'date',
             type: 'date',
