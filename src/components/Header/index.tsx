@@ -16,12 +16,8 @@ export default function Header() {
                 </li>
             </ul>
             <div className="buttons">
-                <a href="/login">
-                    <Button className="button">Login</Button>
-                </a>
-                <a href="/registration">
-                    <Button className="button">Sign Up</Button>
-                </a>
+                <Button className="button">Login</Button>
+                <Button className="button">Sign Up</Button>
             </div>
         </header>
     );
