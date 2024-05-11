@@ -9,6 +9,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     min-width: 320px;
     min-height: 100dvh;
