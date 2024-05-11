@@ -168,13 +168,9 @@ function Registration() {
                         <input
                             {...register('postalCode', {
                                 required: 'This field is required',
-                                minLength: {
-                                    value: 6,
-                                    message: 'Postal code in KZ must contain only 6 characters',
-                                },
-                                maxLength: {
-                                    value: 6,
-                                    message: 'Postal code in KZ must contain only 6 characters',
+                                validate: {
+                                    only6Numbers: (value) =>
+                                        /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
                                 },
                             })}
                             placeholder="Postal Code"
