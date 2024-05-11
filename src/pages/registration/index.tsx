@@ -72,7 +72,7 @@ function Registration() {
                 },
                 validate: {
                     noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'First name must contain not special characters',
+                        /^[^\W\d_]+$/.test(value) || 'First name must contain not special characters and numbers',
                 },
             },
         },
@@ -86,7 +86,7 @@ function Registration() {
                 },
                 validate: {
                     noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'Last name must contain not special characters',
+                        /^[^\W\d_]+$/.test(value) || 'Last name must contain not special characters and numbers',
                 },
             },
         },
@@ -97,7 +97,7 @@ function Registration() {
                 validate: (value: string) => {
                     const selectedDate = new Date(value);
                     const age = calculateAge(selectedDate);
-                    return age >= 13 ? true : 'You must be at least 13 years old to proceed.';
+                    return age >= 13 ? true : 'You must be at least 13 years old to proceed';
                 },
             },
         },
@@ -136,7 +136,10 @@ function Registration() {
                     <input
                         {...register('street', {
                             required: 'This field is required',
-                            minLength: 1,
+                            minLength: {
+                                value: 1,
+                                message: 'Street must contain at least one character',
+                            },
                         })}
                         placeholder="Street"
                         className="registration-delivery"
@@ -147,8 +150,15 @@ function Registration() {
                         <input
                             {...register('city', {
                                 required: 'This field is required',
-                                pattern: /^[a-zA-Zа-яА-Я\s]+$/,
-                                minLength: 1,
+                                minLength: {
+                                    value: 1,
+                                    message: 'City must contain at least one character',
+                                },
+                                validate: {
+                                    noSpecialCharacter: (value) =>
+                                        /^[^\W\d_]+$/.test(value) ||
+                                        'City must contain not special characters and numbers',
+                                },
                             })}
                             placeholder="City"
                             className="registration-delivery"
@@ -158,8 +168,14 @@ function Registration() {
                         <input
                             {...register('postalCode', {
                                 required: 'This field is required',
-                                minLength: 6,
-                                maxLength: 6,
+                                minLength: {
+                                    value: 6,
+                                    message: 'Postal code in KZ must contain only 6 characters',
+                                },
+                                maxLength: {
+                                    value: 6,
+                                    message: 'Postal code in KZ must contain only 6 characters',
+                                },
                             })}
                             placeholder="Postal Code"
                             className="registration-delivery"
