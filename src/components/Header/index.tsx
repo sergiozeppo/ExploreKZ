@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <header className="navbar">
             <a href="/">
-                <Img src="images/img_header_logo.svg" alt="header logo" className="logo" />
+                <Img src="/images/header_logo.svg" alt="header logo" className="logo" />
             </a>
             <ul className="nav">
                 <li>
