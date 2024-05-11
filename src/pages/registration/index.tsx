@@ -71,8 +71,9 @@ function Registration() {
                             required: 'This field is required',
                         })}
                         className="registration-delivery"
+                        defaultValue={'Choose a country*'}
                     >
-                        <option value="Выберите страну*" disabled selected>
+                        <option value="Choose a country*" disabled>
                             Choose a country*
                         </option>
                         <option value="Kazahstan">Kazahstan</option>
