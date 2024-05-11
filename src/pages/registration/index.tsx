@@ -3,7 +3,7 @@ import { useForm, RegisterOptions } from 'react-hook-form';
 
 interface AboutUser {
     name: string;
-    placeholder: string;
+    placeholder?: string;
     validate?: RegisterOptions;
     type?: string;
 }
@@ -23,21 +23,20 @@ function Registration() {
     };
 
     const fieldsAboutUser: AboutUser[] = [
-        { name: 'email', placeholder: 'Почта', type: 'email' },
+        { name: 'email', placeholder: 'Email', type: 'email' },
         {
             name: 'password',
-            placeholder: 'Пароль',
+            placeholder: 'Password',
             validate: { pattern: /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d]{8,}$/ },
         },
         {
             name: 'name',
-            placeholder: 'Имя',
+            placeholder: 'Name',
             validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ },
         },
         { name: 'surname', placeholder: 'Фамилия', validate: { pattern: /^[a-zA-Zа-яА-Я]+$/ } },
         {
             name: 'date',
-            placeholder: 'Дата Рождения',
             type: 'date',
             validate: {
                 validate: (value: string) => {
@@ -55,7 +54,7 @@ function Registration() {
                 <div key={field.name} className="registration-container">
                     <input
                         {...register(field.name, {
-                            required: 'Поле обязательно к заполнению',
+                            required: 'This field is required',
                             ...field.validate,
                         })}
                         type={field.type}
@@ -69,21 +68,21 @@ function Registration() {
                 <div className="registration-conatiner-pair">
                     <select
                         {...register('country', {
-                            required: 'Поле обязательно к заполнению',
+                            required: 'This field is required',
                         })}
                         className="registration-delivery"
                     >
                         <option value="Выберите страну*" disabled selected>
-                            Выберите страну*
+                            Choose a country*
                         </option>
                         <option value="Kazahstan">Kazahstan</option>
                     </select>
                     <input
                         {...register('street', {
-                            required: 'Поле обязательно к заполнению',
+                            required: 'This field is required',
                             minLength: 1,
                         })}
-                        placeholder="Улица"
+                        placeholder="Street"
                         className="registration-delivery"
                     />
                 </div>
@@ -91,22 +90,22 @@ function Registration() {
                     <div key="city">
                         <input
                             {...register('city', {
-                                required: 'Поле обязательно к заполнению',
+                                required: 'This field is required',
                                 pattern: /^[a-zA-Zа-яА-Я\s]+$/,
                                 minLength: 1,
                             })}
-                            placeholder="Город"
+                            placeholder="City"
                             className="registration-delivery"
                         />
                     </div>
                     <div key="postalCode">
                         <input
                             {...register('postalCode', {
-                                required: 'Поле обязательно к заполнению',
+                                required: 'This field is required',
                                 minLength: 6,
                                 maxLength: 6,
                             })}
-                            placeholder="Post Код"
+                            placeholder="Postal Code"
                             className="registration-delivery"
                         />
                     </div>
