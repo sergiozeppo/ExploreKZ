@@ -124,7 +124,7 @@ function Registration() {
                         })}
                         type={field.type}
                         placeholder={field.placeholder}
-                        className="registration-about-user"
+                        className={`registration-about-user ${errors?.[field.name] ? 'invalid-input' : ''}`}
                     />
                     <Error message={errors?.[field.name]?.message?.toString()} name={field.name} />
                 </div>
@@ -141,7 +141,7 @@ function Registration() {
                                         value !== 'Choose a country*' ? '' : 'Country must contain country',
                                 },
                             })}
-                            className="registration-delivery"
+                            className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
                             defaultValue={'Choose a country*'}
                         >
                             <option value="Choose a country*" disabled>
@@ -161,7 +161,7 @@ function Registration() {
                                 },
                             })}
                             placeholder="Street"
-                            className="registration-delivery"
+                            className={`registration-delivery ${errors?.street ? 'invalid-input' : ''}`}
                         />
                         <Error message={errors?.street?.message?.toString()} name="street" />
                     </div>
@@ -182,7 +182,7 @@ function Registration() {
                                 },
                             })}
                             placeholder="City"
-                            className="registration-delivery"
+                            className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
                         />
                         <Error message={errors?.city?.message?.toString()} name="city" />
                     </div>
@@ -196,7 +196,7 @@ function Registration() {
                                 },
                             })}
                             placeholder="Postal Code"
-                            className="registration-delivery"
+                            className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
                         />
                         <Error message={errors?.postalCode?.message?.toString()} name="postalCode" />
                     </div>
