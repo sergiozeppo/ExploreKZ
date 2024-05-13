@@ -1,5 +1,6 @@
 import './registration.css';
 import { useForm, RegisterOptions } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 interface AboutUser {
     name: string;
@@ -196,8 +197,14 @@ function Registration() {
             </fieldset>
 
             <button className="registration-btn-submit" type="submit">
-                Отправить
+                Sign Up
             </button>
+            <div className="link-wrapper">
+                Already have an account?
+                <Link to="/login" className="signup-link">
+                    Sign in!
+                </Link>
+            </div>
         </form>
     );
 }
