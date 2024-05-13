@@ -4,7 +4,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { baseClient } from '../../apiSdk/BaseClient';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type Inputs = {
     email: string;
@@ -59,74 +59,82 @@ export default function Login() {
         }
     });
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
-            <label>
-                <span className="label-title">Email:</span>
-                <input
-                    className={`login-input-email ${errors?.email ? 'invalid-input' : ''}`}
-                    {...register('email', {
-                        required: 'Mandatory field!',
-                        validate: {
-                            noWhitespace: (value) =>
-                                value.trim() === value ||
-                                'Email address must not contain leading or trailing whitespace',
-                            hasAtSymbol: (value) =>
-                                value.includes('@') ||
-                                'Email address must contain an "@" symbol separating local part and domain name',
-                            hasDomainName: (value) =>
-                                /^.+@.+\..+$/.test(value) ||
-                                'Email address must contain a domain name (e.g., example.com)',
-                            isEmail: (value) =>
-                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
-                                'Email address must be properly formatted (e.g., user@example.com)',
-                        },
-                    })}
-                />
-                {errors?.email && <span className="input-notice">{errors?.email?.message || 'Error'}</span>}
-                {loginError && <span className="input-notice">{loginError}</span>}
-            </label>
-            <label>
-                <span className="label-title">Password:</span>
-                <div className="login-input-psw">
+        <div className="login-form-wrapper">
+            <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+                <label>
+                    <span className="label-title">Email</span>
                     <input
-                        className={`login-input-psw ${errors?.password ? 'invalid-input' : ''}`}
-                        type={showPassword ? 'text' : 'password'}
-                        {...register('password', {
+                        className={`login-input-email ${errors?.email ? 'invalid-input' : ''}`}
+                        {...register('email', {
                             required: 'Mandatory field!',
-                            minLength: {
-                                value: 8,
-                                message: 'Password must be at least 8 characters long',
-                            },
                             validate: {
-                                hasUpperCase: (value) =>
-                                    /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
-                                hasLowerCase: (value) =>
-                                    /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
-                                hasNumber: (value) =>
-                                    /\d/.test(value) || 'Password must contain at least one digit (0-9)',
-                                hasSpecialCharacter: (value) =>
-                                    /[!@#$%^&*]/.test(value) ||
-                                    'Password must contain at least one special character (!@#$%^&*)',
                                 noWhitespace: (value) =>
-                                    value.trim() === value || 'No leading or trailing whitespace allowed',
+                                    value.trim() === value ||
+                                    'Email address must not contain leading or trailing whitespace',
+                                hasAtSymbol: (value) =>
+                                    value.includes('@') ||
+                                    'Email address must contain an "@" symbol separating local part and domain name',
+                                hasDomainName: (value) =>
+                                    /^.+@.+\..+$/.test(value) ||
+                                    'Email address must contain a domain name (e.g., example.com)',
+                                isEmail: (value) =>
+                                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
+                                    'Email address must be properly formatted (e.g., user@example.com)',
                             },
                         })}
                     />
-                    <div className="psw-eye" onClick={() => setShowPassword(!showPassword)}>
-                        {showPassword ? <FiEyeOff /> : <FiEye />}
+                    {errors?.email && <span className="input-notice">{errors?.email?.message || 'Error'}</span>}
+                    {loginError && <span className="input-notice">{loginError}</span>}
+                </label>
+                <label>
+                    <span className="label-title">Password</span>
+                    <div className="login-input-psw">
+                        <input
+                            className={`login-input-psw ${errors?.password ? 'invalid-input' : ''}`}
+                            type={showPassword ? 'text' : 'password'}
+                            {...register('password', {
+                                required: 'Mandatory field!',
+                                minLength: {
+                                    value: 8,
+                                    message: 'Password must be at least 8 characters long',
+                                },
+                                validate: {
+                                    hasUpperCase: (value) =>
+                                        /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
+                                    hasLowerCase: (value) =>
+                                        /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
+                                    hasNumber: (value) =>
+                                        /\d/.test(value) || 'Password must contain at least one digit (0-9)',
+                                    hasSpecialCharacter: (value) =>
+                                        /[!@#$%^&*]/.test(value) ||
+                                        'Password must contain at least one special character (!@#$%^&*)',
+                                    noWhitespace: (value) =>
+                                        value.trim() === value || 'No leading or trailing whitespace allowed',
+                                },
+                            })}
+                        />
+                        <div className="psw-eye" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <FiEyeOff /> : <FiEye />}
+                        </div>
                     </div>
-                </div>
-                {errors.password && <span className="input-notice">{errors.password.message}</span>}
-                {passwordError && <span className="input-notice">{passwordError}</span>}
-            </label>
-            <button type="submit" disabled={!isValid}>
-                Login
-            </button>
-            {loading && (
-                <div className="loader-wrapper">
-                    <div className="loader"></div>
-                </div>
-            )}
-        </form>
+                    {errors.password && <span className="input-notice">{errors.password.message}</span>}
+                    {passwordError && <span className="input-notice">{passwordError}</span>}
+                </label>
+                <button type="submit" disabled={!isValid}>
+                    Login
+                </button>
+                {loading && (
+                    <div className="loader-wrapper">
+                        <div className="loader"></div>
+                    </div>
+                )}
+            </form>
+            <div className="link-wrapper">
+                Haven't registered yet?
+                <Link to="/registration" className="signup-link">
+                    Sign up!
+                </Link>
+            </div>
+        </div>
     );
 }
