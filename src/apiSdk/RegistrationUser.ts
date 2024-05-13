@@ -1,6 +1,6 @@
 import { baseClient } from './BaseClient';
 
-export const registerFn = (
+export async function registerFn(
     email: string,
     password: string,
     country: string,
@@ -10,8 +10,8 @@ export const registerFn = (
     firstName: string,
     lastName: string,
     dateOfBirth: string,
-) => {
-    const api = baseClient()
+) {
+    const API = await baseClient()
         .customers()
         .post({
             body: {
@@ -40,5 +40,5 @@ export const registerFn = (
         })
         .execute();
 
-    return api;
-};
+    return API;
+}
