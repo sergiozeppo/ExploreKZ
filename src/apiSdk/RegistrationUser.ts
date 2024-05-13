@@ -16,27 +16,27 @@ export const registerFn = (
             .customers()
             .post({
                 body: {
-                    email: email,
-                    password: password,
+                    email,
+                    password,
                     addresses: [
                         {
-                            country: country,
-                            city: city,
-                            postalCode: postalCode,
-                            streetName: streetName,
+                            country,
+                            city,
+                            postalCode,
+                            streetName,
                         },
                         {
-                            country: country,
-                            city: city,
-                            postalCode: postalCode,
-                            streetName: streetName,
+                            country,
+                            city,
+                            postalCode,
+                            streetName,
                         },
                     ],
                     defaultShippingAddress: 0,
                     defaultBillingAddress: 1,
-                    firstName: firstName,
-                    lastName: lastName,
-                    dateOfBirth: dateOfBirth,
+                    firstName,
+                    lastName,
+                    dateOfBirth,
                 },
             })
             .execute()
