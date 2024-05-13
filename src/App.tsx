@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { clientBuilder } from './BuildClient';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './pages/login';
 import Home from './pages/home';
@@ -7,6 +6,7 @@ import Registration from './pages/registration';
 import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
+import { anonUser } from './apiSdk/anonimClient';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
@@ -19,7 +19,7 @@ function NotFoundRedirect() {
 }
 
 function App() {
-    clientBuilder('auth')
+    anonUser()
         .products()
         .get()
         .execute()
