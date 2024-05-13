@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
-import { clientBuilder } from '../../BuildClient';
+import { loginFn } from '../../apiSdk/LoginUser';
+import { baseClient } from '../../apiSdk/BaseClient';
 
 type Inputs = {
     email: string;
@@ -11,6 +12,9 @@ type Inputs = {
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const [loginError, setLoginError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     const {
         register,
         formState: { errors, isValid },
@@ -18,15 +22,35 @@ export default function Login() {
     } = useForm<Inputs>({ mode: 'onChange' });
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
-        clientBuilder('auth')
-            .login()
-            .post({
-                body: userData,
+        setLoading(true);
+        loginFn(userData.email, userData.password)
+            .then(() => {
+                console.log('success');
+                setLoginError('');
+                setPasswordError('');
+                setLoading(false);
             })
-            .execute()
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                baseClient()
+                    .customers()
+                    .get({ queryArgs: { where: `email="${userData.email}"` } })
+                    .execute()
+                    .then((res) => {
+                        console.log(res);
+                        if (res.body.count > 0) {
+                            setPasswordError('Invalid password!');
+                            setLoginError('');
+                        } else {
+                            setLoginError('Email not found in system!');
+                            setPasswordError('');
+                        }
+                        setLoading(false);
+                    })
+                    .catch((err) => console.error(err));
+            });
     };
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <label>
@@ -52,6 +76,7 @@ export default function Login() {
                     })}
                 />
                 {errors?.email && <span className="input-notice">{errors?.email?.message || 'Error'}</span>}
+                {loginError && <span className="input-notice">{loginError}</span>}
             </label>
             <label>
                 <span className="label-title">Password:</span>
@@ -85,10 +110,16 @@ export default function Login() {
                     </div>
                 </div>
                 {errors.password && <span className="input-notice">{errors.password.message}</span>}
+                {passwordError && <span className="input-notice">{passwordError}</span>}
             </label>
             <button type="submit" disabled={!isValid}>
                 Login
             </button>
+            {loading && (
+                <div className="loader-wrapper">
+                    <div className="loader"></div>
+                </div>
+            )}
         </form>
     );
 }
