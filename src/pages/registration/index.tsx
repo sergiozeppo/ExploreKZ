@@ -39,7 +39,13 @@ function Registration() {
             userData.firstName,
             userData.lastName,
             userData.dateOfBirth,
-        );
+        )
+            .then((response) => {
+                console.log('Registration successful:', response);
+            })
+            .catch((error) => {
+                console.error('Registration failed:', error);
+            });
     };
 
     const calculateAge = (birthday: Date) => {

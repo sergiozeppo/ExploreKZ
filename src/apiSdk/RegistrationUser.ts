@@ -11,32 +11,40 @@ export const registerFn = (
     lastName: string,
     dateOfBirth: string,
 ) => {
-    baseClient()
-        .customers()
-        .post({
-            body: {
-                email: email,
-                password: password,
-                addresses: [
-                    {
-                        country: country,
-                        city: city,
-                        postalCode: postalCode,
-                        streetName: streetName,
-                    },
-                    {
-                        country: country,
-                        city: city,
-                        postalCode: postalCode,
-                        streetName: streetName,
-                    },
-                ],
-                defaultShippingAddress: 0,
-                defaultBillingAddress: 1,
-                firstName: firstName,
-                lastName: lastName,
-                dateOfBirth: dateOfBirth,
-            },
-        })
-        .execute();
+    return new Promise((resolve, reject) => {
+        baseClient()
+            .customers()
+            .post({
+                body: {
+                    email: email,
+                    password: password,
+                    addresses: [
+                        {
+                            country: country,
+                            city: city,
+                            postalCode: postalCode,
+                            streetName: streetName,
+                        },
+                        {
+                            country: country,
+                            city: city,
+                            postalCode: postalCode,
+                            streetName: streetName,
+                        },
+                    ],
+                    defaultShippingAddress: 0,
+                    defaultBillingAddress: 1,
+                    firstName: firstName,
+                    lastName: lastName,
+                    dateOfBirth: dateOfBirth,
+                },
+            })
+            .execute()
+            .then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
 };
