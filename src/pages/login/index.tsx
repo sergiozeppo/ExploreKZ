@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
@@ -12,6 +12,7 @@ type Inputs = {
 };
 
 export default function Login() {
+    const isUserExist = localStorage.getItem('isLogin');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export default function Login() {
                 setPasswordError('');
                 setLoading(false);
                 navigate('/');
+                localStorage.setItem('isLogin', 'true');
             })
             .catch((err) => {
                 console.error(err);
@@ -51,7 +53,11 @@ export default function Login() {
                     .catch((err) => console.error(err));
             });
     };
-
+    useEffect(() => {
+        if (isUserExist) {
+            navigate('/');
+        }
+    });
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <label>
