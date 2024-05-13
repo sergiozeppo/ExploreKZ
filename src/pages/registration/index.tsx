@@ -136,15 +136,11 @@ function Registration() {
                         <select
                             {...register('country', {
                                 required: 'This field is required',
-                                validate: {
-                                    notHasInitValue: (value) =>
-                                        value !== 'Choose a country*' ? '' : 'Country must contain country',
-                                },
                             })}
                             className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
-                            defaultValue={'Choose a country*'}
+                            defaultValue={''}
                         >
-                            <option value="Choose a country*" disabled>
+                            <option value="" disabled>
                                 Choose a country*
                             </option>
                             <option value="Kazakhstan">Kazakhstan</option>
