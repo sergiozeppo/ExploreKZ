@@ -172,7 +172,7 @@ function Registration() {
                             <option value="" disabled>
                                 Choose a country*
                             </option>
-                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="KZ">Kazakhstan</option>
                         </select>
                         <Error message={errors?.country?.message?.toString()} name="country" />
                     </div>
