@@ -151,9 +151,9 @@ function Registration() {
                         <input
                             {...register('street', {
                                 required: 'This field is required',
-                                minLength: {
-                                    value: 1,
-                                    message: 'Street must contain at least one character',
+                                pattern: {
+                                    value: /^[a-zA-Z\s]*$/,
+                                    message: 'Street must contain not special characters',
                                 },
                             })}
                             placeholder="Street"
@@ -167,10 +167,6 @@ function Registration() {
                         <input
                             {...register('city', {
                                 required: 'This field is required',
-                                minLength: {
-                                    value: 1,
-                                    message: 'City must contain at least one character',
-                                },
                                 validate: {
                                     noSpecialCharacter: (value) =>
                                         /^[^\W\d_]+$/.test(value) ||
