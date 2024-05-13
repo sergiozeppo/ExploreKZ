@@ -4,6 +4,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { baseClient } from '../../apiSdk/BaseClient';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
     email: string;
@@ -20,15 +21,15 @@ export default function Login() {
         formState: { errors, isValid },
         handleSubmit,
     } = useForm<Inputs>({ mode: 'onChange' });
-
+    const navigate = useNavigate();
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         setLoading(true);
         loginFn(userData.email, userData.password)
             .then(() => {
-                console.log('success');
                 setLoginError('');
                 setPasswordError('');
                 setLoading(false);
+                navigate('/');
             })
             .catch((err) => {
                 console.error(err);
