@@ -1,5 +1,6 @@
 import './registration.css';
-import { useForm, RegisterOptions } from 'react-hook-form';
+import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
+import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
 
 interface AboutUser {
@@ -9,15 +10,43 @@ interface AboutUser {
     type?: string;
 }
 
+type Inputs = {
+    email: string;
+    password: string;
+    country: string;
+    city: string;
+    postalCode: string;
+    streetName: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+};
+
 function Registration() {
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm();
+    } = useForm<Inputs>();
 
-    const onSubmit = (data: object) => {
-        console.log(JSON.stringify(data));
+    const onSubmit: SubmitHandler<Inputs> = (userData) => {
+        registerFn(
+            userData.email,
+            userData.password,
+            userData.country,
+            userData.city,
+            userData.postalCode,
+            userData.streetName,
+            userData.firstName,
+            userData.lastName,
+            userData.dateOfBirth,
+        )
+            .then((response) => {
+                console.log('Registration successful:', response);
+            })
+            .catch((error) => {
+                console.error('Registration failed:', error);
+            });
     };
 
     const calculateAge = (birthday: Date) => {
@@ -27,9 +56,9 @@ function Registration() {
         return age;
     };
 
-    function Error({ message, name }: { message: string | undefined; name: string | undefined }) {
+    function Error({ message, name }: { message: string | undefined; name: string }) {
         if (typeof message === 'string' && typeof name === 'string') {
-            return errors?.[name] && <span className="input-notice-register">{message}</span>;
+            return <span className="input-notice-register">{message}</span>;
         }
     }
 
@@ -74,7 +103,7 @@ function Registration() {
             },
         },
         {
-            name: 'name',
+            name: 'firstName',
             placeholder: 'First name',
             validate: {
                 minLength: {
@@ -88,7 +117,7 @@ function Registration() {
             },
         },
         {
-            name: 'surname',
+            name: 'lastName',
             placeholder: 'Last name',
             validate: {
                 minLength: {
@@ -102,7 +131,7 @@ function Registration() {
             },
         },
         {
-            name: 'date',
+            name: 'dateOfBirth',
             type: 'date',
             validate: {
                 validate: (value: string) => {
@@ -119,15 +148,15 @@ function Registration() {
             {fieldsAboutUser.map((field) => (
                 <div key={field.name} className="registration-container">
                     <input
-                        {...register(field.name, {
+                        {...register(field.name as keyof Inputs, {
                             required: 'This field is required',
                             ...field.validate,
                         })}
                         type={field.type}
                         placeholder={field.placeholder}
-                        className={`registration-about-user ${errors?.[field.name] ? 'invalid-input' : ''}`}
+                        className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
                     />
-                    <Error message={errors?.[field.name]?.message?.toString()} name={field.name} />
+                    <Error message={errors?.[field.name as keyof Inputs]?.message?.toString()} name={field.name} />
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
@@ -144,13 +173,13 @@ function Registration() {
                             <option value="" disabled>
                                 Choose a country*
                             </option>
-                            <option value="Kazakhstan">Kazakhstan</option>
+                            <option value="KZ">Kazakhstan</option>
                         </select>
                         <Error message={errors?.country?.message?.toString()} name="country" />
                     </div>
                     <div>
                         <input
-                            {...register('street', {
+                            {...register('streetName', {
                                 required: 'This field is required',
                                 pattern: {
                                     value: /^[a-zA-Z\s]*$/,
@@ -158,9 +187,9 @@ function Registration() {
                                 },
                             })}
                             placeholder="Street"
-                            className={`registration-delivery ${errors?.street ? 'invalid-input' : ''}`}
+                            className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.street?.message?.toString()} name="street" />
+                        <Error message={errors?.streetName?.message?.toString()} name="streetName" />
                     </div>
                 </div>
                 <div className="registration-conatiner-pair">
