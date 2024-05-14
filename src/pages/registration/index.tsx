@@ -2,6 +2,10 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 interface AboutUser {
     name: string;
@@ -29,6 +33,8 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
 
+    const [emailError, setEmailError] = useState<string | null>(null);
+
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn(
             userData.email,
@@ -43,9 +49,26 @@ function Registration() {
         )
             .then((response) => {
                 console.log('Registration successful:', response);
+                setEmailError('');
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
+                if (error.body) {
+                    console.log('yes');
+                    setEmailError(error.body.message);
+                } else {
+                    setEmailError('An error occurred, please try again later');
+                }
+                toast.warn(emailError, {
+                    position: 'bottom-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
             });
     };
 
@@ -56,8 +79,8 @@ function Registration() {
         return age;
     };
 
-    function Error({ message, name }: { message: string | undefined; name: string }) {
-        if (typeof message === 'string' && typeof name === 'string') {
+    function Error({ message }: { message: string | undefined }) {
+        if (typeof message === 'string') {
             return <span className="input-notice-register">{message}</span>;
         }
     }
@@ -144,97 +167,113 @@ function Registration() {
     ];
 
     return (
-        <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
-            {fieldsAboutUser.map((field) => (
-                <div key={field.name} className="registration-container">
-                    <input
-                        {...register(field.name as keyof Inputs, {
-                            required: 'This field is required',
-                            ...field.validate,
-                        })}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
-                    />
-                    <Error message={errors?.[field.name as keyof Inputs]?.message?.toString()} name={field.name} />
-                </div>
-            ))}
-            <fieldset className="registration-wrapper-delivery">
-                <legend>Delivery address</legend>
-                <div className="registration-conatiner-pair">
-                    <div>
-                        <select
-                            {...register('country', {
-                                required: 'This field is required',
-                            })}
-                            className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
-                            defaultValue={''}
-                        >
-                            <option value="" disabled>
-                                Choose a country*
-                            </option>
-                            <option value="KZ">Kazakhstan</option>
-                        </select>
-                        <Error message={errors?.country?.message?.toString()} name="country" />
-                    </div>
-                    <div>
-                        <input
-                            {...register('streetName', {
-                                required: 'This field is required',
-                                pattern: {
-                                    value: /^[a-zA-Z\s]*$/,
-                                    message: 'Street must contain not special characters',
-                                },
-                            })}
-                            placeholder="Street"
-                            className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
-                        />
-                        <Error message={errors?.streetName?.message?.toString()} name="streetName" />
-                    </div>
-                </div>
-                <div className="registration-conatiner-pair">
-                    <div key="city">
-                        <input
-                            {...register('city', {
-                                required: 'This field is required',
-                                validate: {
-                                    noSpecialCharacter: (value) =>
-                                        /^[^\W\d_]+$/.test(value) ||
-                                        'City must contain not special characters and numbers',
-                                },
-                            })}
-                            placeholder="City"
-                            className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
-                        />
-                        <Error message={errors?.city?.message?.toString()} name="city" />
-                    </div>
-                    <div key="postalCode">
-                        <input
-                            {...register('postalCode', {
-                                required: 'This field is required',
-                                validate: {
-                                    only6Numbers: (value) =>
-                                        /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
-                                },
-                            })}
-                            placeholder="Postal Code"
-                            className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
-                        />
-                        <Error message={errors?.postalCode?.message?.toString()} name="postalCode" />
-                    </div>
-                </div>
-            </fieldset>
+        <>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
 
-            <button className="registration-btn-submit" type="submit">
-                Sign Up
-            </button>
-            <div className="link-wrapper">
-                Already have an account?
-                <Link to="/login" className="signup-link">
-                    Sign in!
-                </Link>
-            </div>
-        </form>
+            <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
+                {fieldsAboutUser.map((field) => (
+                    <div key={field.name} className="registration-container">
+                        <input
+                            {...register(field.name as keyof Inputs, {
+                                required: 'This field is required',
+                                ...field.validate,
+                            })}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                        />
+                        <Error message={errors?.[field.name as keyof Inputs]?.message} />
+                    </div>
+                ))}
+                <fieldset className="registration-wrapper-delivery">
+                    <legend>Delivery address</legend>
+                    <div className="registration-conatiner-pair">
+                        <div>
+                            <select
+                                {...register('country', {
+                                    required: 'This field is required',
+                                })}
+                                className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
+                                defaultValue={''}
+                            >
+                                <option value="" disabled>
+                                    Choose a country*
+                                </option>
+                                <option value="KZ">Kazakhstan</option>
+                            </select>
+                            <Error message={errors?.country?.message} />
+                        </div>
+                        <div>
+                            <input
+                                {...register('streetName', {
+                                    required: 'This field is required',
+                                    pattern: {
+                                        value: /^[a-zA-Z\s]*$/,
+                                        message: 'Street must contain not special characters',
+                                    },
+                                })}
+                                placeholder="Street"
+                                className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.streetName?.message} />
+                        </div>
+                    </div>
+                    <div className="registration-conatiner-pair">
+                        <div key="city">
+                            <input
+                                {...register('city', {
+                                    required: 'This field is required',
+                                    validate: {
+                                        noSpecialCharacter: (value) =>
+                                            /^[^\W\d_]+$/.test(value) ||
+                                            'City must contain not special characters and numbers',
+                                    },
+                                })}
+                                placeholder="City"
+                                className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.city?.message} />
+                        </div>
+                        <div key="postalCode">
+                            <input
+                                {...register('postalCode', {
+                                    required: 'This field is required',
+                                    validate: {
+                                        only6Numbers: (value) =>
+                                            /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
+                                    },
+                                })}
+                                placeholder="Postal Code"
+                                className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.postalCode?.message} />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button className="registration-btn-submit" type="submit">
+                    Sign Up
+                </button>
+                <div className="link-wrapper">
+                    Already have an account?
+                    <Link to="/login" className="signup-link">
+                        Sign in!
+                    </Link>
+                </div>
+            </form>
+        </>
     );
 }
 
