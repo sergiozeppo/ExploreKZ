@@ -55,8 +55,8 @@ function Registration() {
                 console.error('Registration failed:', error);
                 if (error.status === 400) {
                     setEmailError('There is alredy an exsisting customer with the provided email');
-                    toast(emailError, {
-                        position: 'top-right',
+                    toast.warn(emailError, {
+                        position: 'bottom-center',
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
