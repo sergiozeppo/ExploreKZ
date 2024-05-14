@@ -5,6 +5,7 @@ import './login.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { Link, useNavigate } from 'react-router-dom';
+import { token } from '../../apiSdk/token';
 
 type Inputs = {
     email: string;
@@ -31,7 +32,9 @@ export default function Login() {
                 setPasswordError('');
                 setLoading(false);
                 navigate('/');
+                const userToken = token.get();
                 localStorage.setItem('isLogin', 'true');
+                localStorage.setItem('userToken', JSON.stringify(userToken));
             })
             .catch((err) => {
                 console.error(err);
