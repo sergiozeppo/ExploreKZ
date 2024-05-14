@@ -15,6 +15,9 @@ const config = {
 
     // The test environment that will be used for testing
     testEnvironment: 'jsdom',
+
+    // Collect files for testing
+    collectCoverageFrom: ['src/**/*.tsx', '!**/node_modules/**'],
 };
 
 export default config;
