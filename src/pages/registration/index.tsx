@@ -2,7 +2,7 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +34,21 @@ function Registration() {
     } = useForm<Inputs>();
 
     const [emailError, setEmailError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (errors.email) {
+            toast(emailError, {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+        }
+    }, [errors.email, emailError]);
 
     <ToastContainer
         position="bottom-center"
@@ -81,8 +96,8 @@ function Registration() {
         return age;
     };
 
-    function Error({ message, name }: { message: string | undefined; name: string }) {
-        if (typeof message === 'string' && typeof name === 'string') {
+    function Error({ message }: { message: string | undefined }) {
+        if (typeof message === 'string') {
             return <span className="input-notice-register">{message}</span>;
         }
     }
@@ -181,19 +196,7 @@ function Registration() {
                         placeholder={field.placeholder}
                         className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
                     />
-                    <Error message={errors?.[field.name as keyof Inputs]?.message} name={field.name} />
-                    {field.name === 'email' &&
-                        toast(emailError, {
-                            position: 'top-right',
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: 'light',
-                            transition: Bounce,
-                        })}
+                    <Error message={errors?.[field.name as keyof Inputs]?.message} />
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
@@ -212,7 +215,7 @@ function Registration() {
                             </option>
                             <option value="KZ">Kazakhstan</option>
                         </select>
-                        <Error message={errors?.country?.message} name="country" />
+                        <Error message={errors?.country?.message} />
                     </div>
                     <div>
                         <input
@@ -226,7 +229,7 @@ function Registration() {
                             placeholder="Street"
                             className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.streetName?.message} name="streetName" />
+                        <Error message={errors?.streetName?.message} />
                     </div>
                 </div>
                 <div className="registration-conatiner-pair">
@@ -243,7 +246,7 @@ function Registration() {
                             placeholder="City"
                             className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.city?.message} name="city" />
+                        <Error message={errors?.city?.message} />
                     </div>
                     <div key="postalCode">
                         <input
@@ -257,7 +260,7 @@ function Registration() {
                             placeholder="Postal Code"
                             className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.postalCode?.message} name="postalCode" />
+                        <Error message={errors?.postalCode?.message} />
                     </div>
                 </div>
             </fieldset>
