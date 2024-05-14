@@ -7,6 +7,7 @@ import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
 import { anonUser } from './apiSdk/anonimClient';
+import { tokenClient } from './apiSdk/TokenClient';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
@@ -19,12 +20,24 @@ function NotFoundRedirect() {
 }
 
 function App() {
-    anonUser()
-        .products()
-        .get()
-        .execute()
-        .then((res) => console.log(res))
-        .catch((err) => console.error(err));
+    if (localStorage.getItem('isLogin')) {
+        console.log('token');
+        tokenClient()
+            .me()
+            .get()
+            .execute()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.error(err));
+    } else {
+        anonUser()
+            .customers()
+            .get()
+            .execute()
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+    }
 
     return (
         <>
