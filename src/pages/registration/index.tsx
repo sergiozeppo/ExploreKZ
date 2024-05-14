@@ -3,6 +3,9 @@ import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 interface AboutUser {
     name: string;
@@ -31,6 +34,20 @@ function Registration() {
     } = useForm<Inputs>();
 
     const [emailError, setEmailError] = useState<string | null>(null);
+
+    <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+    />;
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn(
@@ -164,8 +181,19 @@ function Registration() {
                         placeholder={field.placeholder}
                         className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
                     />
-                    <Error message={errors?.[field.name as keyof Inputs]?.message?.toString()} name={field.name} />
-                    {field.name === 'email' && emailError && <span className="input-notice">{emailError}</span>}
+                    <Error message={errors?.[field.name as keyof Inputs]?.message} name={field.name} />
+                    {field.name === 'email' &&
+                        toast(emailError, {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Bounce,
+                        })}
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
@@ -184,7 +212,7 @@ function Registration() {
                             </option>
                             <option value="KZ">Kazakhstan</option>
                         </select>
-                        <Error message={errors?.country?.message?.toString()} name="country" />
+                        <Error message={errors?.country?.message} name="country" />
                     </div>
                     <div>
                         <input
@@ -198,7 +226,7 @@ function Registration() {
                             placeholder="Street"
                             className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.streetName?.message?.toString()} name="streetName" />
+                        <Error message={errors?.streetName?.message} name="streetName" />
                     </div>
                 </div>
                 <div className="registration-conatiner-pair">
@@ -215,7 +243,7 @@ function Registration() {
                             placeholder="City"
                             className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.city?.message?.toString()} name="city" />
+                        <Error message={errors?.city?.message} name="city" />
                     </div>
                     <div key="postalCode">
                         <input
@@ -229,7 +257,7 @@ function Registration() {
                             placeholder="Postal Code"
                             className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
                         />
-                        <Error message={errors?.postalCode?.message?.toString()} name="postalCode" />
+                        <Error message={errors?.postalCode?.message} name="postalCode" />
                     </div>
                 </div>
             </fieldset>
