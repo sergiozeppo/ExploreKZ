@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Text } from '../Text';
 
-describe('Text', () => {
+describe('should have correct tag, class and text content', () => {
     it('renders with the correct tag and class', () => {
         render(
             <Text as="h1" className="test-class">
