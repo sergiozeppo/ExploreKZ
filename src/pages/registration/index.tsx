@@ -2,6 +2,7 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 interface AboutUser {
     name: string;
@@ -29,6 +30,8 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
 
+    const [emailError, setEmailError] = useState<string | null>(null);
+
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn(
             userData.email,
@@ -43,9 +46,14 @@ function Registration() {
         )
             .then((response) => {
                 console.log('Registration successful:', response);
+                setEmailError('');
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
+                console.log(error.status);
+                if (error.status === 400) {
+                    setEmailError('There is alredy an exsisting customer with the provided email');
+                }
             });
     };
 
@@ -157,6 +165,7 @@ function Registration() {
                         className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
                     />
                     <Error message={errors?.[field.name as keyof Inputs]?.message?.toString()} name={field.name} />
+                    {field.name === 'email' && emailError && <span className="input-notice">{emailError}</span>}
                 </div>
             ))}
             <fieldset className="registration-wrapper-delivery">
