@@ -53,7 +53,12 @@ function Registration() {
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
-                setEmailError(error.body.message);
+                if (error.body) {
+                    console.log('yes');
+                    setEmailError(error.body.message);
+                } else {
+                    setEmailError('An error occurred, please try again later');
+                }
                 toast.warn(emailError, {
                     position: 'bottom-center',
                     autoClose: 5000,
