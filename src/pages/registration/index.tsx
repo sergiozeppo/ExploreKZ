@@ -278,6 +278,71 @@ function Registration() {
                         </div>
                     </div>
                 </fieldset>
+                <fieldset className="registration-wrapper-delivery">
+                    <legend>Billing address</legend>
+                    <div className="registration-conatiner-pair">
+                        <div>
+                            <select
+                                {...register('country', {
+                                    required: 'This field is required',
+                                })}
+                                className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
+                                defaultValue={''}
+                            >
+                                <option value="" disabled>
+                                    Choose a country*
+                                </option>
+                                <option value="KZ">Kazakhstan</option>
+                            </select>
+                            <Error message={errors?.country?.message} />
+                        </div>
+                        <div>
+                            <input
+                                {...register('streetName', {
+                                    required: 'This field is required',
+                                    pattern: {
+                                        value: /^[a-zA-Z\s]*$/,
+                                        message: 'Street must contain not special characters',
+                                    },
+                                })}
+                                placeholder="Street"
+                                className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.streetName?.message} />
+                        </div>
+                    </div>
+                    <div className="registration-conatiner-pair">
+                        <div key="city">
+                            <input
+                                {...register('city', {
+                                    required: 'This field is required',
+                                    validate: {
+                                        noSpecialCharacter: (value) =>
+                                            /^[^\W\d_]+$/.test(value) ||
+                                            'City must contain not special characters and numbers',
+                                    },
+                                })}
+                                placeholder="City"
+                                className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.city?.message} />
+                        </div>
+                        <div key="postalCode">
+                            <input
+                                {...register('postalCode', {
+                                    required: 'This field is required',
+                                    validate: {
+                                        only6Numbers: (value) =>
+                                            /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
+                                    },
+                                })}
+                                placeholder="Postal Code"
+                                className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
+                            />
+                            <Error message={errors?.postalCode?.message} />
+                        </div>
+                    </div>
+                </fieldset>
 
                 <button className="registration-btn-submit" type="submit">
                     Sign Up
