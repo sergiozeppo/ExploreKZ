@@ -22,6 +22,7 @@ export default function Login() {
         register,
         formState: { errors, isValid },
         handleSubmit,
+        trigger,
     } = useForm<Inputs>({ mode: 'onChange' });
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
@@ -85,6 +86,7 @@ export default function Login() {
                                     'Email address must be properly formatted (e.g., user@example.com)',
                             },
                         })}
+                        onBlur={() => trigger('password')}
                     />
                     {errors?.email && <span className="input-notice">{errors?.email?.message || 'Error'}</span>}
                     {loginError && <span className="input-notice">{loginError}</span>}
@@ -112,12 +114,13 @@ export default function Login() {
                                         /[!@#$%^&*]/.test(value) ||
                                         'Password must contain at least one special character (!@#$%^&*)',
                                     noWhitespace: (value) =>
-                                        value.trim() === value || 'No leading or trailing whitespace allowed',
+                                        !/\s/.test(value) || 'No leading or trailing whitespace allowed',
                                 },
                             })}
+                            onBlur={() => trigger('email')}
                         />
                         <div className="psw-eye" onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword ? <FiEyeOff /> : <FiEye />}
+                            {showPassword ? <FiEye /> : <FiEyeOff />}
                         </div>
                     </div>
                     {errors.password && <span className="input-notice">{errors.password.message}</span>}
