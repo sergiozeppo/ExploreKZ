@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/login';
 import Home from './pages/home';
 import Registration from './pages/registration';
@@ -11,19 +11,20 @@ import { tokenClient } from './apiSdk/TokenClient';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
-function NotFoundRedirect() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        navigate('/404');
-    }, [navigate]);
-    return null;
-}
+// function NotFoundRedirect() {
+//     const navigate = useNavigate();
+//     useEffect(() => {
+//         navigate('/404');
+//     }, [navigate]);
+//     return null;
+// }
 
 function App() {
     if (localStorage.getItem('isLogin')) {
         console.log('token');
         tokenClient()
             .me()
+            .carts()
             .get()
             .execute()
             .then((res) => {
@@ -46,8 +47,8 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/" element={<Home />} />
-                    <Route path="/404" element={<NotFound />} />
-                    <Route path="*" element={<NotFoundRedirect />} />
+                    <Route path="*" element={<NotFound />} />
+                    {/* <Route path="*" element={<NotFoundRedirect />} /> */}
                 </Routes>
             </BrowserRouter>
         </>
