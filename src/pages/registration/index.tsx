@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { loginFn } from '../../apiSdk/LoginUser';
+import { token } from '../../apiSdk/token';
 
 interface AboutUser {
     name: string;
@@ -51,7 +53,16 @@ function Registration() {
             .then((response) => {
                 console.log('Registration successful:', response);
                 setEmailError('');
-                navigate('/');
+                loginFn(userData.email, userData.password)
+                    .then(() => {
+                        navigate('/');
+                        const userToken = token.get();
+                        localStorage.setItem('isLogin', 'true');
+                        localStorage.setItem('userToken', JSON.stringify(userToken));
+                    })
+                    .catch((err) => {
+                        console.log('autologin is failed', err);
+                    });
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
