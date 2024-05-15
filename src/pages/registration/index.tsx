@@ -4,6 +4,7 @@ import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
@@ -26,6 +27,11 @@ type Inputs = {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
+
+    countryBilling: string;
+    streetNameBilling: string;
+    cityBilling: string;
+    postalCodeBilling: string;
 };
 
 function Registration() {
@@ -35,6 +41,12 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
     const navigate = useNavigate();
+    const [check, setCheck] = useState(false);
+
+    const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+        setCheck(e.target.checked);
+        console.log(check);
+    };
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn(
@@ -280,7 +292,7 @@ function Registration() {
                     </div>
                 </fieldset>
                 <FormControlLabel
-                    control={<Checkbox />}
+                    control={<Checkbox onChange={handleCheck} />}
                     label="Also use as billing address"
                     sx={{
                         '& .MuiSvgIcon-root': {
@@ -294,7 +306,7 @@ function Registration() {
                     <div className="registration-conatiner-pair">
                         <div>
                             <select
-                                {...register('country', {
+                                {...register('countryBilling', {
                                     required: 'This field is required',
                                 })}
                                 className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
@@ -309,7 +321,7 @@ function Registration() {
                         </div>
                         <div>
                             <input
-                                {...register('streetName', {
+                                {...register('streetNameBilling', {
                                     required: 'This field is required',
                                     pattern: {
                                         value: /^[a-zA-Z\s]*$/,
@@ -325,7 +337,7 @@ function Registration() {
                     <div className="registration-conatiner-pair">
                         <div key="city">
                             <input
-                                {...register('city', {
+                                {...register('cityBilling', {
                                     required: 'This field is required',
                                     validate: {
                                         noSpecialCharacter: (value) =>
@@ -340,7 +352,7 @@ function Registration() {
                         </div>
                         <div key="postalCode">
                             <input
-                                {...register('postalCode', {
+                                {...register('postalCodeBilling', {
                                     required: 'This field is required',
                                     validate: {
                                         only6Numbers: (value) =>
