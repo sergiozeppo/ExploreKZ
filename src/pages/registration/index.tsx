@@ -3,6 +3,7 @@ import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
@@ -278,6 +279,16 @@ function Registration() {
                         </div>
                     </div>
                 </fieldset>
+                <FormControlLabel
+                    control={<Checkbox />}
+                    label="Also use as billing address"
+                    sx={{
+                        '& .MuiSvgIcon-root': {
+                            color: 'white',
+                        },
+                        color: 'white',
+                    }}
+                />
                 <fieldset className="registration-wrapper-delivery">
                     <legend>Billing address</legend>
                     <div className="registration-conatiner-pair">
