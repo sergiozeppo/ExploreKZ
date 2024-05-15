@@ -2,7 +2,6 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,7 +33,6 @@ function Registration() {
         formState: { errors },
         handleSubmit,
     } = useForm<Inputs>();
-    const [emailError, setEmailError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
@@ -51,7 +49,6 @@ function Registration() {
         )
             .then((response) => {
                 console.log('Registration successful:', response);
-                setEmailError('');
                 loginFn(userData.email, userData.password)
                     .then(() => {
                         navigate('/');
@@ -62,7 +59,6 @@ function Registration() {
                     .catch((err) => {
                         console.log('autologin is failed', err);
                     });
-
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
