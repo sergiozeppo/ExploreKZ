@@ -2,7 +2,6 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,8 +32,6 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
 
-    const [emailError, setEmailError] = useState<string | null>(null);
-
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn(
             userData.email,
@@ -49,26 +46,32 @@ function Registration() {
         )
             .then((response) => {
                 console.log('Registration successful:', response);
-                setEmailError('');
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
                 if (error.body) {
-                    console.log('yes');
-                    setEmailError(error.body.message);
+                    toast.warn(error.body.message, {
+                        position: 'bottom-center',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 } else {
-                    setEmailError('An error occurred, please try again later');
+                    toast.warn('An error occurred, please try again later', {
+                        position: 'bottom-center',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 }
-                toast.warn(emailError, {
-                    position: 'bottom-center',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'light',
-                });
             });
     };
 
