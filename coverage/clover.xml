@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715769960937" clover="3.2.0">
-  <project timestamp="1715769960937" name="All files">
-    <metrics statements="628" coveredstatements="81" conditionals="13" coveredconditionals="7" methods="13" coveredmethods="7" elements="654" coveredelements="95" complexity="0" loc="628" ncloc="628" packages="10" files="11" classes="11"/>
+<coverage generated="1715772156671" clover="3.2.0">
+  <project timestamp="1715772156671" name="All files">
+    <metrics statements="628" coveredstatements="101" conditionals="13" coveredconditionals="8" methods="13" coveredmethods="8" elements="654" coveredelements="117" complexity="0" loc="628" ncloc="628" packages="10" files="11" classes="11"/>
     <package name="src">
       <metrics statements="63" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="App.tsx" path="C:\GIT\RSS-ECOMM\src\App.tsx">
@@ -379,29 +379,29 @@
       </file>
     </package>
     <package name="src.pages.notFound">
-      <metrics statements="20" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="20" coveredstatements="20" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="index.tsx" path="C:\GIT\RSS-ECOMM\src\pages\notFound\index.tsx">
-        <metrics statements="20" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
+        <metrics statements="20" coveredstatements="20" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.pages.registration">
