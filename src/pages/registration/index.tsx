@@ -34,7 +34,6 @@ function Registration() {
         formState: { errors },
         handleSubmit,
     } = useForm<Inputs>();
-
     const [emailError, setEmailError] = useState<string | null>(null);
     const navigate = useNavigate();
 
@@ -63,25 +62,33 @@ function Registration() {
                     .catch((err) => {
                         console.log('autologin is failed', err);
                     });
+
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
                 if (error.body) {
-                    console.log('yes');
-                    setEmailError(error.body.message);
+                    toast.warn(error.body.message, {
+                        position: 'bottom-center',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 } else {
-                    setEmailError('An error occurred, please try again later');
+                    toast.warn('An error occurred, please try again later', {
+                        position: 'bottom-center',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 }
-                toast.warn(emailError, {
-                    position: 'bottom-center',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'light',
-                });
             });
     };
 

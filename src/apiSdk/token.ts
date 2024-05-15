@@ -1,6 +1,6 @@
 import { TokenCache, TokenStore } from '@commercetools/sdk-client-v2';
 
-class TokenCacheClass implements TokenCache {
+class Token implements TokenCache {
     private token: TokenStore;
 
     constructor() {
@@ -20,4 +20,4 @@ class TokenCacheClass implements TokenCache {
     }
 }
 
-export const token = new TokenCacheClass();
+export const token = new Token();
