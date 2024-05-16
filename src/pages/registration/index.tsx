@@ -58,7 +58,7 @@ function Registration() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             dateOfBirth: userData.dateOfBirth,
-            countryBilling: userData.cityBilling,
+            countryBilling: userData.countryBilling,
             cityBilling: userData.cityBilling,
             postalCodeBilling: userData.postalCodeBilling,
             streetNameBilling: userData.streetNameBilling,
@@ -313,7 +313,7 @@ function Registration() {
                                     {...register('countryBilling', {
                                         required: 'This field is required',
                                     })}
-                                    className={`registration-delivery ${errors?.country ? 'invalid-input' : ''}`}
+                                    className={`registration-delivery ${errors?.countryBilling ? 'invalid-input' : ''}`}
                                     defaultValue={''}
                                 >
                                     <option value="" disabled>
@@ -321,7 +321,7 @@ function Registration() {
                                     </option>
                                     <option value="KZ">Kazakhstan</option>
                                 </select>
-                                <Error message={errors?.country?.message} />
+                                <Error message={errors?.countryBilling?.message} />
                             </div>
                             <div>
                                 <input
@@ -333,9 +333,9 @@ function Registration() {
                                         },
                                     })}
                                     placeholder="Street"
-                                    className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
+                                    className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
                                 />
-                                <Error message={errors?.streetName?.message} />
+                                <Error message={errors?.streetNameBilling?.message} />
                             </div>
                         </div>
                         <div className="registration-conatiner-pair">
@@ -350,9 +350,9 @@ function Registration() {
                                         },
                                     })}
                                     placeholder="City"
-                                    className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
+                                    className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
                                 />
-                                <Error message={errors?.city?.message} />
+                                <Error message={errors?.cityBilling?.message} />
                             </div>
                             <div key="postalCode">
                                 <input
@@ -365,9 +365,9 @@ function Registration() {
                                         },
                                     })}
                                     placeholder="Postal Code"
-                                    className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
+                                    className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}
                                 />
-                                <Error message={errors?.postalCode?.message} />
+                                <Error message={errors?.postalCodeBilling?.message} />
                             </div>
                         </div>
                     </fieldset>
