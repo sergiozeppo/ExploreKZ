@@ -54,7 +54,7 @@ export async function registerFn(params: RegisterFnParams) {
         defaultShippingAddress: defaultShipping ? 0 : undefined,
         defaultBillingAddress: defaultBilling ? 1 : undefined,
         shippingAddresses: [0],
-        billingAddresses: [1],
+        billingAddresses: defaultBilling ? [1] : [0],
         firstName,
         lastName,
         dateOfBirth,
