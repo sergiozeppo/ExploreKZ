@@ -13,7 +13,7 @@ describe('Testing Header component', () => {
 
         const logo = screen.getByAltText('header logo');
         expect(logo).toBeInTheDocument();
-        expect(logo).toHaveAttribute('src', '/images/header_logo.svg');
+        expect(logo).toHaveAttribute('src', '../src/assets/images/logo.png');
         expect(logo.closest('a')).toHaveAttribute('href', '/');
 
         const homeLink = screen.getByText('Home');
