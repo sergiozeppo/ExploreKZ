@@ -51,25 +51,21 @@ export async function registerFn(params: RegisterFnParams) {
         });
     }
 
-    try {
-        const API = await baseClient()
-            .customers()
-            .post({
-                body: {
-                    email,
-                    password,
-                    addresses,
-                    defaultShippingAddress: 0,
-                    defaultBillingAddress: addresses.length > 1 ? 1 : 0,
-                    firstName,
-                    lastName,
-                    dateOfBirth,
-                },
-            })
-            .execute();
+    const API = await baseClient()
+        .customers()
+        .post({
+            body: {
+                email,
+                password,
+                addresses,
+                defaultShippingAddress: 0,
+                defaultBillingAddress: addresses.length > 1 ? 1 : 0,
+                firstName,
+                lastName,
+                dateOfBirth,
+            },
+        })
+        .execute();
 
-        return API;
-    } catch (error) {
-        console.error('Error registering customer:', error);
-    }
+    return API;
 }
