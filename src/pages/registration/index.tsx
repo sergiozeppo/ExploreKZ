@@ -4,7 +4,7 @@ import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
@@ -60,6 +60,8 @@ function Registration() {
             cityBilling: userData.cityBilling,
             postalCodeBilling: userData.postalCodeBilling,
             streetNameBilling: userData.streetNameBilling,
+            defaultShipping: checkDefaultShipping,
+            defaultBilling: checkDefaultBilling,
         })
             .then((response) => {
                 console.log('Registration successful:', response);
@@ -294,7 +296,7 @@ function Registration() {
                 </fieldset>
                 <div className="control-container">
                     <FormControlLabel
-                        control={<Switch />}
+                        control={<Switch onChange={(e) => setCheckDefaultShipping(e.target.checked)} />}
                         label="Set as default address"
                         sx={{
                             '& .MuiSvgIcon-root': {
@@ -304,11 +306,7 @@ function Registration() {
                         }}
                     />
                     <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCheckBilling(e.target.checked)}
-                            />
-                        }
+                        control={<Checkbox onChange={(e) => setCheckBilling(e.target.checked)} />}
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
@@ -388,7 +386,7 @@ function Registration() {
                         </fieldset>
                         <div className="control-container">
                             <FormControlLabel
-                                control={<Switch />}
+                                control={<Switch onChange={(e) => setCheckDefaultBilling(e.target.checked)} />}
                                 label="Set as default address"
                                 sx={{
                                     '& .MuiSvgIcon-root': {

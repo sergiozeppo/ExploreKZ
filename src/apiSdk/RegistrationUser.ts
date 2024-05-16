@@ -14,6 +14,8 @@ interface RegisterFnParams {
     cityBilling?: string;
     postalCodeBilling?: string;
     streetNameBilling?: string;
+    defaultShipping?: boolean;
+    defaultBilling?: boolean;
 }
 
 export async function registerFn(params: RegisterFnParams) {
@@ -31,10 +33,13 @@ export async function registerFn(params: RegisterFnParams) {
         cityBilling,
         postalCodeBilling,
         streetNameBilling,
+        defaultShipping,
+        defaultBilling,
     } = params;
 
     const addresses = [
         {
+            key: 'shipping',
             country,
             city,
             postalCode,
@@ -42,8 +47,22 @@ export async function registerFn(params: RegisterFnParams) {
         },
     ];
 
+    const body = {
+        email,
+        password,
+        addresses,
+        defaultShippingAddress: defaultShipping ? 0 : undefined,
+        defaultBillingAddress: defaultBilling ? 1 : undefined,
+        shippingAddresses: [0],
+        billingAddresses: [1],
+        firstName,
+        lastName,
+        dateOfBirth,
+    };
+
     if (countryBilling && cityBilling && postalCodeBilling && streetNameBilling) {
         addresses.push({
+            key: 'billing',
             country: countryBilling,
             city: cityBilling,
             postalCode: postalCodeBilling,
@@ -54,16 +73,7 @@ export async function registerFn(params: RegisterFnParams) {
     const API = await baseClient()
         .customers()
         .post({
-            body: {
-                email,
-                password,
-                addresses,
-                defaultShippingAddress: 0,
-                defaultBillingAddress: addresses.length > 1 ? 1 : 0,
-                firstName,
-                lastName,
-                dateOfBirth,
-            },
+            body,
         })
         .execute();
 
