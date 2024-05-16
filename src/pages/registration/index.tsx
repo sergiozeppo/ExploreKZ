@@ -41,11 +41,9 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
     const navigate = useNavigate();
-    const [check, setCheck] = useState(false);
-
-    function handleCheck(e: ChangeEvent<HTMLInputElement>) {
-        setCheck(e.target.checked);
-    }
+    const [checkBilling, setCheckBilling] = useState(false);
+    const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
+    const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn({
@@ -306,7 +304,11 @@ function Registration() {
                         }}
                     />
                     <FormControlLabel
-                        control={<Checkbox onChange={handleCheck} />}
+                        control={
+                            <Checkbox
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCheckBilling(e.target.checked)}
+                            />
+                        }
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
@@ -316,7 +318,7 @@ function Registration() {
                         }}
                     />
                 </div>
-                {!check && (
+                {!checkBilling && (
                     <>
                         <fieldset className="registration-wrapper-delivery">
                             <legend>Billing address</legend>
