@@ -48,17 +48,17 @@ function Registration() {
     }
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
-        registerFn(
-            userData.email,
-            userData.password,
-            userData.country,
-            userData.city,
-            userData.postalCode,
-            userData.streetName,
-            userData.firstName,
-            userData.lastName,
-            userData.dateOfBirth,
-        )
+        registerFn({
+            email: userData.email,
+            password: userData.password,
+            country: userData.country,
+            city: userData.city,
+            postalCode: userData.postalCode,
+            streetName: userData.streetName,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            dateOfBirth: userData.dateOfBirth,
+        })
             .then((response) => {
                 console.log('Registration successful:', response);
                 loginFn(userData.email, userData.password)
