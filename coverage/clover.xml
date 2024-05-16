@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1715774916887" clover="3.2.0">
-  <project timestamp="1715774916887" name="All files">
-    <metrics statements="628" coveredstatements="136" conditionals="13" coveredconditionals="9" methods="13" coveredmethods="9" elements="654" coveredelements="154" complexity="0" loc="628" ncloc="628" packages="10" files="11" classes="11"/>
+<coverage generated="1715841081980" clover="3.2.0">
+  <project timestamp="1715841081980" name="All files">
+    <metrics statements="641" coveredstatements="136" conditionals="13" coveredconditionals="9" methods="13" coveredmethods="9" elements="667" coveredelements="154" complexity="0" loc="641" ncloc="641" packages="10" files="11" classes="11"/>
     <package name="src">
       <metrics statements="63" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="App.tsx" path="C:\GIT\RSS-ECOMM\src\App.tsx">
@@ -405,9 +405,9 @@
       </file>
     </package>
     <package name="src.pages.registration">
-      <metrics statements="283" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="296" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="index.tsx" path="C:\GIT\RSS-ECOMM\src\pages\registration\index.tsx">
-        <metrics statements="283" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="296" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -691,6 +691,19 @@
         <line num="281" count="0" type="stmt"/>
         <line num="282" count="0" type="stmt"/>
         <line num="283" count="0" type="stmt"/>
+        <line num="284" count="0" type="stmt"/>
+        <line num="285" count="0" type="stmt"/>
+        <line num="286" count="0" type="stmt"/>
+        <line num="287" count="0" type="stmt"/>
+        <line num="288" count="0" type="stmt"/>
+        <line num="289" count="0" type="stmt"/>
+        <line num="290" count="0" type="stmt"/>
+        <line num="291" count="0" type="stmt"/>
+        <line num="292" count="0" type="stmt"/>
+        <line num="293" count="0" type="stmt"/>
+        <line num="294" count="0" type="stmt"/>
+        <line num="295" count="0" type="stmt"/>
+        <line num="296" count="0" type="stmt"/>
       </file>
     </package>
   </project>

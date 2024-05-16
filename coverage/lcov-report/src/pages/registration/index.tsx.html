@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/283</span>
+                <span class='fraction'>0/296</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/283</span>
+                <span class='fraction'>0/296</span>
             </div>
         
             
@@ -346,7 +346,33 @@
 <a name='L281'></a><a href='#L281'>281</a>
 <a name='L282'></a><a href='#L282'>282</a>
 <a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -632,10 +658,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import './registration.css';</span></span></span>
 <span class="cstat-no" title="statement not covered" >import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';</span>
 <span class="cstat-no" title="statement not covered" >import { registerFn } from '../../apiSdk/RegistrationUser';</span>
-<span class="cstat-no" title="statement not covered" >import { Link } from 'react-router-dom';</span>
+<span class="cstat-no" title="statement not covered" >import { Link, useNavigate } from 'react-router-dom';</span>
 <span class="cstat-no" title="statement not covered" >import { Bounce, ToastContainer, toast } from 'react-toastify';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import 'react-toastify/dist/ReactToastify.css';</span>
+<span class="cstat-no" title="statement not covered" >import { loginFn } from '../../apiSdk/LoginUser';</span>
+<span class="cstat-no" title="statement not covered" >import { token } from '../../apiSdk/token';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface AboutUser {</span>
 <span class="cstat-no" title="statement not covered" >    name: string;</span>
@@ -662,6 +690,7 @@
 <span class="cstat-no" title="statement not covered" >        formState: { errors },</span>
 <span class="cstat-no" title="statement not covered" >        handleSubmit,</span>
 <span class="cstat-no" title="statement not covered" >    } = useForm&lt;Inputs&gt;();</span>
+<span class="cstat-no" title="statement not covered" >    const navigate = useNavigate();</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const onSubmit: SubmitHandler&lt;Inputs&gt; = (userData) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        registerFn(</span>
@@ -677,6 +706,16 @@
 <span class="cstat-no" title="statement not covered" >        )</span>
 <span class="cstat-no" title="statement not covered" >            .then((response) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.log('Registration successful:', response);</span>
+<span class="cstat-no" title="statement not covered" >                loginFn(userData.email, userData.password)</span>
+<span class="cstat-no" title="statement not covered" >                    .then(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        navigate('/');</span>
+<span class="cstat-no" title="statement not covered" >                        const userToken = token.get();</span>
+<span class="cstat-no" title="statement not covered" >                        localStorage.setItem('isLogin', 'true');</span>
+<span class="cstat-no" title="statement not covered" >                        localStorage.setItem('userToken', JSON.stringify(userToken));</span>
+<span class="cstat-no" title="statement not covered" >                    })</span>
+<span class="cstat-no" title="statement not covered" >                    .catch((err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        console.log('autologin is failed', err);</span>
+<span class="cstat-no" title="statement not covered" >                    });</span>
 <span class="cstat-no" title="statement not covered" >            })</span>
 <span class="cstat-no" title="statement not covered" >            .catch((error) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.error('Registration failed:', error);</span>
@@ -919,7 +958,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-15T12:08:36.855Z
+                at 2024-05-16T06:31:21.929Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
