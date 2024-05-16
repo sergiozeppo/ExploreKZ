@@ -294,16 +294,18 @@ function Registration() {
                         </div>
                     </div>
                 </fieldset>
-                <FormControlLabel
-                    control={<Checkbox onChange={handleCheck} />}
-                    label="Also use as billing address"
-                    sx={{
-                        '& .MuiSvgIcon-root': {
+                <div className="control-container">
+                    <FormControlLabel
+                        control={<Checkbox onChange={handleCheck} />}
+                        label="Also use as billing address"
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                color: 'white',
+                            },
                             color: 'white',
-                        },
-                        color: 'white',
-                    }}
-                />
+                        }}
+                    />
+                </div>
                 {!check && (
                     <fieldset className="registration-wrapper-delivery">
                         <legend>Billing address</legend>

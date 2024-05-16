@@ -70,3 +70,7 @@ legend {
     font-size: 20px;
     cursor: pointer;
 }
+
+.control-container {
+    width: 100%;
+}
