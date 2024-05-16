@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Button } from '../Button';
+import { Button } from '../components/Button';
 
 describe('should have correct tag, class and Button content', () => {
     it('renders with the correct tag and class', () => {

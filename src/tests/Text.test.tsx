@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Text } from '../Text';
+import { Text } from '../components/Text';
 
 describe('should have correct tag, class and text content', () => {
     it('renders with the correct tag and class', () => {

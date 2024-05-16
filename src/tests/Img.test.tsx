@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Img } from '../Img';
+import { Img } from '../components/Img';
 
 describe('Testing Image components', () => {
     it('renders Img component with proper attributes', () => {

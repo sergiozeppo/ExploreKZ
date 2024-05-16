@@ -1,4 +1,4 @@
-import { token } from './token';
+import { token } from '../apiSdk/token';
 
 describe('token component from apiSdk', () => {
     it('can create a new component with empty token', () => {

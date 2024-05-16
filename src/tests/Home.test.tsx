@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import Home from '../home';
+import Home from '../pages/home';
 
 describe('Test Home component', () => {
     it('renders Img component and titles', () => {

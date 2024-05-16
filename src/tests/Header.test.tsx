@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import Header from '../Header';
+import Header from '../components/Header';
 
 describe('Testing Header component', () => {
     it('renders logo and navigation links and buttons', () => {
