@@ -58,6 +58,10 @@ function Registration() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             dateOfBirth: userData.dateOfBirth,
+            countryBilling: userData.cityBilling,
+            cityBilling: userData.cityBilling,
+            postalCodeBilling: userData.postalCodeBilling,
+            streetNameBilling: userData.streetNameBilling,
         })
             .then((response) => {
                 console.log('Registration successful:', response);
