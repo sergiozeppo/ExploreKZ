@@ -10,10 +10,10 @@ interface RegisterFnParams {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    countryBilling: string;
-    cityBilling: string;
-    postalCodeBilling: string;
-    streetNameBilling: string;
+    countryBilling: string | null;
+    cityBilling: string | null;
+    postalCodeBilling: string | null;
+    streetNameBilling: string | null;
     defaultShipping: boolean;
     defaultBilling: boolean;
     alsoUseBilling: boolean;
