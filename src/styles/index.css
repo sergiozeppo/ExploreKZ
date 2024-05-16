@@ -68,7 +68,7 @@ footer {
     align-items: center;
     align-self: stretch;
     padding-bottom: 130px;
-    background-color: rgb(19 59 92);
+    background-color: rgb(19, 59, 92);
 }
 .hero-gradient {
     object-fit: cover;
@@ -121,8 +121,8 @@ footer {
     display: flex;
     align-items: center;
     object-fit: contain;
-    height: 42px;
-    width: 140px;
+    height: 100px;
+    width: 100px;
 }
 .nav {
     display: flex;
