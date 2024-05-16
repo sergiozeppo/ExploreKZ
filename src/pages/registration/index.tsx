@@ -307,7 +307,14 @@ function Registration() {
                         }}
                     />
                     <FormControlLabel
-                        control={<Checkbox onChange={(e) => setCheckBilling(e.target.checked)} />}
+                        control={
+                            <Checkbox
+                                onChange={(e) => {
+                                    setCheckBilling(e.target.checked);
+                                    e.target.checked === true ? setCheckDefaultBilling(false) : '';
+                                }}
+                            />
+                        }
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
