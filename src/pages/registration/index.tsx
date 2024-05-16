@@ -231,7 +231,7 @@ function Registration() {
                 ))}
                 <fieldset className="registration-wrapper-delivery">
                     <legend>Delivery address</legend>
-                    <div className="registration-conatiner-pair">
+                    <div className="registration-container-pair">
                         <div>
                             <select
                                 {...register('country', {
@@ -262,7 +262,7 @@ function Registration() {
                             <Error message={errors?.streetName?.message} />
                         </div>
                     </div>
-                    <div className="registration-conatiner-pair">
+                    <div className="registration-container-pair">
                         <div key="city">
                             <input
                                 {...register('city', {
@@ -307,7 +307,7 @@ function Registration() {
                 {!check && (
                     <fieldset className="registration-wrapper-delivery">
                         <legend>Billing address</legend>
-                        <div className="registration-conatiner-pair">
+                        <div className="registration-container-pair">
                             <div>
                                 <select
                                     {...register('countryBilling', {
@@ -338,7 +338,7 @@ function Registration() {
                                 <Error message={errors?.streetNameBilling?.message} />
                             </div>
                         </div>
-                        <div className="registration-conatiner-pair">
+                        <div className="registration-container-pair">
                             <div key="city">
                                 <input
                                     {...register('cityBilling', {

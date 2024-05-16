@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 
+legend {
+    color: white;
+    font-weight: 700;
+}
+
 .flex-style {
     display: flex;
     justify-content: center;
@@ -13,27 +18,35 @@
     margin: 0 auto;
     max-width: 1000px;
     width: 100%;
-    gap: 10px;
     padding: 15px;
+    gap: 10px;
 }
 
 .registration-wrapper-delivery {
     width: 100%;
-    font-size: 20px;
 }
 
 .registration-container,
 .registration-about-user,
 .registration-delivery {
     width: 100%;
-    font-size: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    outline: none;
+    font-weight: 700;
+    background-color: rgba(242, 241, 240, 0.404);
+
+    &::placeholder {
+        color: white;
+    }
 }
 
 .registration-delivery {
     height: 28px;
+    color: white;
 }
 
-.registration-conatiner-pair {
+.registration-container-pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
