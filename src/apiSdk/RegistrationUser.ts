@@ -10,12 +10,13 @@ interface RegisterFnParams {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    countryBilling?: string;
-    cityBilling?: string;
-    postalCodeBilling?: string;
-    streetNameBilling?: string;
-    defaultShipping?: boolean;
-    defaultBilling?: boolean;
+    countryBilling: string;
+    cityBilling: string;
+    postalCodeBilling: string;
+    streetNameBilling: string;
+    defaultShipping: boolean;
+    defaultBilling: boolean;
+    alsoUseBilling: boolean;
 }
 
 export async function registerFn(params: RegisterFnParams) {
@@ -35,6 +36,7 @@ export async function registerFn(params: RegisterFnParams) {
         streetNameBilling,
         defaultShipping,
         defaultBilling,
+        alsoUseBilling,
     } = params;
 
     const addresses = [
@@ -52,9 +54,9 @@ export async function registerFn(params: RegisterFnParams) {
         password,
         addresses,
         defaultShippingAddress: defaultShipping ? 0 : undefined,
-        defaultBillingAddress: defaultBilling ? 1 : undefined,
+        defaultBillingAddress: defaultBilling ? 1 : alsoUseBilling ? 0 : undefined,
         shippingAddresses: [0],
-        billingAddresses: defaultBilling ? [1] : [0],
+        billingAddresses: !alsoUseBilling ? [1] : [0],
         firstName,
         lastName,
         dateOfBirth,

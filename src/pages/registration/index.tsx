@@ -62,6 +62,7 @@ function Registration() {
             streetNameBilling: userData.streetNameBilling,
             defaultShipping: checkDefaultShipping,
             defaultBilling: checkDefaultBilling,
+            alsoUseBilling: checkBilling,
         })
             .then((response) => {
                 console.log('Registration successful:', response);
