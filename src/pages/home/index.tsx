@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Img, Text } from '../../components';
 
 export default function Home() {
@@ -19,6 +20,16 @@ export default function Home() {
                                             We want you to feel confident in the travel experience you will have with
                                             us.
                                         </Text>
+                                        <div className="link-wrapper block-for-2-17">
+                                            You can
+                                            <Link to="/login" className="signup-link">
+                                                login
+                                            </Link>
+                                            or
+                                            <Link to="/registration" className="signup-link">
+                                                register!
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                                 <Img src="images/img_rectangle.png" alt="gradient" className="hero-gradient" />
