@@ -194,6 +194,19 @@ footer {
     animation: spin 1s linear infinite;
 }
 
+.block-for-2-17 {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #133b5c;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    border: #fff 1px solid;
+    & a {
+        color: #fff;
+    }
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Text, Img } from './..';
+import { Button, Img } from './..';
+// import { Text } from './..';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/Global';
 import { baseClient } from '../../apiSdk/BaseClient';
@@ -32,9 +33,9 @@ export default function Header() {
             <ul className="nav">
                 <li>
                     <Link to="/">
-                        <Text as="p" className="nav-item">
+                        {/* <Text as="p" className="nav-item">
                             Home
-                        </Text>
+                        </Text> */}
                     </Link>
                 </li>
             </ul>
