@@ -78,7 +78,7 @@ legend {
     margin-bottom: 10px;
     input {
         background-color: rgba(242, 241, 240, 0.404);
-        color:black
+        color: black;
     }
     select {
         background-color: rgba(242, 241, 240, 0.404);
@@ -146,6 +146,5 @@ legend {
 .toggle-password-visibility svg {
     width: 18px;
     height: 18px;
-    color: black; 
+    color: black;
 }
-
