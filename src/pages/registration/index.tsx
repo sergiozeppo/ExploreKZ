@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
 import { useContext, useState } from 'react';
-
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
@@ -45,6 +45,7 @@ function Registration() {
     const [checkBilling, setCheckBilling] = useState(false);
     const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
     const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const { setIsLogin } = useContext(GlobalContext);
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn({
@@ -143,6 +144,7 @@ function Registration() {
         {
             name: 'password',
             placeholder: 'Password',
+            type: showPassword ? 'text' : 'password',
             validate: {
                 minLength: {
                     value: 8,
@@ -202,7 +204,7 @@ function Registration() {
     ];
 
     return (
-        <>
+        <div className="registr-container">
             <ToastContainer
                 position="bottom-center"
                 autoClose={5000}
@@ -220,15 +222,35 @@ function Registration() {
             <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
                 {fieldsAboutUser.map((field) => (
                     <div key={field.name} className="registration-container">
-                        <input
-                            {...register(field.name as keyof Inputs, {
-                                required: 'This field is required',
-                                ...field.validate,
-                            })}
-                            type={field.type}
-                            placeholder={field.placeholder}
-                            className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
-                        />
+                        {field.name === 'password' ? ( // Специальный случай для поля пароля
+                            <div className="registration-password-container">
+                                <input
+                                    {...register(field.name as keyof Inputs, {
+                                        required: 'This field is required',
+                                        ...field.validate,
+                                    })}
+                                    type={field.type}
+                                    placeholder={field.placeholder}
+                                    className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                                />
+                                <div
+                                    className="toggle-password-visibility"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <FiEye /> : <FiEyeOff />}
+                                </div>
+                            </div>
+                        ) : (
+                            <input
+                                {...register(field.name as keyof Inputs, {
+                                    required: 'This field is required',
+                                    ...field.validate,
+                                })}
+                                type={field.type}
+                                placeholder={field.placeholder}
+                                className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                            />
+                        )}
                         <Error message={errors?.[field.name as keyof Inputs]?.message} />
                     </div>
                 ))}
@@ -409,17 +431,17 @@ function Registration() {
                     </>
                 )}
 
-                <button className="registration-btn-submit" type="submit">
+                <button className="button" type="submit">
                     Sign Up
                 </button>
-                <div className="link-wrapper">
-                    Already have an account?
-                    <Link to="/login" className="signup-link">
-                        Sign in!
-                    </Link>
-                </div>
             </form>
-        </>
+            <div className="link-wrapper">
+                Already have an account?
+                <Link to="/login" className="signup-link">
+                    Sign in!
+                </Link>
+            </div>
+        </div>
     );
 }
 

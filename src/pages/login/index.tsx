@@ -7,7 +7,6 @@ import { baseClient } from '../../apiSdk/BaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
-
 type Inputs = {
     email: string;
     password: string;
@@ -129,7 +128,7 @@ export default function Login() {
                     {errors.password && <span className="input-notice">{errors.password.message}</span>}
                     {passwordError && <span className="input-notice">{passwordError}</span>}
                 </label>
-                <button type="submit" disabled={!isValid}>
+                <button className="button" type="submit" disabled={!isValid}>
                     Login
                 </button>
                 {loading && (
