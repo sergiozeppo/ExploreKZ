@@ -31,7 +31,7 @@ const options: AnonymousAuthMiddlewareOptions = {
         clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
         anonymousId: crypto.randomUUID(),
     },
-    scopes: [`manage_project:${projectKey}`],
+    // scopes: [`manage_project:${projectKey}`],
     fetch,
 };
 

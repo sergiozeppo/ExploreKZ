@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import './login.css';
@@ -6,6 +6,7 @@ import { loginFn } from '../../apiSdk/LoginUser';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import { token } from '../../apiSdk/token';
+import { GlobalContext } from '../../context/Global';
 
 type Inputs = {
     email: string;
@@ -13,6 +14,7 @@ type Inputs = {
 };
 
 export default function Login() {
+    const { setIsLogin } = useContext(GlobalContext);
     const isUserExist = localStorage.getItem('isLogin');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState<string | null>(null);
@@ -36,6 +38,7 @@ export default function Login() {
                 const userToken = token.get();
                 localStorage.setItem('isLogin', 'true');
                 localStorage.setItem('userToken', JSON.stringify(userToken));
+                setIsLogin(true);
             })
             .catch((err) => {
                 console.error(err);
