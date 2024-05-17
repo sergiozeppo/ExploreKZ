@@ -3,8 +3,8 @@ import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-import { Checkbox, FormControlLabel } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { Checkbox, FormControlLabel, Switch } from '@mui/material';
+import { useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
@@ -41,11 +41,9 @@ function Registration() {
         handleSubmit,
     } = useForm<Inputs>();
     const navigate = useNavigate();
-    const [check, setCheck] = useState(false);
-
-    function handleCheck(e: ChangeEvent<HTMLInputElement>) {
-        setCheck(e.target.checked);
-    }
+    const [checkBilling, setCheckBilling] = useState(false);
+    const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
+    const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);
 
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn({
@@ -58,10 +56,13 @@ function Registration() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             dateOfBirth: userData.dateOfBirth,
-            countryBilling: userData.countryBilling,
-            cityBilling: userData.cityBilling,
-            postalCodeBilling: userData.postalCodeBilling,
-            streetNameBilling: userData.streetNameBilling,
+            countryBilling: checkBilling ? null : userData.countryBilling,
+            cityBilling: checkBilling ? null : userData.cityBilling,
+            postalCodeBilling: checkBilling ? null : userData.postalCodeBilling,
+            streetNameBilling: checkBilling ? null : userData.streetNameBilling,
+            defaultShipping: checkDefaultShipping,
+            defaultBilling: checkDefaultBilling,
+            alsoUseBilling: checkBilling,
         })
             .then((response) => {
                 console.log('Registration successful:', response);
@@ -296,7 +297,24 @@ function Registration() {
                 </fieldset>
                 <div className="control-container">
                     <FormControlLabel
-                        control={<Checkbox onChange={handleCheck} />}
+                        control={<Switch onChange={(e) => setCheckDefaultShipping(e.target.checked)} />}
+                        label="Set as default address"
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                color: 'white',
+                            },
+                            color: 'white',
+                        }}
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                onChange={(e) => {
+                                    setCheckBilling(e.target.checked);
+                                    e.target.checked === true ? setCheckDefaultBilling(false) : '';
+                                }}
+                            />
+                        }
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
@@ -306,73 +324,87 @@ function Registration() {
                         }}
                     />
                 </div>
-                {!check && (
-                    <fieldset className="registration-wrapper-delivery">
-                        <legend>Billing address</legend>
-                        <div className="registration-container-pair">
-                            <div>
-                                <select
-                                    {...register('countryBilling', {
-                                        required: 'This field is required',
-                                    })}
-                                    className={`registration-delivery ${errors?.countryBilling ? 'invalid-input' : ''}`}
-                                    defaultValue={''}
-                                >
-                                    <option value="" disabled>
-                                        Choose a country*
-                                    </option>
-                                    <option value="KZ">Kazakhstan</option>
-                                </select>
-                                <Error message={errors?.countryBilling?.message} />
+                {!checkBilling && (
+                    <>
+                        <fieldset className="registration-wrapper-delivery">
+                            <legend>Billing address</legend>
+                            <div className="registration-container-pair">
+                                <div>
+                                    <select
+                                        {...register('countryBilling', {
+                                            required: 'This field is required',
+                                        })}
+                                        className={`registration-delivery ${errors?.countryBilling ? 'invalid-input' : ''}`}
+                                        defaultValue={''}
+                                    >
+                                        <option value="" disabled>
+                                            Choose a country*
+                                        </option>
+                                        <option value="KZ">Kazakhstan</option>
+                                    </select>
+                                    <Error message={errors?.countryBilling?.message} />
+                                </div>
+                                <div>
+                                    <input
+                                        {...register('streetNameBilling', {
+                                            required: 'This field is required',
+                                            pattern: {
+                                                value: /^[a-zA-Z\s]*$/,
+                                                message: 'Street must contain not special characters',
+                                            },
+                                        })}
+                                        placeholder="Street"
+                                        className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
+                                    />
+                                    <Error message={errors?.streetNameBilling?.message} />
+                                </div>
                             </div>
-                            <div>
-                                <input
-                                    {...register('streetNameBilling', {
-                                        required: 'This field is required',
-                                        pattern: {
-                                            value: /^[a-zA-Z\s]*$/,
-                                            message: 'Street must contain not special characters',
-                                        },
-                                    })}
-                                    placeholder="Street"
-                                    className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
-                                />
-                                <Error message={errors?.streetNameBilling?.message} />
+                            <div className="registration-container-pair">
+                                <div key="city">
+                                    <input
+                                        {...register('cityBilling', {
+                                            required: 'This field is required',
+                                            validate: {
+                                                noSpecialCharacter: (value) =>
+                                                    /^[^\W\d_]+$/.test(value) ||
+                                                    'City must contain not special characters and numbers',
+                                            },
+                                        })}
+                                        placeholder="City"
+                                        className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
+                                    />
+                                    <Error message={errors?.cityBilling?.message} />
+                                </div>
+                                <div key="postalCode">
+                                    <input
+                                        {...register('postalCodeBilling', {
+                                            required: 'This field is required',
+                                            validate: {
+                                                only6Numbers: (value) =>
+                                                    /^\d{6}$/.test(value) ||
+                                                    'Postal code in KZ must contain only 6 nubmers',
+                                            },
+                                        })}
+                                        placeholder="Postal Code"
+                                        className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}
+                                    />
+                                    <Error message={errors?.postalCodeBilling?.message} />
+                                </div>
                             </div>
+                        </fieldset>
+                        <div className="control-container">
+                            <FormControlLabel
+                                control={<Switch onChange={(e) => setCheckDefaultBilling(e.target.checked)} />}
+                                label="Set as default address"
+                                sx={{
+                                    '& .MuiSvgIcon-root': {
+                                        color: 'white',
+                                    },
+                                    color: 'white',
+                                }}
+                            />
                         </div>
-                        <div className="registration-container-pair">
-                            <div key="city">
-                                <input
-                                    {...register('cityBilling', {
-                                        required: 'This field is required',
-                                        validate: {
-                                            noSpecialCharacter: (value) =>
-                                                /^[^\W\d_]+$/.test(value) ||
-                                                'City must contain not special characters and numbers',
-                                        },
-                                    })}
-                                    placeholder="City"
-                                    className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
-                                />
-                                <Error message={errors?.cityBilling?.message} />
-                            </div>
-                            <div key="postalCode">
-                                <input
-                                    {...register('postalCodeBilling', {
-                                        required: 'This field is required',
-                                        validate: {
-                                            only6Numbers: (value) =>
-                                                /^\d{6}$/.test(value) ||
-                                                'Postal code in KZ must contain only 6 nubmers',
-                                        },
-                                    })}
-                                    placeholder="Postal Code"
-                                    className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}
-                                />
-                                <Error message={errors?.postalCodeBilling?.message} />
-                            </div>
-                        </div>
-                    </fieldset>
+                    </>
                 )}
 
                 <button className="registration-btn-submit" type="submit">
