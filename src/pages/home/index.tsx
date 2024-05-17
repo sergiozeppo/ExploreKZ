@@ -1,5 +1,4 @@
 import { Img, Text } from '../../components';
-import Header from '../../components/Header';
 
 export default function Home() {
     return (
@@ -11,7 +10,6 @@ export default function Home() {
                         {/* hero section */}
                         <div className="hero-section">
                             <div className="header-wrapper">
-                                <Header />
                                 <div className="title-block">
                                     <div className="tagline">
                                         <Text as="h1" className="h1">

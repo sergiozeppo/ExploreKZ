@@ -4,11 +4,12 @@ import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
+import { GlobalContext } from '../../context/Global';
 
 interface AboutUser {
     name: string;
@@ -44,7 +45,7 @@ function Registration() {
     const [checkBilling, setCheckBilling] = useState(false);
     const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
     const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);
-
+    const { setIsLogin } = useContext(GlobalContext);
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
         registerFn({
             email: userData.email,
@@ -72,6 +73,7 @@ function Registration() {
                         const userToken = token.get();
                         localStorage.setItem('isLogin', 'true');
                         localStorage.setItem('userToken', JSON.stringify(userToken));
+                        setIsLogin(true);
                     })
                     .catch((err) => {
                         console.log('autologin is failed', err);

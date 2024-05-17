@@ -5,6 +5,7 @@ type ButtonProps = {
     children: string;
     onClick?: () => void;
 };
+
 const Button: React.FC<ButtonProps> = ({ className = '', children }) => {
     return <button className={`${className} button`}>{children}</button>;
 };
