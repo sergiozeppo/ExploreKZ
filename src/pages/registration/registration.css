@@ -7,6 +7,14 @@ legend {
     font-weight: 700;
 }
 
+.registr-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .flex-style {
     display: flex;
     justify-content: center;
@@ -16,14 +24,19 @@ legend {
 
 .registration-wrapper {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 500px;
     width: 100%;
     padding: 15px;
     gap: 10px;
+    user-select: none;
+    border: 1px solid #f5f5f538;
+    border-radius: 10px;
 }
 
 .registration-wrapper-delivery {
     width: 100%;
+    border: 1px solid #f5f5f538;
+    border-radius: 10px;
 }
 
 .registration-container,
@@ -34,16 +47,28 @@ legend {
     border-radius: 5px;
     outline: none;
     font-weight: 700;
-    background-color: rgba(242, 241, 240, 0.404);
-
     &::placeholder {
         color: white;
     }
 }
 
+.registration-container input,
+.registration-about-user input,
+.registration-delivery input {
+    background-color: rgba(242, 241, 240, 0.404);
+    height: 25px;
+    color: black;
+    &::placeholder {
+        color: black;
+    }
+}
+
 .registration-delivery {
     height: 28px;
-    color: white;
+    color: black;
+    &::placeholder {
+        color: black;
+    }
 }
 
 .registration-container-pair {
@@ -51,6 +76,19 @@ legend {
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
     margin-bottom: 10px;
+    input {
+        background-color: rgba(242, 241, 240, 0.404);
+        color:black
+    }
+    select {
+        background-color: rgba(242, 241, 240, 0.404);
+        & > option {
+            background-color: rgba(242, 241, 240, 0.404);
+            color: black;
+            font-size: 700;
+            cursor: pointer;
+        }
+    }
 }
 
 .registration-item {
@@ -58,9 +96,14 @@ legend {
 }
 
 .input-notice-register {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
     padding: 5px;
     color: rgb(193, 80, 80);
-    font-size: 15px;
+    font-size: 11px;
+    font-weight: 700;
 }
 
 .registration-btn-submit {
@@ -76,3 +119,33 @@ legend {
     gap: 20px;
     width: 100%;
 }
+
+.registration-password-container {
+    position: relative;
+}
+
+.registration-password-container input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.toggle-password-visibility {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password-visibility svg {
+    width: 18px;
+    height: 18px;
+    color: black; 
+}
+

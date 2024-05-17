@@ -1,3 +1,6 @@
+html {
+    scrollbar-gutter: stable;
+}
 body {
     margin: 0;
     padding: 0;
@@ -116,13 +119,14 @@ footer {
     margin-right: auto;
     width: 100%;
     max-width: 1242px;
+    padding: 10px;
 }
 .logo {
     display: flex;
     align-items: center;
     object-fit: contain;
-    height: 100px;
-    width: 100px;
+    height: 65px;
+    width: 65px;
 }
 .nav {
     display: flex;
@@ -147,20 +151,24 @@ footer {
     font-size: 0.875rem;
     line-height: 1.25rem;
     text-align: center;
-    padding-left: 35px;
-    padding-right: 35px;
+    padding: 10px 15px;
     background-color: #1f4aa8;
     border-radius: 25px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    min-width: 130px;
     cursor: pointer;
-    min-width: 160px;
-    height: 50px;
-    display: flex;
-    cursor: pointer;
-    border-width: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+    &:not(:disabled):hover {
+        border-color: #646cff;
+    }
+    &:not(:disabled):active {
+        background-color: #343de8d6;
+    }
 }
+
 .title-block {
     margin-top: 117px;
     margin-left: auto;
@@ -205,6 +213,24 @@ footer {
     & a {
         color: #fff;
     }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1f4aa8;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1f4aa8a8;
 }
 
 @keyframes spin {
