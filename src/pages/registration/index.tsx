@@ -96,7 +96,8 @@ function Registration() {
     const calculateAge = (birthday: Date) => {
         const today = new Date();
         const diff = today.getTime() - birthday.getTime();
-        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));
+        console.log(age);
         return age;
     };
 
