@@ -40,7 +40,9 @@ function Registration() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<Inputs>();
+    } = useForm<Inputs>({
+        mode: 'onChange',
+    });
     const navigate = useNavigate();
     const [checkBilling, setCheckBilling] = useState(false);
     const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
