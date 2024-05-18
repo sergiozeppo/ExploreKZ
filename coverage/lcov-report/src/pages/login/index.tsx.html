@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.58% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/146</span>
+                <span class='fraction'>0/148</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.58% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/146</span>
+                <span class='fraction'>0/148</span>
             </div>
         
             
@@ -209,20 +209,9 @@
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
 <a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -355,21 +344,37 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import './login.css';
-import { loginFn } from '../../apiSdk/LoginUser';
-import { baseClient } from '../../apiSdk/BaseClient';
-import { Link, useNavigate } from 'react-router-dom';
-import { token } from '../../apiSdk/token';
-&nbsp;
-type Inputs = {
-    email: string;
-    password: string;
-};
-&nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function Login() {</span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { useEffect, useState, useContext } from 'react';</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { useForm, SubmitHandler } from 'react-hook-form';</span>
+<span class="cstat-no" title="statement not covered" >import { FiEye, FiEyeOff } from 'react-icons/fi';</span>
+<span class="cstat-no" title="statement not covered" >import './login.css';</span>
+<span class="cstat-no" title="statement not covered" >import { loginFn } from '../../apiSdk/LoginUser';</span>
+<span class="cstat-no" title="statement not covered" >import { baseClient } from '../../apiSdk/BaseClient';</span>
+<span class="cstat-no" title="statement not covered" >import { Link, useNavigate } from 'react-router-dom';</span>
+<span class="cstat-no" title="statement not covered" >import { token } from '../../apiSdk/token';</span>
+<span class="cstat-no" title="statement not covered" >import { GlobalContext } from '../../context/Global';</span>
+<span class="cstat-no" title="statement not covered" >type Inputs = {</span>
+<span class="cstat-no" title="statement not covered" >    email: string;</span>
+<span class="cstat-no" title="statement not covered" >    password: string;</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export default function Login() {</span>
+<span class="cstat-no" title="statement not covered" >    const { setIsLogin } = useContext(GlobalContext);</span>
 <span class="cstat-no" title="statement not covered" >    const isUserExist = localStorage.getItem('isLogin');</span>
 <span class="cstat-no" title="statement not covered" >    const [showPassword, setShowPassword] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [loginError, setLoginError] = useState&lt;string | null&gt;(null);</span>
@@ -393,6 +398,7 @@ type Inputs = {
 <span class="cstat-no" title="statement not covered" >                const userToken = token.get();</span>
 <span class="cstat-no" title="statement not covered" >                localStorage.setItem('isLogin', 'true');</span>
 <span class="cstat-no" title="statement not covered" >                localStorage.setItem('userToken', JSON.stringify(userToken));</span>
+<span class="cstat-no" title="statement not covered" >                setIsLogin(true);</span>
 <span class="cstat-no" title="statement not covered" >            })</span>
 <span class="cstat-no" title="statement not covered" >            .catch((err) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.error(err);</span>
@@ -483,7 +489,7 @@ type Inputs = {
 <span class="cstat-no" title="statement not covered" >                    {errors.password &amp;&amp; &lt;span className="input-notice"&gt;{errors.password.message}&lt;/span&gt;}</span>
 <span class="cstat-no" title="statement not covered" >                    {passwordError &amp;&amp; &lt;span className="input-notice"&gt;{passwordError}&lt;/span&gt;}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;button type="submit" disabled={!isValid}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;button className="button" type="submit" disabled={!isValid}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    Login</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                {loading &amp;&amp; (</span>
@@ -508,7 +514,7 @@ type Inputs = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-16T18:08:39.394Z
+                at 2024-05-18T13:19:32.689Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
