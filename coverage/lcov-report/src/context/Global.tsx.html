@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/pages/home/index.tsx</title>
+    <title>Code coverage report for src/context/Global.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/pages/home</a> index.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/context</a> Global.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
@@ -107,7 +107,9 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -125,75 +127,79 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Link } from 'react-router-dom';
-import { Img, Text } from '../../components';
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { createContext, useState, useEffect, ReactNode } from 'react';
+// import { tokenClient } from '../apiSdk/TokenClient';
+// import { anonUser } from '../apiSdk/anonimClient';
 &nbsp;
-export default function Home() {
-    return (
-        &lt;&gt;
-            {/* main layout section */}
-            &lt;div className="container"&gt;
-                &lt;div className="wrapper "&gt;
-                    &lt;div className="main-content"&gt;
-                        {/* hero section */}
-                        &lt;div className="hero-section"&gt;
-                            &lt;div className="header-wrapper"&gt;
-                                &lt;div className="title-block"&gt;
-                                    &lt;div className="tagline"&gt;
-                                        &lt;Text as="h1" className="h1"&gt;
-                                            It Matters Who You Travel With
-                                        &lt;/Text&gt;
-                                        &lt;Text as="h2" className="h2"&gt;
-                                            We want you to feel confident in the travel experience you will have with
-                                            us.
-                                        &lt;/Text&gt;
-                                        &lt;div className="link-wrapper block-for-2-17"&gt;
-                                            You can
-                                            &lt;Link to="/login" className="signup-link"&gt;
-                                                login
-                                            &lt;/Link&gt;
-                                            or
-                                            &lt;Link to="/registration" className="signup-link"&gt;
-                                                register!
-                                            &lt;/Link&gt;
-                                        &lt;/div&gt;
-                                    &lt;/div&gt;
-                                &lt;/div&gt;
-                                &lt;Img src="images/img_rectangle.png" alt="gradient" className="hero-gradient" /&gt;
-                            &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    {/* footer section */}
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/&gt;
-    );
+interface State {
+    isLogin: boolean;
+    setIsLogin: React.Dispatch&lt;React.SetStateAction&lt;boolean&gt;&gt;;
+}
+&nbsp;
+export const GlobalContext = createContext&lt;State&gt;({
+    isLogin: false,
+    setIsLogin: <span class="fstat-no" title="function not covered" >() =&gt; {},</span>
+});
+&nbsp;
+interface GlobalProviderProps {
+    children: ReactNode;
+}
+&nbsp;
+export function GlobalProvider({ children }: GlobalProviderProps) {
+    const [isLogin, setIsLogin] = useState(false);
+&nbsp;
+    useEffect(() =&gt; {
+        const loginStatus = localStorage.getItem('isLogin');
+        setIsLogin(!!loginStatus);
+        // if (loginStatus) {
+        //     console.log('token');
+        //     tokenClient()
+        //         .me()
+        //         .get()
+        //         .execute()
+        //         .then((res) =&gt; {
+        //             console.log(res);
+        //         })
+        //         .catch((err) =&gt; console.error(err));
+        // } else {
+        //     anonUser()
+        //         .products()
+        //         .get()
+        //         .execute()
+        //         .then((res) =&gt; console.log(res))
+        //         .catch((err) =&gt; console.error(err));
+        // }
+    }, []);
+&nbsp;
+    return &lt;GlobalContext.Provider value={{ isLogin, setIsLogin }}&gt;{children}&lt;/GlobalContext.Provider&gt;;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -204,14 +210,14 @@ export default function Home() {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2024-05-18T13:19:32.689Z
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     
