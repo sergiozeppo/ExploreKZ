@@ -2,7 +2,6 @@ import './registration.css';
 import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
 import { useContext, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
@@ -10,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
+import { CustomToast } from '../../components/Toast';
 
 interface AboutUser {
     name: string;
@@ -40,7 +40,9 @@ function Registration() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<Inputs>();
+    } = useForm<Inputs>({
+        mode: 'onChange',
+    });
     const navigate = useNavigate();
     const [checkBilling, setCheckBilling] = useState(false);
     const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
@@ -75,6 +77,7 @@ function Registration() {
                         localStorage.setItem('isLogin', 'true');
                         localStorage.setItem('userToken', JSON.stringify(userToken));
                         setIsLogin(true);
+                        CustomToast('success', 'Successful registration');
                     })
                     .catch((err) => {
                         console.log('autologin is failed', err);
@@ -83,27 +86,9 @@ function Registration() {
             .catch((error) => {
                 console.error('Registration failed:', error);
                 if (error.body) {
-                    toast.warn(error.body.message, {
-                        position: 'bottom-center',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'light',
-                    });
+                    CustomToast('error', error.body.message);
                 } else {
-                    toast.warn('An error occurred, please try again later', {
-                        position: 'bottom-center',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'light',
-                    });
+                    CustomToast('error', 'An error occurred, please try again later');
                 }
             });
     };
@@ -111,7 +96,7 @@ function Registration() {
     const calculateAge = (birthday: Date) => {
         const today = new Date();
         const diff = today.getTime() - birthday.getTime();
-        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));
         return age;
     };
 
@@ -205,20 +190,6 @@ function Registration() {
 
     return (
         <div className="registr-container">
-            <ToastContainer
-                position="bottom-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
-
             <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
                 {fieldsAboutUser.map((field) => (
                     <div key={field.name} className="registration-container">
