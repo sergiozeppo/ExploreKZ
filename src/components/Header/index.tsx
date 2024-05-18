@@ -4,6 +4,7 @@ import { Button, Img } from './..';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/Global';
 import { baseClient } from '../../apiSdk/BaseClient';
+import { CustomToast } from '../Toast';
 
 export default function Header() {
     const { isLogin, setIsLogin } = useContext(GlobalContext);
@@ -23,6 +24,7 @@ export default function Header() {
         localStorage.clear();
         setIsLogin(false);
         navigate('/');
+        CustomToast('info', 'Successful Logout!');
     };
 
     return (

@@ -9,6 +9,7 @@ import { anonUser } from './apiSdk/anonimClient';
 import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
+import { CustomToastContainer } from './components/Toast';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
@@ -37,6 +38,7 @@ function App() {
         <>
             <GlobalProvider>
                 <BrowserRouter>
+                    <CustomToastContainer />
                     <Header />
                     <Routes>
                         <Route path="/login" element={<Login />} />
