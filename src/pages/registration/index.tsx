@@ -10,6 +10,7 @@ import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
+import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
     name: string;
@@ -48,8 +49,10 @@ function Registration() {
     const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);
     const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { setIsLogin } = useContext(GlobalContext);
     const onSubmit: SubmitHandler<Inputs> = (userData) => {
+        setLoading(true);
         registerFn({
             email: userData.email,
             password: userData.password,
@@ -70,6 +73,7 @@ function Registration() {
         })
             .then((response) => {
                 console.log('Registration successful:', response);
+                setLoading(false);
                 loginFn(userData.email, userData.password)
                     .then(() => {
                         navigate('/');
@@ -77,7 +81,7 @@ function Registration() {
                         localStorage.setItem('isLogin', 'true');
                         localStorage.setItem('userToken', JSON.stringify(userToken));
                         setIsLogin(true);
-                        CustomToast('success', 'Successful registration');
+                        CustomToast('success', 'Successful registration!');
                     })
                     .catch((err) => {
                         console.log('autologin is failed', err);
@@ -85,6 +89,7 @@ function Registration() {
             })
             .catch((error) => {
                 console.error('Registration failed:', error);
+                setLoading(false);
                 if (error.body) {
                     CustomToast('error', error.body.message);
                 } else {
@@ -193,7 +198,7 @@ function Registration() {
             <form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}>
                 {fieldsAboutUser.map((field) => (
                     <div key={field.name} className="registration-container">
-                        {field.name === 'password' ? ( // Специальный случай для поля пароля
+                        {field.name === 'password' ? (
                             <div className="registration-password-container">
                                 <input
                                     {...register(field.name as keyof Inputs, {
@@ -405,6 +410,7 @@ function Registration() {
                 <button className="button" type="submit">
                     Sign Up
                 </button>
+                {loading && <Loader />}
             </form>
             <div className="link-wrapper">
                 Already have an account?

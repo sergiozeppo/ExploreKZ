@@ -1,6 +1,4 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-// import { tokenClient } from '../apiSdk/TokenClient';
-// import { anonUser } from '../apiSdk/anonimClient';
 
 interface State {
     isLogin: boolean;
