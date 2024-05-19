@@ -21,13 +21,24 @@ export default function Home() {
                                             us.
                                         </Text>
                                         <div className="link-wrapper block-for-2-17">
-                                            You can
+                                            You can go to:
                                             <Link to="/login" className="signup-link">
                                                 login
                                             </Link>
-                                            or
                                             <Link to="/registration" className="signup-link">
-                                                register!
+                                                register
+                                            </Link>
+                                            <Link to="/profile" className="signup-link">
+                                                profile
+                                            </Link>
+                                            <Link to="/catalog" className="signup-link">
+                                                catalog
+                                            </Link>
+                                            <Link to="/cart" className="signup-link">
+                                                cart
+                                            </Link>
+                                            <Link to="/about" className="signup-link">
+                                                about us
                                             </Link>
                                         </div>
                                     </div>
@@ -36,7 +47,6 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    {/* footer section */}
                 </div>
             </div>
         </>

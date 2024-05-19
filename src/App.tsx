@@ -10,6 +10,11 @@ import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
+import Profile from './pages/profile/Profile';
+import About from './pages/about/About';
+import Catalog from './pages/catalog/Catalog';
+import Cart from './pages/cart/Cart';
+// import Footer from './components/Footer/Footer';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
@@ -45,7 +50,12 @@ function App() {
                         <Route path="/registration" element={<Registration />} />
                         <Route path="/" element={<Home />} />
                         <Route path="*" element={<NotFound />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
+                    {/* <Footer /> */}
                 </BrowserRouter>
             </GlobalProvider>
         </>

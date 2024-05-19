@@ -7,6 +7,8 @@ import { baseClient } from '../../apiSdk/BaseClient';
 import { Link, useNavigate } from 'react-router-dom';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
+import { CustomToast } from '../../components/Toast';
+import Loader from '../../components/Loader/loader';
 type Inputs = {
     email: string;
     password: string;
@@ -38,6 +40,7 @@ export default function Login() {
                 localStorage.setItem('isLogin', 'true');
                 localStorage.setItem('userToken', JSON.stringify(userToken));
                 setIsLogin(true);
+                CustomToast('success', 'Successful Logged in!');
             })
             .catch((err) => {
                 console.error(err);
@@ -50,9 +53,11 @@ export default function Login() {
                         if (res.body.count > 0) {
                             setPasswordError('Invalid password!');
                             setLoginError('');
+                            CustomToast('error', 'Invalid password!');
                         } else {
                             setLoginError('Email not found in system!');
                             setPasswordError('');
+                            CustomToast('error', 'Email not found in system!');
                         }
                         setLoading(false);
                     })
@@ -131,11 +136,7 @@ export default function Login() {
                 <button className="button" type="submit" disabled={!isValid}>
                     Login
                 </button>
-                {loading && (
-                    <div className="loader-wrapper">
-                        <div className="loader"></div>
-                    </div>
-                )}
+                {loading && <Loader />}
             </form>
             <div className="link-wrapper">
                 Haven't registered yet?
