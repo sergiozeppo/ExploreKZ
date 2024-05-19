@@ -217,14 +217,14 @@ footer {
 }
 
 @keyframes dots {
-    0%, 100% {
-      transform: translateY(0);
+    0%,
+    100% {
+        transform: translateY(0);
     }
     50% {
-      transform: translateY(-5px);
+        transform: translateY(-5px);
     }
 }
-
 
 .block-for-2-17 {
     display: flex;
@@ -260,7 +260,6 @@ footer {
     background: #1f4aa8a8;
 }
 
-
 @media screen and (max-width: 768px) {
     .h1 {
         font-size: 2rem;
@@ -269,7 +268,6 @@ footer {
         font-size: 1rem;
     }
 }
-
 
 .tempr {
     color: white;
