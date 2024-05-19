@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/148</span>
+                <span class='fraction'>0/149</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/148</span>
+                <span class='fraction'>0/149</span>
             </div>
         
             
@@ -211,7 +211,9 @@
 <a name='L146'></a><a href='#L146'>146</a>
 <a name='L147'></a><a href='#L147'>147</a>
 <a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -368,6 +370,8 @@
 <span class="cstat-no" title="statement not covered" >import { Link, useNavigate } from 'react-router-dom';</span>
 <span class="cstat-no" title="statement not covered" >import { token } from '../../apiSdk/token';</span>
 <span class="cstat-no" title="statement not covered" >import { GlobalContext } from '../../context/Global';</span>
+<span class="cstat-no" title="statement not covered" >import { CustomToast } from '../../components/Toast';</span>
+<span class="cstat-no" title="statement not covered" >import Loader from '../../components/Loader/loader';</span>
 <span class="cstat-no" title="statement not covered" >type Inputs = {</span>
 <span class="cstat-no" title="statement not covered" >    email: string;</span>
 <span class="cstat-no" title="statement not covered" >    password: string;</span>
@@ -399,6 +403,7 @@
 <span class="cstat-no" title="statement not covered" >                localStorage.setItem('isLogin', 'true');</span>
 <span class="cstat-no" title="statement not covered" >                localStorage.setItem('userToken', JSON.stringify(userToken));</span>
 <span class="cstat-no" title="statement not covered" >                setIsLogin(true);</span>
+<span class="cstat-no" title="statement not covered" >                CustomToast('success', 'Successful Logged in!');</span>
 <span class="cstat-no" title="statement not covered" >            })</span>
 <span class="cstat-no" title="statement not covered" >            .catch((err) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.error(err);</span>
@@ -411,9 +416,11 @@
 <span class="cstat-no" title="statement not covered" >                        if (res.body.count &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >                            setPasswordError('Invalid password!');</span>
 <span class="cstat-no" title="statement not covered" >                            setLoginError('');</span>
+<span class="cstat-no" title="statement not covered" >                            CustomToast('error', 'Invalid password!');</span>
 <span class="cstat-no" title="statement not covered" >                        } else {</span>
 <span class="cstat-no" title="statement not covered" >                            setLoginError('Email not found in system!');</span>
 <span class="cstat-no" title="statement not covered" >                            setPasswordError('');</span>
+<span class="cstat-no" title="statement not covered" >                            CustomToast('error', 'Email not found in system!');</span>
 <span class="cstat-no" title="statement not covered" >                        }</span>
 <span class="cstat-no" title="statement not covered" >                        setLoading(false);</span>
 <span class="cstat-no" title="statement not covered" >                    })</span>
@@ -492,11 +499,7 @@
 <span class="cstat-no" title="statement not covered" >                &lt;button className="button" type="submit" disabled={!isValid}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    Login</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >                {loading &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;div className="loader-wrapper"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;div className="loader"&gt;&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                )}</span>
+<span class="cstat-no" title="statement not covered" >                {loading &amp;&amp; &lt;Loader /&gt;}</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/form&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="link-wrapper"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                Haven't registered yet?</span>
@@ -514,7 +517,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-18T13:19:32.689Z
+                at 2024-05-19T18:29:01.554Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

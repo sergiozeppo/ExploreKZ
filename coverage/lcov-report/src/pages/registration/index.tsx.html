@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/448</span>
+                <span class='fraction'>0/425</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/448</span>
+                <span class='fraction'>0/425</span>
             </div>
         
             
@@ -488,53 +488,7 @@
 <a name='L423'></a><a href='#L423'>423</a>
 <a name='L424'></a><a href='#L424'>424</a>
 <a name='L425'></a><a href='#L425'>425</a>
-<a name='L426'></a><a href='#L426'>426</a>
-<a name='L427'></a><a href='#L427'>427</a>
-<a name='L428'></a><a href='#L428'>428</a>
-<a name='L429'></a><a href='#L429'>429</a>
-<a name='L430'></a><a href='#L430'>430</a>
-<a name='L431'></a><a href='#L431'>431</a>
-<a name='L432'></a><a href='#L432'>432</a>
-<a name='L433'></a><a href='#L433'>433</a>
-<a name='L434'></a><a href='#L434'>434</a>
-<a name='L435'></a><a href='#L435'>435</a>
-<a name='L436'></a><a href='#L436'>436</a>
-<a name='L437'></a><a href='#L437'>437</a>
-<a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a>
-<a name='L441'></a><a href='#L441'>441</a>
-<a name='L442'></a><a href='#L442'>442</a>
-<a name='L443'></a><a href='#L443'>443</a>
-<a name='L444'></a><a href='#L444'>444</a>
-<a name='L445'></a><a href='#L445'>445</a>
-<a name='L446'></a><a href='#L446'>446</a>
-<a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a>
-<a name='L449'></a><a href='#L449'>449</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L426'></a><a href='#L426'>426</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -963,7 +917,6 @@
 <span class="cstat-no" title="statement not covered" >import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';</span>
 <span class="cstat-no" title="statement not covered" >import { registerFn } from '../../apiSdk/RegistrationUser';</span>
 <span class="cstat-no" title="statement not covered" >import { Link, useNavigate } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import { Bounce, ToastContainer, toast } from 'react-toastify';</span>
 <span class="cstat-no" title="statement not covered" >import { Checkbox, FormControlLabel, Switch } from '@mui/material';</span>
 <span class="cstat-no" title="statement not covered" >import { useContext, useState } from 'react';</span>
 <span class="cstat-no" title="statement not covered" >import { FiEye, FiEyeOff } from 'react-icons/fi';</span>
@@ -971,6 +924,8 @@
 <span class="cstat-no" title="statement not covered" >import { loginFn } from '../../apiSdk/LoginUser';</span>
 <span class="cstat-no" title="statement not covered" >import { token } from '../../apiSdk/token';</span>
 <span class="cstat-no" title="statement not covered" >import { GlobalContext } from '../../context/Global';</span>
+<span class="cstat-no" title="statement not covered" >import { CustomToast } from '../../components/Toast';</span>
+<span class="cstat-no" title="statement not covered" >import Loader from '../../components/Loader/loader';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface AboutUser {</span>
 <span class="cstat-no" title="statement not covered" >    name: string;</span>
@@ -1001,14 +956,18 @@
 <span class="cstat-no" title="statement not covered" >        register,</span>
 <span class="cstat-no" title="statement not covered" >        formState: { errors },</span>
 <span class="cstat-no" title="statement not covered" >        handleSubmit,</span>
-<span class="cstat-no" title="statement not covered" >    } = useForm&lt;Inputs&gt;();</span>
+<span class="cstat-no" title="statement not covered" >    } = useForm&lt;Inputs&gt;({</span>
+<span class="cstat-no" title="statement not covered" >        mode: 'onChange',</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >    const navigate = useNavigate();</span>
 <span class="cstat-no" title="statement not covered" >    const [checkBilling, setCheckBilling] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [checkDefaultShipping, setCheckDefaultShipping] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [checkDefaultBilling, setCheckDefaultBilling] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [showPassword, setShowPassword] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >    const [loading, setLoading] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const { setIsLogin } = useContext(GlobalContext);</span>
 <span class="cstat-no" title="statement not covered" >    const onSubmit: SubmitHandler&lt;Inputs&gt; = (userData) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >        registerFn({</span>
 <span class="cstat-no" title="statement not covered" >            email: userData.email,</span>
 <span class="cstat-no" title="statement not covered" >            password: userData.password,</span>
@@ -1029,6 +988,7 @@
 <span class="cstat-no" title="statement not covered" >        })</span>
 <span class="cstat-no" title="statement not covered" >            .then((response) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.log('Registration successful:', response);</span>
+<span class="cstat-no" title="statement not covered" >                setLoading(false);</span>
 <span class="cstat-no" title="statement not covered" >                loginFn(userData.email, userData.password)</span>
 <span class="cstat-no" title="statement not covered" >                    .then(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                        navigate('/');</span>
@@ -1036,6 +996,7 @@
 <span class="cstat-no" title="statement not covered" >                        localStorage.setItem('isLogin', 'true');</span>
 <span class="cstat-no" title="statement not covered" >                        localStorage.setItem('userToken', JSON.stringify(userToken));</span>
 <span class="cstat-no" title="statement not covered" >                        setIsLogin(true);</span>
+<span class="cstat-no" title="statement not covered" >                        CustomToast('success', 'Successful registration!');</span>
 <span class="cstat-no" title="statement not covered" >                    })</span>
 <span class="cstat-no" title="statement not covered" >                    .catch((err) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                        console.log('autologin is failed', err);</span>
@@ -1043,28 +1004,11 @@
 <span class="cstat-no" title="statement not covered" >            })</span>
 <span class="cstat-no" title="statement not covered" >            .catch((error) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.error('Registration failed:', error);</span>
+<span class="cstat-no" title="statement not covered" >                setLoading(false);</span>
 <span class="cstat-no" title="statement not covered" >                if (error.body) {</span>
-<span class="cstat-no" title="statement not covered" >                    toast.warn(error.body.message, {</span>
-<span class="cstat-no" title="statement not covered" >                        position: 'bottom-center',</span>
-<span class="cstat-no" title="statement not covered" >                        autoClose: 5000,</span>
-<span class="cstat-no" title="statement not covered" >                        hideProgressBar: false,</span>
-<span class="cstat-no" title="statement not covered" >                        closeOnClick: true,</span>
-<span class="cstat-no" title="statement not covered" >                        pauseOnHover: true,</span>
-<span class="cstat-no" title="statement not covered" >                        draggable: true,</span>
-<span class="cstat-no" title="statement not covered" >                        progress: undefined,</span>
-<span class="cstat-no" title="statement not covered" >                        theme: 'light',</span>
-<span class="cstat-no" title="statement not covered" >                    });</span>
+<span class="cstat-no" title="statement not covered" >                    CustomToast('error', error.body.message);</span>
 <span class="cstat-no" title="statement not covered" >                } else {</span>
-<span class="cstat-no" title="statement not covered" >                    toast.warn('An error occurred, please try again later', {</span>
-<span class="cstat-no" title="statement not covered" >                        position: 'bottom-center',</span>
-<span class="cstat-no" title="statement not covered" >                        autoClose: 5000,</span>
-<span class="cstat-no" title="statement not covered" >                        hideProgressBar: false,</span>
-<span class="cstat-no" title="statement not covered" >                        closeOnClick: true,</span>
-<span class="cstat-no" title="statement not covered" >                        pauseOnHover: true,</span>
-<span class="cstat-no" title="statement not covered" >                        draggable: true,</span>
-<span class="cstat-no" title="statement not covered" >                        progress: undefined,</span>
-<span class="cstat-no" title="statement not covered" >                        theme: 'light',</span>
-<span class="cstat-no" title="statement not covered" >                    });</span>
+<span class="cstat-no" title="statement not covered" >                    CustomToast('error', 'An error occurred, please try again later');</span>
 <span class="cstat-no" title="statement not covered" >                }</span>
 <span class="cstat-no" title="statement not covered" >            });</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
@@ -1072,7 +1016,7 @@
 <span class="cstat-no" title="statement not covered" >    const calculateAge = (birthday: Date) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const today = new Date();</span>
 <span class="cstat-no" title="statement not covered" >        const diff = today.getTime() - birthday.getTime();</span>
-<span class="cstat-no" title="statement not covered" >        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));</span>
+<span class="cstat-no" title="statement not covered" >        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));</span>
 <span class="cstat-no" title="statement not covered" >        return age;</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -1166,24 +1110,10 @@
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="registr-container"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;ToastContainer</span>
-<span class="cstat-no" title="statement not covered" >                position="bottom-center"</span>
-<span class="cstat-no" title="statement not covered" >                autoClose={5000}</span>
-<span class="cstat-no" title="statement not covered" >                hideProgressBar={false}</span>
-<span class="cstat-no" title="statement not covered" >                newestOnTop={false}</span>
-<span class="cstat-no" title="statement not covered" >                closeOnClick</span>
-<span class="cstat-no" title="statement not covered" >                rtl={false}</span>
-<span class="cstat-no" title="statement not covered" >                pauseOnFocusLoss</span>
-<span class="cstat-no" title="statement not covered" >                draggable</span>
-<span class="cstat-no" title="statement not covered" >                pauseOnHover</span>
-<span class="cstat-no" title="statement not covered" >                theme="light"</span>
-<span class="cstat-no" title="statement not covered" >                transition={Bounce}</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >            &lt;form className="registration-wrapper flex-style" onSubmit={handleSubmit(onSubmit)}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                {fieldsAboutUser.map((field) =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;div key={field.name} className="registration-container"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        {field.name === 'password' ? ( // Специальный случай для поля пароля</span>
+<span class="cstat-no" title="statement not covered" >                        {field.name === 'password' ? (</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div className="registration-password-container"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                                &lt;input</span>
 <span class="cstat-no" title="statement not covered" >                                    {...register(field.name as keyof Inputs, {</span>
@@ -1395,6 +1325,7 @@
 <span class="cstat-no" title="statement not covered" >                &lt;button className="button" type="submit"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    Sign Up</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >                {loading &amp;&amp; &lt;Loader /&gt;}</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/form&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="link-wrapper"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                Already have an account?</span>
@@ -1414,7 +1345,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-18T13:19:32.689Z
+                at 2024-05-19T18:29:01.554Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
