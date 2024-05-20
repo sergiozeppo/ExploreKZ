@@ -183,6 +183,7 @@ function Registration() {
         {
             name: 'dateOfBirth',
             type: 'date',
+            placeholder: 'mm/dd/yyyy',
             validate: {
                 validate: (value: string) => {
                     const selectedDate = new Date(value);
