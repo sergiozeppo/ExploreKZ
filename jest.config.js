@@ -15,6 +15,34 @@ const config = {
 
     // The test environment that will be used for testing
     testEnvironment: 'jsdom',
+
+    // Collect files for testing
+    collectCoverageFrom: ['src/**/*.tsx', '!**/node_modules/**'],
+
+    // Resolve Mapper for files Jest can't parse for testing
+    moduleNameMapper: {
+        '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+            '<rootDir>/test/__mocks__/fileMock.ts',
+        '\\.(css|less)$': '<rootDir>/test/__mocks__/styleMock.ts',
+    },
+    transform: {
+        '^.+\\.tsx?$': [
+            'ts-jest',
+            {
+                diagnostics: {
+                    ignoreCodes: [1343],
+                },
+                astTransformers: {
+                    before: [
+                        {
+                            path: 'ts-jest-mock-import-meta',
+                            options: { metaObjectReplacement: { url: 'https://www.url.com' } },
+                        },
+                    ],
+                },
+            },
+        ],
+    },
 };
 
 export default config;
