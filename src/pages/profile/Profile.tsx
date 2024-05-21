@@ -14,31 +14,55 @@ export default function Profile() {
                     <fieldset className="user-addresses-container">
                         <legend>Delivery address</legend>
                         <div className="user-addresses-row">
-                            <span>Country:</span>
+                            <div className="user-addresses-col">
+                                <span>Country:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>City:</span>
+                            <div className="user-addresses-col">
+                                <span>City:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>Street:</span>
+                            <div className="user-addresses-col">
+                                <span>Street:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>Postal Code:</span>
+                            <div className="user-addresses-col">
+                                <span>Postal Code:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                     </fieldset>
                     <fieldset className="user-addresses-container">
                         <legend>Billing address</legend>
                         <div className="user-addresses-row">
-                            <span>Country:</span>
+                            <div className="user-addresses-col">
+                                <span>Country:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>City:</span>
+                            <div className="user-addresses-col">
+                                <span>City:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>Street:</span>
+                            <div className="user-addresses-col">
+                                <span>Street:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                         <div className="user-addresses-row">
-                            <span>Postal Code:</span>
+                            <div className="user-addresses-col">
+                                <span>Postal Code:</span>
+                            </div>
+                            <span>KZ</span>
                         </div>
                     </fieldset>
                 </div>

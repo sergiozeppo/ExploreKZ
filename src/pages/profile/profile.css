@@ -1,3 +1,4 @@
+/* Profile */
 .container-profile {
     width: 100%;
     max-width: 1242px;
@@ -40,6 +41,15 @@
     color: white;
 }
 
+
+/* Addresses */
+
+.profile-user-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .user-addresses-container {
     display: flex;
     flex-direction: column;
@@ -56,5 +66,10 @@
 }
 
 .user-addresses-row {
+    display: flex;
     color: white;
+}
+
+.user-addresses-col {
+    width: 85%;
 }
