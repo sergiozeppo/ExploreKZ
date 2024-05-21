@@ -2,6 +2,8 @@ import './profile.css';
 import { useState, useEffect } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface Address {
     city: string;
@@ -16,6 +18,12 @@ interface User {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
+}
+
+interface ErrorProfile {
+    message: string;
+    name: string;
+    status?: number;
 }
 
 type ProfileApiResponse = User;
@@ -41,33 +49,52 @@ async function ProfileApi(): Promise<ProfileApiResponse | Error> {
 
 export default function Profile() {
     const [user, setUser] = useState<ProfileApiResponse | null>(null);
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<ErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
-            const result = await ProfileApi();
-            if (result instanceof Error) {
-                setError(result);
-            } else {
-                setUser(result);
+            try {
+                const result = await ProfileApi();
+                if (result instanceof Error) {
+                    setError(result);
+                } else {
+                    setUser(result);
+                }
+                setLoading(false);
+                console.log(result);
+            } catch {
+                throw new Error('Error detected');
             }
-            setLoading(false);
         }
 
         fetchData();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    useEffect(() => {
+        const loadingId = toast.loading('Loading...');
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+        if (error?.status === 401) {
+            toast.update(loadingId, {
+                render: 'You need to login before checking your profile',
+                type: 'error',
+                isLoading: false,
+                autoClose: 1000,
+            });
+            navigate('/');
+        } else if (!loading) {
+            toast.update(loadingId, {
+                render: error ? `Error: ${error.message}` : 'All is good',
+                type: error ? 'error' : 'success',
+                isLoading: false,
+                autoClose: 1000,
+            });
+        }
+    }, [loading, error, navigate]);
 
     if (!user) {
-        return <div>No user data found</div>;
+        return;
     }
 
     return (
