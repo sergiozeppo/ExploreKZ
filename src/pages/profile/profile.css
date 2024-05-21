@@ -41,7 +41,6 @@
     color: white;
 }
 
-
 /* Addresses */
 
 .profile-user-addresses {
@@ -72,4 +71,7 @@
 
 .user-addresses-col {
     width: 85%;
+    padding-left: 5px;
+    padding-right: 50px;
+    white-space: nowrap;
 }
