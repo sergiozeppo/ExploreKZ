@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { toast } from 'react-toastify';
-// import { CustomToast } from '../../components/Toast';
 import { useNavigate } from 'react-router-dom';
 
 interface Address {
@@ -64,10 +63,11 @@ export default function Profile() {
                 } else {
                     setUser(result);
                 }
-                setLoading(false);
                 console.log(result);
             } catch {
                 throw new Error('Error detected');
+            } finally {
+                setLoading(false);
             }
         }
 
