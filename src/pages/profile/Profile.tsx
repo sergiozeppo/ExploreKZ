@@ -1,8 +1,9 @@
 import './profile.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { toast } from 'react-toastify';
+// import { CustomToast } from '../../components/Toast';
 import { useNavigate } from 'react-router-dom';
 
 interface Address {
@@ -51,6 +52,7 @@ export default function Profile() {
     const [user, setUser] = useState<ProfileApiResponse | null>(null);
     const [error, setError] = useState<ErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
+    const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -73,23 +75,29 @@ export default function Profile() {
     }, []);
 
     useEffect(() => {
-        const loadingId = toast.loading('Loading...');
-
-        if (error?.status === 401) {
-            toast.update(loadingId, {
-                render: 'You need to login before checking your profile',
-                type: 'error',
-                isLoading: false,
-                autoClose: 1000,
-            });
-            navigate('/');
-        } else if (!loading) {
-            toast.update(loadingId, {
-                render: error ? `Error: ${error.message}` : 'All is good',
-                type: error ? 'error' : 'success',
-                isLoading: false,
-                autoClose: 1000,
-            });
+        if (loading) {
+            loadingRef.current = toast.loading('Loading...');
+        } else {
+            if (loadingRef.current) {
+                if (error?.status === 401) {
+                    toast.update(loadingRef.current, {
+                        render: 'You need to login before checking your profile',
+                        type: 'error',
+                        isLoading: false,
+                        autoClose: 1000,
+                    });
+                    navigate('/');
+                } else if (error) {
+                    toast.update(loadingRef.current, {
+                        render: `Error: ${error.message}`,
+                        type: error ? 'error' : 'success',
+                        isLoading: false,
+                        autoClose: 1000,
+                    });
+                } else {
+                    toast.dismiss(loadingRef.current);
+                }
+            }
         }
     }, [loading, error, navigate]);
 
