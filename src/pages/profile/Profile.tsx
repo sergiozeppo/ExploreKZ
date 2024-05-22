@@ -167,6 +167,7 @@ export default function Profile() {
                     <UserAddresses user={user} addressIdProp={1} />
                 </div>
             </div>
+            <button className="profile-btn">Edit profile</button>
         </div>
     );
 }
