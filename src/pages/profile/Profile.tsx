@@ -54,10 +54,20 @@ function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addr
     if (user.addresses.length === 1 && addressId === 1) {
         addressId = 0;
     }
+
     return (
         <fieldset className="user-addresses-container">
             <FormControlLabel
-                control={<Switch />}
+                control={
+                    <Switch
+                        defaultChecked={
+                            (addressIdProp === 0 && user.defaultShippingAddressId) ||
+                            (addressIdProp === 1 && user.defaultBillingAddressId)
+                                ? true
+                                : false
+                        }
+                    />
+                }
                 label="Default address"
                 sx={{
                     '& .MuiSvgIcon-root': {
@@ -65,6 +75,7 @@ function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addr
                     },
                     color: 'white',
                 }}
+                disabled={true}
             />
             <legend>{addressIdProp === 0 ? 'Delivery address' : 'Billing address'}</legend>
             {Object.entries(user.addresses[addressId])
