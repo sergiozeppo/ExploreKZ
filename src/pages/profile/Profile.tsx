@@ -4,7 +4,7 @@ import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { Switch, FormControlLabel } from '@mui/material';
 interface Address {
     city: string;
     country: string;
@@ -56,6 +56,16 @@ function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addr
     }
     return (
         <fieldset className="user-addresses-container">
+            <FormControlLabel
+                control={<Switch />}
+                label="Default address"
+                sx={{
+                    '& .MuiSvgIcon-root': {
+                        color: 'white',
+                    },
+                    color: 'white',
+                }}
+            />
             <legend>{addressIdProp === 0 ? 'Delivery address' : 'Billing address'}</legend>
             {Object.entries(user.addresses[addressId])
                 .filter(([key]) => key !== 'key' && key !== 'id')
