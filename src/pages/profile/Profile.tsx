@@ -47,6 +47,32 @@ async function ProfileApi(): Promise<ProfileApiResponse | Error> {
     }
 }
 
+function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addressIdProp: number }) {
+    let addressId = addressIdProp;
+    if (user.addresses.length === 1 && addressId === 1) {
+        addressId = 0;
+    }
+    return (
+        <fieldset className="user-addresses-container">
+            <legend>{addressIdProp === 0 ? 'Delivery address' : 'Billing address'}</legend>
+            {Object.entries(user.addresses[addressId])
+                .filter(([key]) => key !== 'key' && key !== 'id')
+                .map(([key, value]) => {
+                    return (
+                        <div className="user-addresses-row" key={key}>
+                            <div className="user-addresses-col">
+                                <span>
+                                    {key == 'streetName' ? 'Street:' : key.charAt(0).toUpperCase() + key.slice(1) + ':'}
+                                </span>
+                            </div>
+                            <span>{value}</span>
+                        </div>
+                    );
+                })}
+        </fieldset>
+    );
+}
+
 export default function Profile() {
     const [user, setUser] = useState<ProfileApiResponse | null>(null);
     const [error, setError] = useState<ErrorProfile | null>(null);
@@ -114,52 +140,8 @@ export default function Profile() {
                     <span className="user-info-name">{user.dateOfBirth}</span>
                 </div>
                 <div className="profile-user-addresses profile-user-container">
-                    <fieldset className="user-addresses-container">
-                        <legend>Delivery address</legend>
-                        {Object.entries(user.addresses[0])
-                            .filter(([key]) => key !== 'key' && key !== 'id')
-                            .map(([key, value]) => {
-                                return (
-                                    <div className="user-addresses-row" key={key}>
-                                        <div className="user-addresses-col">
-                                            <span>
-                                                {key == 'streetName'
-                                                    ? 'Street'
-                                                    : key.charAt(0).toUpperCase() + key.slice(1)}
-                                            </span>
-                                        </div>
-                                        <span>{value}</span>
-                                    </div>
-                                );
-                            })}
-                    </fieldset>
-                    <fieldset className="user-addresses-container">
-                        <legend>Billing address</legend>
-                        <div className="user-addresses-row">
-                            <div className="user-addresses-col">
-                                <span>Country:</span>
-                            </div>
-                            <span>KZ</span>
-                        </div>
-                        <div className="user-addresses-row">
-                            <div className="user-addresses-col">
-                                <span>City:</span>
-                            </div>
-                            <span>KZ</span>
-                        </div>
-                        <div className="user-addresses-row">
-                            <div className="user-addresses-col">
-                                <span>Street:</span>
-                            </div>
-                            <span>KZ</span>
-                        </div>
-                        <div className="user-addresses-row">
-                            <div className="user-addresses-col">
-                                <span>Postal Code:</span>
-                            </div>
-                            <span>KZ</span>
-                        </div>
-                    </fieldset>
+                    <UserAddresses user={user} addressIdProp={0} />
+                    <UserAddresses user={user} addressIdProp={1} />
                 </div>
             </div>
         </div>
