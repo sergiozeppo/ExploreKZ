@@ -18,6 +18,8 @@ interface User {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
+    defaultShippingAddressId?: string;
+    defaultBillingAddressId?: string;
 }
 
 interface ErrorProfile {
