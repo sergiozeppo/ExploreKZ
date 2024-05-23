@@ -1,7 +1,15 @@
 import { Switch, FormControlLabel } from '@mui/material';
-import { User } from './typesProfile';
+import { IUserAddresses } from './typesProfile';
 
-function UserAddresses({ user, addressIdProp, isEditing }: { user: User; addressIdProp: number; isEditing: boolean }) {
+function UserAddresses({
+    user,
+    addressIdProp,
+    isEditing,
+}: {
+    user: IUserAddresses;
+    addressIdProp: number;
+    isEditing: boolean;
+}) {
     let addressId = addressIdProp;
     if (user.addresses.length === 1 && addressId === 1) {
         addressId = 0;
