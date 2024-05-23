@@ -101,6 +101,7 @@ export default function Profile() {
                         firstName={user.firstName}
                         lastName={user.lastName}
                         dateOfBirth={user.dateOfBirth}
+                        isEditing={isEditing}
                     />
                 </div>
                 <div className="profile-user-addresses profile-user-container">
