@@ -4,33 +4,11 @@ import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { Switch, FormControlLabel } from '@mui/material';
-interface Address {
-    city: string;
-    country: string;
-    postalCode: string;
-    streetName: string;
-}
-interface User {
-    addresses: Address[];
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    defaultShippingAddressId?: string;
-    defaultBillingAddressId?: string;
-}
+import UserAddresses from '../../components/Profile/userAddresses';
+import UserInfo from '../../components/Profile/userInfo';
+import { IUserAddresses, IErrorProfile } from '../../components/Profile/typesProfile';
 
-interface ErrorProfile {
-    message: string;
-    name: string;
-    status?: number;
-}
-
-type ProfileApiResponse = User;
-
-async function ProfileApi(): Promise<ProfileApiResponse | Error> {
+async function ProfileApi(): Promise<IUserAddresses | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
     const api = baseClient();
@@ -43,74 +21,15 @@ async function ProfileApi(): Promise<ProfileApiResponse | Error> {
                 },
             })
             .execute();
-        return response.body as ProfileApiResponse;
+        return response.body as IUserAddresses;
     } catch (error) {
         return error as Error;
     }
 }
 
-function UserAddresses({
-    user,
-    addressIdProp,
-    isEditing,
-}: {
-    user: ProfileApiResponse;
-    addressIdProp: number;
-    isEditing: boolean;
-}) {
-    let addressId = addressIdProp;
-    if (user.addresses.length === 1 && addressId === 1) {
-        addressId = 0;
-    }
-
-    return (
-        <fieldset className="user-addresses-container">
-            <FormControlLabel
-                control={
-                    <Switch
-                        defaultChecked={
-                            (addressIdProp === 0 && user.defaultShippingAddressId) ||
-                            (addressIdProp === 1 && user.defaultBillingAddressId)
-                                ? true
-                                : false
-                        }
-                    />
-                }
-                label="Default address"
-                sx={{
-                    '& .MuiSvgIcon-root': {
-                        color: 'white',
-                    },
-                    color: 'white',
-                }}
-                disabled={true}
-            />
-            <legend>{addressIdProp === 0 ? 'Delivery address' : 'Billing address'}</legend>
-            {Object.entries(user.addresses[addressId])
-                .filter(([key]) => key !== 'key' && key !== 'id')
-                .map(([key, value]) => {
-                    return (
-                        <div className="user-addresses-row" key={key}>
-                            <div className="user-addresses-col">
-                                <span>
-                                    {key == 'streetName' ? 'Street:' : key.charAt(0).toUpperCase() + key.slice(1) + ':'}
-                                </span>
-                            </div>
-                            {isEditing ? (
-                                <input type="text" defaultValue={value} className="user-addresses-input" />
-                            ) : (
-                                <span>{value}</span>
-                            )}
-                        </div>
-                    );
-                })}
-        </fieldset>
-    );
-}
-
 export default function Profile() {
-    const [user, setUser] = useState<ProfileApiResponse | null>(null);
-    const [error, setError] = useState<ErrorProfile | null>(null);
+    const [user, setUser] = useState<IUserAddresses | null>(null);
+    const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
@@ -177,24 +96,12 @@ export default function Profile() {
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
-                    <div className="profile-user-cols-container">
-                        <div className="profile-user-col">
-                            <span>First Name:</span>
-                            <span className="user-info-name">{user.firstName}</span>
-                        </div>
-                        <div className="profile-user-col">
-                            <span>Last Name:</span>
-                            <span className="user-info-name">{user.lastName}</span>
-                        </div>
-                        <div className="profile-user-col">
-                            <span>Date of Birth:</span>
-                            <span className="user-info-name">{user.dateOfBirth}</span>
-                        </div>
-                        <div className="profile-user-col">
-                            <span>Email:</span>
-                            <span className="user-info-name">{user.email}</span>
-                        </div>
-                    </div>
+                    <UserInfo
+                        email={user.email}
+                        firstName={user.firstName}
+                        lastName={user.lastName}
+                        dateOfBirth={user.dateOfBirth}
+                    />
                 </div>
                 <div className="profile-user-addresses profile-user-container">
                     <UserAddresses user={user} addressIdProp={0} isEditing={isEditing} />
