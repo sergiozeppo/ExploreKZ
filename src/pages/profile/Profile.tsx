@@ -177,17 +177,23 @@ export default function Profile() {
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
-                    <div className="profile-user-col">
-                        <span>First Name:</span>
-                        <span className="user-info-name">{user.firstName}</span>
-                    </div>
-                    <div className="profile-user-col">
-                        <span>Last Name:</span>
-                        <span className="user-info-name">{user.lastName}</span>
-                    </div>
-                    <div className="profile-user-col">
-                        <span>Date of Birth:</span>
-                        <span className="user-info-name">{user.dateOfBirth}</span>
+                    <div className="profile-user-cols-container">
+                        <div className="profile-user-col">
+                            <span>First Name:</span>
+                            <span className="user-info-name">{user.firstName}</span>
+                        </div>
+                        <div className="profile-user-col">
+                            <span>Last Name:</span>
+                            <span className="user-info-name">{user.lastName}</span>
+                        </div>
+                        <div className="profile-user-col">
+                            <span>Date of Birth:</span>
+                            <span className="user-info-name">{user.dateOfBirth}</span>
+                        </div>
+                        <div className="profile-user-col">
+                            <span>Email:</span>
+                            <span className="user-info-name">{user.email}</span>
+                        </div>
                     </div>
                 </div>
                 <div className="profile-user-addresses profile-user-container">
