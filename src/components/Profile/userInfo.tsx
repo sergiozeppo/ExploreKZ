@@ -23,7 +23,11 @@ const UserInfo: React.FC<IUserInfo & { isEditing: boolean }> = ({ isEditing, ...
             {date.map((prop) => (
                 <div key={prop} className="profile-user-col">
                     <span>{displayName(prop)}</span>
-                    <span className="user-info-name">{props[prop]}</span>
+                    {isEditing ? (
+                        <input defaultValue={props[prop]} className="user-addresses-input" />
+                    ) : (
+                        <span className="user-info-name">{props[prop]}</span>
+                    )}
                 </div>
             ))}
         </div>

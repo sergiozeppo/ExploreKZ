@@ -49,7 +49,7 @@ function UserAddresses({
                                 </span>
                             </div>
                             {isEditing ? (
-                                <input type="text" defaultValue={value} className="user-addresses-input" />
+                                <input defaultValue={value} className="user-addresses-input" />
                             ) : (
                                 <span>{value}</span>
                             )}
