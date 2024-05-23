@@ -49,7 +49,15 @@ async function ProfileApi(): Promise<ProfileApiResponse | Error> {
     }
 }
 
-function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addressIdProp: number }) {
+function UserAddresses({
+    user,
+    addressIdProp,
+    isEditing,
+}: {
+    user: ProfileApiResponse;
+    addressIdProp: number;
+    isEditing: boolean;
+}) {
     let addressId = addressIdProp;
     if (user.addresses.length === 1 && addressId === 1) {
         addressId = 0;
@@ -88,7 +96,11 @@ function UserAddresses({ user, addressIdProp }: { user: ProfileApiResponse; addr
                                     {key == 'streetName' ? 'Street:' : key.charAt(0).toUpperCase() + key.slice(1) + ':'}
                                 </span>
                             </div>
-                            <span>{value}</span>
+                            {isEditing ? (
+                                <input type="text" defaultValue={value} className="user-addresses-input" />
+                            ) : (
+                                <span>{value}</span>
+                            )}
                         </div>
                     );
                 })}
@@ -100,6 +112,7 @@ export default function Profile() {
     const [user, setUser] = useState<ProfileApiResponse | null>(null);
     const [error, setError] = useState<ErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
@@ -150,6 +163,11 @@ export default function Profile() {
         }
     }, [loading, error, navigate]);
 
+    const handleInputChange = () => {
+        setIsEditing(!isEditing);
+        console.log('yes');
+    };
+
     if (!user) {
         return;
     }
@@ -159,15 +177,27 @@ export default function Profile() {
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
-                    <span className="user-info-name">{`${user.firstName} ${user.lastName}`}</span>
-                    <span className="user-info-name">{user.dateOfBirth}</span>
+                    <div className="profile-user-col">
+                        <span>First Name:</span>
+                        <span className="user-info-name">{user.firstName}</span>
+                    </div>
+                    <div className="profile-user-col">
+                        <span>Last Name:</span>
+                        <span className="user-info-name">{user.lastName}</span>
+                    </div>
+                    <div className="profile-user-col">
+                        <span>Date of Birth:</span>
+                        <span className="user-info-name">{user.dateOfBirth}</span>
+                    </div>
                 </div>
                 <div className="profile-user-addresses profile-user-container">
-                    <UserAddresses user={user} addressIdProp={0} />
-                    <UserAddresses user={user} addressIdProp={1} />
+                    <UserAddresses user={user} addressIdProp={0} isEditing={isEditing} />
+                    <UserAddresses user={user} addressIdProp={1} isEditing={isEditing} />
                 </div>
             </div>
-            <button className="profile-btn">Edit profile</button>
+            <button className="profile-btn" onClick={handleInputChange}>
+                Edit profile
+            </button>
         </div>
     );
 }

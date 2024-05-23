@@ -17,10 +17,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
-    width: 300px;
-    height: 200px;
+    max-height: 50%;
+    padding: 25px;
 }
 
 .profile-user-container {
@@ -32,7 +32,14 @@
 .profile-content {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 25px;
+}
+
+.profile-user-col {
+    display: flex;
+    gap: 35px;
+    color: white;
 }
 
 .user-info-avatar {
@@ -51,7 +58,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 300px;
 }
 
 .user-addresses-container {
@@ -81,8 +87,6 @@
     white-space: nowrap;
 }
 
-
-
 .profile-btn {
     color: #fff;
     background-color: #1f4aa8;
@@ -99,7 +103,13 @@
     &:not(:disabled):hover {
         border-color: #646cff;
     }
+
     &:not(:disabled):active {
         background-color: #343de8d6;
     }
+}
+
+.user-addresses-input {
+    background-color: white;
+    border: none;
 }
