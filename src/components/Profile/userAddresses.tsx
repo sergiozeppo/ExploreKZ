@@ -35,7 +35,7 @@ function UserAddresses({
                     },
                     color: 'white',
                 }}
-                disabled={true}
+                disabled={isEditing ? false : true}
             />
             <legend>{addressIdProp === 0 ? 'Delivery address' : 'Billing address'}</legend>
             {Object.entries(user.addresses[addressId])

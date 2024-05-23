@@ -84,7 +84,6 @@ export default function Profile() {
 
     const handleInputChange = () => {
         setIsEditing(!isEditing);
-        console.log('yes');
     };
 
     if (!user) {
