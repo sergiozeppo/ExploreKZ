@@ -48,7 +48,7 @@ function UserAddresses({
                                     {key == 'streetName' ? 'Street:' : key.charAt(0).toUpperCase() + key.slice(1) + ':'}
                                 </span>
                             </div>
-                            {isEditing ? (
+                            {isEditing && value !== 'KZ' ? (
                                 <input defaultValue={value} className="user-addresses-input" />
                             ) : (
                                 <span>{value}</span>

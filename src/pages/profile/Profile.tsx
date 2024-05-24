@@ -32,6 +32,18 @@ export default function Profile() {
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [formDate, setFormDate] = useState({
+        email: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        streetName: '',
+        streetNameBilling: '',
+        postalCode: '',
+        postalCodeBilling: '',
+        city: '',
+        cityBilling: '',
+    });
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
@@ -82,9 +94,18 @@ export default function Profile() {
         }
     }, [loading, error, navigate]);
 
-    const handleInputChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleInputChangeEditing = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setIsEditing(!isEditing);
+    };
+
+    const handleInputChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormDate({
+            ...formDate,
+            [name]: value,
+        });
+        console.log(formDate);
     };
 
     if (!user) {
@@ -102,6 +123,7 @@ export default function Profile() {
                         lastName={user.lastName}
                         dateOfBirth={user.dateOfBirth}
                         isEditing={isEditing}
+                        onChangeHandler={handleInputChangeDate}
                     />
                 </div>
                 <div className="profile-user-addresses profile-user-container">
@@ -114,7 +136,7 @@ export default function Profile() {
                     Submit Changes
                 </button>
             ) : (
-                <button className="profile-btn" type="button" onClick={handleInputChange}>
+                <button className="profile-btn" type="button" onClick={handleInputChangeEditing}>
                     Edit profile
                 </button>
             )}
