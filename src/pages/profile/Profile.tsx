@@ -56,7 +56,6 @@ export default function Profile() {
                 } else {
                     setUser(result);
                 }
-                console.log(result);
             } catch {
                 throw new Error('Error detected');
             } finally {
@@ -105,7 +104,6 @@ export default function Profile() {
             ...formDate,
             [name]: value,
         });
-        console.log(formDate);
     };
 
     if (!user) {

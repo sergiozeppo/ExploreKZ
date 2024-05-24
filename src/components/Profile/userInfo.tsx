@@ -26,7 +26,12 @@ const UserInfo: React.FC<
                 <div key={prop} className="profile-user-col">
                     <span>{displayName(prop)}</span>
                     {isEditing ? (
-                        <input defaultValue={props[prop]} className="user-addresses-input" onChange={onChangeHandler} />
+                        <input
+                            defaultValue={props[prop]}
+                            name={prop}
+                            className="user-addresses-input"
+                            onChange={onChangeHandler}
+                        />
                     ) : (
                         <span className="user-info-name">{props[prop]}</span>
                     )}
