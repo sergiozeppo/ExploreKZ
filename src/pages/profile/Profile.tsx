@@ -43,6 +43,8 @@ export default function Profile() {
         postalCodeBilling: '',
         city: '',
         cityBilling: '',
+        defaultShipping: false,
+        defaultBilling: false,
     });
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
@@ -55,6 +57,20 @@ export default function Profile() {
                     setError(result);
                 } else {
                     setUser(result);
+                    setFormDate({
+                        email: result.email,
+                        firstName: result.firstName,
+                        lastName: result.lastName,
+                        dateOfBirth: result.dateOfBirth,
+                        streetName: result.addresses[0]?.streetName || '',
+                        streetNameBilling: result.addresses[1]?.streetName || '',
+                        postalCode: result.addresses[0]?.postalCode || '',
+                        postalCodeBilling: result.addresses[1]?.postalCode || '',
+                        city: result.addresses[0]?.city || '',
+                        cityBilling: result.addresses[1]?.city || '',
+                        defaultShipping: result.defaultShippingAddressId ? true : false,
+                        defaultBilling: result.defaultBillingAddressId ? true : false,
+                    });
                 }
             } catch {
                 throw new Error('Error detected');
