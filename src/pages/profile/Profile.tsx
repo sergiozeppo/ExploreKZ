@@ -104,6 +104,7 @@ export default function Profile() {
             ...formDate,
             [name]: value,
         });
+        console.log(formDate);
     };
 
     if (!user) {
@@ -125,8 +126,18 @@ export default function Profile() {
                     />
                 </div>
                 <div className="profile-user-addresses profile-user-container">
-                    <UserAddresses user={user} addressIdProp={0} isEditing={isEditing} />
-                    <UserAddresses user={user} addressIdProp={1} isEditing={isEditing} />
+                    <UserAddresses
+                        user={user}
+                        addressIdProp={0}
+                        isEditing={isEditing}
+                        onChangeHandler={handleInputChangeDate}
+                    />
+                    <UserAddresses
+                        user={user}
+                        addressIdProp={1}
+                        isEditing={isEditing}
+                        onChangeHandler={handleInputChangeDate}
+                    />
                 </div>
             </div>
             {isEditing ? (

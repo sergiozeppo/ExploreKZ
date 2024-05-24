@@ -19,7 +19,6 @@ const UserInfo: React.FC<
         }
     };
 
-    console.log(isEditing);
     return (
         <div className="profile-user-cols-container">
             {date.map((prop) => (

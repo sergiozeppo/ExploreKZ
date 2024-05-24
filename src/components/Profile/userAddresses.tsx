@@ -5,10 +5,12 @@ function UserAddresses({
     user,
     addressIdProp,
     isEditing,
+    onChangeHandler,
 }: {
     user: IUserAddresses;
     addressIdProp: number;
     isEditing: boolean;
+    onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
 }) {
     let addressId = addressIdProp;
     if (user.addresses.length === 1 && addressId === 1) {
@@ -49,7 +51,12 @@ function UserAddresses({
                                 </span>
                             </div>
                             {isEditing && value !== 'KZ' ? (
-                                <input defaultValue={value} className="user-addresses-input" />
+                                <input
+                                    defaultValue={value}
+                                    name={addressIdProp === 0 ? key : key + 'Billing'}
+                                    className="user-addresses-input"
+                                    onChange={onChangeHandler}
+                                />
                             ) : (
                                 <span>{value}</span>
                             )}
