@@ -63,11 +63,18 @@ export default function Profile() {
                         lastName: result.lastName,
                         dateOfBirth: result.dateOfBirth,
                         streetName: result.addresses[0]?.streetName || '',
-                        streetNameBilling: result.addresses[1]?.streetName || '',
+                        streetNameBilling:
+                            result.addresses.length === 1
+                                ? result.addresses[0]?.streetName
+                                : result.addresses[1]?.streetName,
                         postalCode: result.addresses[0]?.postalCode || '',
-                        postalCodeBilling: result.addresses[1]?.postalCode || '',
+                        postalCodeBilling:
+                            result.addresses.length === 1
+                                ? result.addresses[0]?.postalCode
+                                : result.addresses[1]?.postalCode,
                         city: result.addresses[0]?.city || '',
-                        cityBilling: result.addresses[1]?.city || '',
+                        cityBilling:
+                            result.addresses.length === 1 ? result.addresses[0]?.city : result.addresses[1]?.city,
                         defaultShipping: result.defaultShippingAddressId ? true : false,
                         defaultBilling: result.defaultBillingAddressId ? true : false,
                     });
