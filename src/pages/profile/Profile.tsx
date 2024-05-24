@@ -82,7 +82,8 @@ export default function Profile() {
         }
     }, [loading, error, navigate]);
 
-    const handleInputChange = () => {
+    const handleInputChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         setIsEditing(!isEditing);
     };
 
@@ -91,7 +92,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="container-profile">
+        <form className="container-profile">
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
@@ -108,9 +109,15 @@ export default function Profile() {
                     <UserAddresses user={user} addressIdProp={1} isEditing={isEditing} />
                 </div>
             </div>
-            <button className="profile-btn" onClick={handleInputChange}>
-                Edit profile
-            </button>
-        </div>
+            {isEditing ? (
+                <button className="profile-btn" type="submit">
+                    Submit Changes
+                </button>
+            ) : (
+                <button className="profile-btn" type="button" onClick={handleInputChange}>
+                    Edit profile
+                </button>
+            )}
+        </form>
     );
 }
