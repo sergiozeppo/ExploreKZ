@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import UserAddresses from '../../components/Profile/userAddresses';
 import UserInfo from '../../components/Profile/userInfo';
 import { IUserAddresses, IErrorProfile } from '../../components/Profile/typesProfile';
-
+import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 async function ProfileApi(): Promise<IUserAddresses | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
@@ -130,12 +130,86 @@ export default function Profile() {
         console.log(formDate);
     };
 
+    const handleSumbitDate = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!user?.id && !user?.version) {
+            return;
+        }
+
+        const {
+            firstName,
+            lastName,
+            dateOfBirth,
+            city,
+            postalCode,
+            streetName,
+            cityBilling,
+            postalCodeBilling,
+            streetNameBilling,
+        } = formDate;
+
+        const updateActions: CustomerUpdateAction[] = [
+            {
+                action: 'setFirstName',
+                firstName,
+            },
+            {
+                action: 'setLastName',
+                lastName,
+            },
+            {
+                action: 'setDateOfBirth',
+                dateOfBirth,
+            },
+            {
+                action: 'changeAddress',
+                addressId: user.addresses[0]?.id || '',
+                address: {
+                    city,
+                    country: 'KZ',
+                    postalCode,
+                    streetName,
+                },
+            },
+            {
+                action: 'changeAddress',
+                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
+                address: {
+                    city: cityBilling,
+                    country: 'KZ',
+                    postalCode: postalCodeBilling,
+                    streetName: streetNameBilling,
+                },
+            },
+            {
+                action: 'setDefaultShippingAddress',
+                addressId: user.addresses[0]?.id || '',
+            },
+            {
+                action: 'setDefaultBillingAddress',
+                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
+            },
+        ];
+
+        const api = baseClient();
+        api.customers()
+            .withId({ ID: user?.id })
+            .post({ body: { version: user.version, actions: updateActions } })
+            .execute()
+            .then(() => {
+                console.log(updateActions);
+            })
+            .catch((err) => {
+                console.log('Change is failed', err);
+            });
+    };
+
     if (!user) {
         return;
     }
 
     return (
-        <form className="container-profile">
+        <form className="container-profile" onSubmit={handleSumbitDate}>
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>

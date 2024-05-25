@@ -3,6 +3,7 @@ export interface IAddress {
     country: string;
     postalCode: string;
     streetName: string;
+    id?: string;
 }
 export interface IUserAddresses {
     addresses: IAddress[];
