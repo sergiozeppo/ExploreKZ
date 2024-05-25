@@ -132,6 +132,7 @@ export default function Profile() {
 
     const handleSumbitDate = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsEditing(!isEditing);
         if (!user?.id && !user?.version) {
             return;
         }
@@ -238,7 +239,7 @@ export default function Profile() {
                 </div>
             </div>
             {isEditing ? (
-                <button className="profile-btn" type="submit">
+                <button className="profile-btn sumbit" type="submit">
                     Submit Changes
                 </button>
             ) : (
