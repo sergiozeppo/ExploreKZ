@@ -32,7 +32,6 @@ function App() {
     } else {
         console.log('anonim flow');
         anonUser()
-            .products()
             .get()
             .execute()
             .then((res) => console.log(res))

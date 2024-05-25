@@ -44,12 +44,12 @@ export default function Login() {
             })
             .catch((err) => {
                 console.error(err);
+                setLoading(false);
                 baseClient()
                     .customers()
                     .get({ queryArgs: { where: `email="${userData.email}"` } })
                     .execute()
                     .then((res) => {
-                        console.log(res);
                         if (res.body.count > 0) {
                             setPasswordError('Invalid password!');
                             setLoginError('');
@@ -61,7 +61,11 @@ export default function Login() {
                         }
                         setLoading(false);
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                        console.error(err);
+                        setLoading(false);
+                        CustomToast('error', 'Connection lost!');
+                    });
             });
     };
     useEffect(() => {
