@@ -11,6 +11,7 @@ import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
+import validate from '../../components/Validation';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
@@ -47,10 +48,10 @@ function Registration() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             dateOfBirth: userData.dateOfBirth,
-            countryBilling: checkBilling ? null : userData.countryBilling,
-            cityBilling: checkBilling ? null : userData.cityBilling,
-            postalCodeBilling: checkBilling ? null : userData.postalCodeBilling,
-            streetNameBilling: checkBilling ? null : userData.streetNameBilling,
+            countryBilling: userData.countryBilling,
+            cityBilling: userData.cityBilling,
+            postalCodeBilling: userData.postalCodeBilling,
+            streetNameBilling: userData.streetNameBilling,
             defaultShipping: checkDefaultShipping,
             defaultBilling: checkDefaultBilling,
             alsoUseBilling: checkBilling,
@@ -101,18 +102,7 @@ function Registration() {
             placeholder: 'Email',
             type: 'email',
             validate: {
-                validate: {
-                    noWhitespace: (value) =>
-                        value.trim() === value || 'Email address must not contain leading or trailing whitespace',
-                    hasAtSymbol: (value) =>
-                        value.includes('@') ||
-                        'Email address must contain an "@" symbol separating local part and domain name',
-                    hasDomainName: (value) =>
-                        /^.+@.+\..+$/.test(value) || 'Email address must contain a domain name (e.g., example.com)',
-                    isEmail: (value) =>
-                        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
-                        'Email address must be properly formatted (e.g., user@example.com)',
-                },
+                validate: validate.validateEmail,
             },
         },
         {
@@ -124,16 +114,7 @@ function Registration() {
                     value: 8,
                     message: 'Password must be at least 8 characters long',
                 },
-                validate: {
-                    hasUpperCase: (value) =>
-                        /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
-                    hasLowerCase: (value) =>
-                        /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
-                    hasNumber: (value) => /\d/.test(value) || 'Password must contain at least one digit (0-9)',
-                    hasSpecialCharacter: (value) =>
-                        /[!@#$%^&*]/.test(value) || 'Password must contain at least one special character (!@#$%^&*)',
-                    noWhitespace: (value) => value.trim() === value || 'No leading or trailing whitespace allowed',
-                },
+                validate: validate.validatePassword,
             },
         },
         {
@@ -144,10 +125,7 @@ function Registration() {
                     value: 1,
                     message: 'First Name must contain at least one character',
                 },
-                validate: {
-                    noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'First name must contain not special characters and numbers',
-                },
+                validate: validate.validateFirstName,
             },
         },
         {
@@ -158,10 +136,7 @@ function Registration() {
                     value: 1,
                     message: 'Last name must contain at least one character',
                 },
-                validate: {
-                    noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'Last name must contain not special characters and numbers',
-                },
+                validate: validate.validateLastName,
             },
         },
         {
@@ -237,10 +212,7 @@ function Registration() {
                             <input
                                 {...register('streetName', {
                                     required: 'This field is required',
-                                    pattern: {
-                                        value: /^[a-zA-Z\s]*$/,
-                                        message: 'Street must contain not special characters',
-                                    },
+                                    validate: validate.validateStreet,
                                 })}
                                 placeholder="Street"
                                 className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
@@ -253,11 +225,7 @@ function Registration() {
                             <input
                                 {...register('city', {
                                     required: 'This field is required',
-                                    validate: {
-                                        noSpecialCharacter: (value) =>
-                                            /^[^\W\d_]+$/.test(value) ||
-                                            'City must contain not special characters and numbers',
-                                    },
+                                    validate: validate.validateCity,
                                 })}
                                 placeholder="City"
                                 className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
@@ -268,10 +236,7 @@ function Registration() {
                             <input
                                 {...register('postalCode', {
                                     required: 'This field is required',
-                                    validate: {
-                                        only6Numbers: (value) =>
-                                            /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
-                                    },
+                                    validate: validate.validatePostalCode,
                                 })}
                                 placeholder="Postal Code"
                                 className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
@@ -333,10 +298,7 @@ function Registration() {
                                     <input
                                         {...register('streetNameBilling', {
                                             required: 'This field is required',
-                                            pattern: {
-                                                value: /^[a-zA-Z\s]*$/,
-                                                message: 'Street must contain not special characters',
-                                            },
+                                            validate: validate.validateStreet,
                                         })}
                                         placeholder="Street"
                                         className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
@@ -349,11 +311,7 @@ function Registration() {
                                     <input
                                         {...register('cityBilling', {
                                             required: 'This field is required',
-                                            validate: {
-                                                noSpecialCharacter: (value) =>
-                                                    /^[^\W\d_]+$/.test(value || '') ||
-                                                    'City must contain not special characters and numbers',
-                                            },
+                                            validate: validate.validateCity,
                                         })}
                                         placeholder="City"
                                         className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
@@ -364,11 +322,7 @@ function Registration() {
                                     <input
                                         {...register('postalCodeBilling', {
                                             required: 'This field is required',
-                                            validate: {
-                                                only6Numbers: (value) =>
-                                                    /^\d{6}$/.test(value || '') ||
-                                                    'Postal code in KZ must contain only 6 nubmers',
-                                            },
+                                            validate: validate.validatePostalCode,
                                         })}
                                         placeholder="Postal Code"
                                         className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}

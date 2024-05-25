@@ -8,7 +8,6 @@ const hasDomainName: ValidationFunction = (value) =>
     /^.+@.+\..+$/.test(value) || 'Must contain a domain name (e.g., example.com)';
 const isEmail: ValidationFunction = (value) =>
     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) || 'Must be properly formatted (e.g., user@example.com)';
-
 const hasUpperCase: ValidationFunction = (value) => /[A-Z]/.test(value) || 'Must contain at least one uppercase letter';
 const hasLowerCase: ValidationFunction = (value) => /[a-z]/.test(value) || 'Must contain at least one lowercase letter';
 const hasNumber: ValidationFunction = (value) => /\d/.test(value) || 'Must contain at least one digit (0-9)';
@@ -16,15 +15,8 @@ const hasSpecialCharacter: ValidationFunction = (value) =>
     /[!@#$%^&*]/.test(value) || 'Must contain at least one special character (!@#$%^&*)';
 const noSpecialCharacterNumbers: ValidationFunction = (value) =>
     /^[^\W\d_]+$/.test(value) || 'Must contain not special characters and numbers';
-
 const noSpecialCharacter: ValidationFunction = (value) =>
     /^[a-zA-Z\s]*$/.test(value) || 'Street must contain not special characters';
-
-const thirteenYearsUser = (value: string, calculateAge: (date: Date) => number) => {
-    const selectedDate = new Date(value);
-    const age = calculateAge(selectedDate);
-    return age >= 13 ? true : 'You must be at least 13 years old to proceed';
-};
 
 const onlySixNumbers: ValidationFunction = (value) =>
     /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers';
@@ -51,10 +43,6 @@ const validateLastName = {
     noSpecialCharacterNumbers,
 };
 
-const validateDateOfBirth = {
-    thirteenYearsUser,
-};
-
 const validateStreet = {
     noSpecialCharacter,
 };
@@ -72,7 +60,6 @@ const validate = {
     validatePassword,
     validateFirstName,
     validateLastName,
-    validateDateOfBirth,
     validateStreet,
     validateCity,
     validatePostalCode,
