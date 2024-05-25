@@ -5,8 +5,8 @@ import Registration from './pages/registration';
 import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
-// import { anonUser } from './apiSdk/anonimClient';
-// import { tokenClient } from './apiSdk/TokenClient';
+import { anonUser } from './apiSdk/anonimClient';
+import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
@@ -19,25 +19,24 @@ import Cart from './pages/cart/Cart';
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
 function App() {
-    // if (localStorage.getItem('isLogin')) {
-    //     console.log('token flow');
-    //     tokenClient()
-    //         .me()
-    //         .get()
-    //         .execute()
-    //         .then((res) => {
-    //             console.log(res);
-    //         })
-    //         .catch((err) => console.error(err));
-    // } else {
-    //     console.log('anonim flow');
-    //     anonUser()
-    //         .products()
-    //         .get()
-    //         .execute()
-    //         .then((res) => console.log(res))
-    //         .catch((err) => console.error(err));
-    // }
+    if (localStorage.getItem('isLogin')) {
+        console.log('token flow');
+        tokenClient()
+            .me()
+            .get()
+            .execute()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.error(err));
+    } else {
+        console.log('anonim flow');
+        anonUser()
+            .get()
+            .execute()
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+    }
 
     return (
         <>

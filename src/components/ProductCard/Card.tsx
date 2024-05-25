@@ -1,34 +1,21 @@
-import Slider from 'react-slick';
+import './card.css';
 
 type CARD_PROPS = {
     name: string;
     description: string;
-    images: string[];
+    images: string;
     price?: number;
     descount?: number;
 };
 
 export const Card = (product: CARD_PROPS) => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-    };
-
     return (
-        <div>
-            <h2>{product.name}</h2>
-            <Slider {...settings}>
-                {product.images.map((image, index) => (
-                    <div key={index}>
-                        <img src={image} alt={`product-${index}`} />
-                    </div>
-                ))}
-            </Slider>
-            <p>{product.description}</p>
-            <p>Цена: {product.price}</p>
+        <div className="card">
+            <div className="img-wrapper">
+                <img className="card-img" src={product.images} alt={product.name} />
+            </div>
+            <span className="product-title">{product.name}</span>
+            <p className="product-description">{product.description}</p>
         </div>
     );
 };
