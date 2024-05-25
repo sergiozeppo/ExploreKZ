@@ -1,4 +1,9 @@
-import { IUserInfo } from './typesProfile';
+interface IUserInfo {
+    email: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+}
 
 const UserInfo: React.FC<
     IUserInfo & { isEditing: boolean; onChangeHandler: React.ChangeEventHandler<HTMLInputElement> }

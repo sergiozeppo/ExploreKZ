@@ -5,8 +5,7 @@ export interface IAddress {
     streetName: string;
     id?: string;
 }
-export interface IUserAddresses {
-    addresses: IAddress[];
+export interface IUser {
     email: string;
     firstName: string;
     lastName: string;
@@ -15,13 +14,7 @@ export interface IUserAddresses {
     version: number;
     defaultShippingAddressId?: string;
     defaultBillingAddressId?: string;
-}
-
-export interface IUserInfo {
-    email: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
+    addresses: IAddress[];
 }
 
 export interface IErrorProfile {

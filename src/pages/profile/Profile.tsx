@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import UserAddresses from '../../components/Profile/userAddresses';
 import UserInfo from '../../components/Profile/userInfo';
-import { IUserAddresses, IErrorProfile } from '../../components/Profile/typesProfile';
+import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
-async function ProfileApi(): Promise<IUserAddresses | Error> {
+async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
     const api = baseClient();
@@ -22,14 +22,14 @@ async function ProfileApi(): Promise<IUserAddresses | Error> {
                 },
             })
             .execute();
-        return response.body as IUserAddresses;
+        return response.body as IUser;
     } catch (error) {
         return error as Error;
     }
 }
 
 export default function Profile() {
-    const [user, setUser] = useState<IUserAddresses | null>(null);
+    const [user, setUser] = useState<IUser | null>(null);
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -199,7 +199,7 @@ export default function Profile() {
             .post({ body: { version: user.version, actions: updateActions } })
             .execute()
             .then((response) => {
-                const responseDate = response.body as IUserAddresses;
+                const responseDate = response.body as IUser;
                 setUser(responseDate);
                 CustomToast('success', 'Profile updated successfully');
             })
