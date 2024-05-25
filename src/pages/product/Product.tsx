@@ -19,8 +19,11 @@ type CARD_PROPS = {
 };
 
 export default function Product(product: CARD_PROPS) {
-    const currentUrl = window.location;
-    console.log(currentUrl.href);
+    const currentUrl = String(window.location.href);
+    const slash = currentUrl.lastIndexOf('/');
+    const id = currentUrl.slice(slash + 1, currentUrl.length);
+    console.log(id);
+    console.log(currentUrl, slash);
     return <div>Products {product.id}</div>;
     // const [products, setProducts] = useState<ProductSelection[]>([]);
     // const [loading, setLoading] = useState(true);
