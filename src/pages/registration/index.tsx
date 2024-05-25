@@ -10,6 +10,7 @@ import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
+import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
@@ -19,29 +20,12 @@ interface AboutUser {
     type?: string;
 }
 
-type Inputs = {
-    email: string;
-    password: string;
-    country: string;
-    city: string;
-    postalCode: string;
-    streetName: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-
-    countryBilling: string;
-    streetNameBilling: string;
-    cityBilling: string;
-    postalCodeBilling: string;
-};
-
 function Registration() {
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<Inputs>({
+    } = useForm<RegisterFnParams>({
         mode: 'onChange',
     });
     const navigate = useNavigate();
@@ -51,7 +35,7 @@ function Registration() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setIsLogin } = useContext(GlobalContext);
-    const onSubmit: SubmitHandler<Inputs> = (userData) => {
+    const onSubmit: SubmitHandler<RegisterFnParams> = (userData) => {
         setLoading(true);
         registerFn({
             email: userData.email,
@@ -202,13 +186,13 @@ function Registration() {
                         {field.name === 'password' ? (
                             <div className="registration-password-container">
                                 <input
-                                    {...register(field.name as keyof Inputs, {
+                                    {...register(field.name as keyof RegisterFnParams, {
                                         required: 'This field is required',
                                         ...field.validate,
                                     })}
                                     type={field.type}
                                     placeholder={field.placeholder}
-                                    className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                                    className={`registration-about-user ${errors?.[field.name as keyof RegisterFnParams] ? 'invalid-input' : ''}`}
                                 />
                                 <div
                                     className="toggle-password-visibility"
@@ -219,16 +203,16 @@ function Registration() {
                             </div>
                         ) : (
                             <input
-                                {...register(field.name as keyof Inputs, {
+                                {...register(field.name as keyof RegisterFnParams, {
                                     required: 'This field is required',
                                     ...field.validate,
                                 })}
                                 type={field.type}
                                 placeholder={field.placeholder}
-                                className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                                className={`registration-about-user ${errors?.[field.name as keyof RegisterFnParams] ? 'invalid-input' : ''}`}
                             />
                         )}
-                        <Error message={errors?.[field.name as keyof Inputs]?.message} />
+                        <Error message={errors?.[field.name as keyof RegisterFnParams]?.message} />
                     </div>
                 ))}
                 <fieldset className="registration-wrapper-delivery">
@@ -367,7 +351,7 @@ function Registration() {
                                             required: 'This field is required',
                                             validate: {
                                                 noSpecialCharacter: (value) =>
-                                                    /^[^\W\d_]+$/.test(value) ||
+                                                    /^[^\W\d_]+$/.test(value || '') ||
                                                     'City must contain not special characters and numbers',
                                             },
                                         })}
@@ -382,7 +366,7 @@ function Registration() {
                                             required: 'This field is required',
                                             validate: {
                                                 only6Numbers: (value) =>
-                                                    /^\d{6}$/.test(value) ||
+                                                    /^\d{6}$/.test(value || '') ||
                                                     'Postal code in KZ must contain only 6 nubmers',
                                             },
                                         })}

@@ -1,6 +1,6 @@
 import { baseClient } from './BaseClient';
 
-interface RegisterFnParams {
+export interface RegisterFnParams {
     email: string;
     password: string;
     country: string;
@@ -16,7 +16,7 @@ interface RegisterFnParams {
     streetNameBilling: string | null;
     defaultShipping: boolean;
     defaultBilling: boolean;
-    alsoUseBilling: boolean;
+    alsoUseBilling?: boolean;
 }
 
 export async function registerFn(params: RegisterFnParams) {
