@@ -197,8 +197,9 @@ export default function Profile() {
             .withId({ ID: user?.id })
             .post({ body: { version: user.version, actions: updateActions } })
             .execute()
-            .then(() => {
-                console.log(updateActions);
+            .then((response) => {
+                const responseDate = response.body as IUserAddresses;
+                setUser(responseDate);
             })
             .catch((err) => {
                 console.log('Change is failed', err);
