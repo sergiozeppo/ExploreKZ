@@ -1,4 +1,4 @@
-interface IAddress {
+export interface IAddress {
     city: string;
     country: string;
     postalCode: string;
@@ -10,6 +10,8 @@ export interface IUserAddresses {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
+    id: string;
+    version: number;
     defaultShippingAddressId?: string;
     defaultBillingAddressId?: string;
 }
