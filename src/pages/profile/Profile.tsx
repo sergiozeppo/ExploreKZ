@@ -8,6 +8,7 @@ import UserAddresses from '../../components/Profile/userAddresses';
 import UserInfo from '../../components/Profile/userInfo';
 import { IUserAddresses, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
+import { CustomToast } from '../../components/Toast';
 async function ProfileApi(): Promise<IUserAddresses | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
@@ -200,9 +201,11 @@ export default function Profile() {
             .then((response) => {
                 const responseDate = response.body as IUserAddresses;
                 setUser(responseDate);
+                CustomToast('success', 'Profile updated successfully');
             })
             .catch((err) => {
                 console.log('Change is failed', err);
+                CustomToast('error', 'An error occurred, please try again later');
             });
     };
 
