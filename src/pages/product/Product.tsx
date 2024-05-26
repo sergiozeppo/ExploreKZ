@@ -9,22 +9,23 @@
 
 // import { useSearchParams } from 'react-router-dom';
 
-type CARD_PROPS = {
-    id: string;
-    name?: string;
-    description?: string;
-    images?: string;
-    price?: number;
-    descount?: number;
-};
+// type CARD_PROPS = {
+//     id: string;
+//     name?: string;
+//     description?: string;
+//     images?: string;
+//     price?: number;
+//     descount?: number;
+// };
 
-export default function Product(product: CARD_PROPS) {
+export default function Product() {
+    // product: CARD_PROPS
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
     console.log(id);
     console.log(currentUrl, slash);
-    return <div>Products {product.id}</div>;
+    return <div>Products {id}</div>;
     // const [products, setProducts] = useState<ProductSelection[]>([]);
     // const [loading, setLoading] = useState(true);
 

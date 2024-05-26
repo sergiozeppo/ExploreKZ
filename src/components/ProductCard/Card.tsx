@@ -8,7 +8,7 @@ type CARD_PROPS = {
     description: string;
     images: string;
     price?: number;
-    descount?: number;
+    discount?: number;
 };
 
 export const Card = (product: CARD_PROPS) => {
