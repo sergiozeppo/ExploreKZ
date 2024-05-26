@@ -41,7 +41,7 @@ const UserInfo: React.FC<
                 <div key={field} className="profile-user-col">
                     <span>{displayName(field)}</span>
                     {isEditing ? (
-                        <>
+                        <div>
                             <input
                                 {...register(field, {
                                     required: 'This field is required',
@@ -52,7 +52,7 @@ const UserInfo: React.FC<
                                 onChange={onChangeHandler}
                             />
                             <Error message={errors[field]?.message as string} />
-                        </>
+                        </div>
                     ) : (
                         <span className="user-info-name">{props[field]}</span>
                     )}
