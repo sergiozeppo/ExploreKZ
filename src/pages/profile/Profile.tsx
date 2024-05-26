@@ -153,6 +153,7 @@ export default function Profile() {
             lastName,
             dateOfBirth,
             city,
+            email,
             postalCode,
             streetName,
             cityBilling,
@@ -172,6 +173,10 @@ export default function Profile() {
             {
                 action: 'setDateOfBirth',
                 dateOfBirth,
+            },
+            {
+                action: 'changeEmail',
+                email,
             },
             {
                 action: 'changeAddress',
@@ -212,6 +217,7 @@ export default function Profile() {
                 const responseDate = response.body as IUser;
                 setUser(responseDate);
                 CustomToast('success', 'Profile updated successfully');
+                console.log(responseDate);
             })
             .catch((err) => {
                 console.log('Change is failed', err);
