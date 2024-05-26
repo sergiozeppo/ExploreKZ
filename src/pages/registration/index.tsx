@@ -105,10 +105,6 @@ function Registration() {
             placeholder: 'Password',
             type: showPassword ? 'text' : 'password',
             validate: {
-                minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters long',
-                },
                 validate: validate.validatePassword,
             },
         },
@@ -116,10 +112,6 @@ function Registration() {
             name: 'firstName',
             placeholder: 'First name',
             validate: {
-                minLength: {
-                    value: 1,
-                    message: 'First Name must contain at least one character',
-                },
                 validate: validate.validateFirstName,
             },
         },
@@ -127,10 +119,6 @@ function Registration() {
             name: 'lastName',
             placeholder: 'Last name',
             validate: {
-                minLength: {
-                    value: 1,
-                    message: 'Last name must contain at least one character',
-                },
                 validate: validate.validateLastName,
             },
         },
