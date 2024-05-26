@@ -13,7 +13,7 @@ type CARD_PROPS = {
 
 export const Card = (product: CARD_PROPS) => {
     return (
-        <Link to={'/products/' + product.id}>
+        <Link to={`${`/products`}/${product.id}`}>
             <div className="card">
                 {product.discount ? (
                     <img className="discount-icon" src="./images/icons8-discount-48.png" alt="discount" />

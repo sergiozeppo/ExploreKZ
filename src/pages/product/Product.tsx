@@ -19,58 +19,13 @@ import { CustomToast } from '../../components/Toast';
 // };
 
 export default function Product() {
-    // product: CARD_PROPS
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
     console.log(id);
     console.log(currentUrl, slash);
-    // return <div>Products {id}</div>;
-    const [products, setProducts] = useState<ProductData[]>([]);
+    const [products, setProducts] = useState<ProductData>();
     const [loading, setLoading] = useState(true);
-
-    // const { createClient } = require('@commercetools/sdk-client');
-    // const { createAuthMiddlewareForClientCredentialsFlow } = require('@commercetools/sdk-middleware-auth');
-    // const { createHttpMiddleware } = require('@commercetools/sdk-middleware-http');
-    // const { createApiBuilderFromCtpClient } = require('@commercetools/platform-sdk');
-
-    // const projectKey = '{projectKey}';
-    // const clientId = '{clientId}';
-    // const clientSecret = '{clientSecret}';
-    // const scope = '{scope}';
-    // const authUrl = 'https://auth.{region}.commercetools.com';
-    // const apiUrl = 'https://api.{region}.commercetools.com';
-    // const productId = '{productId}';
-
-    // const client = createClient({
-    //     middlewares: [
-    //         createAuthMiddlewareForClientCredentialsFlow({
-    //             host: authUrl,
-    //             projectKey,
-    //             credentials: {
-    //                 clientId,
-    //                 clientSecret,
-    //             },
-    //             scopes: [scope],
-    //         }),
-    //         createHttpMiddleware({ host: apiUrl }),
-    //     ],
-    // });
-
-    // const apiRoot = createApiBuilderFromCtpClient(client);
-
-    // apiRoot
-    //     .withProjectKey({ projectKey })
-    //     .products()
-    //     .withId({ ID: productId })
-    //     .get()
-    //     .execute()
-    //     .then((response) => {
-    //         console.log(response.body); // The product data
-    //     })
-    //     .catch((error) => {
-    //         console.error(error);
-    //     });
 
     useEffect(() => {
         if (localStorage.getItem('isLogin')) {
@@ -102,13 +57,13 @@ export default function Product() {
         } else {
             console.log('anonim flow');
             anonUser()
-                .productProjections()
+                .products()
                 .withId({ ID: id })
                 .get()
                 .execute()
                 .then((res) => {
                     console.log(res);
-                    const response: ProductProjection[] = res.body.results;
+                    const response: ProductData = res.body.masterData.current;
                     setProducts(response);
                     setLoading(false);
                 })
@@ -118,7 +73,7 @@ export default function Product() {
                     CustomToast('error', 'Server problem!');
                 });
         }
-    }, []);
+    }, [id]);
 
     return (
         <>
@@ -128,7 +83,10 @@ export default function Product() {
             ) : (
                 <div className="catalog-wrapper">
                     {
-                        console.log(products)
+                        <div className="a">
+                            {products?.name['en-US']}
+                            <div className="a">{products?.description?.['en-US'] || 'Not provided!'}</div>
+                        </div>
                         /* {products.map((el) => {
                         const imageUrl = el.masterVariant?.images?.[0]?.url || '';
                         return (
