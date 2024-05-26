@@ -25,11 +25,9 @@ const displayName: { [key in keyof UserInfo]: string } = {
 };
 
 const UserInfo: React.FC<UserInfoProps> = ({ isEditing, onChangeHandler, errors, register, ...props }) => {
-    const date = Object.keys(props) as Array<keyof UserInfo>;
-
     return (
         <div className="profile-user-cols-container">
-            {date.map((field) => (
+            {(Object.keys(props) as Array<keyof UserInfo>).map((field) => (
                 <div key={field} className="profile-user-col">
                     <span>{displayName[field]}</span>
                     {isEditing ? (
