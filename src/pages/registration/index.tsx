@@ -11,7 +11,7 @@ import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import { UserParams } from '../../apiSdk/RegistrationUser';
-import validate from '../../components/Validation';
+import { validate, Error } from '../../components/Validation';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
@@ -89,12 +89,6 @@ function Registration() {
         const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));
         return age;
     };
-
-    function Error({ message }: { message: string | undefined }) {
-        if (typeof message === 'string') {
-            return <span className="input-notice-register">{message}</span>;
-        }
-    }
 
     const fieldsAboutUser: AboutUser[] = [
         {

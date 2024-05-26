@@ -55,7 +55,7 @@ const validatePostalCode = {
     onlySixNumbers,
 };
 
-const validate = {
+export const validate = {
     validateEmail,
     validatePassword,
     validateFirstName,
@@ -65,4 +65,8 @@ const validate = {
     validatePostalCode,
 };
 
-export default validate;
+export function Error({ message }: { message: string | undefined }) {
+    if (typeof message === 'string') {
+        return <span className="input-notice-register">{message}</span>;
+    }
+}
