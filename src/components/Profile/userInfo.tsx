@@ -1,7 +1,7 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UserParams } from '../../apiSdk/RegistrationUser';
 import Error from '../Validation/error';
-import { validateRules } from '../Validation';
+import { validate } from '../Validation';
 
 interface UserInfo {
     email: string;
@@ -35,7 +35,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ isEditing, onChangeHandler, errors,
                             <input
                                 {...register(field, {
                                     required: 'This field is required',
-                                    validate: validateRules[field],
+                                    validate: validate[field],
                                 })}
                                 defaultValue={props[field]}
                                 name={field}

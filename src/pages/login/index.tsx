@@ -83,7 +83,7 @@ export default function Login() {
                         className={`login-input-email ${errors?.email ? 'invalid-input' : ''}`}
                         {...register('email', {
                             required: 'Mandatory field!',
-                            validate: validate.validateEmail,
+                            validate: validate['email'],
                         })}
                         onBlur={() => trigger('password')}
                     />
@@ -102,7 +102,7 @@ export default function Login() {
                                     value: 8,
                                     message: 'Password must be at least 8 characters long',
                                 },
-                                validate: validate.validatePassword,
+                                validate: validate['password'],
                             })}
                             onBlur={() => trigger('email')}
                         />

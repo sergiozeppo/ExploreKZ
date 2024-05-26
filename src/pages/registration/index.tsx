@@ -97,7 +97,7 @@ function Registration() {
             placeholder: 'Email',
             type: 'email',
             validate: {
-                validate: validate.validateEmail,
+                validate: validate['email'],
             },
         },
         {
@@ -105,21 +105,21 @@ function Registration() {
             placeholder: 'Password',
             type: showPassword ? 'text' : 'password',
             validate: {
-                validate: validate.validatePassword,
+                validate: validate['password'],
             },
         },
         {
             name: 'firstName',
             placeholder: 'First name',
             validate: {
-                validate: validate.validateFirstName,
+                validate: validate['firstName'],
             },
         },
         {
             name: 'lastName',
             placeholder: 'Last name',
             validate: {
-                validate: validate.validateLastName,
+                validate: validate['lastName'],
             },
         },
         {
@@ -195,7 +195,7 @@ function Registration() {
                             <input
                                 {...register('streetName', {
                                     required: 'This field is required',
-                                    validate: validate.validateStreet,
+                                    validate: validate['street'],
                                 })}
                                 placeholder="Street"
                                 className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
@@ -208,7 +208,7 @@ function Registration() {
                             <input
                                 {...register('city', {
                                     required: 'This field is required',
-                                    validate: validate.validateCity,
+                                    validate: validate['city'],
                                 })}
                                 placeholder="City"
                                 className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
@@ -219,7 +219,7 @@ function Registration() {
                             <input
                                 {...register('postalCode', {
                                     required: 'This field is required',
-                                    validate: validate.validatePostalCode,
+                                    validate: validate['postalCode'],
                                 })}
                                 placeholder="Postal Code"
                                 className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
@@ -281,7 +281,7 @@ function Registration() {
                                     <input
                                         {...register('streetNameBilling', {
                                             required: 'This field is required',
-                                            validate: validate.validateStreet,
+                                            validate: validate['street'],
                                         })}
                                         placeholder="Street"
                                         className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
@@ -294,7 +294,7 @@ function Registration() {
                                     <input
                                         {...register('cityBilling', {
                                             required: 'This field is required',
-                                            validate: validate.validateCity,
+                                            validate: validate['city'],
                                         })}
                                         placeholder="City"
                                         className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
@@ -305,7 +305,7 @@ function Registration() {
                                     <input
                                         {...register('postalCodeBilling', {
                                             required: 'This field is required',
-                                            validate: validate.validatePostalCode,
+                                            validate: validate['postalCode'],
                                         })}
                                         placeholder="Postal Code"
                                         className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}

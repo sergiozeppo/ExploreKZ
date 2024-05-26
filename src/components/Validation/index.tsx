@@ -69,16 +69,6 @@ const validatePostalCode = {
 };
 
 export const validate = {
-    validateEmail,
-    validatePassword,
-    validateFirstName,
-    validateLastName,
-    validateStreet,
-    validateCity,
-    validatePostalCode,
-};
-
-export const validateRules = {
     email: validateEmail,
     password: validatePassword,
     firstName: validateFirstName,
