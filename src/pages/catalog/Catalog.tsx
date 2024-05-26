@@ -62,12 +62,18 @@ export default function Catalog() {
                 <div className="catalog-wrapper">
                     {products.map((el) => {
                         const imageUrl = el.masterVariant?.images?.[0]?.url || '';
+                        const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
+                        const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
+                        const discountFixed = discount / 100;
+                        const fixedPice = price / 100;
                         return (
                             <Card
                                 key={el.id}
                                 images={imageUrl}
                                 name={el.name['en-US']}
                                 description={el.description?.['en-US'] || 'Not provided!'}
+                                price={fixedPice}
+                                discount={discountFixed}
                             />
                         );
                     })}
