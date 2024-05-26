@@ -10,7 +10,7 @@ import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
-import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
+import { UserParams } from '../../apiSdk/RegistrationUser';
 import validate from '../../components/Validation';
 import Loader from '../../components/Loader/loader';
 
@@ -26,7 +26,7 @@ function Registration() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<RegisterFnParams>({
+    } = useForm<UserParams>({
         mode: 'onChange',
     });
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ function Registration() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setIsLogin } = useContext(GlobalContext);
-    const onSubmit: SubmitHandler<RegisterFnParams> = (userData) => {
+    const onSubmit: SubmitHandler<UserParams> = (userData) => {
         setLoading(true);
         registerFn({
             email: userData.email,
@@ -161,13 +161,13 @@ function Registration() {
                         {field.name === 'password' ? (
                             <div className="registration-password-container">
                                 <input
-                                    {...register(field.name as keyof RegisterFnParams, {
+                                    {...register(field.name as keyof UserParams, {
                                         required: 'This field is required',
                                         ...field.validate,
                                     })}
                                     type={field.type}
                                     placeholder={field.placeholder}
-                                    className={`registration-about-user ${errors?.[field.name as keyof RegisterFnParams] ? 'invalid-input' : ''}`}
+                                    className={`registration-about-user ${errors?.[field.name as keyof UserParams] ? 'invalid-input' : ''}`}
                                 />
                                 <div
                                     className="toggle-password-visibility"
@@ -178,16 +178,16 @@ function Registration() {
                             </div>
                         ) : (
                             <input
-                                {...register(field.name as keyof RegisterFnParams, {
+                                {...register(field.name as keyof UserParams, {
                                     required: 'This field is required',
                                     ...field.validate,
                                 })}
                                 type={field.type}
                                 placeholder={field.placeholder}
-                                className={`registration-about-user ${errors?.[field.name as keyof RegisterFnParams] ? 'invalid-input' : ''}`}
+                                className={`registration-about-user ${errors?.[field.name as keyof UserParams] ? 'invalid-input' : ''}`}
                             />
                         )}
-                        <Error message={errors?.[field.name as keyof RegisterFnParams]?.message} />
+                        <Error message={errors?.[field.name as keyof UserParams]?.message} />
                     </div>
                 ))}
                 <fieldset className="registration-wrapper-delivery">

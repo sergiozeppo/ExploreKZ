@@ -11,7 +11,7 @@ import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
 
-import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
+import { UserParams } from '../../apiSdk/RegistrationUser';
 
 async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
@@ -37,7 +37,7 @@ export default function Profile() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<RegisterFnParams>({
+    } = useForm<UserParams>({
         mode: 'onChange',
     });
     const [user, setUser] = useState<IUser | null>(null);

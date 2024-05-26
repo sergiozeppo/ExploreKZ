@@ -1,6 +1,6 @@
 import { baseClient } from './BaseClient';
 
-export interface RegisterFnParams {
+export interface UserParams {
     email: string;
     password: string;
     country: string;
@@ -19,7 +19,7 @@ export interface RegisterFnParams {
     alsoUseBilling?: boolean;
 }
 
-export async function registerFn(params: RegisterFnParams) {
+export async function registerFn(params: UserParams) {
     const {
         email,
         password,

@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
+import { UserParams } from '../../apiSdk/RegistrationUser';
 // import validate from '../Validation';
 
 interface IUserInfo {
@@ -20,7 +20,7 @@ const UserInfo: React.FC<
         isEditing: boolean;
         onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
         errors: FieldErrors;
-        register: UseFormRegister<RegisterFnParams>;
+        register: UseFormRegister<UserParams>;
     }
 > = ({ isEditing, onChangeHandler, errors, register, ...props }) => {
     const date = Object.keys(props) as Array<keyof IUserInfo>;
