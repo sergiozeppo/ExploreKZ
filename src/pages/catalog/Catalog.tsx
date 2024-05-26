@@ -69,6 +69,7 @@ export default function Catalog() {
                         return (
                             <Card
                                 key={el.id}
+                                id={el.id}
                                 images={imageUrl}
                                 name={el.name['en-US']}
                                 description={el.description?.['en-US'] || 'Not provided!'}
