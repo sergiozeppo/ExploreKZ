@@ -1,3 +1,7 @@
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { RegisterFnParams } from '../../apiSdk/RegistrationUser';
+// import validate from '../Validation';
+
 interface IUserInfo {
     email: string;
     firstName: string;
@@ -5,10 +9,22 @@ interface IUserInfo {
     dateOfBirth: string;
 }
 
+function Error({ message }: { message: string | undefined }) {
+    if (typeof message === 'string') {
+        return <span className="input-notice-register">{message}</span>;
+    }
+}
+
 const UserInfo: React.FC<
-    IUserInfo & { isEditing: boolean; onChangeHandler: React.ChangeEventHandler<HTMLInputElement> }
-> = ({ isEditing, onChangeHandler, ...props }) => {
+    IUserInfo & {
+        isEditing: boolean;
+        onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
+        errors: FieldErrors;
+        register: UseFormRegister<RegisterFnParams>;
+    }
+> = ({ isEditing, onChangeHandler, errors, register, ...props }) => {
     const date = Object.keys(props) as Array<keyof IUserInfo>;
+
     const displayName = (prop: keyof IUserInfo): string => {
         switch (prop) {
             case 'email':
@@ -26,18 +42,24 @@ const UserInfo: React.FC<
 
     return (
         <div className="profile-user-cols-container">
-            {date.map((prop) => (
-                <div key={prop} className="profile-user-col">
-                    <span>{displayName(prop)}</span>
+            {date.map((field) => (
+                <div key={field} className="profile-user-col">
+                    <span>{displayName(field)}</span>
                     {isEditing ? (
-                        <input
-                            defaultValue={props[prop]}
-                            name={prop}
-                            className="user-addresses-input"
-                            onChange={onChangeHandler}
-                        />
+                        <>
+                            <input
+                                {...register(field, {
+                                    required: 'This field is required',
+                                })}
+                                defaultValue={props[field]}
+                                name={field}
+                                className="user-addresses-input"
+                                onChange={onChangeHandler}
+                            />
+                            <Error message={errors.field?.message?.toString()} />
+                        </>
                     ) : (
-                        <span className="user-info-name">{props[prop]}</span>
+                        <span className="user-info-name">{props[field]}</span>
                     )}
                 </div>
             ))}
