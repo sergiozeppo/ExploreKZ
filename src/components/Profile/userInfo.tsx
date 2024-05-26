@@ -51,7 +51,7 @@ const UserInfo: React.FC<
                                 className="user-addresses-input"
                                 onChange={onChangeHandler}
                             />
-                            <Error message={errors.field?.message?.toString()} />
+                            <Error message={errors[field]?.message as string} />
                         </>
                     ) : (
                         <span className="user-info-name">{props[field]}</span>

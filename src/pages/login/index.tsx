@@ -9,7 +9,7 @@ import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import Loader from '../../components/Loader/loader';
-import validate from '../../components/Validation';
+import { validate } from '../../components/Validation';
 type Inputs = {
     email: string;
     password: string;
