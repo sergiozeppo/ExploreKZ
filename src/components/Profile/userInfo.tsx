@@ -1,5 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UserParams } from '../../apiSdk/RegistrationUser';
+import Error from '../Validation/error';
 // import validate from '../Validation';
 
 interface IUserInfo {

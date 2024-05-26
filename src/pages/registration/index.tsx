@@ -11,7 +11,8 @@ import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import { UserParams } from '../../apiSdk/RegistrationUser';
-import { validate, Error } from '../../components/Validation';
+import { validate } from '../../components/Validation';
+import Error from '../../components/Validation/error';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
