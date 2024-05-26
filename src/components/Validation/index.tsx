@@ -21,6 +21,19 @@ const noSpecialCharacter: ValidationFunction = (value) =>
 const onlySixNumbers: ValidationFunction = (value) =>
     /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers';
 
+const calculateAge = (birthday: Date) => {
+    const today = new Date();
+    const diff = today.getTime() - birthday.getTime();
+    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));
+    return age;
+};
+
+const moreThirteenYears = (value: string) => {
+    const selectedDate = new Date(value);
+    const age = calculateAge(selectedDate);
+    return age >= 13 ? true : 'You must be at least 13 years old to proceed';
+};
+
 const validateEmail = {
     noWhitespace,
     hasAtSymbol,
@@ -63,4 +76,15 @@ export const validate = {
     validateStreet,
     validateCity,
     validatePostalCode,
+};
+
+export const validateRules = {
+    email: validateEmail,
+    password: validatePassword,
+    firstName: validateFirstName,
+    lastName: validateLastName,
+    street: validateStreet,
+    city: validateCity,
+    postalCode: validatePostalCode,
+    dateOfBirth: moreThirteenYears,
 };
