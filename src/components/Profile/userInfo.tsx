@@ -41,6 +41,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ isEditing, onChangeHandler, errors,
                                 name={field}
                                 className="user-addresses-input"
                                 onChange={onChangeHandler}
+                                type={field === 'dateOfBirth' ? 'date' : 'text'}
                             />
                             <Error message={errors[field]?.message as string} />
                         </div>
