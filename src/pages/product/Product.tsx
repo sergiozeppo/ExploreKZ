@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductData } from '@commercetools/platform-sdk';
+import { Navigate } from 'react-router-dom';
+
 // import { Card } from '../../components/ProductCard/Card';
 import './product.css';
 import Loader from '../../components/Loader/loader';
@@ -44,14 +46,15 @@ export default function Product() {
                         console.log(res);
                         const response: ProductData = res.body.masterData.current;
                         console.log(response);
-
                         setProducts(response);
                         setLoading(false);
                     })
                     .catch((err) => {
                         console.error(err);
+                        // if (err.body.statusCode === 404) {
                         setLoading(false);
-                        CustomToast('error', 'Server problem!');
+                        // }
+                        // CustomToast('error', 'Server problem!');
                     });
             }
         } else {
@@ -84,6 +87,7 @@ export default function Product() {
                 <div className="catalog-wrapper">
                     {
                         <div className="a">
+                            {products ? 'Products' : <Navigate to="/error-page" />}
                             {products?.name['en-US']}
                             <div className="a">{products?.description?.['en-US'] || 'Not provided!'}</div>
                         </div>
