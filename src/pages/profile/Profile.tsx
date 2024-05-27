@@ -261,13 +261,19 @@ export default function Profile() {
                 </div>
             </div>
             {isEditing ? (
-                <button className="profile-btn sumbit" type="submit">
-                    Submit Changes
-                </button>
+                <>
+                    <button className="profile-btn sumbit" type="submit">
+                        Submit Changes
+                    </button>
+                    <button className="profile-btn">Change Password</button>
+                </>
             ) : (
-                <button className="profile-btn" type="button" onClick={handleInputChangeEditing}>
-                    Edit profile
-                </button>
+                <>
+                    <button className="profile-btn" type="button" onClick={handleInputChangeEditing}>
+                        Edit profile
+                    </button>
+                    <button className="profile-btn">Change Password</button>
+                </>
             )}
         </form>
     );
