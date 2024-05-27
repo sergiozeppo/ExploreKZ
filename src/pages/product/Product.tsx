@@ -99,23 +99,25 @@ export default function Product() {
 
     return (
         <>
-            <p className="tempr">Products</p>
+            <p className="details">Product details</p>
             {loading ? (
                 <Loader />
             ) : (
                 <div className="product-wrapper">
                     {
                         <>
-                            <div>
+                            <div className="product">
                                 <Img
                                     className="product-img"
                                     src={products?.masterVariant?.images?.[0]?.url || ''}
                                     alt={products?.name['en-US'] || ''}
                                 />
-                            </div>
-                            <div className="a">
-                                {products ? products?.name['en-US'] : <Navigate to="/error-page" />}
-                                <div className="a">{products?.description?.['en-US'] || 'Not provided!'}</div>
+                                <div className="product-title">
+                                    {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
+                                </div>
+                                <div className="product-description">
+                                    {products?.description?.['en-US'] || 'Not provided!'}
+                                </div>
                             </div>
                         </>
                     }
