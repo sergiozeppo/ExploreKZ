@@ -1,32 +1,21 @@
 import { useEffect, useState } from 'react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductData } from '@commercetools/platform-sdk';
 import { Navigate } from 'react-router-dom';
-
-// import { Card } from '../../components/ProductCard/Card';
-import './product.css';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
 import { Img } from '../../components';
-
-// import { useSearchParams } from 'react-router-dom';
-
-// type CARD_PROPS = {
-//     id: string;
-//     name?: string;
-//     description?: string;
-//     images?: string;
-//     price?: number;
-//     descount?: number;
-// };
+// import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import './product.css';
 
 export default function Product() {
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
-    console.log(id);
-    console.log(currentUrl, slash);
     const [products, setProducts] = useState<ProductData>();
     const [loading, setLoading] = useState(true);
 
