@@ -2,12 +2,12 @@ import './index.css';
 
 export default function ChangePassword() {
     return (
-        <div className="conatinerChangePassword">
-            <div className="windowsChangePassword">
-                <form>
+        <div className="conatiner-change-password">
+            <div className="window-change-password">
+                <form className="form-change-password">
                     <fieldset>
                         <legend>Change Password</legend>
-                        <input type="text" />
+                        <input className="input-change-password" placeholder="Input Code" type="text" disabled />
                         <button className="profile-btn" type="submit">
                             Request Password Change
                         </button>
