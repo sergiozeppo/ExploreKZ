@@ -1,4 +1,5 @@
 import './profile.css';
+import { useForm } from 'react-hook-form';
 import { useState, useEffect, useRef } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
@@ -9,6 +10,9 @@ import UserInfo from '../../components/Profile/userInfo';
 import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
+
+import { UserParams } from '../../apiSdk/RegistrationUser';
+
 async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
@@ -29,6 +33,13 @@ async function ProfileApi(): Promise<IUser | Error> {
 }
 
 export default function Profile() {
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm<UserParams>({
+        mode: 'onChange',
+    });
     const [user, setUser] = useState<IUser | null>(null);
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
@@ -131,8 +142,7 @@ export default function Profile() {
         console.log(formDate);
     };
 
-    const handleSumbitDate = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSumbitChanges = () => {
         setIsEditing(!isEditing);
         if (!user?.id && !user?.version) {
             return;
@@ -143,6 +153,7 @@ export default function Profile() {
             lastName,
             dateOfBirth,
             city,
+            email,
             postalCode,
             streetName,
             cityBilling,
@@ -162,6 +173,10 @@ export default function Profile() {
             {
                 action: 'setDateOfBirth',
                 dateOfBirth,
+            },
+            {
+                action: 'changeEmail',
+                email,
             },
             {
                 action: 'changeAddress',
@@ -202,6 +217,7 @@ export default function Profile() {
                 const responseDate = response.body as IUser;
                 setUser(responseDate);
                 CustomToast('success', 'Profile updated successfully');
+                console.log(responseDate);
             })
             .catch((err) => {
                 console.log('Change is failed', err);
@@ -214,7 +230,7 @@ export default function Profile() {
     }
 
     return (
-        <form className="container-profile" onSubmit={handleSumbitDate}>
+        <form className="container-profile" onSubmit={handleSubmit(handleSumbitChanges)}>
             <div className="profile-content">
                 <div className="profile-user-info profile-user-container">
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
@@ -225,6 +241,8 @@ export default function Profile() {
                         dateOfBirth={user.dateOfBirth}
                         isEditing={isEditing}
                         onChangeHandler={handleInputChangeDate}
+                        errors={errors}
+                        register={register}
                     />
                 </div>
                 <div className="profile-user-addresses profile-user-container">

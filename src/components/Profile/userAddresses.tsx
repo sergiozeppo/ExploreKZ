@@ -1,5 +1,5 @@
 import { Switch, FormControlLabel } from '@mui/material';
-import { IUserAddresses } from './typesProfile';
+import { IUser } from './typesProfile';
 
 function UserAddresses({
     user,
@@ -7,7 +7,7 @@ function UserAddresses({
     isEditing,
     onChangeHandler,
 }: {
-    user: IUserAddresses;
+    user: IUser;
     addressIdProp: number;
     isEditing: boolean;
     onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
