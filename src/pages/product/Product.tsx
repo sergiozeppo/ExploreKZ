@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom';
 import './product.css';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
+import { Img } from '../../components';
 
 // import { useSearchParams } from 'react-router-dom';
 
@@ -49,12 +50,20 @@ export default function Product() {
                         setProducts(response);
                         setLoading(false);
                     })
-                    .catch((err) => {
-                        console.error(err);
-                        // if (err.body.statusCode === 404) {
-                        setLoading(false);
-                        // }
-                        // CustomToast('error', 'Server problem!');
+                    .catch((error) => {
+                        if (error.statusCode === 404) {
+                            console.error('Product not found:', error);
+                            setLoading(false);
+                            CustomToast('error', 'Product not found');
+                        } else if (error.statusCode === 401 || error.statusCode === 403) {
+                            console.error('Authentication or authorization error:', error);
+                            setLoading(false);
+                            CustomToast('error', 'Authentication or authorization error');
+                        } else {
+                            console.error('An unexpected error occurred:', error);
+                            setLoading(false);
+                            CustomToast('error', 'An error occurred, please try again later');
+                        }
                     });
             }
         } else {
@@ -70,10 +79,20 @@ export default function Product() {
                     setProducts(response);
                     setLoading(false);
                 })
-                .catch((err) => {
-                    console.error(err);
-                    setLoading(false);
-                    CustomToast('error', 'Server problem!');
+                .catch((error) => {
+                    if (error.statusCode === 404) {
+                        console.error('Product not found:', error);
+                        setLoading(false);
+                        CustomToast('error', 'Product not found');
+                    } else if (error.statusCode === 401 || error.statusCode === 403) {
+                        console.error('Authentication or authorization error:', error);
+                        setLoading(false);
+                        CustomToast('error', 'Authentication or authorization error');
+                    } else {
+                        console.error('An unexpected error occurred:', error);
+                        setLoading(false);
+                        CustomToast('error', 'An error occurred, please try again later');
+                    }
                 });
         }
     }, [id]);
@@ -84,25 +103,21 @@ export default function Product() {
             {loading ? (
                 <Loader />
             ) : (
-                <div className="catalog-wrapper">
+                <div className="product-wrapper">
                     {
-                        <div className="a">
-                            {products ? 'Products' : <Navigate to="/error-page" />}
-                            {products?.name['en-US']}
-                            <div className="a">{products?.description?.['en-US'] || 'Not provided!'}</div>
-                        </div>
-                        /* {products.map((el) => {
-                        const imageUrl = el.masterVariant?.images?.[0]?.url || '';
-                        return (
-                            <Card
-                                key={el.id}
-                                id={el.id}
-                                images={imageUrl}
-                                name={el.name['en-US']}
-                                description={el.description?.['en-US'] || 'Not provided!'}
-                            />
-                        );
-                    })} */
+                        <>
+                            <div>
+                                <Img
+                                    className="product-img"
+                                    src={products?.masterVariant?.images?.[0]?.url || ''}
+                                    alt={products?.name['en-US'] || ''}
+                                />
+                            </div>
+                            <div className="a">
+                                {products ? products?.name['en-US'] : <Navigate to="/error-page" />}
+                                <div className="a">{products?.description?.['en-US'] || 'Not provided!'}</div>
+                            </div>
+                        </>
                     }
                 </div>
             )}
