@@ -1,18 +1,28 @@
 import './index.css';
-import { useState } from 'react';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { ProfileApi } from '../profile/Profile';
-// import Error from '../../components/Validation/error';
+import CustomError from '../../components/Validation/error';
 import { CustomToast } from '../../components/Toast';
 import { useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { validate } from '../../components/Validation';
+
+interface Passwords {
+    currentPassword: string;
+    newPassword: string;
+}
 
 export default function ChangePassword() {
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
     const navigate = useNavigate();
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm<Passwords>({
+        mode: 'onChange',
+    });
 
-    const handleSumbitChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSumbitChangePassword: SubmitHandler<Passwords> = (date) => {
         const userInfo = ProfileApi();
         userInfo.then((result) => {
             if (!(result instanceof Error)) {
@@ -24,8 +34,8 @@ export default function ChangePassword() {
                             body: {
                                 id: result.id,
                                 version: result.version,
-                                currentPassword: currentPassword,
-                                newPassword: newPassword,
+                                currentPassword: date.currentPassword,
+                                newPassword: date.newPassword,
                             },
                         })
                         .execute()
@@ -45,21 +55,29 @@ export default function ChangePassword() {
     return (
         <div className="conatiner-change-password">
             <div className="window-change-password">
-                <form className="form-change-password" onSubmit={handleSumbitChangePassword}>
+                <form className="form-change-password" onSubmit={handleSubmit(handleSumbitChangePassword)}>
                     <fieldset className="fieldset--change-password">
                         <legend>Change Password</legend>
                         <input
+                            {...register('currentPassword', {
+                                required: 'This field is required',
+                                validate: validate.password,
+                            })}
                             className="input-change-password"
                             placeholder="Current Password"
                             type="password"
-                            onChange={(e) => setCurrentPassword(e.target.value)}
                         />
+                        <CustomError message={errors.currentPassword?.message as string} />
                         <input
+                            {...register('newPassword', {
+                                required: 'This field is required',
+                                validate: validate.password,
+                            })}
                             className="input-change-password"
                             placeholder="New Password"
                             type="password"
-                            onChange={(e) => setNewPassword(e.target.value)}
                         />
+                        <CustomError message={errors.newPassword?.message as string} />
                         <button className="btn change-password-btn" type="submit">
                             Change Password
                         </button>

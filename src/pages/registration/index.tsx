@@ -12,7 +12,7 @@ import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import { UserParams } from '../../apiSdk/RegistrationUser';
 import { validate } from '../../components/Validation';
-import Error from '../../components/Validation/error';
+import CustomError from '../../components/Validation/error';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
@@ -170,7 +170,7 @@ function Registration() {
                                 className={`registration-about-user ${errors?.[field.name as keyof UserParams] ? 'invalid-input' : ''}`}
                             />
                         )}
-                        <Error message={errors?.[field.name as keyof UserParams]?.message} />
+                        <CustomError message={errors?.[field.name as keyof UserParams]?.message} />
                     </div>
                 ))}
                 <fieldset className="registration-wrapper-delivery">
@@ -189,7 +189,7 @@ function Registration() {
                                 </option>
                                 <option value="KZ">Kazakhstan</option>
                             </select>
-                            <Error message={errors?.country?.message} />
+                            <CustomError message={errors?.country?.message} />
                         </div>
                         <div>
                             <input
@@ -200,7 +200,7 @@ function Registration() {
                                 placeholder="Street"
                                 className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.streetName?.message} />
+                            <CustomError message={errors?.streetName?.message} />
                         </div>
                     </div>
                     <div className="registration-container-pair">
@@ -213,7 +213,7 @@ function Registration() {
                                 placeholder="City"
                                 className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.city?.message} />
+                            <CustomError message={errors?.city?.message} />
                         </div>
                         <div key="postalCode">
                             <input
@@ -224,7 +224,7 @@ function Registration() {
                                 placeholder="Postal Code"
                                 className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.postalCode?.message} />
+                            <CustomError message={errors?.postalCode?.message} />
                         </div>
                     </div>
                 </fieldset>
@@ -275,7 +275,7 @@ function Registration() {
                                         </option>
                                         <option value="KZ">Kazakhstan</option>
                                     </select>
-                                    <Error message={errors?.countryBilling?.message} />
+                                    <CustomError message={errors?.countryBilling?.message} />
                                 </div>
                                 <div>
                                     <input
@@ -286,7 +286,7 @@ function Registration() {
                                         placeholder="Street"
                                         className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.streetNameBilling?.message} />
+                                    <CustomError message={errors?.streetNameBilling?.message} />
                                 </div>
                             </div>
                             <div className="registration-container-pair">
@@ -299,7 +299,7 @@ function Registration() {
                                         placeholder="City"
                                         className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.cityBilling?.message} />
+                                    <CustomError message={errors?.cityBilling?.message} />
                                 </div>
                                 <div key="postalCode">
                                     <input
@@ -310,7 +310,7 @@ function Registration() {
                                         placeholder="Postal Code"
                                         className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.postalCodeBilling?.message} />
+                                    <CustomError message={errors?.postalCodeBilling?.message} />
                                 </div>
                             </div>
                         </fieldset>
