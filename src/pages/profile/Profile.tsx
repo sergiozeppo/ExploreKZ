@@ -261,9 +261,14 @@ export function Profile() {
             </div>
             {isEditing ? (
                 <>
-                    <button className="btn sumbit" type="submit">
-                        Submit Changes
-                    </button>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <button className="btn sumbit" type="submit">
+                            Submit Changes
+                        </button>
+                        <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                            Cancel
+                        </button>
+                    </div>
                     <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
                         Change Password
                     </button>
