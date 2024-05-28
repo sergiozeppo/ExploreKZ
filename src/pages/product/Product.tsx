@@ -53,6 +53,7 @@ export default function Product() {
                         const variantImages = response?.variants?.[0]?.images || [];
                         const allImages = masterVariant.concat(variantImages);
                         if (allImages.length > 0) setImages(allImages);
+                        if (slides.length > 0) setSlides([]);
                         setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                     })
                     .catch((error) => {
@@ -100,7 +101,7 @@ export default function Product() {
                     }
                 });
         }
-    }, [id]);
+    }, [id, slides.length]);
 
     return (
         <>
