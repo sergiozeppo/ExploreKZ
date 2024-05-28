@@ -2,10 +2,14 @@ import './index.css';
 import { useState } from 'react';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { ProfileApi } from '../profile/Profile';
+// import Error from '../../components/Validation/error';
+import { CustomToast } from '../../components/Toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChangePassword() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSumbitChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +29,11 @@ export default function ChangePassword() {
                             },
                         })
                         .execute()
-                        .then((response) => console.log(response))
+                        .then((response) => {
+                            CustomToast('success', 'Password successfully changed');
+                            navigate('/profile');
+                            console.log(response);
+                        })
                         .catch((error) => console.error(error));
                 } catch (error) {
                     return error as Error;

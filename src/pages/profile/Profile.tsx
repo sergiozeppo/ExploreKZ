@@ -10,7 +10,6 @@ import UserInfo from '../../components/Profile/userInfo';
 import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
-
 import { UserParams } from '../../apiSdk/RegistrationUser';
 
 export async function ProfileApi(): Promise<IUser | Error> {
