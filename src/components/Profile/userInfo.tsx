@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UserParams } from '../../apiSdk/RegistrationUser';
-import Error from '../Validation/error';
+import CustomError from '../Validation/error';
 import { validate } from '../Validation';
 
 interface UserInfo {
@@ -43,7 +43,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ isEditing, onChangeHandler, errors,
                                 onChange={onChangeHandler}
                                 type={field === 'dateOfBirth' ? 'date' : 'text'}
                             />
-                            <Error message={errors[field]?.message as string} />
+                            <CustomError message={errors[field]?.message as string} />
                         </div>
                     ) : (
                         <span className="user-info-name">{props[field]}</span>

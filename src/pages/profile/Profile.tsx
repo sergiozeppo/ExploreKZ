@@ -10,10 +10,9 @@ import UserInfo from '../../components/Profile/userInfo';
 import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
-
 import { UserParams } from '../../apiSdk/RegistrationUser';
 
-async function ProfileApi(): Promise<IUser | Error> {
+export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
     const api = baseClient();
@@ -32,7 +31,7 @@ async function ProfileApi(): Promise<IUser | Error> {
     }
 }
 
-export default function Profile() {
+export function Profile() {
     const {
         register,
         formState: { errors },
@@ -261,13 +260,23 @@ export default function Profile() {
                 </div>
             </div>
             {isEditing ? (
-                <button className="profile-btn sumbit" type="submit">
-                    Submit Changes
-                </button>
+                <>
+                    <button className="btn sumbit" type="submit">
+                        Submit Changes
+                    </button>
+                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
+                        Change Password
+                    </button>
+                </>
             ) : (
-                <button className="profile-btn" type="button" onClick={handleInputChangeEditing}>
-                    Edit profile
-                </button>
+                <>
+                    <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                        Edit profile
+                    </button>
+                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
+                        Change Password
+                    </button>
+                </>
             )}
         </form>
     );
