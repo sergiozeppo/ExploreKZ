@@ -59,17 +59,22 @@
 }
 
 .price-inputs {
-   input {
-    outline: none;
-    border: 1px solid #ffffff7a;
-    border-radius: 5px;
-    color: white;
-    padding-left: 10px;
-   }
+    gap: 10px;    
 }
 
 .range-area {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.nothing-title {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.reset-btn {
+    margin: 20px auto 0 auto;
 }
