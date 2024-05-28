@@ -28,7 +28,7 @@
     padding: 0 10px;
 
     &::placeholder {
-        color: black
+        color: black;
     }
 }
 
