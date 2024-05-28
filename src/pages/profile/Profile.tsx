@@ -261,10 +261,10 @@ export function Profile() {
             </div>
             {isEditing ? (
                 <>
-                    <button className="profile-btn sumbit" type="submit">
+                    <button className="btn sumbit" type="submit">
                         Submit Changes
                     </button>
-                    <button className="profile-btn" onClick={() => navigate('/changePassword')}>
+                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
                         Change Password
                     </button>
                 </>
@@ -273,7 +273,7 @@ export function Profile() {
                     <button className="btn" type="button" onClick={handleInputChangeEditing}>
                         Edit profile
                     </button>
-                    <button className="btn" onClick={() => navigate('/changePassword')}>
+                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
                         Change Password
                     </button>
                 </>
