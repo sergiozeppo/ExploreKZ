@@ -250,12 +250,16 @@ export function Profile() {
                         addressIdProp={0}
                         isEditing={isEditing}
                         onChangeHandler={handleInputChangeDate}
+                        errors={errors}
+                        register={register}
                     />
                     <UserAddresses
                         user={user}
                         addressIdProp={1}
                         isEditing={isEditing}
                         onChangeHandler={handleInputChangeDate}
+                        errors={errors}
+                        register={register}
                     />
                 </div>
             </div>

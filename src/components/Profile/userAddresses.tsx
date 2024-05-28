@@ -1,21 +1,23 @@
 import { Switch, FormControlLabel } from '@mui/material';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { IUser } from './typesProfile';
+import { UserParams } from '../../apiSdk/RegistrationUser';
 
-function UserAddresses({
-    user,
-    addressIdProp,
-    isEditing,
-    onChangeHandler,
-}: {
+interface UserAddressesAttributes {
     user: IUser;
     addressIdProp: number;
     isEditing: boolean;
     onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
-}) {
+    errors: FieldErrors;
+    register: UseFormRegister<UserParams>;
+}
+
+function UserAddresses({ user, addressIdProp, isEditing, onChangeHandler, errors, register }: UserAddressesAttributes) {
     let addressId = addressIdProp;
     if (user.addresses.length === 1 && addressId === 1) {
         addressId = 0;
     }
+    console.log(errors, register);
 
     return (
         <fieldset className="user-addresses-container">
