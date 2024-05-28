@@ -64,26 +64,30 @@ export default function ChangePassword() {
                 <form className="form-change-password" onSubmit={handleSubmit(handleSumbitChangePassword)}>
                     <fieldset className="fieldset--change-password">
                         <legend>Change Password</legend>
-                        <input
-                            {...register('currentPassword', {
-                                required: 'This field is required',
-                                validate: validate.password,
-                            })}
-                            className="input-change-password"
-                            placeholder="Current Password"
-                            type="password"
-                        />
-                        <CustomError message={errors.currentPassword?.message as string} />
-                        <input
-                            {...register('newPassword', {
-                                required: 'This field is required',
-                                validate: validate.password,
-                            })}
-                            className="input-change-password"
-                            placeholder="New Password"
-                            type="password"
-                        />
-                        <CustomError message={errors.newPassword?.message as string} />
+                        <div>
+                            <input
+                                {...register('currentPassword', {
+                                    required: 'This field is required',
+                                    validate: validate.password,
+                                })}
+                                className="input-change-password"
+                                placeholder="Current Password"
+                                type="password"
+                            />
+                            <CustomError message={errors.currentPassword?.message as string} />
+                        </div>
+                        <div>
+                            <input
+                                {...register('newPassword', {
+                                    required: 'This field is required',
+                                    validate: validate.password,
+                                })}
+                                className="input-change-password"
+                                placeholder="New Password"
+                                type="password"
+                            />
+                            <CustomError message={errors.newPassword?.message as string} />
+                        </div>
                         <button className="btn change-password-btn" type="submit">
                             Change Password
                         </button>
