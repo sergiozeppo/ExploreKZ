@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Passwords {
     currentPassword: string;
@@ -24,6 +24,14 @@ export default function ChangePassword() {
         handleSubmit,
     } = useForm<Passwords>({
         mode: 'onChange',
+    });
+    const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
+
+    useEffect(() => {
+        if (!token) {
+            CustomToast('error', 'You need to login before change password');
+            navigate('/');
+        }
     });
 
     const handleSumbitChangePassword: SubmitHandler<Passwords> = (date) => {
