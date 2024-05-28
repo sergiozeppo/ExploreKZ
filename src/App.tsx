@@ -10,7 +10,7 @@ import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
-import Profile from './pages/profile/Profile';
+import { Profile } from './pages/profile/Profile';
 import About from './pages/about/About';
 import Catalog from './pages/catalog/Catalog';
 import Cart from './pages/cart/Cart';

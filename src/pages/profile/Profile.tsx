@@ -13,7 +13,7 @@ import { CustomToast } from '../../components/Toast';
 
 import { UserParams } from '../../apiSdk/RegistrationUser';
 
-async function ProfileApi(): Promise<IUser | Error> {
+export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
 
     const api = baseClient();
@@ -32,7 +32,7 @@ async function ProfileApi(): Promise<IUser | Error> {
     }
 }
 
-export default function Profile() {
+export function Profile() {
     const {
         register,
         formState: { errors },

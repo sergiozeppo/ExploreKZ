@@ -1,27 +1,37 @@
 import './index.css';
 import { useState } from 'react';
 import { baseClient } from '../../apiSdk/BaseClient';
+import { ProfileApi } from '../profile/Profile';
 
 export default function ChangePassword() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
-    const handleSumbitChangePassword = () => {
-        const api = baseClient();
-        try {
-            api.customers()
-                .password()
-                .post({
-                    body: {
-                        id: '1',
-                        version: 1,
-                        currentPassword: currentPassword,
-                        newPassword: newPassword,
-                    },
-                });
-        } catch (error) {
-            return error as Error;
-        }
+    const handleSumbitChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const userInfo = ProfileApi();
+        userInfo.then((result) => {
+            if (!(result instanceof Error)) {
+                const api = baseClient();
+                try {
+                    api.customers()
+                        .password()
+                        .post({
+                            body: {
+                                id: result.id,
+                                version: result.version,
+                                currentPassword: currentPassword,
+                                newPassword: newPassword,
+                            },
+                        })
+                        .execute()
+                        .then((response) => console.log(response))
+                        .catch((error) => console.error(error));
+                } catch (error) {
+                    return error as Error;
+                }
+            }
+        });
     };
 
     return (
