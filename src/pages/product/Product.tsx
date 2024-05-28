@@ -29,7 +29,7 @@ export default function Product() {
     const [products, setProducts] = useState<ProductData>();
     const [images, setImages] = useState<Image[]>();
     const [loading, setLoading] = useState(true);
-    const [slides, setSlides] = useState([]);
+    const [slides, setSlides] = useState<Image[]>([]);
 
     useEffect(() => {
         if (localStorage.getItem('isLogin')) {
@@ -55,7 +55,7 @@ export default function Product() {
                         const allImages = masterVariant.concat(variantImages);
                         console.log(allImages);
                         if (allImages.length > 0) setImages(allImages);
-                        setSlides((prevSlides) => prevSlides.concat(allImages));
+                        setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                     })
                     .catch((error) => {
                         if (error.statusCode === 404) {
