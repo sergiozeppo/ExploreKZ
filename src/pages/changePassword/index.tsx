@@ -44,7 +44,13 @@ export default function ChangePassword() {
                             navigate('/profile');
                             console.log(response);
                         })
-                        .catch((error) => console.error(error));
+                        .catch((error) => {
+                            if (error.body) {
+                                CustomToast('error', error.body.message);
+                            } else {
+                                CustomToast('error', 'An error occurred, please try again later');
+                            }
+                        });
                 } catch (error) {
                     return error as Error;
                 }
