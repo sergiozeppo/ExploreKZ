@@ -37,6 +37,7 @@ export default function Login() {
                 setPasswordError('');
                 setLoading(false);
                 navigate('/');
+                location.reload();
                 const userToken = token.get();
                 localStorage.setItem('isLogin', 'true');
                 localStorage.setItem('userToken', JSON.stringify(userToken));
