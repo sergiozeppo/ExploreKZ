@@ -14,6 +14,7 @@ import Profile from './pages/profile/Profile';
 import About from './pages/about/About';
 import Catalog from './pages/catalog/Catalog';
 import Cart from './pages/cart/Cart';
+import Product from './pages/product/Product';
 // import Footer from './components/Footer/Footer';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
@@ -52,6 +53,7 @@ function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/products/*" element={<Product />} />
                         <Route path="/cart" element={<Cart />} />
                     </Routes>
                     {/* <Footer /> */}
