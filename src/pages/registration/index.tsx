@@ -63,6 +63,7 @@ function Registration() {
                 loginFn(userData.email, userData.password)
                     .then(() => {
                         navigate('/');
+                        location.reload();
                         const userToken = token.get();
                         localStorage.setItem('isLogin', 'true');
                         localStorage.setItem('userToken', JSON.stringify(userToken));
