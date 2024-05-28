@@ -6,7 +6,7 @@ import { ProductData } from '@commercetools/platform-sdk';
 import { Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
-// import { Img } from '../../components';
+import { Img } from '../../components';
 import { EffectFade, Navigation, Pagination } from 'swiper/modules';
 import './product.css';
 import 'swiper/css';
@@ -115,11 +115,6 @@ export default function Product() {
                         <Navigate to="/not-found" />
                     ) : (
                         <>
-                            {/* <Img
-                                className="product-img"
-                                src={products?.masterVariant?.images?.[0]?.url || ''}
-                                alt={products?.name['en-US'] || ''}
-                            /> */}
                             <div className="product">
                                 <>
                                     <Swiper
@@ -136,30 +131,11 @@ export default function Product() {
                                             <Loader />
                                         ) : (
                                             slides.map((slide, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <img src={slide.url} alt={`${index}`} className="w-100" />
+                                                <SwiperSlide className="swiper-slide" key={index}>
+                                                    <Img src={slide.url} alt={`${index}`} className="product-img" />
                                                 </SwiperSlide>
                                             ))
                                         )}
-                                        {/* // allImages.map()
-                                        // images.map((image, index) => (
-                                        //     <div key={index} className="slide">
-                                        //       <img src={image.url} alt={`Slide ${index + 1}`} />
-                                        //     </div>
-                                        //   ))
-                                     */}
-                                        {/* <SwiperSlide className="swiper-slide">
-                                        <img className="product-img" src={products?.masterVariant?.images?.[0]?.url} />
-                                    </SwiperSlide>
-                                    <SwiperSlide className="swiper-slide">
-                                        <img src={products?.variants?.[0].images?.[0]?.url} />
-                                    </SwiperSlide>
-                                    <SwiperSlide className="swiper-slide">
-                                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                                    </SwiperSlide>
-                                    <SwiperSlide className="swiper-slide">
-                                        <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                                    </SwiperSlide> */}
                                     </Swiper>
                                     <div className="product-title">
                                         {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
