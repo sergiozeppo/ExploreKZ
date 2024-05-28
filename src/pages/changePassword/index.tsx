@@ -77,7 +77,7 @@ export default function ChangePassword() {
                                     })}
                                     className="input-change-password"
                                     placeholder="Current Password"
-                                    type="password"
+                                    type={showPasswordCurrent ? 'text' : 'password'}
                                 />
                                 <div
                                     className="toggle-password-visibility"
@@ -97,7 +97,7 @@ export default function ChangePassword() {
                                     })}
                                     className="input-change-password"
                                     placeholder="New Password"
-                                    type="password"
+                                    type={showPasswordNew ? 'text' : 'password'}
                                 />
                                 <div
                                     className="toggle-password-visibility"
