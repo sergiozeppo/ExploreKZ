@@ -47,13 +47,11 @@ export default function Product() {
                     .then((res) => {
                         console.log(res);
                         const response: ProductData = res.body.masterData.current;
-                        console.log(response);
                         setProducts(response);
                         setLoading(false);
                         const masterVariant = response?.masterVariant?.images || [];
                         const variantImages = response?.variants?.[0]?.images || [];
                         const allImages = masterVariant.concat(variantImages);
-                        console.log(allImages);
                         if (allImages.length > 0) setImages(allImages);
                         setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                     })
