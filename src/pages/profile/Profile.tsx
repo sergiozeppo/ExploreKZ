@@ -271,10 +271,10 @@ export default function Profile() {
                 </>
             ) : (
                 <>
-                    <button className="profile-btn" type="button" onClick={handleInputChangeEditing}>
+                    <button className="btn" type="button" onClick={handleInputChangeEditing}>
                         Edit profile
                     </button>
-                    <button className="profile-btn" onClick={() => navigate('/changePassword')}>
+                    <button className="btn" onClick={() => navigate('/changePassword')}>
                         Change Password
                     </button>
                 </>

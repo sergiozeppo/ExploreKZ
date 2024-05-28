@@ -8,7 +8,7 @@ export default function ChangePassword() {
                     <fieldset className="fieldset--change-password">
                         <legend>Change Password</legend>
                         <input className="input-change-password" placeholder="Input Code" type="text" disabled />
-                        <button className="profile-btn" type="submit">
+                        <button className="btn change-password-btn" type="submit">
                             Request Password Change
                         </button>
                     </fieldset>
