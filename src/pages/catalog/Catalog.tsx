@@ -226,6 +226,7 @@ export default function Catalog() {
                             const fixedPrice = price / 100;
                             return (
                                 <Card
+                                    id={el.id}
                                     key={el.id}
                                     images={imageUrl}
                                     name={el.name['en-US']}
