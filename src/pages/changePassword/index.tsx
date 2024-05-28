@@ -6,6 +6,8 @@ import { CustomToast } from '../../components/Toast';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validate } from '../../components/Validation';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useState } from 'react';
 
 interface Passwords {
     currentPassword: string;
@@ -14,6 +16,8 @@ interface Passwords {
 
 export default function ChangePassword() {
     const navigate = useNavigate();
+    const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
+    const [showPasswordNew, setShowPasswordNew] = useState(false);
     const {
         register,
         formState: { errors },
@@ -65,27 +69,43 @@ export default function ChangePassword() {
                     <fieldset className="fieldset--change-password">
                         <legend>Change Password</legend>
                         <div>
-                            <input
-                                {...register('currentPassword', {
-                                    required: 'This field is required',
-                                    validate: validate.password,
-                                })}
-                                className="input-change-password"
-                                placeholder="Current Password"
-                                type="password"
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <input
+                                    {...register('currentPassword', {
+                                        required: 'This field is required',
+                                        validate: validate.password,
+                                    })}
+                                    className="input-change-password"
+                                    placeholder="Current Password"
+                                    type="password"
+                                />
+                                <div
+                                    className="toggle-password-visibility"
+                                    onClick={() => setShowPasswordCurrent(!showPasswordCurrent)}
+                                >
+                                    {showPasswordCurrent ? <FiEye /> : <FiEyeOff />}
+                                </div>
+                            </div>
                             <CustomError message={errors.currentPassword?.message as string} />
                         </div>
                         <div>
-                            <input
-                                {...register('newPassword', {
-                                    required: 'This field is required',
-                                    validate: validate.password,
-                                })}
-                                className="input-change-password"
-                                placeholder="New Password"
-                                type="password"
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <input
+                                    {...register('newPassword', {
+                                        required: 'This field is required',
+                                        validate: validate.password,
+                                    })}
+                                    className="input-change-password"
+                                    placeholder="New Password"
+                                    type="password"
+                                />
+                                <div
+                                    className="toggle-password-visibility"
+                                    onClick={() => setShowPasswordNew(!showPasswordNew)}
+                                >
+                                    {showPasswordNew ? <FiEye /> : <FiEyeOff />}
+                                </div>
+                            </div>
                             <CustomError message={errors.newPassword?.message as string} />
                         </div>
                         <button className="btn change-password-btn" type="submit">
