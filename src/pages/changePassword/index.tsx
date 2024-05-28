@@ -74,52 +74,49 @@ export default function ChangePassword() {
         <div className="conatiner-change-password">
             <div className="window-change-password">
                 <form className="form-change-password" onSubmit={handleSubmit(handleSumbitChangePassword)}>
-                    <fieldset className="fieldset--change-password">
-                        <legend>Change Password</legend>
-                        <div>
-                            <div style={{ position: 'relative' }}>
-                                <input
-                                    {...register('currentPassword', {
-                                        required: 'This field is required',
-                                        validate: validate.password,
-                                    })}
-                                    className="input-change-password"
-                                    placeholder="Current Password"
-                                    type={showPasswordCurrent ? 'text' : 'password'}
-                                />
-                                <div
-                                    className="toggle-password-visibility"
-                                    onClick={() => setShowPasswordCurrent(!showPasswordCurrent)}
-                                >
-                                    {showPasswordCurrent ? <FiEye /> : <FiEyeOff />}
-                                </div>
+                    <div>
+                        <div className="form-password-container">
+                            <input
+                                {...register('currentPassword', {
+                                    required: 'This field is required',
+                                    validate: validate.password,
+                                })}
+                                className="input-change-password"
+                                placeholder="Current Password"
+                                type={showPasswordCurrent ? 'text' : 'password'}
+                            />
+                            <div
+                                className="toggle-password-visibility"
+                                onClick={() => setShowPasswordCurrent(!showPasswordCurrent)}
+                            >
+                                {showPasswordCurrent ? <FiEye /> : <FiEyeOff />}
                             </div>
-                            <CustomError message={errors.currentPassword?.message as string} />
                         </div>
-                        <div>
-                            <div style={{ position: 'relative' }}>
-                                <input
-                                    {...register('newPassword', {
-                                        required: 'This field is required',
-                                        validate: validate.password,
-                                    })}
-                                    className="input-change-password"
-                                    placeholder="New Password"
-                                    type={showPasswordNew ? 'text' : 'password'}
-                                />
-                                <div
-                                    className="toggle-password-visibility"
-                                    onClick={() => setShowPasswordNew(!showPasswordNew)}
-                                >
-                                    {showPasswordNew ? <FiEye /> : <FiEyeOff />}
-                                </div>
+                        <CustomError message={errors.currentPassword?.message as string} />
+                    </div>
+                    <div>
+                        <div className="form-password-container">
+                            <input
+                                {...register('newPassword', {
+                                    required: 'This field is required',
+                                    validate: validate.password,
+                                })}
+                                className="input-change-password"
+                                placeholder="New Password"
+                                type={showPasswordNew ? 'text' : 'password'}
+                            />
+                            <div
+                                className="toggle-password-visibility"
+                                onClick={() => setShowPasswordNew(!showPasswordNew)}
+                            >
+                                {showPasswordNew ? <FiEye /> : <FiEyeOff />}
                             </div>
-                            <CustomError message={errors.newPassword?.message as string} />
                         </div>
-                        <button className="btn change-password-btn" type="submit">
-                            Change Password
-                        </button>
-                    </fieldset>
+                        <CustomError message={errors.newPassword?.message as string} />
+                    </div>
+                    <button className="btn change-password-btn" type="submit">
+                        Change Password
+                    </button>
                 </form>
             </div>
         </div>
