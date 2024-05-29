@@ -43,12 +43,6 @@ export function Profile() {
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
-    const [formDate, setFormDate] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
-        dateOfBirth: '',
-    });
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
@@ -60,12 +54,6 @@ export function Profile() {
                     setError(result);
                 } else {
                     setUser(result);
-                    setFormDate({
-                        email: result.email,
-                        firstName: result.firstName,
-                        lastName: result.lastName,
-                        dateOfBirth: result.dateOfBirth,
-                    });
                 }
             } catch {
                 throw new Error('Error detected');
@@ -109,24 +97,13 @@ export function Profile() {
         setIsEditing(!isEditing);
     };
 
-    const handleInputChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormDate({
-            ...formDate,
-            [name]: value,
-        });
-        console.log(formDate);
-    };
-
     const handleSumbitChanges: SubmitHandler<UserPersonalInfo> = (data) => {
         setIsEditing(!isEditing);
         if (!user?.id && !user?.version) {
             return;
         }
 
-        console.log(data);
-
-        const { firstName, lastName, dateOfBirth, email } = formDate;
+        const { firstName, lastName, dateOfBirth, email } = data;
 
         const updateActions: CustomerUpdateAction[] = [
             {
@@ -179,7 +156,6 @@ export function Profile() {
                         lastName={user.lastName}
                         dateOfBirth={user.dateOfBirth}
                         isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
                         errors={errors}
                         register={register}
                     />
