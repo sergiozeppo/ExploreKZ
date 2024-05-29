@@ -74,6 +74,11 @@
     gap: 8px;
 }
 
+.addresses-container {
+    overflow-y: scroll;
+    max-height: 350px;
+}
+
 .user-addresses-row {
     display: flex;
     color: white;
