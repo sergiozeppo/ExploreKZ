@@ -6,6 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import { validate } from '../Validation';
 import CustomError from '../Validation/error';
 import { IAddress } from './typesProfile';
+import { useState } from 'react';
 
 interface UserAddresses {
     address: IAddress;
@@ -20,67 +21,79 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
     } = useForm<UserParams>({
         mode: 'onChange',
     });
+    const [isChange, setIsChange] = useState(false);
     console.log(validate, register);
-    console.log(defaultBillingAddressId, address);
 
     return (
         <fieldset className="user-addresses-container">
-            <FaEdit color="white" className="user-addresses-edit-icon" />
+            <FaEdit color="white" className="user-addresses-edit-icon" onClick={() => setIsChange(!isChange)} />
             <MdDelete color="white" className="user-addresses-delete-icon" />
             <legend>Address</legend>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Country:</span>
                 </div>
-                <span>{address.country}</span>
-                {/* <input
-                    {...register('country', {
-                        required: 'This field is required',
-                    })}
-                    className="user-addresses-input"
-                /> */}
+                {isChange ? (
+                    <input
+                        {...register('country', {
+                            required: 'This field is required',
+                        })}
+                        className="user-addresses-input"
+                    />
+                ) : (
+                    <span>{address.country}</span>
+                )}
             </div>
             <CustomError message={errors.country?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Street:</span>
                 </div>
-                <span>{address.streetName}</span>
-                {/* <input
-                    {...register('streetName', {
-                        required: 'This field is required',
-                        validate: validate['street'],
-                    })}
-                    className="user-addresses-input"
-                /> */}
+                {isChange ? (
+                    <input
+                        {...register('streetName', {
+                            required: 'This field is required',
+                            validate: validate['street'],
+                        })}
+                        className="user-addresses-input"
+                    />
+                ) : (
+                    <span>{address.streetName}</span>
+                )}
             </div>
             <CustomError message={errors.streetName?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>City:</span>
                 </div>
-                <span>{address.city}</span>
-                {/* <input
-                    {...register('city', {
-                        required: 'This field is required',
-                        validate: validate['city'],
-                    })}
-                    className="user-addresses-input"
-                /> */}
+                {isChange ? (
+                    <input
+                        {...register('city', {
+                            required: 'This field is required',
+                            validate: validate['city'],
+                        })}
+                        className="user-addresses-input"
+                    />
+                ) : (
+                    <span>{address.city}</span>
+                )}
             </div>
             <CustomError message={errors.city?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Postal Code:</span>
                 </div>
-                <span>{address.postalCode}</span>
-                {/* <input
-                    {...register('postalCode', {
-                        required: 'This field is required',
-                        validate: validate['postalCode'],
-                    })}
-                    className="user-addresses-input"
-                /> */}
+                {isChange ? (
+                    <input
+                        {...register('postalCode', {
+                            required: 'This field is required',
+                            validate: validate['postalCode'],
+                        })}
+                        className="user-addresses-input"
+                    />
+                ) : (
+                    <span>{address.postalCode}</span>
+                )}
             </div>
             <CustomError message={errors.postalCode?.message} />
             <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '5px' }}>
@@ -96,7 +109,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                         },
                         color: 'white',
                     }}
-                    disabled
+                    disabled={isChange ? false : true}
                 />
                 <FormControlLabel
                     control={<Switch defaultChecked={defaultBillingAddressId === address.id ? true : false} />}
@@ -110,7 +123,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                         },
                         color: 'white',
                     }}
-                    disabled
+                    disabled={isChange ? false : true}
                 />
             </div>
         </fieldset>
