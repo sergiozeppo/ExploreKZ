@@ -37,6 +37,9 @@ function UserAddresses({ user, addressIdProp, isEditing, onChangeHandler, errors
                     '& .MuiSvgIcon-root': {
                         color: 'white',
                     },
+                    '.Mui-disabled': {
+                        color: 'white !important',
+                    },
                     color: 'white',
                 }}
                 disabled={isEditing ? false : true}
