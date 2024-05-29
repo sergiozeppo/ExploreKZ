@@ -13,7 +13,12 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
     return (
         <fieldset className="user-addresses-container">
             <legend>Address</legend>
-            <span>dsds</span>
+            <div className="user-addresses-row">
+                <div className="user-addresses-col">
+                    <span>Street</span>
+                </div>
+                <input name="dsds" className="user-addresses-input" />
+            </div>
         </fieldset>
     );
 }
