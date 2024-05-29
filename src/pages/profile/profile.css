@@ -73,6 +73,7 @@
     flex-direction: column;
     gap: 8px;
     border-radius: 10px;
+    position: relative;
 }
 
 .addresses-container {
@@ -120,4 +121,18 @@
 .user-addresses-input {
     background-color: white;
     border: none;
+}
+
+.user-addresses-edit-icon {
+    position: absolute;
+    right: 50px;
+    top: -15px;
+    cursor: pointer;
+}
+
+.user-addresses-delete-icon {
+    position: absolute;
+    right: 13px;
+    top: -15px;
+    cursor: pointer;
 }
