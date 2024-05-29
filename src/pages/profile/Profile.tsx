@@ -255,11 +255,14 @@ export function Profile() {
                         register={register}
                     />
                     <FormControlLabel
-                        control={<Checkbox />}
+                        control={<Checkbox disabled={isEditing ? false : true} />}
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
                                 color: 'white',
+                            },
+                            '.Mui-disabled': {
+                                color: 'white !important',
                             },
                             color: 'white',
                         }}
