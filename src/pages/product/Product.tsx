@@ -148,6 +148,35 @@ export default function Product() {
                                     <div className="product-description">
                                         {products?.description?.['en-US'] || 'Not provided!'}
                                     </div>
+                                    <div className="price-wrapper">
+                                        <span className="product-price">
+                                            Price:{' '}
+                                            <span
+                                                className={
+                                                    products.masterVariant?.prices?.[0]?.discounted?.value.centAmount
+                                                        ? 'product-price-original'
+                                                        : 'product-price-discount'
+                                                }
+                                            >
+                                                {products.masterVariant?.prices?.[0]?.value?.centAmount
+                                                    ? products.masterVariant?.prices?.[0]?.value?.centAmount / 100
+                                                    : 0}
+                                            </span>{' '}
+                                            USD
+                                        </span>
+                                        {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
+                                            <span className="discount-wrapper">
+                                                New price:{' '}
+                                                <span className="product-price-discount">
+                                                    {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount /
+                                                        100}
+                                                </span>{' '}
+                                                USD
+                                            </span>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
                                 </>
                             </div>
                         </>
