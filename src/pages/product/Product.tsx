@@ -84,6 +84,12 @@ export default function Product() {
                     const response: ProductData = res.body.masterData.current;
                     setProducts(response);
                     setLoading(false);
+                    const masterVariant = response?.masterVariant?.images || [];
+                    const variantImages = response?.variants?.[0]?.images || [];
+                    const allImages = masterVariant.concat(variantImages);
+                    if (allImages.length > 0) setImages(allImages);
+                    if (slides.length > 0) setSlides([]);
+                    setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                 })
                 .catch((error) => {
                     if (error.statusCode === 404) {
@@ -141,6 +147,39 @@ export default function Product() {
                                     </div>
                                     <div className="product-description">
                                         {products?.description?.['en-US'] || 'Not provided!'}
+                                    </div>
+                                    <div className="price-wrapper">
+                                        <span className="product-price">
+                                            Price:{' '}
+                                            <span
+                                                className={
+                                                    products.masterVariant?.prices?.[0]?.discounted?.value.centAmount
+                                                        ? 'product-price-original'
+                                                        : 'product-price-discount'
+                                                }
+                                            >
+                                                {products.masterVariant?.prices?.[0]?.value?.centAmount
+                                                    ? (
+                                                          products.masterVariant?.prices?.[0]?.value?.centAmount / 100
+                                                      ).toFixed(2)
+                                                    : Number(0).toFixed(2)}
+                                            </span>{' '}
+                                            $
+                                        </span>
+                                        {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
+                                            <span className="discount-wrapper">
+                                                New price:{' '}
+                                                <span className="product-price-discount">
+                                                    {(
+                                                        products.masterVariant?.prices?.[0]?.discounted?.value
+                                                            .centAmount / 100
+                                                    ).toFixed(2)}
+                                                </span>{' '}
+                                                $
+                                            </span>
+                                        ) : (
+                                            ''
+                                        )}
                                     </div>
                                 </>
                             </div>
