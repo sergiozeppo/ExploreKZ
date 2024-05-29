@@ -208,22 +208,8 @@ export function Profile() {
                     />
                 </div>
                 <div className="profile-user-addresses profile-user-container">
-                    <UserAddresses
-                        user={user}
-                        addressIdProp={0}
-                        isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
-                        errors={errors}
-                        register={register}
-                    />
-                    <UserAddresses
-                        user={user}
-                        addressIdProp={1}
-                        isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
-                        errors={errors}
-                        register={register}
-                    />
+                    <UserAddresses errors={errors} register={register} />
+                    <UserAddresses errors={errors} register={register} />
                     <button className="btn" type="button">
                         Add new address
                     </button>
