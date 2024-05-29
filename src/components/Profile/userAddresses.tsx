@@ -37,26 +37,28 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                 </div>
                 <input name="postalCode" className="user-addresses-input" />
             </div>
-            <FormControlLabel
-                control={<Switch />}
-                label="Set as default shipping"
-                sx={{
-                    '& .MuiSvgIcon-root': {
+            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '5px' }}>
+                <FormControlLabel
+                    control={<Switch />}
+                    label="Set as default shipping"
+                    sx={{
+                        '& .MuiSvgIcon-root': {
+                            color: 'white',
+                        },
                         color: 'white',
-                    },
-                    color: 'white',
-                }}
-            />
-            <FormControlLabel
-                control={<Switch />}
-                label="Set as default billing"
-                sx={{
-                    '& .MuiSvgIcon-root': {
+                    }}
+                />
+                <FormControlLabel
+                    control={<Switch />}
+                    label="Set as default billing"
+                    sx={{
+                        '& .MuiSvgIcon-root': {
+                            color: 'white',
+                        },
                         color: 'white',
-                    },
-                    color: 'white',
-                }}
-            />
+                    }}
+                />
+            </div>
         </fieldset>
     );
 }
