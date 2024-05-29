@@ -21,11 +21,13 @@ export default function Catalog() {
 
     const [open, setOpen] = useState(false);
     const [priceRangeOpen, setPriceRangeOpen] = useState(false);
-
+    const [sortType, setSortType] = useState<string | null>(null);
+    const [isSortOpen, setIsSortOpen] = useState(false);
+    const [sortTitle, setSortTitle] = useState('default');
     const filterRef = useRef<HTMLDivElement>(null);
     const priceFilterRef = useRef<HTMLDivElement>(null);
-
-    const getProducts = (filter: string, minPrice: number | null, maxPrice: number | null) => {
+    const sortRef = useRef<HTMLDivElement>(null);
+    const getProducts = (filter: string, minPrice: number | null, maxPrice: number | null, sortType: string | null) => {
         setLoading(true);
         const userToken = localStorage.getItem('userToken');
         const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
@@ -48,7 +50,9 @@ export default function Catalog() {
             }
             queryArgs.filter.push(priceFilter);
         }
-
+        if (sortType) {
+            queryArgs.sort = [sortType];
+        }
         client
             .productProjections()
             .search()
@@ -74,13 +78,14 @@ export default function Catalog() {
     };
 
     useEffect(() => {
-        getProducts(currItem, minPrice, maxPrice);
-    }, [currItem, minPrice, maxPrice]);
+        getProducts(currItem, minPrice, maxPrice, sortType);
+    }, [currItem, minPrice, maxPrice, sortType]);
 
     const handleClick = () => {
         setOpen(!open);
         if (!open) {
             setPriceRangeOpen(false);
+            setIsSortOpen(false);
         }
     };
     const handleFilterItem = (e: React.MouseEvent<HTMLUListElement>) => {
@@ -96,6 +101,7 @@ export default function Catalog() {
         setPriceRangeOpen(!priceRangeOpen);
         if (!priceRangeOpen) {
             setOpen(false);
+            setIsSortOpen(false);
         }
     };
 
@@ -140,6 +146,9 @@ export default function Catalog() {
         setMaxPrice(null);
         setOpen(false);
         setPriceRangeOpen(false);
+        setSortTitle('default');
+        setSortType(null);
+        setIsSortOpen(false);
     };
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -147,10 +156,13 @@ export default function Catalog() {
                 filterRef.current &&
                 !filterRef.current.contains(event.target as Node) &&
                 priceFilterRef.current &&
-                !priceFilterRef.current.contains(event.target as Node)
+                !priceFilterRef.current.contains(event.target as Node) &&
+                sortRef.current &&
+                !sortRef.current.contains(event.target as Node)
             ) {
                 setOpen(false);
                 setPriceRangeOpen(false);
+                setIsSortOpen(false);
             }
         };
 
@@ -159,6 +171,37 @@ export default function Catalog() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+    const hanleSort = () => {
+        setIsSortOpen(!isSortOpen);
+        if (!isSortOpen) {
+            setOpen(false);
+            setPriceRangeOpen(false);
+        }
+    };
+    const sortHadler = (e: React.MouseEvent<HTMLUListElement>) => {
+        e.stopPropagation();
+        const target = e.target as HTMLLIElement;
+        const targetId = target.getAttribute('id');
+        if (targetId) {
+            if (targetId === '0') {
+                setSortTitle(`Alphabet ${String.fromCharCode(8593)}`);
+                setSortType('name.en-US asc');
+            }
+            if (targetId === '1') {
+                setSortTitle(`Alphabet ${String.fromCharCode(8595)}`);
+                setSortType('name.en-US desc');
+            }
+            if (targetId === '2') {
+                setSortTitle(`Price ${String.fromCharCode(8593)}`);
+                setSortType('price asc');
+            }
+            if (targetId === '3') {
+                setSortTitle(`Price ${String.fromCharCode(8595)}`);
+                setSortType('price desc');
+            }
+            setIsSortOpen(false);
+        }
+    };
     return (
         <>
             <div className="filter-area">
@@ -209,8 +252,36 @@ export default function Catalog() {
                         </div>
                     )}
                 </div>
+                <div className="sorting" onClick={hanleSort} ref={sortRef}>
+                    {`Sort by ${sortTitle}`}
+                    {isSortOpen ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+                    {isSortOpen && (
+                        <ul className="sort-menu" onClick={(e) => sortHadler(e)}>
+                            <li className="filter-item" id="0">
+                                Alphabet {String.fromCharCode(8593)}
+                            </li>
+                            <li className="filter-item" id="1">
+                                Alphabet {String.fromCharCode(8595)}
+                            </li>
+                            <li className="filter-item" id="2">
+                                Price {String.fromCharCode(8593)}
+                            </li>
+                            <li className="filter-item" id="3">
+                                Price {String.fromCharCode(8595)}
+                            </li>
+                        </ul>
+                    )}
+                </div>
             </div>
-            <button className="button reset-btn" onClick={resetFilters}>
+            <button
+                className={
+                    currItem !== 'All' || minPrice !== null || maxPrice !== null || sortType
+                        ? 'button reset-btn'
+                        : 'button reset-btn btn-disabled'
+                }
+                onClick={resetFilters}
+                disabled={!(currItem !== 'All' || minPrice !== null || maxPrice !== null || sortType)}
+            >
                 Reset
             </button>
             {loading ? (
