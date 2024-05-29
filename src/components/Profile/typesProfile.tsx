@@ -8,8 +8,8 @@ export interface UserPersonalInfo {
 export interface IUser extends UserPersonalInfo {
     id: string;
     version: number;
-    defaultShippingAddressId?: string;
-    defaultBillingAddressId?: string;
+    defaultShippingAddressId: string;
+    defaultBillingAddressId: string;
     addresses: IAddress[];
 }
 export interface IAddress {

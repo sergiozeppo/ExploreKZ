@@ -181,8 +181,13 @@ export function Profile() {
                 </form>
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
-                        <UserAddresses />
-                        <UserAddresses />
+                        {user.addresses.map((_, index) => (
+                            <UserAddresses
+                                address={user.addresses[index]}
+                                defaultBillingAddressId={user.defaultBillingAddressId}
+                                defaultShippingAddressId={user.defaultShippingAddressId}
+                            />
+                        ))}
                     </div>
                     <button className="btn" type="button">
                         Add new address

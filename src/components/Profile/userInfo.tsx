@@ -1,8 +1,7 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import CustomError from '../Validation/error';
 import { validate } from '../Validation';
 import { UserPersonalInfo } from './typesProfile';
-
+import CustomError from '../Validation/error';
 interface UserInfoProps extends UserPersonalInfo {
     isEditing: boolean;
     errors: FieldErrors;
