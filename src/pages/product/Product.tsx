@@ -159,19 +159,23 @@ export default function Product() {
                                                 }
                                             >
                                                 {products.masterVariant?.prices?.[0]?.value?.centAmount
-                                                    ? products.masterVariant?.prices?.[0]?.value?.centAmount / 100
-                                                    : 0}
+                                                    ? (
+                                                          products.masterVariant?.prices?.[0]?.value?.centAmount / 100
+                                                      ).toFixed(2)
+                                                    : Number(0).toFixed(2)}
                                             </span>{' '}
-                                            USD
+                                            $
                                         </span>
                                         {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
                                             <span className="discount-wrapper">
                                                 New price:{' '}
                                                 <span className="product-price-discount">
-                                                    {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount /
-                                                        100}
+                                                    {(
+                                                        products.masterVariant?.prices?.[0]?.discounted?.value
+                                                            .centAmount / 100
+                                                    ).toFixed(2)}
                                                 </span>{' '}
-                                                USD
+                                                $
                                             </span>
                                         ) : (
                                             ''

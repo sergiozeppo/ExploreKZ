@@ -53,6 +53,7 @@
     border-radius: 10px;
     background-color: rgba(237, 92, 92, 0.66);
     margin: 0 3px;
+    line-height: 25px;
     text-decoration: line-through;
     text-decoration-thickness: 2px;
 }
