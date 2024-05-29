@@ -4,19 +4,20 @@ import { UserParams } from '../../apiSdk/RegistrationUser';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { validate } from '../Validation';
-import CustomError from '../Validation/error';
 import { IAddress } from './typesProfile';
+import { IUser } from './typesProfile';
 import { useState } from 'react';
 import { GiConfirmed } from 'react-icons/gi';
 import { MdCancel } from 'react-icons/md';
+import { baseClient } from '../../apiSdk/BaseClient';
+import CustomError from '../Validation/error';
 
 interface UserAddresses {
     address: IAddress;
-    defaultShippingAddressId: string;
-    defaultBillingAddressId: string;
+    userInfo: IUser;
 }
 
-function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddressId }: UserAddresses) {
+function UserAddresses({ address, userInfo }: UserAddresses) {
     const {
         register,
         formState: { errors },
@@ -24,7 +25,19 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
         mode: 'onChange',
     });
     const [isChange, setIsChange] = useState(false);
-    console.log(validate, register);
+
+    const { id, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
+
+    const handleRemoveAddress = () => {
+        const api = baseClient();
+        try {
+            api.customers()
+                .withId({ ID: id })
+                .post({ body: { version: 1, actions: [{ action: 'removeAddress', addressId: address.id }] } });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <fieldset className="user-addresses-container">
@@ -40,7 +53,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
             ) : (
                 <FaEdit color="white" className="user-addresses-edit-icon icons" onClick={() => setIsChange(true)} />
             )}
-            <MdDelete color="white" className="user-addresses-delete-icon icons" />
+            <MdDelete color="white" className="user-addresses-delete-icon icons" onClick={handleRemoveAddress} />
             <legend>Address</legend>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">

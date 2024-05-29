@@ -182,11 +182,7 @@ export function Profile() {
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
                         {user.addresses.map((_, index) => (
-                            <UserAddresses
-                                address={user.addresses[index]}
-                                defaultBillingAddressId={user.defaultBillingAddressId}
-                                defaultShippingAddressId={user.defaultShippingAddressId}
-                            />
+                            <UserAddresses userInfo={user} address={user.addresses[index]} />
                         ))}
                     </div>
                     <button className="btn" type="button">
