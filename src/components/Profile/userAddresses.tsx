@@ -15,7 +15,25 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
             <legend>Address</legend>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
-                    <span>Street</span>
+                    <span>Country:</span>
+                </div>
+                <input name="dsds" className="user-addresses-input" />
+            </div>
+            <div className="user-addresses-row">
+                <div className="user-addresses-col">
+                    <span>Street:</span>
+                </div>
+                <input name="dsds" className="user-addresses-input" />
+            </div>
+            <div className="user-addresses-row">
+                <div className="user-addresses-col">
+                    <span>City:</span>
+                </div>
+                <input name="dsds" className="user-addresses-input" />
+            </div>
+            <div className="user-addresses-row">
+                <div className="user-addresses-col">
+                    <span>Postal Code:</span>
                 </div>
                 <input name="dsds" className="user-addresses-input" />
             </div>
