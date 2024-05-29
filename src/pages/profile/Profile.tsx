@@ -10,7 +10,7 @@ import UserInfo from '../../components/Profile/userInfo';
 import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
-import { UserParams } from '../../apiSdk/RegistrationUser';
+import { UserPersonalInfo } from '../../components/Profile/typesProfile';
 
 export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
@@ -36,7 +36,7 @@ export function Profile() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<UserParams>({
+    } = useForm<UserPersonalInfo>({
         mode: 'onChange',
     });
     const [user, setUser] = useState<IUser | null>(null);
@@ -48,14 +48,6 @@ export function Profile() {
         firstName: '',
         lastName: '',
         dateOfBirth: '',
-        streetName: '',
-        streetNameBilling: '',
-        postalCode: '',
-        postalCodeBilling: '',
-        city: '',
-        cityBilling: '',
-        defaultShipping: false,
-        defaultBilling: false,
     });
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
@@ -73,21 +65,6 @@ export function Profile() {
                         firstName: result.firstName,
                         lastName: result.lastName,
                         dateOfBirth: result.dateOfBirth,
-                        streetName: result.addresses[0]?.streetName || '',
-                        streetNameBilling:
-                            result.addresses.length === 1
-                                ? result.addresses[0]?.streetName
-                                : result.addresses[1]?.streetName,
-                        postalCode: result.addresses[0]?.postalCode || '',
-                        postalCodeBilling:
-                            result.addresses.length === 1
-                                ? result.addresses[0]?.postalCode
-                                : result.addresses[1]?.postalCode,
-                        city: result.addresses[0]?.city || '',
-                        cityBilling:
-                            result.addresses.length === 1 ? result.addresses[0]?.city : result.addresses[1]?.city,
-                        defaultShipping: result.defaultShippingAddressId ? true : false,
-                        defaultBilling: result.defaultBillingAddressId ? true : false,
                     });
                 }
             } catch {
@@ -141,7 +118,7 @@ export function Profile() {
         console.log(formDate);
     };
 
-    const handleSumbitChanges: SubmitHandler<UserParams> = (data) => {
+    const handleSumbitChanges: SubmitHandler<UserPersonalInfo> = (data) => {
         setIsEditing(!isEditing);
         if (!user?.id && !user?.version) {
             return;
@@ -192,9 +169,9 @@ export function Profile() {
     }
 
     return (
-        <form className="container-profile" onSubmit={handleSubmit(handleSumbitChanges)}>
+        <div className="container-profile">
             <div className="profile-content">
-                <div className="profile-user-info profile-user-container">
+                <form className="profile-user-info profile-user-container" onSubmit={handleSubmit(handleSumbitChanges)}>
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
                     <UserInfo
                         email={user.email}
@@ -225,7 +202,7 @@ export function Profile() {
                             </button>
                         </>
                     )}
-                </div>
+                </form>
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
                         <UserAddresses />
@@ -239,6 +216,6 @@ export function Profile() {
             <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
                 Change Password
             </button>
-        </form>
+        </div>
     );
 }

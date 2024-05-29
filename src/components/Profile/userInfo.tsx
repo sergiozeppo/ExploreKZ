@@ -1,23 +1,16 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { UserParams } from '../../apiSdk/RegistrationUser';
 import CustomError from '../Validation/error';
 import { validate } from '../Validation';
+import { UserPersonalInfo } from './typesProfile';
 
-interface UserInfo {
-    email: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-}
-
-interface UserInfoProps extends UserInfo {
+interface UserInfoProps extends UserPersonalInfo {
     isEditing: boolean;
     onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
     errors: FieldErrors;
-    register: UseFormRegister<UserParams>;
+    register: UseFormRegister<UserPersonalInfo>;
 }
 
-const displayName: { [key in keyof UserInfo]: string } = {
+const displayName: { [key in keyof UserPersonalInfo]: string } = {
     email: 'Email:',
     firstName: 'First Name:',
     lastName: 'Last Name:',
@@ -27,7 +20,7 @@ const displayName: { [key in keyof UserInfo]: string } = {
 const UserInfo: React.FC<UserInfoProps> = ({ isEditing, onChangeHandler, errors, register, ...props }) => {
     return (
         <div className="profile-user-cols-container">
-            {(Object.keys(props) as Array<keyof UserInfo>).map((field) => (
+            {(Object.keys(props) as Array<keyof UserPersonalInfo>).map((field) => (
                 <div key={field} className="profile-user-col">
                     <span>{displayName[field]}</span>
                     {isEditing ? (

@@ -1,6 +1,5 @@
 import { Switch, FormControlLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
-// import { IUser } from './typesProfile';
 import { UserParams } from '../../apiSdk/RegistrationUser';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
