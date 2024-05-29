@@ -84,6 +84,12 @@ export default function Product() {
                     const response: ProductData = res.body.masterData.current;
                     setProducts(response);
                     setLoading(false);
+                    const masterVariant = response?.masterVariant?.images || [];
+                    const variantImages = response?.variants?.[0]?.images || [];
+                    const allImages = masterVariant.concat(variantImages);
+                    if (allImages.length > 0) setImages(allImages);
+                    if (slides.length > 0) setSlides([]);
+                    setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                 })
                 .catch((error) => {
                     if (error.statusCode === 404) {
