@@ -255,7 +255,12 @@ export function Profile() {
                         register={register}
                     />
                     <FormControlLabel
-                        control={<Checkbox disabled={isEditing ? false : true} />}
+                        control={
+                            <Checkbox
+                                disabled={isEditing ? false : true}
+                                defaultChecked={user.addresses.length === 2 ? false : true}
+                            />
+                        }
                         label="Also use as billing address"
                         sx={{
                             '& .MuiSvgIcon-root': {
