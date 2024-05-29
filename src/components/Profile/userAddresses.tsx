@@ -52,6 +52,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                             required: 'This field is required',
                         })}
                         className="user-addresses-input"
+                        defaultValue={address.country}
                     />
                 ) : (
                     <span>{address.country}</span>
@@ -69,6 +70,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                             validate: validate['street'],
                         })}
                         className="user-addresses-input"
+                        defaultValue={address.streetName}
                     />
                 ) : (
                     <span>{address.streetName}</span>
@@ -86,6 +88,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                             validate: validate['city'],
                         })}
                         className="user-addresses-input"
+                        defaultValue={address.city}
                     />
                 ) : (
                     <span>{address.city}</span>
@@ -103,6 +106,7 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
                             validate: validate['postalCode'],
                         })}
                         className="user-addresses-input"
+                        defaultValue={address.postalCode}
                     />
                 ) : (
                     <span>{address.postalCode}</span>
