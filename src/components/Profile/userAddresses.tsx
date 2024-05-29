@@ -7,6 +7,8 @@ import { validate } from '../Validation';
 import CustomError from '../Validation/error';
 import { IAddress } from './typesProfile';
 import { useState } from 'react';
+import { GiConfirmed } from 'react-icons/gi';
+import { MdCancel } from 'react-icons/md';
 
 interface UserAddresses {
     address: IAddress;
@@ -26,8 +28,19 @@ function UserAddresses({ address, defaultShippingAddressId, defaultBillingAddres
 
     return (
         <fieldset className="user-addresses-container">
-            <FaEdit color="white" className="user-addresses-edit-icon" onClick={() => setIsChange(!isChange)} />
-            <MdDelete color="white" className="user-addresses-delete-icon" />
+            {isChange ? (
+                <>
+                    <GiConfirmed color="white" className="user-addresses-confirmed-icon icons" />
+                    <MdCancel
+                        color="white"
+                        className="user-addresses-cancel-icon icons"
+                        onClick={() => setIsChange(false)}
+                    />
+                </>
+            ) : (
+                <FaEdit color="white" className="user-addresses-edit-icon icons" onClick={() => setIsChange(true)} />
+            )}
+            <MdDelete color="white" className="user-addresses-delete-icon icons" />
             <legend>Address</legend>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">

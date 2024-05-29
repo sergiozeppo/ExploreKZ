@@ -123,16 +123,24 @@
     border: none;
 }
 
-.user-addresses-edit-icon {
+.icons {
     position: absolute;
-    right: 50px;
-    top: -15px;
     cursor: pointer;
+    top: -15px;
+}
+
+.user-addresses-edit-icon {
+    right: 35px;
 }
 
 .user-addresses-delete-icon {
-    position: absolute;
     right: 13px;
-    top: -15px;
-    cursor: pointer;
+}
+
+.user-addresses-confirmed-icon {
+    right: 60px;
+}
+
+.user-addresses-cancel-icon {
+    right: 40px;
 }
