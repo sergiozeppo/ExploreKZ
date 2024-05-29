@@ -228,8 +228,8 @@ export function Profile() {
                 </div>
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
-                        <UserAddresses errors={errors} register={register} />
-                        <UserAddresses errors={errors} register={register} />
+                        <UserAddresses />
+                        <UserAddresses />
                     </div>
                     <button className="btn" type="button">
                         Add new address

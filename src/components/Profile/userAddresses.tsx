@@ -1,18 +1,20 @@
 import { Switch, FormControlLabel } from '@mui/material';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // import { IUser } from './typesProfile';
 import { UserParams } from '../../apiSdk/RegistrationUser';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { validate } from '../Validation';
+import CustomError from '../Validation/error';
 
-interface UserAddressesAttributes {
-    errors: FieldErrors;
-    register: UseFormRegister<UserParams>;
-}
+function UserAddresses() {
+    const {
+        register,
+        formState: { errors },
+    } = useForm<UserParams>({
+        mode: 'onChange',
+    });
 
-function UserAddresses({ errors, register }: UserAddressesAttributes) {
-    console.log(errors, register);
     return (
         <fieldset className="user-addresses-container">
             <FaEdit color="white" className="user-addresses-edit-icon" />
@@ -29,6 +31,7 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                     className="user-addresses-input"
                 />
             </div>
+            <CustomError message={errors.country?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Street:</span>
@@ -41,6 +44,7 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                     className="user-addresses-input"
                 />
             </div>
+            <CustomError message={errors.streetName?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>City:</span>
@@ -53,6 +57,7 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                     className="user-addresses-input"
                 />
             </div>
+            <CustomError message={errors.city?.message} />
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Postal Code:</span>
@@ -65,6 +70,7 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                     className="user-addresses-input"
                 />
             </div>
+            <CustomError message={errors.postalCode?.message} />
             <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '5px' }}>
                 <FormControlLabel
                     control={<Switch />}
