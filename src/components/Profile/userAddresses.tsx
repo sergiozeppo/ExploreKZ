@@ -26,14 +26,14 @@ function UserAddresses({ address, userInfo }: UserAddresses) {
     });
     const [isChange, setIsChange] = useState(false);
 
-    const { id, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
+    const { id, version, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
 
     const handleRemoveAddress = () => {
         const api = baseClient();
         try {
             api.customers()
                 .withId({ ID: id })
-                .post({ body: { version: 1, actions: [{ action: 'removeAddress', addressId: address.id }] } });
+                .post({ body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] } });
         } catch (error) {
             console.error(error);
         }
