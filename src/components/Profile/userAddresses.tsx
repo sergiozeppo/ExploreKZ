@@ -1,4 +1,4 @@
-// import { Switch, FormControlLabel } from '@mui/material';
+import { Switch, FormControlLabel } from '@mui/material';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 // import { IUser } from './typesProfile';
 import { UserParams } from '../../apiSdk/RegistrationUser';
@@ -17,26 +17,46 @@ function UserAddresses({ errors, register }: UserAddressesAttributes) {
                 <div className="user-addresses-col">
                     <span>Country:</span>
                 </div>
-                <input name="dsds" className="user-addresses-input" />
+                <input name="country" className="user-addresses-input" />
             </div>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Street:</span>
                 </div>
-                <input name="dsds" className="user-addresses-input" />
+                <input name="street" className="user-addresses-input" />
             </div>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>City:</span>
                 </div>
-                <input name="dsds" className="user-addresses-input" />
+                <input name="city" className="user-addresses-input" />
             </div>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
                     <span>Postal Code:</span>
                 </div>
-                <input name="dsds" className="user-addresses-input" />
+                <input name="postalCode" className="user-addresses-input" />
             </div>
+            <FormControlLabel
+                control={<Switch />}
+                label="Set as default shipping"
+                sx={{
+                    '& .MuiSvgIcon-root': {
+                        color: 'white',
+                    },
+                    color: 'white',
+                }}
+            />
+            <FormControlLabel
+                control={<Switch />}
+                label="Set as default billing"
+                sx={{
+                    '& .MuiSvgIcon-root': {
+                        color: 'white',
+                    },
+                    color: 'white',
+                }}
+            />
         </fieldset>
     );
 }
