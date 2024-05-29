@@ -8,11 +8,12 @@ import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
 import { Img } from '../../components';
 import { EffectFade, Navigation, Pagination } from 'swiper/modules';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import './product.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import 'swiper/css/bundle';
 
 type Image = {
     url: string;
@@ -130,6 +131,10 @@ export default function Product() {
                                             clickable: true,
                                         }}
                                         modules={[EffectFade, Navigation, Pagination]}
+                                        zoom={{
+                                            maxRatio: 1.2,
+                                            minRatio: 1,
+                                        }}
                                         className="swiper"
                                     >
                                         {!images ? (
@@ -137,11 +142,14 @@ export default function Product() {
                                         ) : (
                                             slides.map((slide, index) => (
                                                 <SwiperSlide className="swiper-slide" key={index}>
-                                                    <Img src={slide.url} alt={`${index}`} className="product-img" />
+                                                    <Zoom classDialog="custom-zoom">
+                                                        <Img src={slide.url} alt={`${index}`} className="product-img" />
+                                                    </Zoom>
                                                 </SwiperSlide>
                                             ))
                                         )}
                                     </Swiper>
+
                                     <div className="product-title">
                                         {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
                                     </div>
