@@ -206,6 +206,25 @@ export function Profile() {
                         errors={errors}
                         register={register}
                     />
+
+                    {isEditing ? (
+                        <>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                                <button className="btn sumbit" type="submit">
+                                    Submit Changes
+                                </button>
+                                <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                                Edit Personal Info
+                            </button>
+                        </>
+                    )}
                 </div>
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
@@ -217,30 +236,9 @@ export function Profile() {
                     </button>
                 </div>
             </div>
-            {isEditing ? (
-                <>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <button className="btn sumbit" type="submit">
-                            Submit Changes
-                        </button>
-                        <button className="btn" type="button" onClick={handleInputChangeEditing}>
-                            Cancel
-                        </button>
-                    </div>
-                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
-                        Change Password
-                    </button>
-                </>
-            ) : (
-                <>
-                    <button className="btn" type="button" onClick={handleInputChangeEditing}>
-                        Edit profile
-                    </button>
-                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
-                        Change Password
-                    </button>
-                </>
-            )}
+            <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
+                Change Password
+            </button>
         </form>
     );
 }
