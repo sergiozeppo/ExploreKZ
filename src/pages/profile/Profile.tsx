@@ -1,5 +1,5 @@
 import './profile.css';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, useEffect, useRef } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
@@ -11,7 +11,6 @@ import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
 import { UserParams } from '../../apiSdk/RegistrationUser';
-import { Checkbox, FormControlLabel } from '@mui/material';
 
 export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
@@ -142,24 +141,15 @@ export function Profile() {
         console.log(formDate);
     };
 
-    const handleSumbitChanges = () => {
+    const handleSumbitChanges: SubmitHandler<UserParams> = (data) => {
         setIsEditing(!isEditing);
         if (!user?.id && !user?.version) {
             return;
         }
 
-        const {
-            firstName,
-            lastName,
-            dateOfBirth,
-            city,
-            email,
-            postalCode,
-            streetName,
-            cityBilling,
-            postalCodeBilling,
-            streetNameBilling,
-        } = formDate;
+        console.log(data);
+
+        const { firstName, lastName, dateOfBirth, email } = formDate;
 
         const updateActions: CustomerUpdateAction[] = [
             {
@@ -177,34 +167,6 @@ export function Profile() {
             {
                 action: 'changeEmail',
                 email,
-            },
-            {
-                action: 'changeAddress',
-                addressId: user.addresses[0]?.id || '',
-                address: {
-                    city,
-                    country: 'KZ',
-                    postalCode,
-                    streetName,
-                },
-            },
-            {
-                action: 'changeAddress',
-                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
-                address: {
-                    city: cityBilling,
-                    country: 'KZ',
-                    postalCode: postalCodeBilling,
-                    streetName: streetNameBilling,
-                },
-            },
-            {
-                action: 'setDefaultShippingAddress',
-                addressId: user.addresses[0]?.id || '',
-            },
-            {
-                action: 'setDefaultBillingAddress',
-                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
             },
         ];
 
@@ -254,24 +216,6 @@ export function Profile() {
                         errors={errors}
                         register={register}
                     />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                disabled={isEditing ? false : true}
-                                defaultChecked={user.addresses.length === 2 ? false : true}
-                            />
-                        }
-                        label="Also use as billing address"
-                        sx={{
-                            '& .MuiSvgIcon-root': {
-                                color: 'white',
-                            },
-                            '.Mui-disabled': {
-                                color: 'white !important',
-                            },
-                            color: 'white',
-                        }}
-                    />
                     <UserAddresses
                         user={user}
                         addressIdProp={1}
@@ -280,6 +224,9 @@ export function Profile() {
                         errors={errors}
                         register={register}
                     />
+                    <button className="btn" type="button">
+                        Add new address
+                    </button>
                 </div>
             </div>
             {isEditing ? (
