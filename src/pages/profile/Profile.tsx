@@ -11,6 +11,7 @@ import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
 import { UserParams } from '../../apiSdk/RegistrationUser';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
@@ -252,6 +253,16 @@ export function Profile() {
                         onChangeHandler={handleInputChangeDate}
                         errors={errors}
                         register={register}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox />}
+                        label="Also use as billing address"
+                        sx={{
+                            '& .MuiSvgIcon-root': {
+                                color: 'white',
+                            },
+                            color: 'white',
+                        }}
                     />
                     <UserAddresses
                         user={user}
