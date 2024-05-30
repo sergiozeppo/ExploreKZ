@@ -153,6 +153,7 @@ export function Profile() {
                 addresses: updatedAddresses,
             };
         });
+        console.log(updatedAddresses);
     };
 
     const handleNewAddress = () => {
