@@ -7,9 +7,14 @@ import './catalog.css';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import { FaSearch } from 'react-icons/fa';
 
+type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
-    [key: string]: string[];
+    [key: string]: QueryParam;
+    'text.en'?: string;
+    fuzzy?: boolean;
+    limit?: number;
 }
 
 export default function Catalog() {
@@ -27,16 +32,27 @@ export default function Catalog() {
     const filterRef = useRef<HTMLDivElement>(null);
     const priceFilterRef = useRef<HTMLDivElement>(null);
     const sortRef = useRef<HTMLDivElement>(null);
-    const getProducts = (filter: string, minPrice: number | null, maxPrice: number | null, sortType: string | null) => {
+    const [searchValue, setSearchValue] = useState('');
+    const [triggerSearch, setTriggerSearch] = useState(false);
+
+    const getProducts = (
+        filter: string,
+        minPrice: number | null,
+        maxPrice: number | null,
+        sortType: string | null,
+        searchValue: string,
+    ) => {
         setLoading(true);
         const userToken = localStorage.getItem('userToken');
         const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
 
         const queryArgs: QUERYARGS = { filter: [] };
-        if (filter === 'Tours') {
-            queryArgs.filter.push('categories.id:subtree("2eb7506a-8e2b-41c0-934a-27beb1e6d056")');
-        } else if (filter === 'Adventures') {
-            queryArgs.filter.push('categories.id:subtree("f7b72444-abd3-4bfa-82b6-473cb991c907")');
+        if (Array.isArray(queryArgs.filter)) {
+            if (filter === 'Tours') {
+                queryArgs.filter.push('categories.id:subtree("2eb7506a-8e2b-41c0-934a-27beb1e6d056")');
+            } else if (filter === 'Adventures') {
+                queryArgs.filter.push('categories.id:subtree("f7b72444-abd3-4bfa-82b6-473cb991c907")');
+            }
         }
 
         if (minPrice !== null || maxPrice !== null) {
@@ -48,11 +64,15 @@ export default function Catalog() {
             } else if (maxPrice !== null) {
                 priceFilter = `variants.prices.value.centAmount:range(* to ${maxPrice * 100})`;
             }
-            queryArgs.filter.push(priceFilter);
+            if (Array.isArray(queryArgs.filter)) queryArgs.filter.push(priceFilter);
         }
         if (sortType) {
             queryArgs.sort = [sortType];
         }
+        if (searchValue) {
+            queryArgs['text.en-US'] = searchValue.toLowerCase();
+        }
+        queryArgs.fuzzy = true;
         client
             .productProjections()
             .search()
@@ -78,9 +98,14 @@ export default function Catalog() {
     };
 
     useEffect(() => {
-        getProducts(currItem, minPrice, maxPrice, sortType);
+        getProducts(currItem, minPrice, maxPrice, sortType, '');
     }, [currItem, minPrice, maxPrice, sortType]);
-
+    useEffect(() => {
+        if (triggerSearch) {
+            getProducts(currItem, minPrice, maxPrice, sortType, searchValue);
+            setTriggerSearch(false);
+        }
+    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue]);
     const handleClick = () => {
         setOpen(!open);
         if (!open) {
@@ -149,6 +174,8 @@ export default function Catalog() {
         setSortTitle('default');
         setSortType(null);
         setIsSortOpen(false);
+        setSearchValue('');
+        setTriggerSearch(false);
     };
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -202,8 +229,24 @@ export default function Catalog() {
             setIsSortOpen(false);
         }
     };
+    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setTriggerSearch(true);
+    };
     return (
         <>
+            <form className="search-area" onSubmit={handleSearch}>
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="search"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                />
+                <button type="submit" className="search-btn">
+                    <FaSearch />
+                </button>
+            </form>
             <div className="filter-area">
                 <div className="filter-title" onClick={handleClick} ref={filterRef}>
                     {currItem}
