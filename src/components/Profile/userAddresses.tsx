@@ -102,7 +102,6 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                 .execute()
                 .then((response) => {
                     setUser(response.body as IUser);
-                    setIsChange(false);
                 })
                 .catch();
         } catch (error) {
