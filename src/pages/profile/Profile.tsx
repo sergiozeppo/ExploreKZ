@@ -97,11 +97,12 @@ export function Profile() {
         setIsEditing(!isEditing);
     };
 
+    if (!user) {
+        return;
+    }
+
     const handleSumbitChanges: SubmitHandler<UserPersonalInfo> = (data) => {
         setIsEditing(!isEditing);
-        if (!user?.id && !user?.version) {
-            return;
-        }
 
         const { firstName, lastName, dateOfBirth, email } = data;
 
@@ -126,7 +127,7 @@ export function Profile() {
 
         const api = baseClient();
         api.customers()
-            .withId({ ID: user?.id })
+            .withId({ ID: user.id })
             .post({ body: { version: user.version, actions: updateActions } })
             .execute()
             .then((response) => {
@@ -154,9 +155,29 @@ export function Profile() {
         });
     };
 
-    if (!user) {
-        return;
-    }
+    const handleNewAddress = () => {
+        const api = baseClient();
+        api.customers()
+            .withId({ ID: user.id })
+            .post({
+                body: {
+                    version: user.version,
+                    actions: [
+                        { action: 'addAddress', address: { country: 'KZ', city: '', streetName: '', postalCode: '' } },
+                    ],
+                },
+            })
+            .execute()
+            .then((response) => {
+                const responseDate = response.body as IUser;
+                setUser(responseDate);
+                CustomToast('success', 'New address added');
+            })
+            .catch((err) => {
+                console.log('Change is failed', err);
+                CustomToast('error', 'An error occurred, please try again later');
+            });
+    };
 
     return (
         <div className="container-profile">
@@ -203,7 +224,7 @@ export function Profile() {
                             />
                         ))}
                     </div>
-                    <button className="btn" type="button">
+                    <button className="btn" type="button" onClick={handleNewAddress}>
                         Add new address
                     </button>
                 </div>
