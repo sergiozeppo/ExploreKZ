@@ -143,9 +143,7 @@ export function Profile() {
     };
 
     const handleRemoveAddress = (addressId: string) => {
-        if (!user) return;
-
-        const updatedAddresses = user?.addresses.filter((addr) => addr.id !== addressId);
+        const updatedAddresses = user.addresses.filter((addr) => addr.id !== addressId);
         setUser((prevUser) => {
             if (!prevUser) return prevUser;
             return {
@@ -153,7 +151,6 @@ export function Profile() {
                 addresses: updatedAddresses,
             };
         });
-        console.log(updatedAddresses);
     };
 
     const handleNewAddress = () => {

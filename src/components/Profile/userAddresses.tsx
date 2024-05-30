@@ -18,7 +18,7 @@ interface UserAddresses {
     onRemoveAddress: (addressId: string) => void;
 }
 
-function UserAddresses({ address, userInfo }: UserAddresses) {
+function UserAddresses({ address, userInfo, onRemoveAddress }: UserAddresses) {
     const {
         register,
         formState: { errors },
@@ -38,7 +38,10 @@ function UserAddresses({ address, userInfo }: UserAddresses) {
                     body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] },
                 })
                 .execute()
-                .then((response) => console.log(response))
+                .then((response) => {
+                    console.log(response);
+                    onRemoveAddress(address.id || '');
+                })
                 .catch();
         } catch (error) {
             console.error(error);
