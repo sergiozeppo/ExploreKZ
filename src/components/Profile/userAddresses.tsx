@@ -18,6 +18,7 @@ interface UserAddresses {
     onRemoveAddress: (addressId: string) => void;
     setUser: React.Dispatch<IUser>;
 }
+type toggleDefaultShippingBilling = 'setDefaultBillingAddress' | 'setDefaultShippingAddress';
 
 function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddresses) {
     const {
@@ -53,6 +54,7 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
     const handleSaveChangesAddress: SubmitHandler<IAddress> = (date) => {
         const api = baseClient();
 
+        console.log(date);
         const { city, country, postalCode, streetName } = date;
         try {
             api.customers()
@@ -65,6 +67,34 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                                 action: 'changeAddress',
                                 addressId: address.id,
                                 address: { city, country, postalCode, streetName },
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((response) => {
+                    setUser(response.body as IUser);
+                    setIsChange(false);
+                })
+                .catch();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleDefaultAddress = (action: toggleDefaultShippingBilling, addressId: string | undefined) => {
+        const api = baseClient();
+
+        try {
+            api.customers()
+                .withId({ ID: id })
+                .post({
+                    body: {
+                        version,
+                        actions: [
+                            {
+                                action: action,
+                                addressId,
                             },
                         ],
                     },
@@ -108,6 +138,7 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                     <input
                         {...register('country', {
                             required: 'This field is required',
+                            validate: (text) => text === 'KZ' || 'Country must be only KZ',
                         })}
                         className="user-addresses-input"
                         defaultValue={address.country}
@@ -173,7 +204,17 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
             <CustomError message={errors.postalCode?.message} />
             <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '5px' }}>
                 <FormControlLabel
-                    control={<Switch defaultChecked={defaultShippingAddressId === address.id ? true : false} />}
+                    control={
+                        <Switch
+                            checked={defaultShippingAddressId === address.id}
+                            onChange={(e) =>
+                                handleDefaultAddress(
+                                    'setDefaultShippingAddress',
+                                    e.target.checked === true ? address.id : undefined,
+                                )
+                            }
+                        />
+                    }
                     label="Set as default shipping"
                     sx={{
                         '& .MuiSvgIcon-root': {
@@ -187,7 +228,17 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                     disabled={isChange ? false : true}
                 />
                 <FormControlLabel
-                    control={<Switch defaultChecked={defaultBillingAddressId === address.id ? true : false} />}
+                    control={
+                        <Switch
+                            checked={defaultBillingAddressId === address.id}
+                            onChange={(e) =>
+                                handleDefaultAddress(
+                                    'setDefaultBillingAddress',
+                                    e.target.checked === true ? address.id : undefined,
+                                )
+                            }
+                        />
+                    }
                     label="Set as default billing"
                     sx={{
                         '& .MuiSvgIcon-root': {

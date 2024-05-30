@@ -43,6 +43,7 @@ export function Profile() {
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
