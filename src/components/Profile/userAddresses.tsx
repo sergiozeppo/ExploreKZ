@@ -11,6 +11,7 @@ import { GiConfirmed } from 'react-icons/gi';
 import { MdCancel } from 'react-icons/md';
 import { baseClient } from '../../apiSdk/BaseClient';
 import CustomError from '../Validation/error';
+import { CustomToast } from '../Toast';
 
 interface UserAddresses {
     address: IAddress;
@@ -41,11 +42,11 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                     body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] },
                 })
                 .execute()
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
                     onRemoveAddress(address.id || '');
+                    CustomToast('success', 'Success remove address');
                 })
-                .catch();
+                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
         } catch (error) {
             console.error(error);
         }
@@ -75,8 +76,9 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                 .then((response) => {
                     setUser(response.body as IUser);
                     setIsChange(false);
+                    CustomToast('success', 'Success change address');
                 })
-                .catch();
+                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
         } catch (error) {
             console.error(error);
         }
@@ -103,7 +105,7 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                 .then((response) => {
                     setUser(response.body as IUser);
                 })
-                .catch();
+                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
         } catch (error) {
             console.error(error);
         }
