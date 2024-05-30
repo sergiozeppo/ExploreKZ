@@ -43,6 +43,10 @@ function UserAddresses({ address, userInfo }: UserAddresses) {
         }
     };
 
+    if (!address && !userInfo) {
+        setIsChange(true);
+    }
+
     return (
         <fieldset className="user-addresses-container">
             {isChange ? (
