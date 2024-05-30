@@ -15,6 +15,7 @@ import CustomError from '../Validation/error';
 interface UserAddresses {
     address: IAddress;
     userInfo: IUser;
+    onRemoveAddress: (addressId: string) => void;
 }
 
 function UserAddresses({ address, userInfo }: UserAddresses) {
@@ -33,7 +34,10 @@ function UserAddresses({ address, userInfo }: UserAddresses) {
         try {
             api.customers()
                 .withId({ ID: id })
-                .post({ body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] } });
+                .post({ body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] } })
+                .execute()
+                .then(() => handleRemoveAddress())
+                .catch();
         } catch (error) {
             console.error(error);
         }

@@ -141,6 +141,19 @@ export function Profile() {
             });
     };
 
+    const handleRemoveAddress = (addressId: string) => {
+        if (!user) return;
+
+        const updatedAddresses = user?.addresses.filter((addr) => addr.id !== addressId);
+        setUser((prevUser) => {
+            if (!prevUser) return prevUser;
+            return {
+                ...prevUser,
+                addresses: updatedAddresses,
+            };
+        });
+    };
+
     if (!user) {
         return;
     }
@@ -182,7 +195,12 @@ export function Profile() {
                 <div className="profile-user-addresses profile-user-container">
                     <div className="addresses-container">
                         {user.addresses.map((_, index) => (
-                            <UserAddresses userInfo={user} address={user.addresses[index]} />
+                            <UserAddresses
+                                key={index}
+                                userInfo={user}
+                                address={user.addresses[index]}
+                                onRemoveAddress={handleRemoveAddress}
+                            />
                         ))}
                     </div>
                     <button className="btn" type="button">
