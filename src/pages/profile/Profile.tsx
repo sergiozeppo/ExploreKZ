@@ -219,6 +219,7 @@ export function Profile() {
                                 userInfo={user}
                                 address={user.addresses[index]}
                                 onRemoveAddress={handleRemoveAddress}
+                                setUser={setUser}
                             />
                         ))}
                     </div>

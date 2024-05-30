@@ -1,5 +1,5 @@
 import { Switch, FormControlLabel } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { UserParams } from '../../apiSdk/RegistrationUser';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
@@ -16,12 +16,14 @@ interface UserAddresses {
     address: IAddress;
     userInfo: IUser;
     onRemoveAddress: (addressId: string) => void;
+    setUser: React.Dispatch<IUser>;
 }
 
-function UserAddresses({ address, userInfo, onRemoveAddress }: UserAddresses) {
+function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddresses) {
     const {
         register,
         formState: { errors },
+        handleSubmit,
     } = useForm<UserParams>({
         mode: 'onChange',
     });
@@ -29,7 +31,7 @@ function UserAddresses({ address, userInfo, onRemoveAddress }: UserAddresses) {
 
     const { version, id, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
 
-    const handleRemoveAddress = async () => {
+    const handleRemoveAddress = () => {
         const api = baseClient();
         try {
             api.customers()
@@ -48,15 +50,45 @@ function UserAddresses({ address, userInfo, onRemoveAddress }: UserAddresses) {
         }
     };
 
-    if (!address && !userInfo) {
-        setIsChange(true);
-    }
+    const handleSaveChangesAddress: SubmitHandler<IAddress> = (date) => {
+        const api = baseClient();
+
+        const { city, country, postalCode, streetName } = date;
+        try {
+            api.customers()
+                .withId({ ID: id })
+                .post({
+                    body: {
+                        version,
+                        actions: [
+                            {
+                                action: 'changeAddress',
+                                addressId: address.id,
+                                address: { city, country, postalCode, streetName },
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((response) => {
+                    setUser(response.body as IUser);
+                    setIsChange(false);
+                })
+                .catch();
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <fieldset className="user-addresses-container">
             {isChange ? (
                 <>
-                    <GiConfirmed color="white" className="user-addresses-confirmed-icon icons" />
+                    <GiConfirmed
+                        color="white"
+                        className="user-addresses-confirmed-icon icons"
+                        onClick={handleSubmit(handleSaveChangesAddress)}
+                    />
                     <MdCancel
                         color="white"
                         className="user-addresses-cancel-icon icons"
