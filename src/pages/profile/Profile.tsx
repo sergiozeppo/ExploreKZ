@@ -161,31 +161,9 @@ export function Profile() {
             if (!prevUser) return prevUser;
             return {
                 ...prevUser,
-                addresses: [...(prevUser?.addresses || []), emptyAddress],
+                addresses: [...(prevUser.addresses || []), emptyAddress],
             };
         });
-
-        // const api = baseClient();
-        // api.customers()
-        //     .withId({ ID: user.id })
-        //     .post({
-        //         body: {
-        //             version: user.version,
-        //             actions: [
-        //                 { action: 'addAddress', address: { country: 'KZ', city: '', streetName: '', postalCode: '' } },
-        //             ],
-        //         },
-        //     })
-        //     .execute()
-        //     .then((response) => {
-        //         const responseDate = response.body as IUser;
-        //         setUser(responseDate);
-        //         CustomToast('success', 'New address added');
-        //     })
-        //     .catch((err) => {
-        //         console.log('Change is failed', err);
-        //         CustomToast('error', 'An error occurred, please try again later');
-        //     });
     };
 
     return (

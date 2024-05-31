@@ -29,7 +29,7 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
     } = useForm<UserParams>({
         mode: 'onChange',
     });
-    const [isChange, setIsChange] = useState(false);
+    const [isChange, setIsChange] = useState(address.city === '' ? true : false);
 
     const { version, id, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
 
