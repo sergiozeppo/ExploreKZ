@@ -8,6 +8,7 @@ import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { FaSearch } from 'react-icons/fa';
+import Crumbs from '../../components/Crumbs/Crumbs';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -15,6 +16,8 @@ interface QUERYARGS {
     'text.en'?: string;
     fuzzy?: boolean;
     limit?: number;
+    markMatchingVariants?: boolean;
+    where?: string;
 }
 
 export default function Catalog() {
@@ -49,9 +52,23 @@ export default function Catalog() {
         const queryArgs: QUERYARGS = { filter: [] };
         if (Array.isArray(queryArgs.filter)) {
             if (filter === 'Tours') {
-                queryArgs.filter.push('categories.id:subtree("2eb7506a-8e2b-41c0-934a-27beb1e6d056")');
+                queryArgs.filter.push('categories.id:subtree("5ee12a8a-e438-42b3-81fb-11bd077b67be")');
+                // path = 'tours';
             } else if (filter === 'Adventures') {
-                queryArgs.filter.push('categories.id:subtree("f7b72444-abd3-4bfa-82b6-473cb991c907")');
+                queryArgs.filter.push('categories.id:subtree("654294ec-29b6-42e8-9fce-32a3604ce7d4")');
+                // path = 'adventures';
+            } else if (filter === 'Team building') {
+                queryArgs.filter.push('categories.id:"729190e8-2dd7-426b-b54e-0fd66961d63c"');
+                // path = 'team-building';
+            } else if (filter === 'Historical & cultural') {
+                queryArgs.filter.push('categories.id:"a834e793-64a5-4991-a7d8-19fb63c340cf"');
+                // path = 'historical-cultural';
+            } else if (filter === 'One day') {
+                queryArgs.filter.push('categories.id:"2eb7506a-8e2b-41c0-934a-27beb1e6d056"');
+                // path = 'one-day';
+            } else if (filter === 'Multi-day') {
+                queryArgs.filter.push('categories.id:"f7b72444-abd3-4bfa-82b6-473cb991c907"');
+                // path = 'multi-day';
             }
         }
 
@@ -72,7 +89,9 @@ export default function Catalog() {
         if (searchValue) {
             queryArgs['text.en-US'] = searchValue.toLowerCase();
         }
+
         queryArgs.fuzzy = true;
+        queryArgs.markMatchingVariants = true;
         client
             .productProjections()
             .search()
@@ -80,11 +99,14 @@ export default function Catalog() {
             .execute()
             .then((res) => {
                 let response: ProductProjection[] = res.body.results;
-
+                console.log(response);
                 if (filter === 'Discounted') {
                     response = response.filter((product) =>
                         product.masterVariant?.prices?.some((price) => price.discounted),
                     );
+                }
+                if (minPrice && maxPrice) {
+                    response = response.filter((product) => product?.masterVariant.isMatchingVariant);
                 }
 
                 setProducts(response);
@@ -100,12 +122,14 @@ export default function Catalog() {
     useEffect(() => {
         getProducts(currItem, minPrice, maxPrice, sortType, '');
     }, [currItem, minPrice, maxPrice, sortType]);
+
     useEffect(() => {
         if (triggerSearch) {
             getProducts(currItem, minPrice, maxPrice, sortType, searchValue);
             setTriggerSearch(false);
         }
     }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue]);
+
     const handleClick = () => {
         setOpen(!open);
         if (!open) {
@@ -253,14 +277,26 @@ export default function Catalog() {
                     {open ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
                     {open && (
                         <ul className="filter-menu" onClick={(e) => handleFilterItem(e)}>
-                            <li className="filter-item" id="All">
+                            <li className="filter-item-all" id="All">
                                 All
                             </li>
                             <li className="filter-item" id="Tours">
                                 Tours
                             </li>
+                            <li className="filter-item-sub" id="Team building">
+                                Team building
+                            </li>
+                            <li className="filter-item-sub" id="Historical & cultural">
+                                Historical & cultural
+                            </li>
                             <li className="filter-item" id="Adventures">
                                 Adventures
+                            </li>
+                            <li className="filter-item-sub" id="One day">
+                                One day
+                            </li>
+                            <li className="filter-item-sub" id="Multi-day">
+                                Multi-day
                             </li>
                             <li className="filter-item" id="Discounted">
                                 Discounted
@@ -327,34 +363,37 @@ export default function Catalog() {
             >
                 Reset
             </button>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div className="catalog-wrapper">
-                    {products.length > 0 ? (
-                        products.map((el) => {
-                            const imageUrl = el.masterVariant?.images?.[0]?.url || '';
-                            const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
-                            const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
-                            const discountFixed = discount / 100;
-                            const fixedPrice = price / 100;
-                            return (
-                                <Card
-                                    id={el.id}
-                                    key={el.id}
-                                    images={imageUrl}
-                                    name={el.name['en-US']}
-                                    description={el.description?.['en-US'] || 'Not provided!'}
-                                    price={fixedPrice}
-                                    discount={discountFixed}
-                                />
-                            );
-                        })
-                    ) : (
-                        <span className="nothing-title"> Nothing Found!</span>
-                    )}
-                </div>
-            )}
+            <Crumbs />
+            <div className="container-catalog">
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <div className="catalog-wrapper">
+                        {products.length > 0 ? (
+                            products.map((el) => {
+                                const imageUrl = el.masterVariant?.images?.[0]?.url || '';
+                                const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
+                                const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
+                                const discountFixed = discount / 100;
+                                const fixedPrice = price / 100;
+                                return (
+                                    <Card
+                                        id={el.id}
+                                        key={el.id}
+                                        images={imageUrl}
+                                        name={el.name['en-US']}
+                                        description={el.description?.['en-US'] || 'Not provided!'}
+                                        price={fixedPrice}
+                                        discount={discountFixed}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <span className="nothing-title"> Nothing Found!</span>
+                        )}
+                    </div>
+                )}
+            </div>
         </>
     );
 }

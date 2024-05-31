@@ -24,7 +24,7 @@ function App() {
     if (localStorage.getItem('isLogin')) {
         console.log('token flow');
         tokenClient()
-            .me()
+            .categories()
             .get()
             .execute()
             .then((res) => {

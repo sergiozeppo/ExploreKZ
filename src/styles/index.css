@@ -12,6 +12,11 @@ body {
     font-family: inherit;
     margin: unset;
 }
+#root {
+    margin: 0 auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 a {
     text-decoration: none;
     display: block;

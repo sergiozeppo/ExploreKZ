@@ -1,9 +1,10 @@
 .catalog-wrapper {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    padding: 15px;
+    margin-top: 20px;
 }
 
 .filter-area {
@@ -55,6 +56,7 @@
 }
 
 .filter-item {
+    padding-left: 10px;
     &:hover {
         color: #1f4aa8;
     }
@@ -93,8 +95,9 @@
     align-items: center;
     justify-content: center;
     max-width: 1242px;
-    width: 100%;
-    margin: 20px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
 
 .search-input {
@@ -116,6 +119,7 @@
 }
 
 .search-btn {
+    width: 25px;
     height: 25px;
     display: flex;
     justify-content: center;
@@ -131,5 +135,17 @@
         svg {
             fill: white;
         }
+    }
+}
+
+.filter-menu {
+    align-items: flex-start; 
+}
+
+.filter-item-sub {
+    padding-left: 20px;
+    font-size: 15px;
+    &:hover {
+        color: #1f4aa8;
     }
 }
