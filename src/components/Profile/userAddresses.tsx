@@ -18,10 +18,22 @@ interface UserAddresses {
     userInfo: IUser;
     onRemoveAddress: (addressId: string) => void;
     setUser: React.Dispatch<IUser>;
+    setDefaultBillingAddressId: React.Dispatch<string | undefined>;
+    setDefaultShippingAddressId: React.Dispatch<string | undefined>;
+    defaultBillingAddressId: string | undefined;
+    defaultShippingAddressId: string | undefined;
 }
-type toggleDefaultShippingBilling = 'setDefaultBillingAddress' | 'setDefaultShippingAddress';
 
-function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddresses) {
+function UserAddresses({
+    address,
+    userInfo,
+    onRemoveAddress,
+    setUser,
+    defaultBillingAddressId,
+    defaultShippingAddressId,
+    setDefaultShippingAddressId,
+    setDefaultBillingAddressId,
+}: UserAddresses) {
     const {
         register,
         formState: { errors },
@@ -29,9 +41,13 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
     } = useForm<UserParams>({
         mode: 'onChange',
     });
-    const [isChange, setIsChange] = useState(address.city === '' ? true : false);
 
-    const { version, id, defaultBillingAddressId, defaultShippingAddressId } = userInfo;
+    console.log(defaultBillingAddressId, defaultShippingAddressId);
+
+    const { version, id } = userInfo;
+    const [isChange, setIsChange] = useState(address.city === '' ? true : false);
+    const isDefaultBilling = defaultBillingAddressId === address.id;
+    const isDefaultShipping = defaultShippingAddressId === address.id;
 
     const handleRemoveAddress = () => {
         const api = baseClient();
@@ -69,11 +85,20 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                                 addressId: address.id,
                                 address: { city, country, postalCode, streetName },
                             },
+                            {
+                                action: 'setDefaultShippingAddress',
+                                addressId: defaultShippingAddressId,
+                            },
+                            {
+                                action: 'setDefaultBillingAddress',
+                                addressId: defaultBillingAddressId,
+                            },
                         ],
                     },
                 })
                 .execute()
                 .then((response) => {
+                    console.log(response.body);
                     setUser(response.body as IUser);
                     setIsChange(false);
                     CustomToast('success', 'Success change address');
@@ -84,32 +109,43 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
         }
     };
 
-    const handleDefaultAddress = (action: toggleDefaultShippingBilling, addressId: string | undefined) => {
-        const api = baseClient();
+    // const handleDefaultAddress = (action: toggleDefaultShippingBilling, addressId: string | undefined) => {
+    //     const api = baseClient();
 
-        try {
-            api.customers()
-                .withId({ ID: id })
-                .post({
-                    body: {
-                        version,
-                        actions: [
-                            {
-                                action: action,
-                                addressId,
-                            },
-                        ],
-                    },
-                })
-                .execute()
-                .then((response) => {
-                    setUser(response.body as IUser);
-                })
-                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
-        } catch (error) {
-            console.error(error);
+    //     try {
+    //         api.customers()
+    //             .withId({ ID: id })
+    //             .post({
+    //                 body: {
+    //                     version,
+    //                     actions: [
+    //                         {
+    //                             action: action,
+    //                             addressId,
+    //                         },
+    //                     ],
+    //                 },
+    //             })
+    //             .execute()
+    //             .then((response) => {
+    //                 setUser(response.body as IUser);
+    //             })
+    //             .catch(() => CustomToast('error', 'An error occurred, please try again later'));
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    const handleDefaultAddress = (action: 'shipping' | 'billing', addressId: string | undefined) => {
+        if (action === 'shipping') {
+            setDefaultShippingAddressId(addressId);
+        } else {
+            setDefaultBillingAddressId(addressId);
         }
     };
+
+    console.log(isDefaultShipping);
+    console.log(isDefaultBilling);
 
     return (
         <fieldset className="user-addresses-container">
@@ -207,12 +243,9 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={defaultShippingAddressId === address.id}
+                            checked={isDefaultShipping}
                             onChange={(e) =>
-                                handleDefaultAddress(
-                                    'setDefaultShippingAddress',
-                                    e.target.checked === true ? address.id : undefined,
-                                )
+                                handleDefaultAddress('shipping', e.target.checked === true ? address.id : undefined)
                             }
                         />
                     }
@@ -231,12 +264,9 @@ function UserAddresses({ address, userInfo, onRemoveAddress, setUser }: UserAddr
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={defaultBillingAddressId === address.id}
+                            checked={isDefaultBilling}
                             onChange={(e) =>
-                                handleDefaultAddress(
-                                    'setDefaultBillingAddress',
-                                    e.target.checked === true ? address.id : undefined,
-                                )
+                                handleDefaultAddress('billing', e.target.checked === true ? address.id : undefined)
                             }
                         />
                     }

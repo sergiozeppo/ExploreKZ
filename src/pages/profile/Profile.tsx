@@ -43,6 +43,8 @@ export function Profile() {
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [defaultBillingAddressId, setDefaultBillingAddressId] = useState<string | undefined>('');
+    const [defaultShippingAddressId, setDefaultShippingAddressId] = useState<string | undefined>('');
 
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
@@ -55,6 +57,8 @@ export function Profile() {
                     setError(result);
                 } else {
                     setUser(result);
+                    setDefaultBillingAddressId(user?.defaultBillingAddressId);
+                    setDefaultShippingAddressId(user?.defaultShippingAddressId);
                 }
             } catch {
                 throw new Error('Error detected');
@@ -64,7 +68,7 @@ export function Profile() {
         }
 
         fetchData();
-    }, []);
+    }, [user?.defaultBillingAddressId, user?.defaultShippingAddressId]);
 
     useEffect(() => {
         if (loading) {
@@ -161,7 +165,7 @@ export function Profile() {
             if (!prevUser) return prevUser;
             return {
                 ...prevUser,
-                addresses: [...(prevUser.addresses || []), emptyAddress],
+                addresses: [...prevUser.addresses, emptyAddress],
             };
         });
     };
@@ -209,6 +213,10 @@ export function Profile() {
                                 address={user.addresses[index]}
                                 onRemoveAddress={handleRemoveAddress}
                                 setUser={setUser}
+                                defaultBillingAddressId={defaultBillingAddressId}
+                                defaultShippingAddressId={defaultShippingAddressId}
+                                setDefaultBillingAddressId={setDefaultBillingAddressId}
+                                setDefaultShippingAddressId={setDefaultShippingAddressId}
                             />
                         ))}
                     </div>
