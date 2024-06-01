@@ -112,7 +112,7 @@ export function Profile() {
                         isLoading: false,
                         autoClose: 1000,
                     });
-                    navigate('/');
+                    navigate('/login');
                 } else if (error) {
                     toast.update(loadingRef.current, {
                         render: `Error: ${error.message}`,
