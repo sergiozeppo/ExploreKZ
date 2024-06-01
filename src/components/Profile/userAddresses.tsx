@@ -257,9 +257,6 @@ function UserAddresses({
                         '& .MuiSvgIcon-root': {
                             color: 'white',
                         },
-                        '.Mui-disabled': {
-                            color: 'white',
-                        },
                         color: 'white',
                     }}
                     disabled={isChange && isNewAddress ? false : true}
@@ -276,9 +273,6 @@ function UserAddresses({
                     label="Set as default billing"
                     sx={{
                         '& .MuiSvgIcon-root': {
-                            color: 'white',
-                        },
-                        '.Mui-disabled': {
                             color: 'white',
                         },
                         color: 'white',
