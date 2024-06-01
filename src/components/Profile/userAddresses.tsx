@@ -42,8 +42,6 @@ function UserAddresses({
         mode: 'onChange',
     });
 
-    console.log(defaultBillingAddressId, defaultShippingAddressId);
-
     const { version, id } = userInfo;
     const [isChange, setIsChange] = useState(address.city === '' ? true : false);
     const isDefaultBilling = defaultBillingAddressId === address.id;
@@ -103,38 +101,14 @@ function UserAddresses({
                     setIsChange(false);
                     CustomToast('success', 'Success change address');
                 })
-                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
+                .catch((error) => {
+                    CustomToast('error', 'An error occurred, please try again later');
+                    console.log('Change is failed', error);
+                });
         } catch (error) {
             console.error(error);
         }
     };
-
-    // const handleDefaultAddress = (action: toggleDefaultShippingBilling, addressId: string | undefined) => {
-    //     const api = baseClient();
-
-    //     try {
-    //         api.customers()
-    //             .withId({ ID: id })
-    //             .post({
-    //                 body: {
-    //                     version,
-    //                     actions: [
-    //                         {
-    //                             action: action,
-    //                             addressId,
-    //                         },
-    //                     ],
-    //                 },
-    //             })
-    //             .execute()
-    //             .then((response) => {
-    //                 setUser(response.body as IUser);
-    //             })
-    //             .catch(() => CustomToast('error', 'An error occurred, please try again later'));
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
 
     const handleDefaultAddress = (action: 'shipping' | 'billing', addressId: string | undefined) => {
         if (action === 'shipping') {
