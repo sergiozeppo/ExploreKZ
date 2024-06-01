@@ -58,9 +58,10 @@ function UserAddresses({
                     body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] },
                 })
                 .execute()
-                .then(() => {
+                .then((response) => {
                     onRemoveAddress(address.id || '');
                     CustomToast('success', 'Success remove address');
+                    setUser(response.body as IUser);
                 })
                 .catch(() => CustomToast('error', 'An error occurred, please try again later'));
         } catch (error) {
