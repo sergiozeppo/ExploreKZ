@@ -22,6 +22,7 @@ interface UserAddresses {
     setDefaultShippingAddressId: React.Dispatch<string | undefined>;
     defaultBillingAddressId: string | undefined;
     defaultShippingAddressId: string | undefined;
+    isNewAddress: boolean;
 }
 
 function UserAddresses({
@@ -33,6 +34,7 @@ function UserAddresses({
     defaultShippingAddressId,
     setDefaultShippingAddressId,
     setDefaultBillingAddressId,
+    isNewAddress,
 }: UserAddresses) {
     const {
         register,
@@ -110,6 +112,46 @@ function UserAddresses({
         }
     };
 
+    const handleNewAddress: SubmitHandler<IAddress> = (date) => {
+        const api = baseClient();
+
+        console.log(date);
+        const { city, country, postalCode, streetName } = date;
+        try {
+            api.customers()
+                .withId({ ID: id })
+                .post({
+                    body: {
+                        version,
+                        actions: [
+                            {
+                                action: 'addAddress',
+                                address: {
+                                    city,
+                                    country,
+                                    postalCode,
+                                    streetName,
+                                },
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((response) => {
+                    console.log(response.body);
+                    setUser(response.body as IUser);
+                    setIsChange(false);
+                    CustomToast('success', 'Success added Address');
+                })
+                .catch((error) => {
+                    CustomToast('error', 'An error occurred, please try again later');
+                    console.log('Change is failed', error);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const handleDefaultAddress = (action: 'shipping' | 'billing', addressId: string | undefined) => {
         if (action === 'shipping') {
             setDefaultShippingAddressId(addressId);
@@ -118,9 +160,6 @@ function UserAddresses({
         }
     };
 
-    console.log(isDefaultShipping);
-    console.log(isDefaultBilling);
-
     return (
         <fieldset className="user-addresses-container">
             {isChange ? (
@@ -128,7 +167,9 @@ function UserAddresses({
                     <GiConfirmed
                         color="white"
                         className="user-addresses-confirmed-icon icons"
-                        onClick={handleSubmit(handleSaveChangesAddress)}
+                        onClick={
+                            !isNewAddress ? handleSubmit(handleNewAddress) : handleSubmit(handleSaveChangesAddress)
+                        }
                     />
                     <MdCancel
                         color="white"
@@ -233,7 +274,7 @@ function UserAddresses({
                         },
                         color: 'white',
                     }}
-                    disabled={isChange ? false : true}
+                    disabled={isChange && isNewAddress ? false : true}
                 />
                 <FormControlLabel
                     control={
@@ -254,7 +295,7 @@ function UserAddresses({
                         },
                         color: 'white',
                     }}
-                    disabled={isChange ? false : true}
+                    disabled={isChange && isNewAddress ? false : true}
                 />
             </div>
         </fieldset>

@@ -217,6 +217,7 @@ export function Profile() {
                                 defaultShippingAddressId={defaultShippingAddressId}
                                 setDefaultBillingAddressId={setDefaultBillingAddressId}
                                 setDefaultShippingAddressId={setDefaultShippingAddressId}
+                                isNewAddress={Boolean(user.addresses[index].city)}
                             />
                         ))}
                     </div>
