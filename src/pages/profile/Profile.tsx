@@ -1,5 +1,5 @@
 import './profile.css';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, useEffect, useRef } from 'react';
 import { Img } from '../../components';
 import { baseClient } from '../../apiSdk/BaseClient';
@@ -10,7 +10,7 @@ import UserInfo from '../../components/Profile/userInfo';
 import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
-import { UserParams } from '../../apiSdk/RegistrationUser';
+import { UserPersonalInfo } from '../../components/Profile/typesProfile';
 
 export async function ProfileApi(): Promise<IUser | Error> {
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
@@ -36,27 +36,16 @@ export function Profile() {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<UserParams>({
+    } = useForm<UserPersonalInfo>({
         mode: 'onChange',
     });
     const [user, setUser] = useState<IUser | null>(null);
     const [error, setError] = useState<IErrorProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
-    const [formDate, setFormDate] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
-        dateOfBirth: '',
-        streetName: '',
-        streetNameBilling: '',
-        postalCode: '',
-        postalCodeBilling: '',
-        city: '',
-        cityBilling: '',
-        defaultShipping: false,
-        defaultBilling: false,
-    });
+    const [defaultBillingAddressId, setDefaultBillingAddressId] = useState<string | undefined>('');
+    const [defaultShippingAddressId, setDefaultShippingAddressId] = useState<string | undefined>('');
+
     const loadingRef = useRef<ReturnType<typeof toast.loading> | null>(null);
     const navigate = useNavigate();
 
@@ -68,27 +57,8 @@ export function Profile() {
                     setError(result);
                 } else {
                     setUser(result);
-                    setFormDate({
-                        email: result.email,
-                        firstName: result.firstName,
-                        lastName: result.lastName,
-                        dateOfBirth: result.dateOfBirth,
-                        streetName: result.addresses[0]?.streetName || '',
-                        streetNameBilling:
-                            result.addresses.length === 1
-                                ? result.addresses[0]?.streetName
-                                : result.addresses[1]?.streetName,
-                        postalCode: result.addresses[0]?.postalCode || '',
-                        postalCodeBilling:
-                            result.addresses.length === 1
-                                ? result.addresses[0]?.postalCode
-                                : result.addresses[1]?.postalCode,
-                        city: result.addresses[0]?.city || '',
-                        cityBilling:
-                            result.addresses.length === 1 ? result.addresses[0]?.city : result.addresses[1]?.city,
-                        defaultShipping: result.defaultShippingAddressId ? true : false,
-                        defaultBilling: result.defaultBillingAddressId ? true : false,
-                    });
+                    setDefaultBillingAddressId(user?.defaultBillingAddressId);
+                    setDefaultShippingAddressId(user?.defaultShippingAddressId);
                 }
             } catch {
                 throw new Error('Error detected');
@@ -98,7 +68,7 @@ export function Profile() {
         }
 
         fetchData();
-    }, []);
+    }, [user?.defaultBillingAddressId, user?.defaultShippingAddressId]);
 
     useEffect(() => {
         if (loading) {
@@ -132,33 +102,14 @@ export function Profile() {
         setIsEditing(!isEditing);
     };
 
-    const handleInputChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormDate({
-            ...formDate,
-            [name]: value,
-        });
-        console.log(formDate);
-    };
+    if (!user) {
+        return;
+    }
 
-    const handleSumbitChanges = () => {
+    const handleSumbitChanges: SubmitHandler<UserPersonalInfo> = (data) => {
         setIsEditing(!isEditing);
-        if (!user?.id && !user?.version) {
-            return;
-        }
 
-        const {
-            firstName,
-            lastName,
-            dateOfBirth,
-            city,
-            email,
-            postalCode,
-            streetName,
-            cityBilling,
-            postalCodeBilling,
-            streetNameBilling,
-        } = formDate;
+        const { firstName, lastName, dateOfBirth, email } = data;
 
         const updateActions: CustomerUpdateAction[] = [
             {
@@ -177,39 +128,11 @@ export function Profile() {
                 action: 'changeEmail',
                 email,
             },
-            {
-                action: 'changeAddress',
-                addressId: user.addresses[0]?.id || '',
-                address: {
-                    city,
-                    country: 'KZ',
-                    postalCode,
-                    streetName,
-                },
-            },
-            {
-                action: 'changeAddress',
-                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
-                address: {
-                    city: cityBilling,
-                    country: 'KZ',
-                    postalCode: postalCodeBilling,
-                    streetName: streetNameBilling,
-                },
-            },
-            {
-                action: 'setDefaultShippingAddress',
-                addressId: user.addresses[0]?.id || '',
-            },
-            {
-                action: 'setDefaultBillingAddress',
-                addressId: user.addresses[1]?.id || user.addresses[0]?.id || '',
-            },
         ];
 
         const api = baseClient();
         api.customers()
-            .withId({ ID: user?.id })
+            .withId({ ID: user.id })
             .post({ body: { version: user.version, actions: updateActions } })
             .execute()
             .then((response) => {
@@ -224,14 +147,33 @@ export function Profile() {
             });
     };
 
-    if (!user) {
-        return;
-    }
+    const handleRemoveAddress = (addressId: string) => {
+        const updatedAddresses = user.addresses.filter((addr) => addr.id !== addressId);
+        setUser((prevUser) => {
+            if (!prevUser) return prevUser;
+            return {
+                ...prevUser,
+                addresses: updatedAddresses,
+            };
+        });
+    };
+
+    const handleNewAddress = () => {
+        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '' };
+
+        setUser((prevUser) => {
+            if (!prevUser) return prevUser;
+            return {
+                ...prevUser,
+                addresses: [...prevUser.addresses, emptyAddress],
+            };
+        });
+    };
 
     return (
-        <form className="container-profile" onSubmit={handleSubmit(handleSumbitChanges)}>
+        <div className="container-profile">
             <div className="profile-content">
-                <div className="profile-user-info profile-user-container">
+                <form className="profile-user-info profile-user-container" onSubmit={handleSubmit(handleSumbitChanges)}>
                     <Img src="images/avatar.jpg" alt="Simple Avatar Image" className="user-info-avatar"></Img>
                     <UserInfo
                         email={user.email}
@@ -239,45 +181,54 @@ export function Profile() {
                         lastName={user.lastName}
                         dateOfBirth={user.dateOfBirth}
                         isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
                         errors={errors}
                         register={register}
                     />
-                </div>
+
+                    {isEditing ? (
+                        <>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                                <button className="btn sumbit" type="submit">
+                                    Submit Changes
+                                </button>
+                                <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <button className="btn" type="button" onClick={handleInputChangeEditing}>
+                                Edit Personal Info
+                            </button>
+                        </>
+                    )}
+                </form>
                 <div className="profile-user-addresses profile-user-container">
-                    <UserAddresses
-                        user={user}
-                        addressIdProp={0}
-                        isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
-                    />
-                    <UserAddresses
-                        user={user}
-                        addressIdProp={1}
-                        isEditing={isEditing}
-                        onChangeHandler={handleInputChangeDate}
-                    />
+                    <div className="addresses-container">
+                        {user.addresses.map((_, index) => (
+                            <UserAddresses
+                                key={index}
+                                userInfo={user}
+                                address={user.addresses[index]}
+                                onRemoveAddress={handleRemoveAddress}
+                                setUser={setUser}
+                                defaultBillingAddressId={defaultBillingAddressId}
+                                defaultShippingAddressId={defaultShippingAddressId}
+                                setDefaultBillingAddressId={setDefaultBillingAddressId}
+                                setDefaultShippingAddressId={setDefaultShippingAddressId}
+                                isNewAddress={Boolean(user.addresses[index].city)}
+                            />
+                        ))}
+                    </div>
+                    <button className="btn" type="button" onClick={handleNewAddress}>
+                        Add new address
+                    </button>
                 </div>
             </div>
-            {isEditing ? (
-                <>
-                    <button className="btn sumbit" type="submit">
-                        Submit Changes
-                    </button>
-                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
-                        Change Password
-                    </button>
-                </>
-            ) : (
-                <>
-                    <button className="btn" type="button" onClick={handleInputChangeEditing}>
-                        Edit profile
-                    </button>
-                    <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
-                        Change Password
-                    </button>
-                </>
-            )}
-        </form>
+            <button className="btn" type="button" onClick={() => navigate('/changePassword')}>
+                Change Password
+            </button>
+        </div>
     );
 }

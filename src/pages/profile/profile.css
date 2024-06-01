@@ -63,22 +63,25 @@
 .profile-user-addresses {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
+    padding: 30px;
 }
 
 .user-addresses-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin: 0 30px;
+    border-radius: 10px;
+    position: relative;
+}
 
-    &:nth-child(1) {
-        margin-top: 30px;
-    }
-
-    &:nth-child(2) {
-        margin-bottom: 30px;
-    }
+.addresses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: scroll;
+    max-height: 350px;
 }
 
 .user-addresses-row {
@@ -118,4 +121,26 @@
 .user-addresses-input {
     background-color: white;
     border: none;
+}
+
+.icons {
+    position: absolute;
+    cursor: pointer;
+    top: -15px;
+}
+
+.user-addresses-edit-icon {
+    right: 35px;
+}
+
+.user-addresses-delete-icon {
+    right: 13px;
+}
+
+.user-addresses-confirmed-icon {
+    right: 60px;
+}
+
+.user-addresses-cancel-icon {
+    right: 40px;
 }
