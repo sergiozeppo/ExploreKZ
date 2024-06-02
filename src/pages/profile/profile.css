@@ -74,6 +74,9 @@
     gap: 8px;
     border-radius: 10px;
     position: relative;
+    & span {
+        color: white !important;
+    }
 }
 
 .addresses-container {
@@ -126,11 +129,24 @@
 .icons {
     position: absolute;
     cursor: pointer;
-    top: -15px;
+    top: -18px;
+    padding: 3px 5px;
+    background-color: #1f4aa8;
+    width: 25px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #919191;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        & {
+            fill: #1f4aa8;
+            background-color: white;
+        }
+    }
 }
 
 .user-addresses-edit-icon {
-    right: 35px;
+    right: 40px;
 }
 
 .user-addresses-delete-icon {
@@ -138,9 +154,13 @@
 }
 
 .user-addresses-confirmed-icon {
-    right: 60px;
+    right: 67px;
 }
 
 .user-addresses-cancel-icon {
     right: 40px;
+}
+
+.edit-btn-wrapper {
+    background-color: #1f4aa8;
 }

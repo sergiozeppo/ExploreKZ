@@ -16,7 +16,6 @@
 }
 
 .input-change-password {
-    width: 350px;
     font-size: 14px;
     background-color: rgba(242, 241, 240, 0.404);
     height: 25px;
@@ -38,4 +37,10 @@
 
 .form-password-container {
     position: relative;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.input-notice-container {
+    max-width: 250px;
 }
