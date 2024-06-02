@@ -86,3 +86,7 @@
 [data-rmiz-btn-unzoom] {
     inset: 80px 20px auto auto;
 }
+
+.hidden {
+    display: none;
+}

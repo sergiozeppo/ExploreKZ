@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useEffect, useState, useRef } from 'react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductData } from '@commercetools/platform-sdk';
 import { Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
-import { Img } from '../../components';
-import { EffectFade, Navigation, Pagination } from 'swiper/modules';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
+// import { Img } from '../../components';
+// import { EffectFade, Navigation, Pagination } from 'swiper/modules';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
 import './product.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -29,9 +30,13 @@ export default function Product() {
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
     const [products, setProducts] = useState<ProductData>();
-    const [images, setImages] = useState<Image[]>();
+    // const [images, setImages] = useState<Image[]>();
     const [loading, setLoading] = useState(true);
     const [slides, setSlides] = useState<Image[]>([]);
+    const [items, setItems] = useState<Element[]>();
+    const [modalActive, setModalActive] = useState(false);
+    const carousel = useRef<AliceCarousel>(null);
+    const modalCarousel = useRef<AliceCarousel>(null);
 
     useEffect(() => {
         if (localStorage.getItem('isLogin')) {
@@ -54,8 +59,25 @@ export default function Product() {
                         const masterVariant = response?.masterVariant?.images || [];
                         const variantImages = response?.variants?.[0]?.images || [];
                         const allImages = masterVariant.concat(variantImages);
-                        if (allImages.length > 0) setImages(allImages);
+                        // if (allImages.length > 0) setImages(allImages);
                         if (slides.length > 0) setSlides([]);
+                        const isModalActive = (): void => {
+                            setModalActive(!modalActive);
+                        };
+                        const items = allImages.map((image, index) => (
+                            <img
+                                key={index}
+                                className={modalActive ? 'prod-pic-modal' : 'product-img'}
+                                src={image.url}
+                                alt={`${index}`}
+                                data-bs-slide-to={index}
+                                onClick={() => {
+                                    isModalActive();
+                                }}
+                            />
+                        ));
+                        if (items.length) setItems(items);
+
                         setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                     })
                     .catch((error) => {
@@ -89,7 +111,7 @@ export default function Product() {
                     const masterVariant = response?.masterVariant?.images || [];
                     const variantImages = response?.variants?.[0]?.images || [];
                     const allImages = masterVariant.concat(variantImages);
-                    if (allImages.length > 0) setImages(allImages);
+                    // if (allImages.length > 0) setImages(allImages);
                     if (slides.length > 0) setSlides([]);
                     setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
                 })
@@ -109,7 +131,7 @@ export default function Product() {
                     }
                 });
         }
-    }, [id, slides.length]);
+    }, [id, modalActive, slides.length]);
 
     return (
         <>
@@ -118,14 +140,15 @@ export default function Product() {
             {loading ? (
                 <Loader />
             ) : (
-                <div className="product-wrapper">
-                    {!products ? (
-                        <Navigate to="/not-found" />
-                    ) : (
-                        <>
-                            <div className="product">
-                                <>
-                                    <Swiper
+                <>
+                    <div className={`${modalActive ? 'hidden' : 'product-wrapper'}`}>
+                        {!products ? (
+                            <Navigate to="/not-found" />
+                        ) : (
+                            <>
+                                <div className="product">
+                                    <>
+                                        {/* <Swiper
                                         spaceBetween={30}
                                         effect={'fade'}
                                         navigation={true}
@@ -138,64 +161,136 @@ export default function Product() {
                                             minRatio: 1,
                                         }}
                                         className="swiper"
-                                    >
-                                        {!images ? (
+                                    > */}
+                                        {!items ? (
                                             <Loader />
                                         ) : (
-                                            slides.map((slide, index) => (
-                                                <SwiperSlide className="swiper-slide" key={index}>
-                                                    <Zoom classDialog="custom-zoom">
-                                                        <Img src={slide.url} alt={`${index}`} className="product-img" />
-                                                    </Zoom>
-                                                </SwiperSlide>
-                                            ))
+                                            // slides.map((slide, index) => (
+                                            //     <SwiperSlide className="swiper-slide" key={index}>
+                                            //         {/* <Zoom classDialog="custom-zoom"> */}
+                                            //         <Img src={slide.url} alt={`${index}`} className="product-img" />
+                                            //         {/* </Zoom> */}
+                                            //     </SwiperSlide>
+                                            // ))
+                                            <>
+                                                <button
+                                                    className="btn-prev"
+                                                    onClick={(): void => {
+                                                        // setGlobalID(
+                                                        //     carousel?.current?.state?.activeIndex
+                                                        //         ? carousel?.current?.state?.activeIndex
+                                                        //         : 0,
+                                                        // );
+                                                        carousel?.current?.slidePrev();
+                                                        // console.log(globalID);
+                                                    }}
+                                                ></button>
+                                                <button
+                                                    className="btn-next"
+                                                    onClick={(): void => {
+                                                        // setGlobalID(
+                                                        //     carousel?.current?.state?.activeIndex
+                                                        //         ? carousel?.current?.state?.activeIndex
+                                                        //         : 1,
+                                                        // );
+                                                        carousel?.current?.slideNext();
+                                                        // console.log(globalID);
+                                                    }}
+                                                ></button>
+                                                <div
+                                                // onClick={isModalActive}
+                                                >
+                                                    <AliceCarousel
+                                                        key="carousel"
+                                                        mouseTracking
+                                                        // disableDotsControls
+                                                        disableButtonsControls
+                                                        items={items}
+                                                        activeIndex={modalCarousel?.current?.state?.activeIndex}
+                                                        ref={carousel}
+                                                    />
+                                                </div>
+                                            </>
                                         )}
-                                    </Swiper>
+                                        {/* </Swiper> */}
 
-                                    <div className="product-title">
-                                        {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
-                                    </div>
-                                    <div className="product-description">
-                                        {products?.description?.['en-US'] || 'Not provided!'}
-                                    </div>
-                                    <div className="price-wrapper">
-                                        <span className="product-price">
-                                            Price:{' '}
-                                            <span
-                                                className={
-                                                    products.masterVariant?.prices?.[0]?.discounted?.value.centAmount
-                                                        ? 'product-price-original'
-                                                        : 'product-price-discount'
-                                                }
-                                            >
-                                                {products.masterVariant?.prices?.[0]?.value?.centAmount
-                                                    ? (
-                                                          products.masterVariant?.prices?.[0]?.value?.centAmount / 100
-                                                      ).toFixed(2)
-                                                    : Number(0).toFixed(2)}
-                                            </span>{' '}
-                                            $
-                                        </span>
-                                        {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
-                                            <span className="discount-wrapper">
-                                                New price:{' '}
-                                                <span className="product-price-discount">
-                                                    {(
+                                        <div className="product-title">
+                                            {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
+                                        </div>
+                                        <div className="product-description">
+                                            {products?.description?.['en-US'] || 'Not provided!'}
+                                        </div>
+                                        <div className="price-wrapper">
+                                            <span className="product-price">
+                                                Price:{' '}
+                                                <span
+                                                    className={
                                                         products.masterVariant?.prices?.[0]?.discounted?.value
-                                                            .centAmount / 100
-                                                    ).toFixed(2)}
+                                                            .centAmount
+                                                            ? 'product-price-original'
+                                                            : 'product-price-discount'
+                                                    }
+                                                >
+                                                    {products.masterVariant?.prices?.[0]?.value?.centAmount
+                                                        ? (
+                                                              products.masterVariant?.prices?.[0]?.value?.centAmount /
+                                                              100
+                                                          ).toFixed(2)
+                                                        : Number(0).toFixed(2)}
                                                 </span>{' '}
                                                 $
                                             </span>
-                                        ) : (
-                                            ''
-                                        )}
-                                    </div>
-                                </>
+                                            {products.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
+                                                <span className="discount-wrapper">
+                                                    New price:{' '}
+                                                    <span className="product-price-discount">
+                                                        {(
+                                                            products.masterVariant?.prices?.[0]?.discounted?.value
+                                                                .centAmount / 100
+                                                        ).toFixed(2)}
+                                                    </span>{' '}
+                                                    $
+                                                </span>
+                                            ) : (
+                                                ''
+                                            )}
+                                        </div>
+                                    </>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    <div className={`full-screen ${modalActive ? 'visible' : 'hidden'}`}>
+                        <div className="modal-content">
+                            {/* <div className="close-page" onClick={isModalActive}>
+                    <img className="cross-pic" src={'crossPic'} alt="Close page" />
+                </div> */}
+                            <div className="modal-img">
+                                <button
+                                    className="btn-prev btn-prev-modal"
+                                    onClick={(): void => {
+                                        modalCarousel?.current?.slidePrev();
+                                    }}
+                                ></button>
+                                <button
+                                    className="btn-next btn-next-modal"
+                                    onClick={(): void => {
+                                        modalCarousel?.current?.slideNext();
+                                    }}
+                                ></button>
+                                <AliceCarousel
+                                    key="carousel-modal"
+                                    mouseTracking
+                                    disableDotsControls
+                                    disableButtonsControls
+                                    items={items}
+                                    activeIndex={carousel?.current?.state?.activeIndex}
+                                    ref={modalCarousel}
+                                />
                             </div>
-                        </>
-                    )}
-                </div>
+                        </div>
+                    </div>
+                </>
             )}
         </>
     );
