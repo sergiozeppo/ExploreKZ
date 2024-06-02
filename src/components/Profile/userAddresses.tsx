@@ -12,6 +12,7 @@ import { MdCancel } from 'react-icons/md';
 import { baseClient } from '../../apiSdk/BaseClient';
 import CustomError from '../Validation/error';
 import { CustomToast } from '../Toast';
+import { UpdateAction } from '@commercetools/sdk-client-v2';
 
 interface UserAddresses {
     address: IAddress;
@@ -23,6 +24,19 @@ interface UserAddresses {
     defaultBillingAddressId: string | undefined;
     defaultShippingAddressId: string | undefined;
     isNewAddress: boolean;
+}
+
+type ActionHandler = (body: IUser) => void;
+type ErrorHandler = (error: unknown) => void;
+
+interface ApiClient {
+    customers: () => {
+        withId: (params: { ID: string }) => {
+            post: (params: { body: { version: number; actions: UpdateAction[] } }) => {
+                execute: () => Promise<{ body: IUser }>;
+            };
+        };
+    };
 }
 
 function UserAddresses({
@@ -49,108 +63,81 @@ function UserAddresses({
     const isDefaultBilling = defaultBillingAddressId === address.id;
     const isDefaultShipping = defaultShippingAddressId === address.id;
 
-    const handleRemoveAddress = () => {
-        const api = baseClient();
+    const executeApiAction = async (
+        api: ApiClient,
+        id: string,
+        version: number,
+        actions: UpdateAction[],
+        onSuccess: ActionHandler,
+        onError: ErrorHandler,
+    ) => {
         try {
-            api.customers()
-                .withId({ ID: id })
-                .post({
-                    body: { version, actions: [{ action: 'removeAddress', addressId: address.id }] },
-                })
-                .execute()
-                .then((response) => {
-                    onRemoveAddress(address.id || '');
-                    CustomToast('success', 'Success remove address');
-                    setUser(response.body as IUser);
-                })
-                .catch(() => CustomToast('error', 'An error occurred, please try again later'));
+            const response = await api.customers().withId({ ID: id }).post({ body: { version, actions } }).execute();
+            onSuccess(response.body);
         } catch (error) {
-            console.error(error);
+            onError(error);
         }
+    };
+
+    const onError = () => CustomToast('error', 'An error occurred, please try again later');
+
+    const onSuccessChangesAddress = (body: IUser) => {
+        setUser(body);
+        setIsChange(false);
+        CustomToast('success', 'Success change address');
+    };
+
+    const handleRemoveAddress = () => {
+        const api = baseClient() as ApiClient;
+        const actions = [{ action: 'removeAddress', addressId: address.id }];
+
+        const onSuccess = (body: IUser) => {
+            onRemoveAddress(address.id || '');
+            CustomToast('success', 'Success remove address');
+            setUser(body);
+        };
+
+        executeApiAction(api, id, version, actions, onSuccess, onError);
     };
 
     const handleSaveChangesAddress: SubmitHandler<IAddress> = (date) => {
-        const api = baseClient();
-
-        console.log(date);
         const { city, country, postalCode, streetName } = date;
-        try {
-            api.customers()
-                .withId({ ID: id })
-                .post({
-                    body: {
-                        version,
-                        actions: [
-                            {
-                                action: 'changeAddress',
-                                addressId: address.id,
-                                address: { city, country, postalCode, streetName },
-                            },
-                            {
-                                action: 'setDefaultShippingAddress',
-                                addressId: defaultShippingAddressId,
-                            },
-                            {
-                                action: 'setDefaultBillingAddress',
-                                addressId: defaultBillingAddressId,
-                            },
-                        ],
-                    },
-                })
-                .execute()
-                .then((response) => {
-                    console.log(response.body);
-                    setUser(response.body as IUser);
-                    setIsChange(false);
-                    CustomToast('success', 'Success change address');
-                })
-                .catch((error) => {
-                    CustomToast('error', 'An error occurred, please try again later');
-                    console.log('Change is failed', error);
-                });
-        } catch (error) {
-            console.error(error);
-        }
+        const api = baseClient() as ApiClient;
+        const actions = [
+            {
+                action: 'changeAddress',
+                addressId: address.id,
+                address: { city, country, postalCode, streetName },
+            },
+            {
+                action: 'setDefaultShippingAddress',
+                addressId: defaultShippingAddressId,
+            },
+            {
+                action: 'setDefaultBillingAddress',
+                addressId: defaultBillingAddressId,
+            },
+        ];
+
+        executeApiAction(api, id, version, actions, onSuccessChangesAddress, onError);
     };
 
     const handleNewAddress: SubmitHandler<IAddress> = (date) => {
-        const api = baseClient();
-
-        console.log(date);
         const { city, country, postalCode, streetName } = date;
-        try {
-            api.customers()
-                .withId({ ID: id })
-                .post({
-                    body: {
-                        version,
-                        actions: [
-                            {
-                                action: 'addAddress',
-                                address: {
-                                    city,
-                                    country,
-                                    postalCode,
-                                    streetName,
-                                },
-                            },
-                        ],
-                    },
-                })
-                .execute()
-                .then((response) => {
-                    console.log(response.body);
-                    setUser(response.body as IUser);
-                    setIsChange(false);
-                    CustomToast('success', 'Success added Address');
-                })
-                .catch((error) => {
-                    CustomToast('error', 'An error occurred, please try again later');
-                    console.log('Change is failed', error);
-                });
-        } catch (error) {
-            console.error(error);
-        }
+        const api = baseClient() as ApiClient;
+        const actions = [
+            {
+                action: 'addAddress',
+                address: {
+                    city,
+                    country,
+                    postalCode,
+                    streetName,
+                },
+            },
+        ];
+
+        executeApiAction(api, id, version, actions, onSuccessChangesAddress, onError);
     };
 
     const handleDefaultAddress = (action: 'shipping' | 'billing', addressId: string | undefined) => {
@@ -270,9 +257,6 @@ function UserAddresses({
                         '& .MuiSvgIcon-root': {
                             color: 'white',
                         },
-                        '.Mui-disabled': {
-                            color: 'white',
-                        },
                         color: 'white',
                     }}
                     disabled={isChange && isNewAddress ? false : true}
@@ -289,9 +273,6 @@ function UserAddresses({
                     label="Set as default billing"
                     sx={{
                         '& .MuiSvgIcon-root': {
-                            color: 'white',
-                        },
-                        '.Mui-disabled': {
                             color: 'white',
                         },
                         color: 'white',
