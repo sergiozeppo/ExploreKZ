@@ -19,7 +19,7 @@
     a {
         color: white;
         &:hover {
-            color: #1f4aa8; 
+            color: #1f4aa8;
         }
     }
 }
