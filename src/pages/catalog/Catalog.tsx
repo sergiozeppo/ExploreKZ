@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductProjection } from '@commercetools/platform-sdk';
@@ -9,6 +9,7 @@ import { CustomToast } from '../../components/Toast';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -21,9 +22,12 @@ interface QUERYARGS {
 }
 
 export default function Catalog() {
+    const navigate = useNavigate();
+    const categoryInfo = useParams();
+
     const [products, setProducts] = useState<ProductProjection[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currItem, setCurrItem] = useState('All');
+    const [currItem, setCurrItem] = useState('');
     const [minPrice, setMinPrice] = useState<number | null>(null);
     const [maxPrice, setMaxPrice] = useState<number | null>(null);
 
@@ -38,97 +42,135 @@ export default function Catalog() {
     const [searchValue, setSearchValue] = useState('');
     const [triggerSearch, setTriggerSearch] = useState(false);
 
-    const getProducts = (
-        filter: string,
-        minPrice: number | null,
-        maxPrice: number | null,
-        sortType: string | null,
-        searchValue: string,
-    ) => {
-        setLoading(true);
-        const userToken = localStorage.getItem('userToken');
-        const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
-
-        const queryArgs: QUERYARGS = { filter: [] };
-        if (Array.isArray(queryArgs.filter)) {
-            if (filter === 'Tours') {
-                queryArgs.filter.push('categories.id:subtree("5ee12a8a-e438-42b3-81fb-11bd077b67be")');
-                // path = 'tours';
-            } else if (filter === 'Adventures') {
-                queryArgs.filter.push('categories.id:subtree("654294ec-29b6-42e8-9fce-32a3604ce7d4")');
-                // path = 'adventures';
-            } else if (filter === 'Team building') {
-                queryArgs.filter.push('categories.id:"729190e8-2dd7-426b-b54e-0fd66961d63c"');
-                // path = 'team-building';
-            } else if (filter === 'Historical & cultural') {
-                queryArgs.filter.push('categories.id:"a834e793-64a5-4991-a7d8-19fb63c340cf"');
-                // path = 'historical-cultural';
-            } else if (filter === 'One day') {
-                queryArgs.filter.push('categories.id:"2eb7506a-8e2b-41c0-934a-27beb1e6d056"');
-                // path = 'one-day';
-            } else if (filter === 'Multi-day') {
-                queryArgs.filter.push('categories.id:"f7b72444-abd3-4bfa-82b6-473cb991c907"');
-                // path = 'multi-day';
-            }
+    const handleCategories = (category: string) => {
+        let path;
+        if (category === 'Tours') path = '/catalog/tours';
+        if (category === 'Adventures') path = '/catalog/adventures';
+        if (category === 'All') path = '/catalog';
+        if (category === 'Team building') path = '/catalog/tours/team-building';
+        if (category === 'Historical & cultural') path = '/catalog/tours/historical-cultural';
+        if (category === 'One day') path = '/catalog/adventures/one-day';
+        if (category === 'Multi-day') path = '/catalog/adventures/multi-day';
+        if (category === 'Discounted') path = '/catalog/discounted';
+        if (path && window.location.pathname !== path) {
+            navigate(path);
         }
-
-        if (minPrice !== null || maxPrice !== null) {
-            let priceFilter = '';
-            if (minPrice !== null && maxPrice !== null) {
-                priceFilter = `variants.prices.value.centAmount:range(${minPrice * 100} to ${maxPrice * 100})`;
-            } else if (minPrice !== null) {
-                priceFilter = `variants.prices.value.centAmount:range(${minPrice * 100} to *)`;
-            } else if (maxPrice !== null) {
-                priceFilter = `variants.prices.value.centAmount:range(* to ${maxPrice * 100})`;
-            }
-            if (Array.isArray(queryArgs.filter)) queryArgs.filter.push(priceFilter);
-        }
-        if (sortType) {
-            queryArgs.sort = [sortType];
-        }
-        if (searchValue) {
-            queryArgs['text.en-US'] = searchValue.toLowerCase();
-        }
-
-        queryArgs.fuzzy = true;
-        queryArgs.markMatchingVariants = true;
-        client
-            .productProjections()
-            .search()
-            .get({ queryArgs })
-            .execute()
-            .then((res) => {
-                let response: ProductProjection[] = res.body.results;
-                console.log(response);
-                if (filter === 'Discounted') {
-                    response = response.filter((product) =>
-                        product.masterVariant?.prices?.some((price) => price.discounted),
-                    );
-                }
-                if (minPrice && maxPrice) {
-                    response = response.filter((product) => product?.masterVariant.isMatchingVariant);
-                }
-
-                setProducts(response);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                setLoading(false);
-                CustomToast('error', 'Server problem!');
-            });
     };
 
     useEffect(() => {
+        if (categoryInfo.category === 'tours' && !categoryInfo.subcategory) {
+            setCurrItem('Tours');
+        } else if (categoryInfo.category === 'adventures' && !categoryInfo.subcategory) {
+            setCurrItem('Adventures');
+        } else if (categoryInfo.category === 'discounted' && !categoryInfo.subcategory) {
+            setCurrItem('Discounted');
+        } else if (categoryInfo.subcategory === 'one-day') {
+            setCurrItem('One day');
+        } else if (categoryInfo.subcategory === 'multi-day') {
+            setCurrItem('Multi-day');
+        } else if (categoryInfo.subcategory === 'team-building') {
+            setCurrItem('Team building');
+        } else if (categoryInfo.subcategory === 'historical-cultural') {
+            setCurrItem('Historical & cultural');
+        } else if (!categoryInfo.subcategory && !categoryInfo.category) {
+            setCurrItem('All');
+        } else {
+            navigate('/notFound');
+        }
+    }, [categoryInfo.subcategory, categoryInfo.category, navigate]);
+
+    const getProducts = useCallback(
+        (
+            filter: string,
+            minPrice: number | null,
+            maxPrice: number | null,
+            sortType: string | null,
+            searchValue: string,
+        ) => {
+            setLoading(true);
+            const userToken = localStorage.getItem('userToken');
+            const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+            const queryArgs: QUERYARGS = { filter: [] };
+            if (Array.isArray(queryArgs.filter)) {
+                if (filter === 'Tours') {
+                    queryArgs.filter.push('categories.id:subtree("5ee12a8a-e438-42b3-81fb-11bd077b67be")');
+                } else if (filter === 'Adventures') {
+                    queryArgs.filter.push('categories.id:subtree("654294ec-29b6-42e8-9fce-32a3604ce7d4")');
+                } else if (filter === 'Team building') {
+                    queryArgs.filter.push('categories.id:"729190e8-2dd7-426b-b54e-0fd66961d63c"');
+                } else if (filter === 'Historical & cultural') {
+                    queryArgs.filter.push('categories.id:"a834e793-64a5-4991-a7d8-19fb63c340cf"');
+                } else if (filter === 'One day') {
+                    queryArgs.filter.push('categories.id:"2eb7506a-8e2b-41c0-934a-27beb1e6d056"');
+                } else if (filter === 'Multi-day') {
+                    queryArgs.filter.push('categories.id:"f7b72444-abd3-4bfa-82b6-473cb991c907"');
+                } else if (filter === 'All') {
+                    queryArgs.filter.push('');
+                } else if (filter === 'Discounted') {
+                    queryArgs.filter.push('');
+                } else {
+                    return;
+                }
+            }
+
+            if (minPrice !== null || maxPrice !== null) {
+                let priceFilter = '';
+                if (minPrice !== null && maxPrice !== null) {
+                    priceFilter = `variants.prices.value.centAmount:range(${minPrice * 100} to ${maxPrice * 100})`;
+                } else if (minPrice !== null) {
+                    priceFilter = `variants.prices.value.centAmount:range(${minPrice * 100} to *)`;
+                } else if (maxPrice !== null) {
+                    priceFilter = `variants.prices.value.centAmount:range(* to ${maxPrice * 100})`;
+                }
+                if (Array.isArray(queryArgs.filter)) queryArgs.filter.push(priceFilter);
+            }
+            if (sortType) {
+                queryArgs.sort = [sortType];
+            }
+            if (searchValue) {
+                queryArgs['text.en-US'] = searchValue.toLowerCase();
+            }
+
+            queryArgs.fuzzy = true;
+            queryArgs.markMatchingVariants = true;
+            client
+                .productProjections()
+                .search()
+                .get({ queryArgs })
+                .execute()
+                .then((res) => {
+                    let response: ProductProjection[] = res.body.results;
+                    if (filter === 'Discounted') {
+                        response = response.filter((product) =>
+                            product.masterVariant?.prices?.some((price) => price.discounted),
+                        );
+                    }
+                    if (minPrice && maxPrice) {
+                        response = response.filter((product) => product?.masterVariant.isMatchingVariant);
+                    }
+
+                    setProducts(response);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setLoading(false);
+                    CustomToast('error', 'Server problem!');
+                });
+        },
+        [],
+    );
+
+    useEffect(() => {
         getProducts(currItem, minPrice, maxPrice, sortType, '');
-    }, [currItem, minPrice, maxPrice, sortType]);
+    }, [currItem, minPrice, maxPrice, sortType, getProducts]);
 
     useEffect(() => {
         if (triggerSearch) {
             getProducts(currItem, minPrice, maxPrice, sortType, searchValue);
             setTriggerSearch(false);
         }
-    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue]);
+    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue, getProducts]);
 
     const handleClick = () => {
         setOpen(!open);
@@ -141,8 +183,9 @@ export default function Catalog() {
         e.stopPropagation();
         const target = e.target as HTMLLIElement;
         if (target.getAttribute('id')) {
-            setCurrItem(target.getAttribute('id') || 'All');
+            setCurrItem(target.getAttribute('id') || '');
             setOpen(false);
+            handleCategories(target.getAttribute('id') || '');
         }
     };
     const handlePrice = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -200,6 +243,7 @@ export default function Catalog() {
         setIsSortOpen(false);
         setSearchValue('');
         setTriggerSearch(false);
+        navigate('/catalog');
     };
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

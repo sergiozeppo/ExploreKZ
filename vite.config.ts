@@ -9,4 +9,11 @@ export default defineConfig({
             'node-fetch': 'isomorphic-fetch',
         },
     },
+    // build: {
+    //     rollupOptions: {
+    //         input: {
+    //             main: './index.html',
+    //         },
+    //     },
+    // },
 });

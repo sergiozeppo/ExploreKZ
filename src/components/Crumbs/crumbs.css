@@ -1,0 +1,32 @@
+.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1242px;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+    padding: 30px 20px 10px 20px;
+    user-select: none;
+}
+
+.crumbs-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 10px;
+    a {
+        color: white;
+        &:hover {
+            color: #1f4aa8; 
+        }
+    }
+}
+
+.crumbs-item-last {
+    pointer-events: none;
+    a {
+        color: #1f4aa8;
+    }
+}

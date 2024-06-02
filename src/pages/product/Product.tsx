@@ -14,6 +14,7 @@ import './product.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/bundle';
+import Crumbs from '../../components/Crumbs/Crumbs';
 
 type Image = {
     url: string;
@@ -112,6 +113,7 @@ export default function Product() {
 
     return (
         <>
+            <Crumbs />
             <p className="details">Product details</p>
             {loading ? (
                 <Loader />
