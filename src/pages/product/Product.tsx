@@ -5,7 +5,6 @@ import { ProductData } from '@commercetools/platform-sdk';
 import { Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
-// import { Img } from '../../components';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './product.css';
