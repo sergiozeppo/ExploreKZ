@@ -49,7 +49,7 @@ export default function Product() {
                         const items = allImages.map((image, index) => (
                             <img
                                 key={index}
-                                className={modalActive ? 'prod-pic-modal' : 'product-img'}
+                                className={modalActive ? 'modal-img' : 'product-img'}
                                 src={image.url}
                                 alt={`${index}`}
                                 onClick={() => {
@@ -215,7 +215,7 @@ export default function Product() {
                             </>
                         )}
                     </div>
-                    <div className={`full-screen ${modalActive ? 'visible' : 'hidden'}`}>
+                    <div className={`modal ${modalActive ? 'visible' : 'hidden'}`}>
                         <div className="modal-content">
                             <div
                                 className="close-page"
@@ -223,17 +223,17 @@ export default function Product() {
                                     setModalActive(!modalActive);
                                 }}
                             >
-                                <img className="cross-pic" src={'crossPic'} alt="Close page" />
+                                <img className="close-modal" src={'../../../images/close.png'} alt="Close page" />
                             </div>
                             <div className="modal-img">
                                 <button
-                                    className="btn-prev btn-prev-modal"
+                                    className="btn-prev-modal"
                                     onClick={(): void => {
                                         modalCarousel?.current?.slidePrev();
                                     }}
                                 ></button>
                                 <button
-                                    className="btn-next btn-next-modal"
+                                    className="btn-next-modal"
                                     onClick={(): void => {
                                         modalCarousel?.current?.slideNext();
                                     }}

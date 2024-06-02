@@ -75,3 +75,129 @@
 .hidden {
     display: none;
 }
+
+.modal {
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    padding: 0 1rem;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+.modal.visible {
+    display: flex;
+}
+.modal-content {
+    /* overflow: hidden; */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: relative;
+    background-color: #fff;
+    max-width: 1400px;
+    width: 100%;
+    height: 800px;
+    padding: 4rem;
+    border-radius: 1rem;
+    text-align: center;
+    border-radius: 10px;
+}
+.modal-img {
+    /* width: 100%;
+    height: auto;
+    max-width: inherit; */
+    /* object-fit: cover; */
+    object-fit: contain;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 800px;
+    height: 100%;
+}
+.modal-content .modal-img {
+    max-width: 1000px;
+    max-height: 800px;
+    /* object-fit: cover; */
+    margin: 0 auto;
+    /* vertical-align: middle; */
+    overflow: hidden;
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 5rem;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 50px;
+    height: 50px;
+}
+
+.btn-prev,
+.btn-next {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+        color: #000;
+    }
+}
+
+.btn-prev {
+    left: 5%;
+    top: 30%;
+    z-index: 5;
+    background-image: url('../../../images/left-arrow.png');
+    background-size: cover;
+    background-color: transparent;
+}
+
+.btn-next {
+    right: 5%;
+    top: 30%;
+    z-index: 5;
+    background-image: url('../../../images/right-arrow.png');
+    background-size: cover;
+    background-color: transparent;
+}
+.btn-prev-modal,
+.btn-next-modal {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    width: 40px;
+    height: 40px;
+    &:hover {
+        color: #000;
+    }
+}
+
+.btn-prev-modal {
+    left: 5%;
+    top: 50%;
+    z-index: 5;
+    background-image: url('../../../images/left-arrow.png');
+    background-size: cover;
+    background-color: transparent;
+}
+
+.btn-next-modal {
+    right: 5%;
+    top: 50%;
+    z-index: 5;
+    background-image: url('../../../images/right-arrow.png');
+    background-size: cover;
+    background-color: transparent;
+}
