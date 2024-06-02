@@ -48,41 +48,121 @@
     text-align: center;
 }
 
-.swiper {
-    display: flex;
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    display: none;
     align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    padding: 0 1rem;
     width: 100%;
     height: 100%;
+    z-index: 3;
 }
-
-.swiper-slide {
+.modal.visible {
     display: flex;
-    align-items: center;
-    align-self: center;
-    background-position: center;
+}
+.modal-content {
+    position: relative;
+    max-width: 1400px;
+    width: 100%;
+    height: 800px;
+    padding: 4rem;
+    border-radius: 1rem;
+    text-align: center;
+    border-radius: 10px;
+}
+.modal-img {
+    object-fit: contain;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 800px;
+    height: 100%;
+}
+.modal-content .modal-img {
+    max-width: 1000px;
+    max-height: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 5rem;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 50px;
+    height: 50px;
+}
+
+.btn-prev,
+.btn-next {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    width: 50px;
+    height: 50px;
+
+    &:hover {
+        color: #000;
+    }
+}
+
+.btn-prev {
+    left: 5%;
+    top: 30%;
+    z-index: 5;
+    background-image: url('../../../images/left-arrow.png');
     background-size: cover;
+    background-color: transparent;
 }
 
-.custom-zoom [data-rmiz-modal-overlay],
-.custom-zoom [data-rmiz-modal-img] {
-    transition-duration: 0.8s;
-    transition-timing-function: linear;
+.btn-next {
+    right: 5%;
+    top: 30%;
+    z-index: 5;
+    background-image: url('../../../images/right-arrow.png');
+    background-size: cover;
+    background-color: transparent;
 }
-.custom-zoom [data-rmiz-modal-overlay='hidden'] {
-    background-color: rgb(56, 58, 89, 0);
-}
-.custom-zoom [data-rmiz-modal-overlay='visible'] {
-    background-color: rgb(56, 58, 89, 1);
-}
-.custom-zoom [data-rmiz-btn-unzoom] {
-    background-color: #bd93f9;
-    color: #000;
-}
-.custom-zoom [data-rmiz-btn-unzoom]:focus-visible {
-    outline-offset: 0.4rem;
-    outline: 0.2rem solid #bd93f9;
+.btn-prev-modal,
+.btn-next-modal {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    width: 50px;
+    height: 50px;
+    &:hover {
+        color: #000;
+    }
 }
 
-[data-rmiz-btn-unzoom] {
-    inset: 80px 20px auto auto;
+.btn-prev-modal {
+    left: 5%;
+    top: 50%;
+    z-index: 5;
+    background-image: url('../../../images/left-arrow.png');
+    background-size: cover;
+    background-color: transparent;
+}
+
+.btn-next-modal {
+    right: 5%;
+    top: 50%;
+    z-index: 5;
+    background-image: url('../../../images/right-arrow.png');
+    background-size: cover;
+    background-color: transparent;
 }
