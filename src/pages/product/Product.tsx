@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-// import { Swiper, SwiperSlide } from 'swiper/react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductData } from '@commercetools/platform-sdk';
@@ -7,32 +6,17 @@ import { Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
 import { CustomToast } from '../../components/Toast';
 // import { Img } from '../../components';
-// import { EffectFade, Navigation, Pagination } from 'swiper/modules';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-
 import './product.css';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/bundle';
 import Crumbs from '../../components/Crumbs/Crumbs';
-
-type Image = {
-    url: string;
-    dimensions: {
-        h: number;
-        w: number;
-    };
-};
 
 export default function Product() {
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
     const [products, setProducts] = useState<ProductData>();
-    // const [images, setImages] = useState<Image[]>();
     const [loading, setLoading] = useState(true);
-    const [slides, setSlides] = useState<Image[]>([]);
     const [items, setItems] = useState<Element[]>();
     const [modalActive, setModalActive] = useState(false);
     const carousel = useRef<AliceCarousel>(null);
@@ -59,8 +43,6 @@ export default function Product() {
                         const masterVariant = response?.masterVariant?.images || [];
                         const variantImages = response?.variants?.[0]?.images || [];
                         const allImages = masterVariant.concat(variantImages);
-                        // if (allImages.length > 0) setImages(allImages);
-                        if (slides.length > 0) setSlides([]);
                         const isModalActive = (): void => {
                             setModalActive(!modalActive);
                         };
@@ -70,15 +52,12 @@ export default function Product() {
                                 className={modalActive ? 'prod-pic-modal' : 'product-img'}
                                 src={image.url}
                                 alt={`${index}`}
-                                data-bs-slide-to={index}
                                 onClick={() => {
                                     isModalActive();
                                 }}
                             />
                         ));
-                        if (items.length) setItems(items);
-
-                        setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
+                        setItems(items);
                     })
                     .catch((error) => {
                         if (error.statusCode === 404) {
@@ -111,9 +90,21 @@ export default function Product() {
                     const masterVariant = response?.masterVariant?.images || [];
                     const variantImages = response?.variants?.[0]?.images || [];
                     const allImages = masterVariant.concat(variantImages);
-                    // if (allImages.length > 0) setImages(allImages);
-                    if (slides.length > 0) setSlides([]);
-                    setSlides((prevSlides: Image[]) => prevSlides.concat(allImages));
+                    const isModalActive = (): void => {
+                        setModalActive(!modalActive);
+                    };
+                    const items = allImages.map((image, index) => (
+                        <img
+                            key={index}
+                            className={modalActive ? 'modal-img' : 'product-img'}
+                            src={image.url}
+                            alt={`${index}`}
+                            onClick={() => {
+                                isModalActive();
+                            }}
+                        />
+                    ));
+                    if (items.length) setItems(items);
                 })
                 .catch((error) => {
                     if (error.statusCode === 404) {
@@ -131,7 +122,7 @@ export default function Product() {
                     }
                 });
         }
-    }, [id, modalActive, slides.length]);
+    }, [id, modalActive]);
 
     return (
         <>
@@ -148,58 +139,23 @@ export default function Product() {
                             <>
                                 <div className="product">
                                     <>
-                                        {/* <Swiper
-                                        spaceBetween={30}
-                                        effect={'fade'}
-                                        navigation={true}
-                                        pagination={{
-                                            clickable: true,
-                                        }}
-                                        modules={[EffectFade, Navigation, Pagination]}
-                                        zoom={{
-                                            maxRatio: 1.2,
-                                            minRatio: 1,
-                                        }}
-                                        className="swiper"
-                                    > */}
                                         {!items ? (
                                             <Loader />
                                         ) : (
-                                            // slides.map((slide, index) => (
-                                            //     <SwiperSlide className="swiper-slide" key={index}>
-                                            //         {/* <Zoom classDialog="custom-zoom"> */}
-                                            //         <Img src={slide.url} alt={`${index}`} className="product-img" />
-                                            //         {/* </Zoom> */}
-                                            //     </SwiperSlide>
-                                            // ))
                                             <>
                                                 <button
                                                     className="btn-prev"
                                                     onClick={(): void => {
-                                                        // setGlobalID(
-                                                        //     carousel?.current?.state?.activeIndex
-                                                        //         ? carousel?.current?.state?.activeIndex
-                                                        //         : 0,
-                                                        // );
                                                         carousel?.current?.slidePrev();
-                                                        // console.log(globalID);
                                                     }}
                                                 ></button>
                                                 <button
                                                     className="btn-next"
                                                     onClick={(): void => {
-                                                        // setGlobalID(
-                                                        //     carousel?.current?.state?.activeIndex
-                                                        //         ? carousel?.current?.state?.activeIndex
-                                                        //         : 1,
-                                                        // );
                                                         carousel?.current?.slideNext();
-                                                        // console.log(globalID);
                                                     }}
                                                 ></button>
-                                                <div
-                                                // onClick={isModalActive}
-                                                >
+                                                <div>
                                                     <AliceCarousel
                                                         key="carousel"
                                                         mouseTracking
@@ -212,7 +168,6 @@ export default function Product() {
                                                 </div>
                                             </>
                                         )}
-                                        {/* </Swiper> */}
 
                                         <div className="product-title">
                                             {products ? products?.name['en-US'] : <Navigate to="/not-found" />}
@@ -262,9 +217,14 @@ export default function Product() {
                     </div>
                     <div className={`full-screen ${modalActive ? 'visible' : 'hidden'}`}>
                         <div className="modal-content">
-                            {/* <div className="close-page" onClick={isModalActive}>
-                    <img className="cross-pic" src={'crossPic'} alt="Close page" />
-                </div> */}
+                            <div
+                                className="close-page"
+                                onClick={() => {
+                                    setModalActive(!modalActive);
+                                }}
+                            >
+                                <img className="cross-pic" src={'crossPic'} alt="Close page" />
+                            </div>
                             <div className="modal-img">
                                 <button
                                     className="btn-prev btn-prev-modal"

@@ -48,21 +48,6 @@
     text-align: center;
 }
 
-.swiper {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.swiper-slide {
-    display: flex;
-    align-items: center;
-    align-self: center;
-    background-position: center;
-    background-size: cover;
-}
-
 .custom-zoom [data-rmiz-modal-overlay],
 .custom-zoom [data-rmiz-modal-img] {
     transition-duration: 0.8s;
