@@ -10,13 +10,21 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import './product.css';
 import Crumbs from '../../components/Crumbs/Crumbs';
 
+type Image = {
+    key: number;
+    className: string;
+    src: string;
+    alt: string;
+    onClick: () => void;
+};
+
 export default function Product() {
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
     const id = currentUrl.slice(slash + 1, currentUrl.length);
     const [products, setProducts] = useState<ProductData>();
     const [loading, setLoading] = useState(true);
-    const [items, setItems] = useState<Element[]>();
+    const [items, setItems] = useState<Image[]>();
     const [modalActive, setModalActive] = useState(false);
     const carousel = useRef<AliceCarousel>(null);
     const modalCarousel = useRef<AliceCarousel>(null);
@@ -45,17 +53,20 @@ export default function Product() {
                         const isModalActive = (): void => {
                             setModalActive(!modalActive);
                         };
-                        const items = allImages.map((image, index) => (
-                            <img
-                                key={index}
-                                className={modalActive ? 'modal-img' : 'product-img'}
-                                src={image.url}
-                                alt={`${index}`}
-                                onClick={() => {
-                                    isModalActive();
-                                }}
-                            />
-                        ));
+                        const items: Image[] = allImages.map(
+                            (image, index) =>
+                                (
+                                    <img
+                                        key={index}
+                                        className={modalActive ? 'modal-img' : 'product-img'}
+                                        src={image.url}
+                                        alt={`${index}`}
+                                        onClick={() => {
+                                            isModalActive();
+                                        }}
+                                    />
+                                ) as unknown as Image,
+                        );
                         setItems(items);
                     })
                     .catch((error) => {
@@ -92,17 +103,20 @@ export default function Product() {
                     const isModalActive = (): void => {
                         setModalActive(!modalActive);
                     };
-                    const items = allImages.map((image, index) => (
-                        <img
-                            key={index}
-                            className={modalActive ? 'modal-img' : 'product-img'}
-                            src={image.url}
-                            alt={`${index}`}
-                            onClick={() => {
-                                isModalActive();
-                            }}
-                        />
-                    ));
+                    const items: Image[] = allImages.map(
+                        (image, index) =>
+                            (
+                                <img
+                                    key={index}
+                                    className={modalActive ? 'modal-img' : 'product-img'}
+                                    src={image.url}
+                                    alt={`${index}`}
+                                    onClick={() => {
+                                        isModalActive();
+                                    }}
+                                />
+                            ) as unknown as Image,
+                    );
                     if (items.length) setItems(items);
                 })
                 .catch((error) => {
