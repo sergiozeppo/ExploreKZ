@@ -221,55 +221,6 @@ export default function Product() {
                     </>
                 )}
             </>
-            //             <>
-            //                 <div className="product-wrapper">
-            //                     <div className={`product ${modalActive ? 'hidden' : ''}`}>
-            //                         {/* <div className="close-page">
-            //                         <img className="cross-pic" src={'crossPic'} alt="Close page" />
-            //                     </div> */}
-            //                         <div className="product-img">{items[0]}</div>
-            //                         <div className="product-description">{products?.description?.['en-US'] || 'Not provided!'}</div>
-            //                         <div className="price-wrapper">
-            //                             <span className="product-price">
-            //                                 Price:{' '}
-            //                                 <span
-            //                                     className={
-            //                                         products?.masterVariant?.prices?.[0]?.discounted?.value.centAmount
-            //                                             ? 'product-price-original'
-            //                                             : 'product-price-discount'
-            //                                     }
-            //                                 >
-            //                                     {products?.masterVariant?.prices?.[0]?.value?.centAmount
-            //                                         ? (products?.masterVariant?.prices?.[0]?.value?.centAmount / 100).toFixed(2)
-            //                                         : Number(0).toFixed(2)}
-            //                                 </span>{' '}
-            //                                 $
-            //                             </span>
-            //                             {products?.masterVariant?.prices?.[0]?.discounted?.value.centAmount ? (
-            //                                 <span className="discount-wrapper">
-            //                                     New price:{' '}
-            //                                     <span className="product-price-discount">
-            //                                         {(
-            //                                             products.masterVariant?.prices?.[0]?.discounted?.value.centAmount / 100
-            //                                         ).toFixed(2)}
-            //                                     </span>{' '}
-            //                                     $
-            //                                 </span>
-            //                             ) : (
-            //                                 ''
-            //                             )}
-            //                         </div>
-            //                     </div>
-            //                     <div className={`full-screen ${modalActive ? 'visible' : ''}`}>
-            //                         <div className="modal-content">
-            //                             {/* <div className="close-page" onClick={isModalActive}>
-            //     <img className="cross-pic" src={'crossPic'} alt="Close page" />
-            // </div> */}
-            //                             <div className="modal-img">{items[0]}</div>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </>
         );
     } else {
         return (
@@ -307,7 +258,7 @@ export default function Product() {
                                                         <AliceCarousel
                                                             key="carousel"
                                                             mouseTracking
-                                                            // disableDotsControls
+                                                            disableDotsControls
                                                             disableButtonsControls
                                                             items={items}
                                                             activeIndex={modalCarousel?.current?.state?.activeIndex}
