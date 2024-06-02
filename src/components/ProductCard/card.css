@@ -9,7 +9,8 @@
     padding: 10px;
     border: 1px solid #ffffff7a;
     border-radius: 10px;
-    margin: 10px;
+    cursor: pointer;
+    /* margin: 10px; */
 }
 
 .card-img {
