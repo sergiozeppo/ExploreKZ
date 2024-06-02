@@ -10,7 +10,12 @@
     border: 1px solid #ffffff7a;
     border-radius: 10px;
     cursor: pointer;
-    /* margin: 10px; */
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        box-shadow: rgba(6, 127, 187, 0.347) 0px 6px 24px 0px, rgba(44, 103, 220, 0.731) 0px 0px 0px 1px;
+        border-color: #1f4aa8;
+        background-color: #1f4aa838;;
+    }
 }
 
 .card-img {

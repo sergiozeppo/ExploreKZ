@@ -8,6 +8,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
+import { loginFn } from '../../apiSdk/LoginUser';
+import { token as tokenCache } from '../../apiSdk/token';
 
 interface Passwords {
     currentPassword: string;
@@ -53,7 +55,17 @@ export default function ChangePassword() {
                         .execute()
                         .then((response) => {
                             CustomToast('success', 'Password successfully changed');
-                            navigate('/profile');
+                            console.log(response.body.email, date.newPassword);
+                            loginFn(response.body.email, date.newPassword)
+                                .then(() => {
+                                    localStorage.clear();
+                                    const userToken = tokenCache.get();
+                                    localStorage.setItem('isLogin', 'true');
+                                    localStorage.setItem('userToken', JSON.stringify(userToken));
+                                    navigate('/profile');
+                                    location.reload();
+                                })
+                                .catch((err) => console.error(err));
                             console.log(response);
                         })
                         .catch((error) => {
@@ -74,7 +86,7 @@ export default function ChangePassword() {
         <div className="conatiner-change-password">
             <div className="window-change-password">
                 <form className="form-change-password" onSubmit={handleSubmit(handleSumbitChangePassword)}>
-                    <div>
+                    <div className="input-notice-container">
                         <div className="form-password-container">
                             <input
                                 {...register('currentPassword', {
@@ -94,7 +106,7 @@ export default function ChangePassword() {
                         </div>
                         <CustomError message={errors.currentPassword?.message as string} />
                     </div>
-                    <div>
+                    <div className="input-notice-container">
                         <div className="form-password-container">
                             <input
                                 {...register('newPassword', {

@@ -151,7 +151,7 @@ function UserAddresses({
     return (
         <fieldset className="user-addresses-container">
             {isChange ? (
-                <>
+                <div className="edit-btn-wrapper">
                     <GiConfirmed
                         color="white"
                         className="user-addresses-confirmed-icon icons"
@@ -164,7 +164,7 @@ function UserAddresses({
                         className="user-addresses-cancel-icon icons"
                         onClick={() => setIsChange(false)}
                     />
-                </>
+                </div>
             ) : (
                 <FaEdit color="white" className="user-addresses-edit-icon icons" onClick={() => setIsChange(true)} />
             )}
@@ -244,6 +244,7 @@ function UserAddresses({
             <CustomError message={errors.postalCode?.message} />
             <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '5px' }}>
                 <FormControlLabel
+                    className="control-lables"
                     control={
                         <Switch
                             checked={isDefaultShipping}
