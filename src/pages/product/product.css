@@ -58,12 +58,13 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.7);
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     padding: 0 1rem;
     width: 100%;
     height: 100%;
     z-index: 3;
+    transform: translate(-50%, -50%);
 }
 .modal.visible {
     display: flex;
@@ -79,44 +80,47 @@
     border-radius: 10px;
 }
 .modal-img {
+    display: flex;
     object-fit: contain;
     width: 100%;
     max-width: 1000px;
     max-height: 800px;
     height: 100%;
+    margin: auto;
 }
 .modal-content .modal-img {
     max-width: 1000px;
     max-height: 800px;
     margin: 0 auto;
     overflow: hidden;
+    vertical-align: middle;
 }
 
 .close-modal {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    font-size: 5rem;
     color: #333;
     cursor: pointer;
     border: none;
     background: none;
     width: 50px;
     height: 50px;
+    background-image: url('../../../images/close.png');
+    background-size: cover;
+    background-color: transparent;
+}
+.close-modal:hover {
+    background-image: url('../../../images/close-hover.png');
 }
 
 .btn-prev,
 .btn-next {
     position: absolute;
-    font-size: 24px;
     cursor: pointer;
     border: none;
     width: 50px;
     height: 50px;
-
-    &:hover {
-        color: #000;
-    }
 }
 
 .btn-prev {
@@ -127,6 +131,9 @@
     background-size: cover;
     background-color: transparent;
 }
+.btn-prev:hover {
+    background-image: url('../../../images/left-arrow-hover.png');
+}
 
 .btn-next {
     right: 5%;
@@ -136,17 +143,16 @@
     background-size: cover;
     background-color: transparent;
 }
+.btn-next:hover {
+    background-image: url('../../../images/right-arrow-hover.png');
+}
 .btn-prev-modal,
 .btn-next-modal {
     position: absolute;
-    font-size: 24px;
     cursor: pointer;
     border: none;
     width: 50px;
     height: 50px;
-    &:hover {
-        color: #000;
-    }
 }
 
 .btn-prev-modal {
@@ -157,6 +163,9 @@
     background-size: cover;
     background-color: transparent;
 }
+.btn-prev-modal:hover {
+    background-image: url('../../../images/left-arrow-hover.png');
+}
 
 .btn-next-modal {
     right: 5%;
@@ -165,4 +174,37 @@
     background-image: url('../../../images/right-arrow.png');
     background-size: cover;
     background-color: transparent;
+}
+.btn-next-modal:hover {
+    background-image: url('../../../images/right-arrow-hover.png');
+}
+
+@media screen and (max-width: 1200px) {
+    .close-modal {
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+    .btn-prev-modal,
+    .btn-next-modal {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-prev-modal {
+        left: 3%;
+    }
+    .btn-next-modal {
+        right: 3%;
+    }
+    .btn-prev,
+    .btn-next {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-prev {
+        left: 3%;
+    }
+    .btn-next {
+        right: 3%;
+    }
 }

@@ -18,6 +18,28 @@ type Image = {
     onClick: () => void;
 };
 
+const responsive = {
+    0: {
+        items: 1,
+    },
+    390: {
+        items: 1,
+        itemsFit: 'fill',
+    },
+    600: {
+        items: 1,
+        itemsFit: 'fill',
+    },
+    1024: {
+        items: 1,
+        itemsFit: 'fill',
+    },
+    1200: {
+        items: 1,
+        itemsFit: 'fill',
+    },
+};
+
 export default function Product() {
     const currentUrl = String(window.location.href);
     const slash = currentUrl.lastIndexOf('/');
@@ -262,6 +284,7 @@ export default function Product() {
                                                             disableButtonsControls
                                                             items={items}
                                                             activeIndex={modalCarousel?.current?.state?.activeIndex}
+                                                            responsive={responsive}
                                                             ref={carousel}
                                                         />
                                                     </div>
@@ -317,13 +340,11 @@ export default function Product() {
                         <div className={`modal ${modalActive ? 'visible' : 'hidden'}`}>
                             <div className="modal-content">
                                 <div
-                                    className="close-page"
+                                    className="close-modal"
                                     onClick={() => {
                                         setModalActive(!modalActive);
                                     }}
-                                >
-                                    <img className="close-modal" src={'../../../images/close.png'} alt="Close page" />
-                                </div>
+                                ></div>
                                 <div className="modal-img">
                                     <button
                                         className="btn-prev-modal"
@@ -343,6 +364,7 @@ export default function Product() {
                                         disableDotsControls
                                         disableButtonsControls
                                         items={items}
+                                        responsive={responsive}
                                         activeIndex={carousel?.current?.state?.activeIndex}
                                         ref={modalCarousel}
                                     />
