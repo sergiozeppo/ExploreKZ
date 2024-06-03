@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/72</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/72</span>
             </div>
         
             
@@ -128,7 +128,21 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -205,10 +219,12 @@
 <span class="cstat-no" title="statement not covered" >import Header from './components/Header';</span>
 <span class="cstat-no" title="statement not covered" >import { GlobalProvider } from './context/Global';</span>
 <span class="cstat-no" title="statement not covered" >import { CustomToastContainer } from './components/Toast';</span>
-<span class="cstat-no" title="statement not covered" >import Profile from './pages/profile/Profile';</span>
+<span class="cstat-no" title="statement not covered" >import { Profile } from './pages/profile/Profile';</span>
 <span class="cstat-no" title="statement not covered" >import About from './pages/about/About';</span>
 <span class="cstat-no" title="statement not covered" >import Catalog from './pages/catalog/Catalog';</span>
 <span class="cstat-no" title="statement not covered" >import Cart from './pages/cart/Cart';</span>
+<span class="cstat-no" title="statement not covered" >import Product from './pages/product/Product';</span>
+<span class="cstat-no" title="statement not covered" >import ChangePassword from './pages/changePassword';</span>
 <span class="cstat-no" title="statement not covered" >// import Footer from './components/Footer/Footer';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >// Главный компонент внутри которого будут распологаться остальные компоненты</span>
@@ -217,7 +233,7 @@
 <span class="cstat-no" title="statement not covered" >    if (localStorage.getItem('isLogin')) {</span>
 <span class="cstat-no" title="statement not covered" >        console.log('token flow');</span>
 <span class="cstat-no" title="statement not covered" >        tokenClient()</span>
-<span class="cstat-no" title="statement not covered" >            .me()</span>
+<span class="cstat-no" title="statement not covered" >            .categories()</span>
 <span class="cstat-no" title="statement not covered" >            .get()</span>
 <span class="cstat-no" title="statement not covered" >            .execute()</span>
 <span class="cstat-no" title="statement not covered" >            .then((res) =&gt; {</span>
@@ -227,7 +243,7 @@
 <span class="cstat-no" title="statement not covered" >    } else {</span>
 <span class="cstat-no" title="statement not covered" >        console.log('anonim flow');</span>
 <span class="cstat-no" title="statement not covered" >        anonUser()</span>
-<span class="cstat-no" title="statement not covered" >            .products()</span>
+<span class="cstat-no" title="statement not covered" >            .categories()</span>
 <span class="cstat-no" title="statement not covered" >            .get()</span>
 <span class="cstat-no" title="statement not covered" >            .execute()</span>
 <span class="cstat-no" title="statement not covered" >            .then((res) =&gt; console.log(res))</span>
@@ -248,7 +264,12 @@
 <span class="cstat-no" title="statement not covered" >                        &lt;Route path="/profile" element={&lt;Profile /&gt;} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;Route path="/catalog" element={&lt;Catalog /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Route path="/catalog/:category" element={&lt;Catalog /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Route path="/catalog/:category/:subcategory" element={&lt;Catalog /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        {/* &lt;Route path="/products/*" element={&lt;Product /&gt;} /&gt; */}</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Route path="/catalog/:category/:subcategory/*" element={&lt;Product /&gt;} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;Route path="/cart" element={&lt;Cart /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;Route path="/changePassword" element={&lt;ChangePassword /&gt;} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/Routes&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    {/* &lt;Footer /&gt; */}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/BrowserRouter&gt;</span>
@@ -265,7 +286,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-19T18:29:01.554Z
+                at 2024-06-03T15:57:12.929Z
             </div>
         <script src="../prettify.js"></script>
         <script>
