@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/80</span>
+                <span class='fraction'>80/80</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">96% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>24/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>20/20</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/80</span>
+                <span class='fraction'>80/80</span>
             </div>
         
             
@@ -167,17 +167,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -227,7 +227,7 @@
 &nbsp;
 const noWhitespace: ValidationFunction = (value) =&gt;
     value.trim() === value || 'Must not contain leading or trailing whitespace';
-const hasAtSymbol: ValidationFunction = <span class="fstat-no" title="function not covered" >(value) =&gt;</span>
+const hasAtSymbol: ValidationFunction = (value) =&gt;
     value.includes('@') || 'Must contain an "@" symbol separating local part and domain name';
 const hasDomainName: ValidationFunction = (value) =&gt;
     /^.+@.+\..+$/.test(value) || 'Must contain a domain name (e.g., example.com)';
@@ -246,18 +246,18 @@ const noSpecialCharacter: ValidationFunction = (value) =&gt;
 const onlySixNumbers: ValidationFunction = (value) =&gt;
     /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 numbers';
 &nbsp;
-const calculateAge = <span class="fstat-no" title="function not covered" >(birthday: Date) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const today = new Date();</span>
-<span class="cstat-no" title="statement not covered" >    const diff = today.getTime() - birthday.getTime();</span>
-<span class="cstat-no" title="statement not covered" >    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));</span>
-<span class="cstat-no" title="statement not covered" >    return age;</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const calculateAge = (birthday: Date) =&gt; {
+    const today = new Date();
+    const diff = today.getTime() - birthday.getTime();
+    const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.35));
+    return age;
+};
 &nbsp;
-const moreThirteenYears = <span class="fstat-no" title="function not covered" >(value: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const selectedDate = new Date(value);</span>
-<span class="cstat-no" title="statement not covered" >    const age = calculateAge(selectedDate);</span>
-<span class="cstat-no" title="statement not covered" >    return age &gt;= 13 ? true : 'You must be at least 13 years old to proceed';</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const moreThirteenYears = (value: string) =&gt; {
+    const selectedDate = new Date(value);
+    const age = calculateAge(selectedDate);
+    return age &gt;= 13 <span class="branch-0 cbranch-no" title="branch not covered" >? true </span>: 'You must be at least 13 years old to proceed';
+};
 &nbsp;
 const validateEmail = {
     noWhitespace,
@@ -310,7 +310,7 @@ export const validate = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-03T19:01:12.752Z
+                at 2024-06-03T19:17:59.430Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -89,3 +89,9 @@ describe('Postal code validation', () => {
         expect(validate.postalCode.onlySixNumbers('12345')).toBe('Postal code in KZ must contain only 6 numbers');
     });
 });
+
+describe('Date of Birth validation', () => {
+    it('should must be at least 13 years old', () => {
+        expect(validate.dateOfBirth('12.12.2020')).toBe('You must be at least 13 years old to proceed');
+    });
+});
