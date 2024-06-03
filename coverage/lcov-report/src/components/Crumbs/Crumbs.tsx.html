@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.46% </span>
+                <span class="strong">95.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/43</span>
+                <span class='fraction'>41/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.46% </span>
+                <span class="strong">95.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/43</span>
+                <span class='fraction'>41/43</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,28 +121,28 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -164,28 +164,28 @@ const Crumbs = () =&gt; {
     const [breadcrumbs, setBreadcrumbs] = useState&lt;Breadcrumb[]&gt;([]);
 &nbsp;
     useEffect(() =&gt; {
-<span class="cstat-no" title="statement not covered" >        const segments = location.pathname.split('/').filter((segment) =&gt; segment);</span>
-<span class="cstat-no" title="statement not covered" >        const updatedBreadcrumbs: Breadcrumb[] = [{ label: 'home', url: '/' }];</span>
-<span class="cstat-no" title="statement not covered" >        let path = '';</span>
-<span class="cstat-no" title="statement not covered" >        segments.forEach((segment) =&gt; {</span>
+        const segments = location.pathname.split('/').filter((segment) =&gt; segment);
+        const updatedBreadcrumbs: Breadcrumb[] = [{ label: 'home', url: '/' }];
+        let path = '';
+        segments.forEach((segment) =&gt; {
 <span class="cstat-no" title="statement not covered" >            path += `/${segment}`;</span>
 <span class="cstat-no" title="statement not covered" >            updatedBreadcrumbs.push({ label: segment, url: path });</span>
-<span class="cstat-no" title="statement not covered" >        });</span>
-<span class="cstat-no" title="statement not covered" >        setBreadcrumbs(updatedBreadcrumbs);</span>
+        });
+        setBreadcrumbs(updatedBreadcrumbs);
     }, [location]);
 &nbsp;
     return (
         &lt;div className="crumbs"&gt;
             {breadcrumbs.map((breadcrumb, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;span</span>
-<span class="cstat-no" title="statement not covered" >                    key={breadcrumb.label}</span>
-<span class="cstat-no" title="statement not covered" >                    className={index !== breadcrumbs.length - 1 ? 'crumbs-item' : 'crumbs-item-last'}</span>
-<span class="cstat-no" title="statement not covered" >                &gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Link to={breadcrumb.url}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        {productIdData[breadcrumb.label] ? productIdData[breadcrumb.label].name : breadcrumb.label}</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;/Link&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    {index &lt; breadcrumbs.length - 1 &amp;&amp; ' / '}</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/span&gt;</span>
+                &lt;span
+                    key={breadcrumb.label}
+                    className={index !== breadcrumbs.length - 1 <span class="branch-0 cbranch-no" title="branch not covered" >? 'crumbs-item' </span>: 'crumbs-item-last'}
+                &gt;
+                    &lt;Link to={breadcrumb.url}&gt;
+                        {productIdData[breadcrumb.label] <span class="branch-0 cbranch-no" title="branch not covered" >? productIdData[breadcrumb.label].name </span>: breadcrumb.label}
+                    &lt;/Link&gt;
+                    {index &lt; breadcrumbs.length - 1<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp; ' / '}</span>
+                &lt;/span&gt;
             ))}
         &lt;/div&gt;
     );
@@ -199,7 +199,7 @@ export default Crumbs;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-03T15:57:12.929Z
+                at 2024-06-03T16:07:41.624Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
