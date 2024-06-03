@@ -3,7 +3,7 @@ import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
@@ -84,7 +84,12 @@ function Registration() {
                 }
             });
     };
-
+    const isUserExist = localStorage.getItem('isLogin');
+    useEffect(() => {
+        if (isUserExist) {
+            navigate('/');
+        }
+    });
     const calculateAge = (birthday: Date) => {
         const today = new Date();
         const diff = today.getTime() - birthday.getTime();

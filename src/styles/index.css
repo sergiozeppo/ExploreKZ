@@ -62,7 +62,7 @@ input {
 }
 .hero-section {
     align-self: stretch;
-    height: 600px;
+    /* height: 600px; */
     background: url('/images/hero_image.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -231,20 +231,35 @@ footer {
     }
 }
 
-.block-for-2-17 {
+.sale-banner {
+    max-width: 1242px;
+    width: 100%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
     border-radius: 10px;
-    background-color: #133b5c;
     margin-left: auto;
     margin-right: auto;
     font-size: 18px;
-    border: #fff 1px solid;
     & a {
         color: #fff;
     }
+}
+
+.sale-title {
+    display: flex;
+}
+
+.banner-link {
+    font-size: 14px;
+    max-height: 41px;
+}
+
+.sale-banner-icon {
+    width: 25px;
+    height: 25px;
 }
 
 ::-webkit-scrollbar {

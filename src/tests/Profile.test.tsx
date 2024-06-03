@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Profile from '../pages/profile/Profile';
+import { Profile } from '../pages/profile/Profile';
 import '@testing-library/jest-dom';
 
 describe('Profile component', () => {

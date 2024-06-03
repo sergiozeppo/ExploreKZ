@@ -20,31 +20,24 @@ export default function Home() {
                                             We want you to feel confident in the travel experience you will have with
                                             us.
                                         </Text>
-                                        <div className="link-wrapper block-for-2-17">
-                                            You can go to:
-                                            <Link to="/login" className="signup-link">
-                                                login
-                                            </Link>
-                                            <Link to="/registration" className="signup-link">
-                                                register
-                                            </Link>
-                                            <Link to="/profile" className="signup-link">
-                                                profile
-                                            </Link>
-                                            <Link to="/catalog" className="signup-link">
-                                                catalog
-                                            </Link>
-                                            <Link to="/cart" className="signup-link">
-                                                cart
-                                            </Link>
-                                            <Link to="/about" className="signup-link">
-                                                about us
-                                            </Link>
-                                        </div>
                                     </div>
                                 </div>
                                 <Img src="images/img_rectangle.png" alt="gradient" className="hero-gradient" />
                             </div>
+                        </div>
+                        <div className="link-wrapper sale-banner">
+                            <span className="h2 sale-title">Summer Sale</span>
+                            <span className="h2 sale-title">
+                                Discount 30%{' '}
+                                <img
+                                    className="sale-banner-icon"
+                                    src="/images/icons8-discount-48.png"
+                                    alt="discount-icon"
+                                />
+                            </span>
+                            <Link to="/catalog/discounted" className="button banner-link">
+                                <span className="h2">Go</span>
+                            </Link>
                         </div>
                     </div>
                 </div>
