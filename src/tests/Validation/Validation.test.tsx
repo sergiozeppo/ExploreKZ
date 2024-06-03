@@ -11,6 +11,12 @@ describe('Email validation', () => {
             'Must not contain leading or trailing whitespace',
         );
     });
+    it('should contain an "@" symbol', () => {
+        expect(validate.email.hasAtSymbol('@')).toBe(true);
+        expect(validate.email.hasAtSymbol('invalid-email')).toBe(
+            'Must contain an "@" symbol separating local part and domain name',
+        );
+    });
     it('should reject invalid email addresses', () => {
         expect(validate.email.isEmail('invalid-email')).toBe('Must be properly formatted (e.g., user@example.com)');
         expect(validate.email.isEmail('user@')).toBe('Must be properly formatted (e.g., user@example.com)');
