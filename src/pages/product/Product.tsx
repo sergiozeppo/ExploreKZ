@@ -340,13 +340,11 @@ export default function Product() {
                         <div className={`modal ${modalActive ? 'visible' : 'hidden'}`}>
                             <div className="modal-content">
                                 <div
-                                    className="close-page"
+                                    className="close-modal"
                                     onClick={() => {
                                         setModalActive(!modalActive);
                                     }}
-                                >
-                                    <img className="close-modal" src={'../../../images/close.png'} alt="Close page" />
-                                </div>
+                                ></div>
                                 <div className="modal-img">
                                     <button
                                         className="btn-prev-modal"
