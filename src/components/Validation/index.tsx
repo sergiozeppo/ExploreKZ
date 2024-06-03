@@ -19,7 +19,7 @@ const noSpecialCharacter: ValidationFunction = (value) =>
     /^[a-zA-Z\s]*$/.test(value) || 'Street must contain not special characters';
 
 const onlySixNumbers: ValidationFunction = (value) =>
-    /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers';
+    /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 numbers';
 
 const calculateAge = (birthday: Date) => {
     const today = new Date();
