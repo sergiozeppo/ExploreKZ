@@ -65,7 +65,10 @@ export default function ChangePassword() {
                                     navigate('/profile');
                                     location.reload();
                                 })
-                                .catch((err) => console.error(err));
+                                .catch((error) => {
+                                    CustomToast('error', 'An error occurred, please try again later');
+                                    console.error(error);
+                                });
                             console.log(response);
                         })
                         .catch((error) => {
