@@ -159,7 +159,7 @@ export function Profile() {
     };
 
     const handleNewAddress = () => {
-        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '' };
+        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '', id: crypto.randomUUID() };
 
         setUser((prevUser) => {
             if (!prevUser) return prevUser;
@@ -217,7 +217,7 @@ export function Profile() {
                                 defaultShippingAddressId={defaultShippingAddressId}
                                 setDefaultBillingAddressId={setDefaultBillingAddressId}
                                 setDefaultShippingAddressId={setDefaultShippingAddressId}
-                                isNewAddress={Boolean(user.addresses[index].city)}
+                                isNewAddress={Boolean(!user.addresses[index].city)}
                             />
                         ))}
                     </div>

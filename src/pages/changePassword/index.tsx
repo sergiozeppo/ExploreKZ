@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useEffect, useState } from 'react';
-import { loginFn } from '../../apiSdk/LoginUser';
-import { token as tokenCache } from '../../apiSdk/token';
+import { useEffect, useState, useContext } from 'react';
+import { GlobalContext } from '../../context/Global';
 
 interface Passwords {
     currentPassword: string;
@@ -28,6 +27,7 @@ export default function ChangePassword() {
         mode: 'onChange',
     });
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
+    const { setIsLogin } = useContext(GlobalContext);
 
     useEffect(() => {
         if (!token) {
@@ -41,43 +41,32 @@ export default function ChangePassword() {
         userInfo.then((result) => {
             if (!(result instanceof Error)) {
                 const api = baseClient();
-                try {
-                    api.customers()
-                        .password()
-                        .post({
-                            body: {
-                                id: result.id,
-                                version: result.version,
-                                currentPassword: date.currentPassword,
-                                newPassword: date.newPassword,
-                            },
-                        })
-                        .execute()
-                        .then((response) => {
-                            CustomToast('success', 'Password successfully changed');
-                            console.log(response.body.email, date.newPassword);
-                            loginFn(response.body.email, date.newPassword)
-                                .then(() => {
-                                    localStorage.clear();
-                                    const userToken = tokenCache.get();
-                                    localStorage.setItem('isLogin', 'true');
-                                    localStorage.setItem('userToken', JSON.stringify(userToken));
-                                    navigate('/profile');
-                                    location.reload();
-                                })
-                                .catch((err) => console.error(err));
-                            console.log(response);
-                        })
-                        .catch((error) => {
-                            if (error.body) {
-                                CustomToast('error', error.body.message);
-                            } else {
-                                CustomToast('error', 'An error occurred, please try again later');
-                            }
-                        });
-                } catch (error) {
-                    return error as Error;
-                }
+                api.customers()
+                    .password()
+                    .post({
+                        body: {
+                            id: result.id,
+                            version: result.version,
+                            currentPassword: date.currentPassword,
+                            newPassword: date.newPassword,
+                        },
+                    })
+                    .execute()
+                    .then((response) => {
+                        console.log(response.body.email, date.newPassword);
+                        localStorage.clear();
+                        navigate('/login');
+                        CustomToast('success', 'Password successfully changed');
+                        CustomToast('info', 'You need authorization again');
+                        setIsLogin(false);
+                    })
+                    .catch((error) => {
+                        if (error.body) {
+                            CustomToast('error', error.body.message);
+                        } else {
+                            CustomToast('error', 'An error occurred, please try again later');
+                        }
+                    });
             }
         });
     };
