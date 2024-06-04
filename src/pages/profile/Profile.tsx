@@ -159,7 +159,7 @@ export function Profile() {
     };
 
     const handleNewAddress = () => {
-        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '', id: 'newAddress' };
+        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '', id: crypto.randomUUID() };
 
         setUser((prevUser) => {
             if (!prevUser) return prevUser;
