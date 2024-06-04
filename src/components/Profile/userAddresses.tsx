@@ -155,20 +155,29 @@ function UserAddresses({
                     <GiConfirmed
                         color="white"
                         className="user-addresses-confirmed-icon icons"
-                        onClick={
-                            !isNewAddress ? handleSubmit(handleNewAddress) : handleSubmit(handleSaveChangesAddress)
-                        }
+                        onClick={isNewAddress ? handleSubmit(handleNewAddress) : handleSubmit(handleSaveChangesAddress)}
+                        style={isNewAddress ? { right: '40px' } : undefined}
                     />
-                    <MdCancel
-                        color="white"
-                        className="user-addresses-cancel-icon icons"
-                        onClick={() => setIsChange(false)}
-                    />
+                    {isNewAddress ? (
+                        ''
+                    ) : (
+                        <MdCancel
+                            color="white"
+                            className="user-addresses-cancel-icon icons"
+                            onClick={() => setIsChange(false)}
+                        />
+                    )}
                 </div>
             ) : (
                 <FaEdit color="white" className="user-addresses-edit-icon icons" onClick={() => setIsChange(true)} />
             )}
-            <MdDelete color="white" className="user-addresses-delete-icon icons" onClick={handleRemoveAddress} />
+            <MdDelete
+                color="white"
+                className="user-addresses-delete-icon icons"
+                onClick={() => {
+                    isNewAddress ? onRemoveAddress(address.id || '') : handleRemoveAddress();
+                }}
+            />
             <legend>Address</legend>
             <div className="user-addresses-row">
                 <div className="user-addresses-col">
@@ -260,7 +269,7 @@ function UserAddresses({
                         },
                         color: 'white',
                     }}
-                    disabled={isChange && isNewAddress ? false : true}
+                    disabled={isChange && !isNewAddress ? false : true}
                 />
                 <FormControlLabel
                     control={
@@ -278,7 +287,7 @@ function UserAddresses({
                         },
                         color: 'white',
                     }}
-                    disabled={isChange && isNewAddress ? false : true}
+                    disabled={isChange && !isNewAddress ? false : true}
                 />
             </div>
         </fieldset>
