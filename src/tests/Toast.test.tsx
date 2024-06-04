@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom';
 import { toast } from 'react-toastify';
-import { CustomToast } from '../components/Toast';
+import { CustomToast, CustomToastContainer } from '../components/Toast';
+import { BrowserRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
 describe('CustomToast', () => {
     it('must calls toast.success with the correct arguments', () => {
@@ -17,5 +19,13 @@ describe('CustomToast', () => {
             progress: undefined,
             theme: 'light',
         });
+    });
+    it('renders without crashing', () => {
+        const { container } = render(
+            <BrowserRouter>
+                <CustomToastContainer />
+            </BrowserRouter>,
+        );
+        expect(container).toBeInTheDocument();
     });
 });
