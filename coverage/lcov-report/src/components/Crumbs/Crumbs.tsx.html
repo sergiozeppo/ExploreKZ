@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.34% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/43</span>
+                <span class='fraction'>43/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.34% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/43</span>
+                <span class='fraction'>43/43</span>
             </div>
         
             
@@ -117,36 +117,36 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from 'react';
@@ -168,8 +168,8 @@ const Crumbs = () =&gt; {
         const updatedBreadcrumbs: Breadcrumb[] = [{ label: 'home', url: '/' }];
         let path = '';
         segments.forEach((segment) =&gt; {
-<span class="cstat-no" title="statement not covered" >            path += `/${segment}`;</span>
-<span class="cstat-no" title="statement not covered" >            updatedBreadcrumbs.push({ label: segment, url: path });</span>
+            path += `/${segment}`;
+            updatedBreadcrumbs.push({ label: segment, url: path });
         });
         setBreadcrumbs(updatedBreadcrumbs);
     }, [location]);
@@ -179,12 +179,12 @@ const Crumbs = () =&gt; {
             {breadcrumbs.map((breadcrumb, index) =&gt; (
                 &lt;span
                     key={breadcrumb.label}
-                    className={index !== breadcrumbs.length - 1 <span class="branch-0 cbranch-no" title="branch not covered" >? 'crumbs-item' </span>: 'crumbs-item-last'}
+                    className={index !== breadcrumbs.length - 1 ? 'crumbs-item' : 'crumbs-item-last'}
                 &gt;
                     &lt;Link to={breadcrumb.url}&gt;
                         {productIdData[breadcrumb.label] <span class="branch-0 cbranch-no" title="branch not covered" >? productIdData[breadcrumb.label].name </span>: breadcrumb.label}
                     &lt;/Link&gt;
-                    {index &lt; breadcrumbs.length - 1<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp; ' / '}</span>
+                    {index &lt; breadcrumbs.length - 1 &amp;&amp; ' / '}
                 &lt;/span&gt;
             ))}
         &lt;/div&gt;
@@ -199,7 +199,7 @@ export default Crumbs;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-04T10:01:38.807Z
+                at 2024-06-04T11:39:20.115Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
