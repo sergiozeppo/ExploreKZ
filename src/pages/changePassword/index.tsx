@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { GlobalContext } from '../../context/Global';
 
 interface Passwords {
     currentPassword: string;
@@ -26,6 +27,7 @@ export default function ChangePassword() {
         mode: 'onChange',
     });
     const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
+    const { setIsLogin } = useContext(GlobalContext);
 
     useEffect(() => {
         if (!token) {
@@ -56,6 +58,7 @@ export default function ChangePassword() {
                         navigate('/login');
                         CustomToast('success', 'Password successfully changed');
                         CustomToast('info', 'You need authorization again');
+                        setIsLogin(false);
                     })
                     .catch((error) => {
                         if (error.body) {
