@@ -136,7 +136,9 @@ export default function Catalog() {
             client
                 .productProjections()
                 .search()
-                .get({ queryArgs })
+                .get({
+                    queryArgs,
+                })
                 .execute()
                 .then((res) => {
                     let response: ProductProjection[] = res.body.results;

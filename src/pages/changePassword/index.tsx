@@ -1,5 +1,5 @@
 import './index.css';
-import { baseClient } from '../../apiSdk/BaseClient';
+// import { baseClient } from '../../apiSdk/BaseClient';
 import { ProfileApi } from '../profile/Profile';
 import CustomError from '../../components/Validation/error';
 import { CustomToast } from '../../components/Toast';
@@ -9,6 +9,9 @@ import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../../context/Global';
+import { loginFn } from '../../apiSdk/LoginUser';
+import { token as MyToken } from '../../apiSdk/token';
+import { tokenClient } from '../../apiSdk/TokenClient';
 
 interface Passwords {
     currentPassword: string;
@@ -40,7 +43,7 @@ export default function ChangePassword() {
         const userInfo = ProfileApi();
         userInfo.then((result) => {
             if (!(result instanceof Error)) {
-                const api = baseClient();
+                const api = tokenClient();
                 api.customers()
                     .password()
                     .post({
@@ -53,12 +56,23 @@ export default function ChangePassword() {
                     })
                     .execute()
                     .then((response) => {
-                        console.log(response.body.email, date.newPassword);
-                        localStorage.clear();
-                        navigate('/login');
+                        console.log(response);
+                        const userToken = MyToken;
+                        userToken.reset();
+                        loginFn(response.body.email, date.newPassword)
+                            .then((res) => {
+                                console.log(res);
+                                localStorage.setItem('isLogin', 'true');
+                                localStorage.setItem('userToken', JSON.stringify(userToken.get()));
+                                navigate('/profile');
+                                setIsLogin(true);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         CustomToast('success', 'Password successfully changed');
-                        CustomToast('info', 'You need authorization again');
-                        setIsLogin(false);
+                        // CustomToast('info', 'You need authorization again');
+                        // setIsLogin(false);
                     })
                     .catch((error) => {
                         if (error.body) {
