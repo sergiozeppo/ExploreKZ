@@ -5,7 +5,7 @@ import { Button, Text } from './..';
 import { baseClient } from '../../apiSdk/BaseClient';
 import { CustomToast } from '../Toast';
 import { GlobalContext } from '../../context/Global';
-
+import { token as MyToken } from '../../apiSdk/token';
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
     const { isLogin, setIsLogin } = useContext(GlobalContext);
@@ -32,6 +32,8 @@ export default function Burger() {
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
         localStorage.clear();
+        const userToken = MyToken;
+        userToken.reset();
         setIsLogin(false);
         navigate('/');
         CustomToast('info', 'Successful Logged out!');

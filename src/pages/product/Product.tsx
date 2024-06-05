@@ -447,22 +447,6 @@ export default function Product() {
 
                 const productData: ProductData = response.body.masterData.current;
                 setProducts(productData);
-
-                const masterVariant = productData?.masterVariant?.images || [];
-                const variantImages = productData?.variants?.[0]?.images || [];
-                const allImages = masterVariant.concat(variantImages);
-
-                const items = allImages.map((image, index) => (
-                    <img
-                        key={index}
-                        className={modalActive ? 'modal-img' : 'product-img'}
-                        src={image.url}
-                        alt={`${index}`}
-                        onClick={() => handleImageClick(index)}
-                    />
-                ));
-
-                setItems(items);
                 setLoading(false);
             } catch (err) {
                 const error = err as ApiError;
@@ -478,7 +462,28 @@ export default function Product() {
         };
 
         fetcher();
-    }, [id, modalActive, items, currentIndex]);
+    }, [id]);
+
+    useEffect(() => {
+        if (products) {
+            const masterVariant = products?.masterVariant?.images || [];
+            const variantImages = products?.variants?.[0]?.images || [];
+            const allImages = masterVariant.concat(variantImages);
+            const items = allImages.map((image, index) => (
+                <img
+                    key={index}
+                    className={modalActive ? 'modal-img' : 'product-img'}
+                    src={image.url}
+                    alt={`${index}`}
+                    onClick={() => handleImageClick(index)}
+                />
+            ));
+            setItems(items);
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            });
+        }
+    }, [products, modalActive]);
 
     const handleImageClick = (index: number) => {
         setCurrentIndex(index);
@@ -508,7 +513,6 @@ export default function Product() {
                                     ) : (
                                         <div className="slider-main-wrapper">
                                             <AliceCarousel
-                                                mouseTracking
                                                 disableDotsControls
                                                 disableButtonsControls
                                                 items={items}
@@ -593,7 +597,6 @@ export default function Product() {
                                     </>
                                 )}
                                 <AliceCarousel
-                                    mouseTracking
                                     disableDotsControls
                                     disableButtonsControls
                                     items={items}

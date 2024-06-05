@@ -10,6 +10,7 @@ import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import Loader from '../../components/Loader/loader';
 import { validate } from '../../components/Validation';
+
 type Inputs = {
     email: string;
     password: string;
@@ -36,13 +37,12 @@ export default function Login() {
                 setLoginError('');
                 setPasswordError('');
                 setLoading(false);
-                navigate('/');
-                location.reload();
-                const userToken = token.get();
+                const userToken = token;
                 localStorage.setItem('isLogin', 'true');
-                localStorage.setItem('userToken', JSON.stringify(userToken));
+                localStorage.setItem('userToken', JSON.stringify(userToken.get()));
                 setIsLogin(true);
                 CustomToast('success', 'Successful Logged in!');
+                // location.reload();
             })
             .catch((err) => {
                 console.error(err);
@@ -74,7 +74,7 @@ export default function Login() {
         if (isUserExist) {
             navigate('/');
         }
-    });
+    }, [navigate, isUserExist]);
     return (
         <div className="login-form-wrapper">
             <form onSubmit={handleSubmit(onSubmit)} className="login-form">
