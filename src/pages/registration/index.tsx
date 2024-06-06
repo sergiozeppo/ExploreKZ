@@ -3,13 +3,16 @@ import { useForm, RegisterOptions, SubmitHandler } from 'react-hook-form';
 import { registerFn } from '../../apiSdk/RegistrationUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { Checkbox, FormControlLabel, Switch } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginFn } from '../../apiSdk/LoginUser';
 import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
+import { UserParams } from '../../apiSdk/RegistrationUser';
+import { validate } from '../../components/Validation';
+import CustomError from '../../components/Validation/error';
 import Loader from '../../components/Loader/loader';
 
 interface AboutUser {
@@ -19,29 +22,12 @@ interface AboutUser {
     type?: string;
 }
 
-type Inputs = {
-    email: string;
-    password: string;
-    country: string;
-    city: string;
-    postalCode: string;
-    streetName: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-
-    countryBilling: string;
-    streetNameBilling: string;
-    cityBilling: string;
-    postalCodeBilling: string;
-};
-
 function Registration() {
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<Inputs>({
+    } = useForm<UserParams>({
         mode: 'onChange',
     });
     const navigate = useNavigate();
@@ -51,7 +37,7 @@ function Registration() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const { setIsLogin } = useContext(GlobalContext);
-    const onSubmit: SubmitHandler<Inputs> = (userData) => {
+    const onSubmit: SubmitHandler<UserParams> = (userData) => {
         setLoading(true);
         registerFn({
             email: userData.email,
@@ -63,10 +49,10 @@ function Registration() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             dateOfBirth: userData.dateOfBirth,
-            countryBilling: checkBilling ? null : userData.countryBilling,
-            cityBilling: checkBilling ? null : userData.cityBilling,
-            postalCodeBilling: checkBilling ? null : userData.postalCodeBilling,
-            streetNameBilling: checkBilling ? null : userData.streetNameBilling,
+            countryBilling: userData.countryBilling,
+            cityBilling: userData.cityBilling,
+            postalCodeBilling: userData.postalCodeBilling,
+            streetNameBilling: userData.streetNameBilling,
             defaultShipping: checkDefaultShipping,
             defaultBilling: checkDefaultBilling,
             alsoUseBilling: checkBilling,
@@ -97,7 +83,12 @@ function Registration() {
                 }
             });
     };
-
+    const isUserExist = localStorage.getItem('isLogin');
+    useEffect(() => {
+        if (isUserExist) {
+            navigate('/');
+        }
+    });
     const calculateAge = (birthday: Date) => {
         const today = new Date();
         const diff = today.getTime() - birthday.getTime();
@@ -105,30 +96,13 @@ function Registration() {
         return age;
     };
 
-    function Error({ message }: { message: string | undefined }) {
-        if (typeof message === 'string') {
-            return <span className="input-notice-register">{message}</span>;
-        }
-    }
-
     const fieldsAboutUser: AboutUser[] = [
         {
             name: 'email',
             placeholder: 'Email',
             type: 'email',
             validate: {
-                validate: {
-                    noWhitespace: (value) =>
-                        value.trim() === value || 'Email address must not contain leading or trailing whitespace',
-                    hasAtSymbol: (value) =>
-                        value.includes('@') ||
-                        'Email address must contain an "@" symbol separating local part and domain name',
-                    hasDomainName: (value) =>
-                        /^.+@.+\..+$/.test(value) || 'Email address must contain a domain name (e.g., example.com)',
-                    isEmail: (value) =>
-                        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
-                        'Email address must be properly formatted (e.g., user@example.com)',
-                },
+                validate: validate['email'],
             },
         },
         {
@@ -136,48 +110,21 @@ function Registration() {
             placeholder: 'Password',
             type: showPassword ? 'text' : 'password',
             validate: {
-                minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters long',
-                },
-                validate: {
-                    hasUpperCase: (value) =>
-                        /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
-                    hasLowerCase: (value) =>
-                        /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
-                    hasNumber: (value) => /\d/.test(value) || 'Password must contain at least one digit (0-9)',
-                    hasSpecialCharacter: (value) =>
-                        /[!@#$%^&*]/.test(value) || 'Password must contain at least one special character (!@#$%^&*)',
-                    noWhitespace: (value) => value.trim() === value || 'No leading or trailing whitespace allowed',
-                },
+                validate: validate['password'],
             },
         },
         {
             name: 'firstName',
             placeholder: 'First name',
             validate: {
-                minLength: {
-                    value: 1,
-                    message: 'First Name must contain at least one character',
-                },
-                validate: {
-                    noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'First name must contain not special characters and numbers',
-                },
+                validate: validate['firstName'],
             },
         },
         {
             name: 'lastName',
             placeholder: 'Last name',
             validate: {
-                minLength: {
-                    value: 1,
-                    message: 'Last name must contain at least one character',
-                },
-                validate: {
-                    noSpecialCharacter: (value) =>
-                        /^[^\W\d_]+$/.test(value) || 'Last name must contain not special characters and numbers',
-                },
+                validate: validate['lastName'],
             },
         },
         {
@@ -202,13 +149,13 @@ function Registration() {
                         {field.name === 'password' ? (
                             <div className="registration-password-container">
                                 <input
-                                    {...register(field.name as keyof Inputs, {
+                                    {...register(field.name as keyof UserParams, {
                                         required: 'This field is required',
                                         ...field.validate,
                                     })}
                                     type={field.type}
                                     placeholder={field.placeholder}
-                                    className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                                    className={`registration-about-user ${errors?.[field.name as keyof UserParams] ? 'invalid-input' : ''}`}
                                 />
                                 <div
                                     className="toggle-password-visibility"
@@ -219,16 +166,16 @@ function Registration() {
                             </div>
                         ) : (
                             <input
-                                {...register(field.name as keyof Inputs, {
+                                {...register(field.name as keyof UserParams, {
                                     required: 'This field is required',
                                     ...field.validate,
                                 })}
                                 type={field.type}
                                 placeholder={field.placeholder}
-                                className={`registration-about-user ${errors?.[field.name as keyof Inputs] ? 'invalid-input' : ''}`}
+                                className={`registration-about-user ${errors?.[field.name as keyof UserParams] ? 'invalid-input' : ''}`}
                             />
                         )}
-                        <Error message={errors?.[field.name as keyof Inputs]?.message} />
+                        <CustomError message={errors?.[field.name as keyof UserParams]?.message} />
                     </div>
                 ))}
                 <fieldset className="registration-wrapper-delivery">
@@ -247,21 +194,18 @@ function Registration() {
                                 </option>
                                 <option value="KZ">Kazakhstan</option>
                             </select>
-                            <Error message={errors?.country?.message} />
+                            <CustomError message={errors?.country?.message} />
                         </div>
                         <div>
                             <input
                                 {...register('streetName', {
                                     required: 'This field is required',
-                                    pattern: {
-                                        value: /^[a-zA-Z\s]*$/,
-                                        message: 'Street must contain not special characters',
-                                    },
+                                    validate: validate['street'],
                                 })}
                                 placeholder="Street"
                                 className={`registration-delivery ${errors?.streetName ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.streetName?.message} />
+                            <CustomError message={errors?.streetName?.message} />
                         </div>
                     </div>
                     <div className="registration-container-pair">
@@ -269,30 +213,23 @@ function Registration() {
                             <input
                                 {...register('city', {
                                     required: 'This field is required',
-                                    validate: {
-                                        noSpecialCharacter: (value) =>
-                                            /^[^\W\d_]+$/.test(value) ||
-                                            'City must contain not special characters and numbers',
-                                    },
+                                    validate: validate['city'],
                                 })}
                                 placeholder="City"
                                 className={`registration-delivery ${errors?.city ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.city?.message} />
+                            <CustomError message={errors?.city?.message} />
                         </div>
                         <div key="postalCode">
                             <input
                                 {...register('postalCode', {
                                     required: 'This field is required',
-                                    validate: {
-                                        only6Numbers: (value) =>
-                                            /^\d{6}$/.test(value) || 'Postal code in KZ must contain only 6 nubmers',
-                                    },
+                                    validate: validate['postalCode'],
                                 })}
                                 placeholder="Postal Code"
                                 className={`registration-delivery ${errors?.postalCode ? 'invalid-input' : ''}`}
                             />
-                            <Error message={errors?.postalCode?.message} />
+                            <CustomError message={errors?.postalCode?.message} />
                         </div>
                     </div>
                 </fieldset>
@@ -343,21 +280,18 @@ function Registration() {
                                         </option>
                                         <option value="KZ">Kazakhstan</option>
                                     </select>
-                                    <Error message={errors?.countryBilling?.message} />
+                                    <CustomError message={errors?.countryBilling?.message} />
                                 </div>
                                 <div>
                                     <input
                                         {...register('streetNameBilling', {
                                             required: 'This field is required',
-                                            pattern: {
-                                                value: /^[a-zA-Z\s]*$/,
-                                                message: 'Street must contain not special characters',
-                                            },
+                                            validate: validate['street'],
                                         })}
                                         placeholder="Street"
                                         className={`registration-delivery ${errors?.streetNameBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.streetNameBilling?.message} />
+                                    <CustomError message={errors?.streetNameBilling?.message} />
                                 </div>
                             </div>
                             <div className="registration-container-pair">
@@ -365,31 +299,23 @@ function Registration() {
                                     <input
                                         {...register('cityBilling', {
                                             required: 'This field is required',
-                                            validate: {
-                                                noSpecialCharacter: (value) =>
-                                                    /^[^\W\d_]+$/.test(value) ||
-                                                    'City must contain not special characters and numbers',
-                                            },
+                                            validate: validate['city'],
                                         })}
                                         placeholder="City"
                                         className={`registration-delivery ${errors?.cityBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.cityBilling?.message} />
+                                    <CustomError message={errors?.cityBilling?.message} />
                                 </div>
                                 <div key="postalCode">
                                     <input
                                         {...register('postalCodeBilling', {
                                             required: 'This field is required',
-                                            validate: {
-                                                only6Numbers: (value) =>
-                                                    /^\d{6}$/.test(value) ||
-                                                    'Postal code in KZ must contain only 6 nubmers',
-                                            },
+                                            validate: validate['postalCode'],
                                         })}
                                         placeholder="Postal Code"
                                         className={`registration-delivery ${errors?.postalCodeBilling ? 'invalid-input' : ''}`}
                                     />
-                                    <Error message={errors?.postalCodeBilling?.message} />
+                                    <CustomError message={errors?.postalCodeBilling?.message} />
                                 </div>
                             </div>
                         </fieldset>

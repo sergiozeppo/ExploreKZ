@@ -1,0 +1,166 @@
+/* Profile */
+.container-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    width: 100%;
+    max-width: 1242px;
+    margin: 0 auto;
+}
+
+.profile-content {
+    margin-top: 40px;
+}
+
+.profile-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 25px;
+}
+
+.profile-user-container {
+    background-color: #222831;
+    box-shadow: 0px 0px 7px 1px #919191;
+    border-radius: 10px;
+}
+
+.profile-user-cols-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.profile-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.profile-user-col {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.user-info-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.user-info-name {
+    color: white;
+}
+
+/* Addresses */
+
+.profile-user-addresses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+}
+
+.user-addresses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 10px;
+    position: relative;
+    & span {
+        color: white !important;
+    }
+}
+
+.addresses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: scroll;
+    max-height: 350px;
+}
+
+.user-addresses-row {
+    display: flex;
+    color: white;
+}
+
+.user-addresses-col {
+    width: 85%;
+    padding-left: 5px;
+    padding-right: 50px;
+    white-space: nowrap;
+}
+
+.btn {
+    color: #fff;
+    background-color: #1f4aa8;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    min-width: 130px;
+    transition: border-color 0.25s;
+
+    &:not(:disabled):hover {
+        border-color: #646cff;
+    }
+
+    &:not(:disabled):active {
+        background-color: #343de8d6;
+    }
+}
+
+.user-addresses-input {
+    background-color: white;
+    border: none;
+}
+
+.icons {
+    position: absolute;
+    cursor: pointer;
+    top: -18px;
+    padding: 3px 5px;
+    background-color: #1f4aa8;
+    width: 25px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #919191;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        & {
+            fill: #1f4aa8;
+            background-color: white;
+        }
+    }
+}
+
+.user-addresses-edit-icon {
+    right: 40px;
+}
+
+.user-addresses-delete-icon {
+    right: 13px;
+}
+
+.user-addresses-confirmed-icon {
+    right: 67px;
+}
+
+.user-addresses-cancel-icon {
+    right: 40px;
+}
+
+.edit-btn-wrapper {
+    background-color: #1f4aa8;
+}

@@ -17,13 +17,15 @@ type PasswordAuthMiddlewareOptions = {
     tokenCache?: TokenCache;
     oauthUri?: string;
     fetch?: unknown;
+    refreshToken?: string;
 };
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
     host: import.meta.env.VITE_CTP_API_URL,
     fetch,
 };
-
+const userStorage = localStorage.getItem('userToken');
+const refreshTokenStoraged = userStorage ? JSON.parse(userStorage).refreshToken : '';
 export const loginFn = (email: string, password: string) => {
     const options: PasswordAuthMiddlewareOptions = {
         host: import.meta.env.VITE_CTP_AUTH_URL,
@@ -38,6 +40,7 @@ export const loginFn = (email: string, password: string) => {
         },
         scopes: [`manage_project:${import.meta.env.VITE_CTP_PROJECT_KEY}`],
         tokenCache: token,
+        refreshToken: refreshTokenStoraged || token.get().refreshToken,
     };
     const client = new ClientBuilder().withPasswordFlow(options).withHttpMiddleware(httpMiddlewareOptions).build();
     const api = createApiBuilderFromCtpClient(client)

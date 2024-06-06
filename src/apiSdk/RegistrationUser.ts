@@ -1,6 +1,6 @@
 import { baseClient } from './BaseClient';
 
-interface RegisterFnParams {
+export interface UserParams {
     email: string;
     password: string;
     country: string;
@@ -10,16 +10,16 @@ interface RegisterFnParams {
     firstName: string;
     lastName: string;
     dateOfBirth: string;
-    countryBilling: string | null;
-    cityBilling: string | null;
-    postalCodeBilling: string | null;
-    streetNameBilling: string | null;
+    countryBilling: string;
+    cityBilling: string;
+    postalCodeBilling: string;
+    streetNameBilling: string;
     defaultShipping: boolean;
     defaultBilling: boolean;
-    alsoUseBilling: boolean;
+    alsoUseBilling?: boolean;
 }
 
-export async function registerFn(params: RegisterFnParams) {
+export async function registerFn(params: UserParams) {
     const {
         email,
         password,

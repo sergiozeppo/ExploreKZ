@@ -10,10 +10,12 @@ import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
-import Profile from './pages/profile/Profile';
+import { Profile } from './pages/profile/Profile';
 import About from './pages/about/About';
 import Catalog from './pages/catalog/Catalog';
 import Cart from './pages/cart/Cart';
+import Product from './pages/product/Product';
+import ChangePassword from './pages/changePassword';
 // import Footer from './components/Footer/Footer';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
@@ -22,7 +24,7 @@ function App() {
     if (localStorage.getItem('isLogin')) {
         console.log('token flow');
         tokenClient()
-            .me()
+            .categories()
             .get()
             .execute()
             .then((res) => {
@@ -32,7 +34,7 @@ function App() {
     } else {
         console.log('anonim flow');
         anonUser()
-            .products()
+            .categories()
             .get()
             .execute()
             .then((res) => console.log(res))
@@ -53,7 +55,12 @@ function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/catalog/:category" element={<Catalog />} />
+                        <Route path="/catalog/:category/:subcategory" element={<Catalog />} />
+                        {/* <Route path="/products/*" element={<Product />} /> */}
+                        <Route path="/catalog/:category/:subcategory/*" element={<Product />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/changePassword" element={<ChangePassword />} />
                     </Routes>
                     {/* <Footer /> */}
                 </BrowserRouter>

@@ -9,6 +9,8 @@ import { token } from '../../apiSdk/token';
 import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import Loader from '../../components/Loader/loader';
+import { validate } from '../../components/Validation';
+
 type Inputs = {
     email: string;
     password: string;
@@ -35,21 +37,21 @@ export default function Login() {
                 setLoginError('');
                 setPasswordError('');
                 setLoading(false);
-                navigate('/');
-                const userToken = token.get();
+                const userToken = token;
                 localStorage.setItem('isLogin', 'true');
-                localStorage.setItem('userToken', JSON.stringify(userToken));
+                localStorage.setItem('userToken', JSON.stringify(userToken.get()));
                 setIsLogin(true);
                 CustomToast('success', 'Successful Logged in!');
+                // location.reload();
             })
             .catch((err) => {
                 console.error(err);
+                setLoading(false);
                 baseClient()
                     .customers()
                     .get({ queryArgs: { where: `email="${userData.email}"` } })
                     .execute()
                     .then((res) => {
-                        console.log(res);
                         if (res.body.count > 0) {
                             setPasswordError('Invalid password!');
                             setLoginError('');
@@ -61,14 +63,18 @@ export default function Login() {
                         }
                         setLoading(false);
                     })
-                    .catch((err) => console.error(err));
+                    .catch((err) => {
+                        console.error(err);
+                        setLoading(false);
+                        CustomToast('error', 'Connection lost!');
+                    });
             });
     };
     useEffect(() => {
         if (isUserExist) {
             navigate('/');
         }
-    });
+    }, [navigate, isUserExist]);
     return (
         <div className="login-form-wrapper">
             <form onSubmit={handleSubmit(onSubmit)} className="login-form">
@@ -78,20 +84,7 @@ export default function Login() {
                         className={`login-input-email ${errors?.email ? 'invalid-input' : ''}`}
                         {...register('email', {
                             required: 'Mandatory field!',
-                            validate: {
-                                noWhitespace: (value) =>
-                                    value.trim() === value ||
-                                    'Email address must not contain leading or trailing whitespace',
-                                hasAtSymbol: (value) =>
-                                    value.includes('@') ||
-                                    'Email address must contain an "@" symbol separating local part and domain name',
-                                hasDomainName: (value) =>
-                                    /^.+@.+\..+$/.test(value) ||
-                                    'Email address must contain a domain name (e.g., example.com)',
-                                isEmail: (value) =>
-                                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ||
-                                    'Email address must be properly formatted (e.g., user@example.com)',
-                            },
+                            validate: validate['email'],
                         })}
                         onBlur={() => trigger('password')}
                     />
@@ -110,19 +103,7 @@ export default function Login() {
                                     value: 8,
                                     message: 'Password must be at least 8 characters long',
                                 },
-                                validate: {
-                                    hasUpperCase: (value) =>
-                                        /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
-                                    hasLowerCase: (value) =>
-                                        /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
-                                    hasNumber: (value) =>
-                                        /\d/.test(value) || 'Password must contain at least one digit (0-9)',
-                                    hasSpecialCharacter: (value) =>
-                                        /[!@#$%^&*]/.test(value) ||
-                                        'Password must contain at least one special character (!@#$%^&*)',
-                                    noWhitespace: (value) =>
-                                        !/\s/.test(value) || 'No leading or trailing whitespace allowed',
-                                },
+                                validate: validate['password'],
                             })}
                             onBlur={() => trigger('email')}
                         />
