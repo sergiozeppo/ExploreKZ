@@ -62,10 +62,11 @@ input {
 }
 .hero-section {
     align-self: stretch;
-    /* height: 600px; */
+    position: relative;
+    /* height: 600px;
     background: url('/images/hero_image.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 footer {
     display: flex;
@@ -84,6 +85,7 @@ footer {
     margin-top: 68px;
     height: 150px;
     background: linear-gradient(180deg, rgba(34, 40, 49, 0) 0%, #222831 100%);
+    z-index: 1;
 }
 .h1 {
     font-size: 4.5rem;
@@ -91,6 +93,7 @@ footer {
     font-weight: 700;
     color: white;
     text-align: center;
+    z-index: 1;
 }
 .h2 {
     line-height: 1.75rem;
@@ -99,6 +102,7 @@ footer {
     letter-spacing: 0.06em;
     text-align: center;
     color: #fff;
+    z-index: 1;
 }
 .h6 {
     font-weight: 700;
@@ -176,6 +180,15 @@ footer {
     }
 }
 
+.enjoy-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /* border-radius: 40px; */
+    object-fit: cover;
+}
 .title-block {
     margin-top: 117px;
     margin-left: auto;

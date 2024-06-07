@@ -10,6 +10,10 @@ export default function Home() {
                     <div className="main-content">
                         {/* hero section */}
                         <div className="hero-section">
+                            <video className="enjoy-video" autoPlay loop muted playsInline>
+                                {' '}
+                                <source src="video/hero.mp4" type="video/mp4" />{' '}
+                            </video>
                             <div className="header-wrapper">
                                 <div className="title-block">
                                     <div className="tagline">
