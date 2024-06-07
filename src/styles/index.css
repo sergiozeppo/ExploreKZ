@@ -182,7 +182,6 @@ footer {
     height: 100%;
     top: 0;
     left: 0;
-    /* border-radius: 40px; */
     object-fit: cover;
 }
 .title-block {
@@ -298,6 +297,32 @@ footer {
     }
 }
 
-.tempr {
-    color: white;
+.app-store {
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    font-size: 32px;
+    color: #fff;
+}
+.app-store-img {
+    max-width: 250px;
+    max-height: 83px;
+    cursor: pointer;
+}
+.app-store-wrapper {
+    display: flex;
+    gap: 0.625rem;
+    align-items: center;
+    align-self: stretch;
+    flex-direction: row;
+
+    @media (max-width: 640px) {
+        flex-direction: column;
+    }
+}
+.download-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
