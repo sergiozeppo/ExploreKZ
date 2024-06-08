@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Img, Text } from '../../components';
 import DownloadApp from '../../components/DownloadApp';
+import TopDestinations from '../../components/TopDestinations';
 
 export default function Home() {
     return (
@@ -44,6 +45,8 @@ export default function Home() {
                                 <span className="h2">Go</span>
                             </Link>
                         </div>
+                        {/* top destinations section */}
+                        <TopDestinations />
                         {/* app download section */}
                         <DownloadApp />
                     </div>
