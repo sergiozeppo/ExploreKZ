@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Img, Text } from '../../components';
+import DownloadApp from '../../components/DownloadApp';
 
 export default function Home() {
     return (
@@ -44,25 +45,7 @@ export default function Home() {
                             </Link>
                         </div>
                         {/* app download section */}
-                        <div className="container-xs">
-                            <div className="download-wrapper">
-                                <Text as="h2" className="app-store">
-                                    Download Expedia App!
-                                </Text>
-                                <div className="app-store-wrapper">
-                                    <Img
-                                        src="/images/google-play-logo.png"
-                                        alt="google play badge"
-                                        className="app-store-img"
-                                    />
-                                    <Img
-                                        src="/images/app-store-logo.png"
-                                        alt="app store badge"
-                                        className="app-store-img"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <DownloadApp />
                     </div>
                 </div>
             </div>
