@@ -7,173 +7,173 @@ export default function Footer() {
             <div className="footer-container">
                 <div className="footer-logo-section">
                     <Img src="/images/logo.png" alt="footer logo" className="logo" />
-                    <Text as="p" className="appetitus leading-[15px] tracking-[0.65px]">
+                    <Text as="p" className="appetitus">
                         © 2024 Created by Scientia Appetitus team
                     </Text>
                 </div>
-                <div className="ml-[76px] flex flex-1 items-center justify-between gap-5 md:ml-0 md:flex-col md:self-stretch">
-                    <div className="flex flex-col gap-[7px]">
-                        <Text as="h6" className="!font-bold tracking-[0.80px]">
+                <div className="sitemap">
+                    <div className="sitemap-col">
+                        <Text as="h6" className="sitemap-col-heading">
                             Company
                         </Text>
-                        <ul className="flex flex-col gap-[9px]">
+                        <ul className="sitemap-col-ul">
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         About us
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Jobs" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Jobs
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         List your property
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Partnership" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Partnership
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Advertising" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Advertising
                                     </Text>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div className="flex flex-col gap-[7px]">
-                        <Text as="h6" className="!font-bold tracking-[0.80px]">
+                    <div className="sitemap-col">
+                        <Text as="h6" className="sitemap-col-heading">
                             Explore
                         </Text>
-                        <ul className="flex flex-col gap-[9px]">
+                        <ul className="sitemap-col-ul">
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         About us
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Jobs" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Jobs
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         List your property
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Partnership" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Partnership
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Advertising" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Advertising
                                     </Text>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div className="flex flex-col gap-[7px]">
-                        <Text as="h6" className="!font-bold tracking-[0.80px]">
+                    <div className="sitemap-col">
+                        <Text as="h6" className="sitemap-col-heading">
                             Term and Policies
                         </Text>
-                        <ul className="flex flex-col gap-[9px]">
+                        <ul className="sitemap-col-ul">
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         About us
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Jobs" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Jobs
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         List your property
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Partnership" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Partnership
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Advertising" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Advertising
                                     </Text>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div className="flex flex-col items-start gap-[7px]">
-                        <Text as="h6" className="!font-bold tracking-[0.80px]">
+                    <div className="sitemap-col">
+                        <Text as="h6" className="sitemap-col-heading">
                             Help
                         </Text>
-                        <ul className="flex flex-col items-start gap-[9px]">
+                        <ul className="sitemap-col-ul">
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         About us
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Jobs" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Jobs
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         List your property
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Partnership" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Partnership
                                     </Text>
                                 </a>
                             </li>
                             <li>
                                 <a href="Advertising" target="_blank" rel="noreferrer">
-                                    <Text as="p" className="tracking-[0.70px]">
+                                    <Text as="p" className="sitemap-col-ul-item">
                                         Advertising
                                     </Text>
                                 </a>
@@ -181,23 +181,23 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="ml-[50px] flex w-[18%] justify-center md:ml-0 md:w-full">
-                    <div className="flex w-full flex-col items-start">
-                        <Text as="h6" className="!font-bold tracking-[0.80px]">
+                <div className="get-touch">
+                    <div className="get-touch-div">
+                        <Text as="h6" className="sitemap-col-heading">
                             Get in touch
                         </Text>
-                        <a href="#" className="mt-[11px]">
-                            <Text as="p" className="tracking-[0.70px]">
+                        <a href="#" className="feedback">
+                            <Text as="p" className="sitemap-col-ul-item">
                                 Question or feedback?
                             </Text>
                         </a>
-                        <Text as="p" className="mt-2 tracking-[0.70px]">
+                        <Text as="p" className="sitemap-col-ul-item-mt">
                             We’d love to hear from you
                         </Text>
-                        <div className="mt-[54px] flex w-[64%] justify-between gap-5 md:w-full">
-                            <Img src="/images/instagram_fill.svg" alt="instagram icon" className="h-[24px] w-[24px]" />
-                            <Img src="/images/twitter_fill.svg" alt="twitter icon" className="h-[24px] w-[24px]" />
-                            <Img src="/images/linkedin_fill.svg" alt="linkedin icon" className="h-[24px] w-[24px]" />
+                        <div className="socials">
+                            <Img src="/images/instagram_fill.svg" alt="instagram icon" className="socials-icon" />
+                            <Img src="/images/twitter_fill.svg" alt="twitter icon" className="socials-icon" />
+                            <Img src="/images/linkedin_fill.svg" alt="linkedin icon" className="socials-icon" />
                         </div>
                     </div>
                 </div>
