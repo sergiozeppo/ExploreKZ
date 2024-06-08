@@ -74,6 +74,13 @@ footer {
     align-self: stretch;
     padding-bottom: 130px;
     background-color: rgb(19, 59, 92);
+
+    @media (min-width: 640px) {
+        padding: 1.25rem;
+    }
+    @media (min-width: 768px) {
+        padding-bottom: 1.25rem;
+    }
 }
 .hero-gradient {
     object-fit: cover;
@@ -325,4 +332,36 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    margin-bottom: 30px;
+}
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1297px;
+    flex-direction: row;
+    color: #fff;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+.footer-logo-section {
+    gap: 67px;
+    flex-direction: column;
+    width: 21%;
+    display: flex;
+    @media (max-width: 640px) {
+        gap: 33px;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+.appetitus {
+    letter-spacing: 0.65px;
+    line-height: 15px;
+    font-weight: 400;
+    font-size: 13px;
 }

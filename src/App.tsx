@@ -16,7 +16,7 @@ import Catalog from './pages/catalog/Catalog';
 import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
 import ChangePassword from './pages/changePassword';
-// import Footer from './components/Footer/Footer';
+import Footer from './components/Footer/Footer';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
@@ -62,7 +62,7 @@ function App() {
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/changePassword" element={<ChangePassword />} />
                     </Routes>
-                    {/* <Footer /> */}
+                    <Footer />
                 </BrowserRouter>
             </GlobalProvider>
         </>
