@@ -24,35 +24,37 @@ export default function TopDestinations() {
                                 </div>
                             </div>
                         </Link>
-                        <div className="flex gap-[34px] md:flex-col">
-                            <div className="relative h-[273px] w-full md:h-auto">
-                                <Img src="images/img_image_6.png" alt="image six" className="top-dest-horizontal-img" />
-                                <div className="absolute bottom-[0.00px] left-0 right-0 m-auto w-full rounded-[14px] bg-gradient pb-[15px] pl-[29px] pr-[42px] md:pr-5 sm:px-5">
-                                    <div className="flex flex-col items-start gap-[7px]">
-                                        <Text as="p" className="w-full top-dest-item-place leading-[33px]">
-                                            Hokokuji Bamboo Forest
+                        <div className="top-dest-items-left-bottom">
+                            <Link to="/catalog/adventures/multi-day/d0f9a002-b4c9-4a71-ba43-d96e614bde81">
+                                <div className="top-dest-bottom-left">
+                                    <Img
+                                        src="/images/burabai.jpg"
+                                        alt="image six"
+                                        className="top-dest-horizontal-img"
+                                    />
+                                    <div className="top-dest-item-div">
+                                        <Text as="p" className="w-full top-dest-item-name leading-[33px]">
+                                            Burabai
                                         </Text>
                                         <Text as="p" className="top-dest-item-place">
-                                            Kamakura, Japan
+                                            Akmola region
                                         </Text>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="relative h-[273px] w-full md:h-auto">
-                                <Img
-                                    src="images/img_image_5.png"
-                                    alt="image five"
-                                    className="top-dest-horizontal-img"
-                                />
-                                <div className="absolute bottom-[0.00px] left-0 right-0 m-auto flex w-full flex-col items-start gap-1 rounded-[14px] bg-gradient px-[29px] pb-1.5 pt-4 sm:px-5">
-                                    <Text as="p" className="top-dest-item-place">
-                                        Kirkjufell
-                                    </Text>
-                                    <Text as="p" className="w-[61%] top-dest-item-place leading-6 md:w-full">
-                                        Grundarfjordur&#39;s, Iceland
-                                    </Text>
+                            </Link>
+                            <Link to="/catalog/adventures/one-day/c0dac2f5-430d-4faa-95c4-3abcecefe85d">
+                                <div className="top-dest-bottom-left">
+                                    <Img src="images/charyn.jpg" alt="image five" className="top-dest-horizontal-img" />
+                                    <div className="top-dest-item-div">
+                                        <Text as="p" className="top-dest-item-name">
+                                            Charyn Canyon
+                                        </Text>
+                                        <Text as="p" className="w-[61%] top-dest-item-place leading-6 md:w-full">
+                                            Almaty region
+                                        </Text>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex w-full gap-[34px] md:flex-col">

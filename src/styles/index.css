@@ -480,7 +480,8 @@ footer {
     width: 100%;
     gap: 34px;
 }
-.top-dest-top-left {
+.top-dest-top-left,
+.top-dest-bottom-left {
     position: relative;
     height: 273px;
 
@@ -528,4 +529,12 @@ footer {
     font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 400;
+}
+.top-dest-items-left-bottom {
+    display: flex;
+    gap: 34px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
