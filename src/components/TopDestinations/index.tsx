@@ -32,7 +32,7 @@ export default function TopDestinations() {
                                 divClass="top-dest-bottom-left"
                                 image="images/charyn.jpg"
                                 imageClass="top-dest-horizontal-img"
-                                name="Charyn Canyon"
+                                name="Charyn"
                                 place="Almaty region"
                             />
                         </div>
