@@ -334,6 +334,7 @@ footer {
     align-items: center;
     gap: 30px;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 .footer-container {
     display: flex;
@@ -537,4 +538,28 @@ footer {
     @media (max-width: 768px) {
         flex-direction: column;
     }
+}
+.top-dest-items-right {
+    display: flex;
+    width: 100%;
+    gap: 34px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+.top-dest-item {
+    position: relative;
+    width: 100%;
+    height: 580px;
+
+    @media (max-width: 768px) {
+        height: auto;
+    }
+}
+.top-dest-top-right {
+    object-fit: cover;
+    width: 100%;
+    height: 580px;
+    border-radius: 16px;
 }

@@ -57,15 +57,33 @@ export default function TopDestinations() {
                             </Link>
                         </div>
                     </div>
-                    <div className="flex w-full gap-[34px] md:flex-col">
-                        {/* {[...Array(2)].map((d, index) => (
-                            <LandingPagePic
-                                userimage="images/img_image_7.png"
-                                titletext="Cappadocia"
-                                descriptiontext="<>Anatolia, <br />Turkey</>"
-                                key={'landingPageList' + index}
-                            />
-                        ))} */}
+                    <div className="top-dest-items-right">
+                        <Link to="/catalog/tours/historical-cultural/0481f7e4-e36f-4129-b576-bdb9f8029310">
+                            <div className="top-dest-item">
+                                <Img src="images/saraychik.jpg" alt="Saraychik" className="top-dest-top-right" />
+                                <div className="top-dest-item-div">
+                                    <Text as="p" className="top-dest-item-name">
+                                        Saraychik
+                                    </Text>
+                                    <Text as="p" className="top-dest-item-place">
+                                        Atyrau region
+                                    </Text>
+                                </div>
+                            </div>
+                        </Link>
+                        <Link to="/catalog/adventures/multi-day/230fbab4-4044-4559-8249-6e208671ee0f">
+                            <div className="top-dest-item">
+                                <Img src="images/zerenda.jpg" alt="Zerenda" className="top-dest-top-right" />
+                                <div className="top-dest-item-div">
+                                    <Text as="p" className="top-dest-item-name">
+                                        Zerenda
+                                    </Text>
+                                    <Text as="p" className="top-dest-item-place">
+                                        Akmola region
+                                    </Text>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
