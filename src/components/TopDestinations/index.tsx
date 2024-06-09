@@ -27,13 +27,9 @@ export default function TopDestinations() {
                         <div className="top-dest-items-left-bottom">
                             <Link to="/catalog/adventures/multi-day/d0f9a002-b4c9-4a71-ba43-d96e614bde81">
                                 <div className="top-dest-bottom-left">
-                                    <Img
-                                        src="/images/burabai.jpg"
-                                        alt="image six"
-                                        className="top-dest-horizontal-img"
-                                    />
+                                    <Img src="/images/burabai.jpg" alt="Burabai" className="top-dest-horizontal-img" />
                                     <div className="top-dest-item-div">
-                                        <Text as="p" className="w-full top-dest-item-name leading-[33px]">
+                                        <Text as="p" className="top-dest-item-name">
                                             Burabai
                                         </Text>
                                         <Text as="p" className="top-dest-item-place">
@@ -44,12 +40,16 @@ export default function TopDestinations() {
                             </Link>
                             <Link to="/catalog/adventures/one-day/c0dac2f5-430d-4faa-95c4-3abcecefe85d">
                                 <div className="top-dest-bottom-left">
-                                    <Img src="images/charyn.jpg" alt="image five" className="top-dest-horizontal-img" />
+                                    <Img
+                                        src="images/charyn.jpg"
+                                        alt="Charyn Canyon"
+                                        className="top-dest-horizontal-img"
+                                    />
                                     <div className="top-dest-item-div">
                                         <Text as="p" className="top-dest-item-name">
                                             Charyn Canyon
                                         </Text>
-                                        <Text as="p" className="w-[61%] top-dest-item-place leading-6 md:w-full">
+                                        <Text as="p" className="top-dest-item-place">
                                             Almaty region
                                         </Text>
                                     </div>
