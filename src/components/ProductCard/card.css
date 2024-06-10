@@ -78,3 +78,21 @@
     width: 40px;
     height: 40px;
 }
+
+.card-bottom-side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.add-to-cart-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    svg {
+        user-select: none;
+        pointer-events: none;
+    }
+}
