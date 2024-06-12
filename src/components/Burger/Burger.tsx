@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import './burger.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Text } from './..';
-import { baseClient } from '../../apiSdk/BaseClient';
 import { CustomToast } from '../Toast';
 import { GlobalContext } from '../../context/Global';
 import { token as MyToken } from '../../apiSdk/token';
+import { anonimCartCreate } from '../../apiSdk/Cart';
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
     const { isLogin, setIsLogin } = useContext(GlobalContext);
@@ -25,13 +25,8 @@ export default function Burger() {
     };
 
     const handleLogout = () => {
-        baseClient()
-            .products()
-            .get()
-            .execute()
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
         localStorage.clear();
+        anonimCartCreate();
         const userToken = MyToken;
         userToken.reset();
         setIsLogin(false);

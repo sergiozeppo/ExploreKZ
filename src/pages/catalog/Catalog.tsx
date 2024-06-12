@@ -133,6 +133,7 @@ export default function Catalog() {
 
             queryArgs.fuzzy = true;
             queryArgs.markMatchingVariants = true;
+            console.log('catalog');
             client
                 .productProjections()
                 .search()

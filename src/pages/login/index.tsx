@@ -42,7 +42,6 @@ export default function Login() {
                 localStorage.setItem('userToken', JSON.stringify(userToken.get()));
                 setIsLogin(true);
                 CustomToast('success', 'Successful Logged in!');
-                // location.reload();
             })
             .catch((err) => {
                 console.error(err);

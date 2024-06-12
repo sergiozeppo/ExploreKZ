@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { productIdData } from './productIdData';
 import { useEffect, useState } from 'react';
 import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import { tokenClient } from '../../apiSdk/TokenClient';
+import { anonUser } from '../../apiSdk/anonimClient';
 
 type CARD_PROPS = {
     id: string;
@@ -30,8 +32,33 @@ export const Card = (product: CARD_PROPS) => {
         e.stopPropagation();
         e.preventDefault();
         const currentProduct = e.target as HTMLElement;
-        if (currentProduct.getAttribute('id')) {
+        if (currentProduct.getAttribute('id') && localStorage.getItem('user-cart')) {
+            const cartData = JSON.parse(localStorage.getItem('user-cart')!);
+            const userToken = localStorage.getItem('userToken');
+            const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+            console.log(cartData.version);
             console.log(currentProduct.getAttribute('id'));
+            client
+                .me()
+                .carts()
+                .withId({ ID: cartData.id! })
+                .post({
+                    body: {
+                        version: cartData.version,
+                        actions: [
+                            {
+                                action: 'addLineItem',
+                                productId: currentProduct.getAttribute('id')!,
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((res) => {
+                    const cartData = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartData));
+                })
+                .catch((err) => console.error(err));
         }
     };
     return (
