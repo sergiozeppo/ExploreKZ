@@ -351,8 +351,8 @@ footer {
 }
 .footer-logo-section {
     gap: 67px;
-    flex-direction: column;
-    width: 21%;
+    flex-direction: row;
+    /* width: 21%; */
     display: flex;
     @media (max-width: 640px) {
         gap: 33px;
@@ -366,83 +366,6 @@ footer {
     line-height: 15px;
     font-weight: 400;
     font-size: 13px;
-}
-.sitemap {
-    display: flex;
-    flex: 1 1 0%;
-    gap: 1.25rem;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 76px;
-
-    @media (max-width: 768px) {
-        margin-left: 0;
-        flex-direction: column;
-        align-self: stretch;
-    }
-}
-.sitemap-col {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-.sitemap-col-heading {
-    letter-spacing: 0.8px;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1.5rem;
-}
-.sitemap-col-ul {
-    gap: 9px;
-    flex-direction: column;
-    display: flex;
-}
-.sitemap-col-ul-item,
-.sitemap-col-ul-item-mt {
-    letter-spacing: 0.7px;
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-}
-.sitemap-col-ul-item-mt {
-    margin-top: 2px;
-}
-
-.get-touch {
-    display: flex;
-    justify-content: center;
-    margin-left: 50px;
-    width: 18%;
-
-    @media (max-width: 768px) {
-        margin-left: 0;
-        width: 100%;
-    }
-}
-.get-touch-div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-}
-.feedback {
-    margin-top: 11px;
-}
-.socials {
-    display: flex;
-    gap: 1.25rem;
-    justify-content: space-between;
-    margin-top: 54px;
-    width: 64%;
-
-    @media (max-width: 768px) {
-        width: 100%;
-    }
-}
-.socials-icon {
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
 }
 .top-dest-cont {
     display: flex;
@@ -577,5 +500,14 @@ footer {
     border-radius: 16px;
     @media (max-width: 768px) {
         height: 273px;
+    }
+}
+.team {
+    max-width: 800px;
+    margin: 30px auto 0;
+    font-size: large;
+
+    @media screen and (max-width: 1000px) {
+        max-width: 500px;
     }
 }
