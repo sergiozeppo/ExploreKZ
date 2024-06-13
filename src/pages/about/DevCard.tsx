@@ -24,11 +24,6 @@ export default function DevCard(dev: DevCardProps) {
                 {dev.contributions.map((li) => {
                     return <li>{li}</li>;
                 })}
-                {/* <li>Added development scripts and set up repository</li>
-                <li>Set up Jest and perform test suites for entire project</li>
-                <li>Developed main, about us, products details pages</li>
-                <li>Implemented interactive product cards</li>
-                <li>Set up router (Navigo library)</li> */}
             </ul>
             <a href={'https://github.com/' + dev.github} target="_blank">
                 <GithubIcon />
