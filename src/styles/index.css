@@ -556,6 +556,7 @@ footer {
             rgba(44, 103, 220, 0.731) 0px 0px 0px 1px;
         border-color: #1f4aa8;
         background-color: #1f4aa838;
+        cursor: pointer;
     }
 }
 
@@ -595,11 +596,12 @@ footer {
     margin: 5px;
     padding: 5px;
     font-weight: 600;
-    border-top: #aca8a8 1px solid;
-    border-bottom: #aca8a8 1px solid;
+    font-family: 'Courier New', Courier, monospace;
+    border-top: #aca8a8 2px dashed;
+    border-bottom: #aca8a8 2px dashed;
 }
 .contributions {
-    list-style-type: circle;
+    list-style-type: square;
     margin-left: 20px;
 }
 .contributions li:first-child {
@@ -611,8 +613,7 @@ footer {
 .github-svg {
     fill: #1f4aa8;
     width: 35px;
-    min-height: 35px !important;
-    height: 35px !important;
+    height: 35px;
     transition: all 0.5s ease-in-out;
     &:hover {
         fill: #aca8a8;
