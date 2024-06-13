@@ -6,7 +6,7 @@ export default function DownloadApp() {
         <div className="container-xs">
             <div className="download-wrapper">
                 <Text as="h2" className="app-store">
-                    Download Expedia App!
+                    Download Explore KZ App!
                 </Text>
                 <div className="app-store-wrapper">
                     <Img src="/images/google-play-logo.png" alt="google play badge" className="app-store-img" />
