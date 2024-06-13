@@ -601,8 +601,17 @@ footer {
     border-bottom: #aca8a8 2px dashed;
 }
 .contributions {
-    list-style-type: square;
+    list-style-type: none;
     margin-left: 20px;
+}
+.contributions li::before {
+    content: '';
+    background-image: url('../../images/check.png');
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-size: cover;
+    left: 12px;
 }
 .contributions li:first-child {
     margin-top: 10px;
