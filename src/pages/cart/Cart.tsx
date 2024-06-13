@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { initCartState } from '../../apiSdk/Cart';
-// import { initCartState } from '../../apiSdk/Cart';
 // import { GlobalContext } from '../../context/Global';
 
 export default function Cart() {
@@ -11,6 +10,7 @@ export default function Cart() {
         const getCart = async () => {
             const cart = localStorage.getItem('user-cart');
             const parsedCart = JSON.parse(cart!);
+            console.log(parsedCart);
             const userToken = localStorage.getItem('userToken');
             if (localStorage.getItem('isLogin') && userToken) {
                 const output = await tokenClient()

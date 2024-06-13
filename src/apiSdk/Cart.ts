@@ -74,7 +74,10 @@ export const initCartState = async () => {
             anonimCartCreate();
         } else {
             parsedCartData = JSON.parse(cartData!);
-            cartIdIntegtarion(parsedCartData.id, parsedCartData.version);
+            // console.log(parsedCartData);
+            // cartIdIntegtarion(parsedCartData.id, parsedCartData.version);
+            const cart = await anonUser().carts().withId({ ID: parsedCartData.id }).get().execute();
+            await cartIdIntegtarion(cart.body.id, cart.body.version);
         }
     }
 };

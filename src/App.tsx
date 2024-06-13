@@ -23,7 +23,7 @@ import { useContext, useEffect } from 'react';
 function App() {
     const { setIsCatalogCalled } = useContext(GlobalContext);
     useEffect(() => {
-        setIsCatalogCalled(false);
+        // setIsCatalogCalled(false);
         // initCartState();
         // const cartData = localStorage.getItem('user-cart');
         // if (!cartData) {
