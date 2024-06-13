@@ -5,7 +5,7 @@ import { Button, Text } from './..';
 import { CustomToast } from '../Toast';
 import { GlobalContext } from '../../context/Global';
 import { token as MyToken } from '../../apiSdk/token';
-import { anonimCartCreate } from '../../apiSdk/Cart';
+
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
     const { isLogin, setIsLogin } = useContext(GlobalContext);
@@ -26,12 +26,12 @@ export default function Burger() {
 
     const handleLogout = () => {
         localStorage.clear();
-        anonimCartCreate();
         const userToken = MyToken;
         userToken.reset();
         setIsLogin(false);
-        navigate('/');
+        navigate('/catalog');
         CustomToast('info', 'Successful Logged out!');
+        location.reload();
     };
 
     useEffect(() => {

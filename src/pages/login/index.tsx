@@ -43,7 +43,7 @@ export default function Login() {
                 setIsLogin(true);
                 CustomToast('success', 'Successful Logged in!');
             })
-            .catch((err) => {
+            .catch((err: Error) => {
                 console.error(err);
                 setLoading(false);
                 baseClient()

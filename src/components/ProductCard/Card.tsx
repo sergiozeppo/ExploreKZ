@@ -32,33 +32,35 @@ export const Card = (product: CARD_PROPS) => {
         e.stopPropagation();
         e.preventDefault();
         const currentProduct = e.target as HTMLElement;
-        if (currentProduct.getAttribute('id') && localStorage.getItem('user-cart')) {
-            const cartData = JSON.parse(localStorage.getItem('user-cart')!);
-            const userToken = localStorage.getItem('userToken');
-            const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
-            console.log(cartData.version);
-            console.log(currentProduct.getAttribute('id'));
-            client
-                .me()
-                .carts()
-                .withId({ ID: cartData.id! })
-                .post({
-                    body: {
-                        version: cartData.version,
-                        actions: [
-                            {
-                                action: 'addLineItem',
-                                productId: currentProduct.getAttribute('id')!,
-                            },
-                        ],
-                    },
-                })
-                .execute()
-                .then((res) => {
-                    const cartData = res.body;
-                    localStorage.setItem('user-cart', JSON.stringify(cartData));
-                })
-                .catch((err) => console.error(err));
+        if (currentProduct.getAttribute('id')) {
+            // const userToken = localStorage.getItem('userToken');
+            // const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+            if (localStorage.getItem('user-cart')) {
+                const cartData = JSON.parse(localStorage.getItem('user-cart')!);
+                const userToken = localStorage.getItem('userToken');
+                const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+                client
+                    .me()
+                    .carts()
+                    .withId({ ID: cartData.id! })
+                    .post({
+                        body: {
+                            version: cartData.version,
+                            actions: [
+                                {
+                                    action: 'addLineItem',
+                                    productId: currentProduct.getAttribute('id')!,
+                                },
+                            ],
+                        },
+                    })
+                    .execute()
+                    .then((res) => {
+                        const cartDataS = res.body;
+                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    })
+                    .catch((err) => console.error(err));
+            }
         }
     };
     return (

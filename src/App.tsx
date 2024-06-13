@@ -6,7 +6,7 @@ import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
 import Header from './components/Header';
-import { GlobalProvider } from './context/Global';
+import { GlobalContext, GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
 import { Profile } from './pages/profile/Profile';
 import About from './pages/about/About';
@@ -15,19 +15,21 @@ import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
 import ChangePassword from './pages/changePassword';
 import Footer from './components/Footer/Footer';
-import { useEffect } from 'react';
-import { initCartState } from './apiSdk/Cart';
+import { useContext, useEffect } from 'react';
+// import { initCartState } from './apiSdk/Cart';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
 function App() {
+    const { setIsCatalogCalled } = useContext(GlobalContext);
     useEffect(() => {
-        initCartState();
+        setIsCatalogCalled(false);
+        // initCartState();
         // const cartData = localStorage.getItem('user-cart');
         // if (!cartData) {
         //     anonimCartCreate();
         // }
-    }, []);
+    }, [setIsCatalogCalled]);
     return (
         <>
             <GlobalProvider>

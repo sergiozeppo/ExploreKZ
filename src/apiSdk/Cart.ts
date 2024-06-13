@@ -2,9 +2,9 @@ import { MyCartUpdateAction } from '@commercetools/platform-sdk';
 import { tokenClient } from './TokenClient';
 import { anonUser } from './anonimClient';
 
-export const anonimCartCreate = () => {
+export const anonimCartCreate = async () => {
     const client = anonUser();
-    client
+    const output = await client
         .carts()
         .post({
             body: {
@@ -16,15 +16,17 @@ export const anonimCartCreate = () => {
         .execute()
         .then((res) => {
             const cartData = res.body;
+            console.log(cartData);
             localStorage.setItem('user-cart', JSON.stringify(cartData));
         })
         .catch(console.error);
+    return output;
 };
 
-export const cartAction = (cartId: string, cartVersion: number, actions: MyCartUpdateAction[]) => {
+export const cartAction = async (cartId: string, cartVersion: number, actions: MyCartUpdateAction[]) => {
     const userToken = localStorage.getItem('userToken');
     const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
-    client
+    const output = await client
         .me()
         .carts()
         .withId({ ID: cartId })
@@ -35,11 +37,12 @@ export const cartAction = (cartId: string, cartVersion: number, actions: MyCartU
             },
         })
         .execute();
+    return output;
 };
 
-export const cartIdIntegtarion = (cartId: string, cartVersion: number) => {
+export const cartIdIntegtarion = async (cartId: string, cartVersion: number) => {
     const client = anonUser();
-    client
+    const output = await client
         .carts()
         .withId({ ID: cartId })
         .post({
@@ -59,17 +62,19 @@ export const cartIdIntegtarion = (cartId: string, cartVersion: number) => {
             localStorage.setItem('user-cart', JSON.stringify(cartData));
         })
         .catch((err) => console.error(err));
+    return output;
 };
 
-export const initCartState = () => {
+export const initCartState = async () => {
     const cartData = localStorage.getItem('user-cart');
     let parsedCartData = JSON.parse(cartData!);
     console.log('init-cart');
-    if (!cartData) {
-        anonimCartCreate();
-        // cartIdIntegtarion(parsedCartData.id, parsedCartData.version);
-    } else {
-        parsedCartData = JSON.parse(cartData);
-        cartIdIntegtarion(parsedCartData.id, parsedCartData.version);
+    if (!localStorage.getItem('isLogin')) {
+        if (!cartData) {
+            anonimCartCreate();
+        } else {
+            parsedCartData = JSON.parse(cartData!);
+            cartIdIntegtarion(parsedCartData.id, parsedCartData.version);
+        }
     }
 };
