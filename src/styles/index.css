@@ -604,6 +604,10 @@ footer {
     list-style-type: none;
     margin-left: 20px;
 }
+.contributions-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .contributions li::before {
     content: '';
     background-image: url('../../images/check.png');

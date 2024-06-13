@@ -22,7 +22,7 @@ export default function DevCard(dev: DevCardProps) {
             <p className="dev-bio">{dev.bio}</p>
             <ul className="contributions">
                 {dev.contributions.map((li) => {
-                    return <li>{li}</li>;
+                    return <li className="contributions-item">{li}</li>;
                 })}
             </ul>
             <a href={'https://github.com/' + dev.github} target="_blank">
