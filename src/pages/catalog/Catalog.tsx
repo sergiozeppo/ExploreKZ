@@ -11,6 +11,8 @@ import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GlobalContext } from '../../context/Global';
+import { Pagination, ThemeProvider, createTheme } from '@mui/material';
+import { styled } from '@mui/system';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -18,9 +20,37 @@ interface QUERYARGS {
     'text.en'?: string;
     fuzzy?: boolean;
     limit?: number;
+    offset?: number;
     markMatchingVariants?: boolean;
     where?: string;
 }
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#1f4aa8',
+        },
+        secondary: {
+            main: '#516eada7',
+        },
+        text: {
+            primary: '#ffffff',
+        },
+    },
+});
+
+const CustomPagination = styled(Pagination)(({ theme }) => ({
+    '& .MuiPaginationItem-root': {
+        color: theme.palette.text.primary,
+    },
+    '& .Mui-selected': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.text.primary,
+    },
+    '& .MuiPaginationItem-page:hover': {
+        backgroundColor: theme.palette.secondary.main,
+    },
+}));
 
 export default function Catalog() {
     const navigate = useNavigate();
@@ -42,6 +72,10 @@ export default function Catalog() {
     const sortRef = useRef<HTMLDivElement>(null);
     const [searchValue, setSearchValue] = useState('');
     const [triggerSearch, setTriggerSearch] = useState(false);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(4);
+    const [showPagination, setShowPagination] = useState(false);
+    const limit = 4;
 
     const handleCategories = (category: string) => {
         let path;
@@ -87,6 +121,8 @@ export default function Catalog() {
             maxPrice: number | null,
             sortType: string | null,
             searchValue: string,
+            page: number,
+            limit: number,
         ) => {
             setLoading(true);
             const userToken = localStorage.getItem('userToken');
@@ -133,6 +169,8 @@ export default function Catalog() {
             }
 
             queryArgs.fuzzy = true;
+            queryArgs.offset = (page - 1) * limit;
+            queryArgs.limit = limit;
             queryArgs.markMatchingVariants = true;
             console.log('catalog');
             const getProdApi = await client
@@ -149,10 +187,18 @@ export default function Catalog() {
                             product.masterVariant?.prices?.some((price) => price.discounted),
                         );
                     }
-                    if (minPrice && maxPrice) {
-                        response = response.filter((product) => product?.masterVariant.isMatchingVariant);
+                    // if (minPrice && maxPrice) {
+                    //     response = response.filter((product) => product?.masterVariant.isMatchingVariant);
+                    // }
+                    if (res.body.count && res.body.count !== 0) {
+                        if (res.body.total && res.body.results.length !== 0) {
+                            setShowPagination(true);
+                            setPageCount(Math.ceil(res.body.total / limit) || 1);
+                        } else {
+                            setShowPagination(false);
+                        }
                     }
-
+                    // setShowPagination(false);
                     setProducts(response);
                     setLoading(false);
                     setIsCatalogCalled(true);
@@ -168,15 +214,15 @@ export default function Catalog() {
     );
 
     useEffect(() => {
-        getProducts(currItem, minPrice, maxPrice, sortType, '');
-    }, [currItem, minPrice, maxPrice, sortType, getProducts]);
+        getProducts(currItem, minPrice, maxPrice, sortType, '', page, limit);
+    }, [currItem, minPrice, maxPrice, sortType, getProducts, page]);
 
     useEffect(() => {
         if (triggerSearch) {
-            getProducts(currItem, minPrice, maxPrice, sortType, searchValue);
+            getProducts(currItem, minPrice, maxPrice, sortType, searchValue, page, limit);
             setTriggerSearch(false);
         }
-    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue, getProducts]);
+    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue, getProducts, page]);
 
     const handleClick = () => {
         setOpen(!open);
@@ -207,6 +253,7 @@ export default function Catalog() {
         e.stopPropagation();
         const target = e.target as HTMLLIElement;
         const currentIndex = target.getAttribute('id');
+        setPage(1);
         if (currentIndex !== null && !target.classList.contains('price-menu')) {
             switch (currentIndex) {
                 case '0':
@@ -283,20 +330,25 @@ export default function Catalog() {
         e.stopPropagation();
         const target = e.target as HTMLLIElement;
         const targetId = target.getAttribute('id');
+        setPage(1);
         if (targetId) {
             if (targetId === '0') {
+                setPage(1);
                 setSortTitle(`Alphabet ${String.fromCharCode(8593)}`);
                 setSortType('name.en-US asc');
             }
             if (targetId === '1') {
+                setPage(1);
                 setSortTitle(`Alphabet ${String.fromCharCode(8595)}`);
                 setSortType('name.en-US desc');
             }
             if (targetId === '2') {
+                setPage(1);
                 setSortTitle(`Price ${String.fromCharCode(8593)}`);
                 setSortType('price asc');
             }
             if (targetId === '3') {
+                setPage(1);
                 setSortTitle(`Price ${String.fromCharCode(8595)}`);
                 setSortType('price desc');
             }
@@ -418,30 +470,46 @@ export default function Catalog() {
                 {loading ? (
                     <Loader />
                 ) : (
-                    <div className="catalog-wrapper">
-                        {products.length > 0 ? (
-                            products.map((el) => {
-                                const imageUrl = el.masterVariant?.images?.[0]?.url || '';
-                                const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
-                                const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
-                                const discountFixed = discount / 100;
-                                const fixedPrice = price / 100;
-                                return (
-                                    <Card
-                                        id={el.id}
-                                        key={el.id}
-                                        images={imageUrl}
-                                        name={el.name['en-US']}
-                                        description={el.description?.['en-US'] || 'Not provided!'}
-                                        price={fixedPrice}
-                                        discount={discountFixed}
+                    <>
+                        <div className="catalog-wrapper">
+                            {products.length > 0 ? (
+                                products.map((el) => {
+                                    const imageUrl = el.masterVariant?.images?.[0]?.url || '';
+                                    const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
+                                    const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
+                                    const discountFixed = discount / 100;
+                                    const fixedPrice = price / 100;
+                                    return (
+                                        <Card
+                                            id={el.id}
+                                            key={el.id}
+                                            images={imageUrl}
+                                            name={el.name['en-US']}
+                                            description={el.description?.['en-US'] || 'Not provided!'}
+                                            price={fixedPrice}
+                                            discount={discountFixed}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <span className="nothing-title"> Nothing Found!</span>
+                            )}
+                        </div>
+                        {showPagination && (
+                            <div className="pagination">
+                                <ThemeProvider theme={theme}>
+                                    <CustomPagination
+                                        page={page}
+                                        count={pageCount}
+                                        color="primary"
+                                        onChange={(_, num): void => {
+                                            setPage(num);
+                                        }}
                                     />
-                                );
-                            })
-                        ) : (
-                            <span className="nothing-title"> Nothing Found!</span>
+                                </ThemeProvider>
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
         </>
