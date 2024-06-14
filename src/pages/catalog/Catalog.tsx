@@ -11,6 +11,7 @@ import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GlobalContext } from '../../context/Global';
+import { Pagination } from '@mui/material';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -42,6 +43,10 @@ export default function Catalog() {
     const sortRef = useRef<HTMLDivElement>(null);
     const [searchValue, setSearchValue] = useState('');
     const [triggerSearch, setTriggerSearch] = useState(false);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(4);
+    const [showPagination, setShowPagination] = useState(false);
+    const limit = 4;
 
     const handleCategories = (category: string) => {
         let path;
@@ -133,6 +138,8 @@ export default function Catalog() {
             }
 
             queryArgs.fuzzy = true;
+            queryArgs.offset = (page - 1) * limit;
+            queryArgs.limit = limit;
             queryArgs.markMatchingVariants = true;
             console.log('catalog');
             const getProdApi = await client
@@ -152,7 +159,15 @@ export default function Catalog() {
                     if (minPrice && maxPrice) {
                         response = response.filter((product) => product?.masterVariant.isMatchingVariant);
                     }
-
+                    if (res.body.count && res.body.count !== 0) {
+                        if (res.body.total && res.body.results.length !== 0) {
+                            setShowPagination(true);
+                            setPageCount(Math.ceil(res.body.total / limit) || 1);
+                        } else {
+                            setShowPagination(false);
+                        }
+                    }
+                    // setShowPagination(false);
                     setProducts(response);
                     setLoading(false);
                     setIsCatalogCalled(true);
@@ -164,7 +179,7 @@ export default function Catalog() {
                 });
             return getProdApi;
         },
-        [setIsCatalogCalled],
+        [page, setIsCatalogCalled],
     );
 
     useEffect(() => {
@@ -283,20 +298,25 @@ export default function Catalog() {
         e.stopPropagation();
         const target = e.target as HTMLLIElement;
         const targetId = target.getAttribute('id');
+        setPage(1);
         if (targetId) {
             if (targetId === '0') {
+                setPage(1);
                 setSortTitle(`Alphabet ${String.fromCharCode(8593)}`);
                 setSortType('name.en-US asc');
             }
             if (targetId === '1') {
+                setPage(1);
                 setSortTitle(`Alphabet ${String.fromCharCode(8595)}`);
                 setSortType('name.en-US desc');
             }
             if (targetId === '2') {
+                setPage(1);
                 setSortTitle(`Price ${String.fromCharCode(8593)}`);
                 setSortType('price asc');
             }
             if (targetId === '3') {
+                setPage(1);
                 setSortTitle(`Price ${String.fromCharCode(8595)}`);
                 setSortType('price desc');
             }
@@ -418,30 +438,47 @@ export default function Catalog() {
                 {loading ? (
                     <Loader />
                 ) : (
-                    <div className="catalog-wrapper">
-                        {products.length > 0 ? (
-                            products.map((el) => {
-                                const imageUrl = el.masterVariant?.images?.[0]?.url || '';
-                                const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
-                                const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
-                                const discountFixed = discount / 100;
-                                const fixedPrice = price / 100;
-                                return (
-                                    <Card
-                                        id={el.id}
-                                        key={el.id}
-                                        images={imageUrl}
-                                        name={el.name['en-US']}
-                                        description={el.description?.['en-US'] || 'Not provided!'}
-                                        price={fixedPrice}
-                                        discount={discountFixed}
-                                    />
-                                );
-                            })
-                        ) : (
-                            <span className="nothing-title"> Nothing Found!</span>
+                    <>
+                        <div className="catalog-wrapper">
+                            {products.length > 0 ? (
+                                products.map((el) => {
+                                    const imageUrl = el.masterVariant?.images?.[0]?.url || '';
+                                    const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
+                                    const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
+                                    const discountFixed = discount / 100;
+                                    const fixedPrice = price / 100;
+                                    return (
+                                        <Card
+                                            id={el.id}
+                                            key={el.id}
+                                            images={imageUrl}
+                                            name={el.name['en-US']}
+                                            description={el.description?.['en-US'] || 'Not provided!'}
+                                            price={fixedPrice}
+                                            discount={discountFixed}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <span className="nothing-title"> Nothing Found!</span>
+                            )}
+                        </div>
+                        {showPagination && (
+                            <div className="pagination">
+                                <Pagination
+                                    page={page}
+                                    count={pageCount}
+                                    // variant="outlined"
+
+                                    color="primary"
+                                    onChange={(_, num): void => {
+                                        console.log(num);
+                                        setPage(num);
+                                    }}
+                                />
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
         </>
