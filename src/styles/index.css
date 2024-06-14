@@ -351,8 +351,8 @@ footer {
 }
 .footer-logo-section {
     gap: 67px;
-    flex-direction: column;
-    width: 21%;
+    flex-direction: row;
+    /* width: 21%; */
     display: flex;
     @media (max-width: 640px) {
         gap: 33px;
@@ -366,83 +366,6 @@ footer {
     line-height: 15px;
     font-weight: 400;
     font-size: 13px;
-}
-.sitemap {
-    display: flex;
-    flex: 1 1 0%;
-    gap: 1.25rem;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 76px;
-
-    @media (max-width: 768px) {
-        margin-left: 0;
-        flex-direction: column;
-        align-self: stretch;
-    }
-}
-.sitemap-col {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-.sitemap-col-heading {
-    letter-spacing: 0.8px;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1.5rem;
-}
-.sitemap-col-ul {
-    gap: 9px;
-    flex-direction: column;
-    display: flex;
-}
-.sitemap-col-ul-item,
-.sitemap-col-ul-item-mt {
-    letter-spacing: 0.7px;
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-}
-.sitemap-col-ul-item-mt {
-    margin-top: 2px;
-}
-
-.get-touch {
-    display: flex;
-    justify-content: center;
-    margin-left: 50px;
-    width: 18%;
-
-    @media (max-width: 768px) {
-        margin-left: 0;
-        width: 100%;
-    }
-}
-.get-touch-div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-}
-.feedback {
-    margin-top: 11px;
-}
-.socials {
-    display: flex;
-    gap: 1.25rem;
-    justify-content: space-between;
-    margin-top: 54px;
-    width: 64%;
-
-    @media (max-width: 768px) {
-        width: 100%;
-    }
-}
-.socials-icon {
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
 }
 .top-dest-cont {
     display: flex;
@@ -577,5 +500,135 @@ footer {
     border-radius: 16px;
     @media (max-width: 768px) {
         height: 273px;
+    }
+}
+.team {
+    max-width: 800px;
+    margin: 30px auto 0;
+
+    @media screen and (max-width: 1000px) {
+        max-width: 500px;
+    }
+}
+.about .h2 {
+    font-size: 20px;
+}
+.team .h3 {
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+}
+.team .h3:last-child {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.devs-wrapper {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    font-size: 16px;
+    color: #fff;
+    gap: 10px;
+}
+
+.devs-card-info-wrapper {
+    min-width: 300px;
+    max-width: 330px;
+    max-height: 610px;
+    margin: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 15px;
+    border: 1px solid #ffffff7a;
+    border-radius: 1rem;
+    box-shadow:
+        0 20px 25px -5px rgba(255, 255, 255, 0.1),
+        0 10px 10px -5px rgba(255, 255, 255, 0.04);
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        box-shadow:
+            rgba(6, 127, 187, 0.347) 0px 6px 24px 0px,
+            rgba(44, 103, 220, 0.731) 0px 0px 0px 1px;
+        border-color: #1f4aa8;
+        background-color: #1f4aa838;
+        cursor: pointer;
+    }
+}
+
+.dev-avatar {
+    position: relative;
+    display: inline-flex;
+}
+.round-avatar {
+    display: block;
+    width: 100px;
+    border: none;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+.dev-photo {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: none;
+}
+.dev-name {
+    flex-grow: 0;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+}
+.dev-title {
+    flex-grow: 1;
+    line-height: 150%;
+}
+.dev-bio {
+    margin: 5px;
+    padding: 5px;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
+    border-top: #aca8a8 2px dashed;
+    border-bottom: #aca8a8 2px dashed;
+}
+.contributions {
+    list-style-type: none;
+    margin-left: 20px;
+}
+.contributions-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.contributions li::before {
+    content: '';
+    background-image: url('../../images/check.png');
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-size: cover;
+    left: 12px;
+}
+.contributions li:first-child {
+    margin-top: 10px;
+}
+.contributions li:last-child {
+    margin-bottom: 20px;
+}
+.github-svg {
+    fill: #1f4aa8;
+    width: 35px;
+    height: 35px;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        fill: #aca8a8;
     }
 }
