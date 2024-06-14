@@ -557,6 +557,8 @@ footer {
         border-color: #1f4aa8;
         background-color: #1f4aa838;
         cursor: pointer;
+        transition: transform 0.7s;
+        transform: scale(1.05);
     }
 }
 
