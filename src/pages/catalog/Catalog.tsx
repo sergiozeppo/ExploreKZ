@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useContext } from 'react';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductProjection } from '@commercetools/platform-sdk';
@@ -10,6 +10,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { useNavigate, useParams } from 'react-router-dom';
+import { GlobalContext } from '../../context/Global';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -24,7 +25,7 @@ interface QUERYARGS {
 export default function Catalog() {
     const navigate = useNavigate();
     const categoryInfo = useParams();
-
+    const { setIsCatalogCalled } = useContext(GlobalContext);
     const [products, setProducts] = useState<ProductProjection[]>([]);
     const [loading, setLoading] = useState(true);
     const [currItem, setCurrItem] = useState('');
@@ -80,7 +81,7 @@ export default function Catalog() {
     }, [categoryInfo.subcategory, categoryInfo.category, navigate]);
 
     const getProducts = useCallback(
-        (
+        async (
             filter: string,
             minPrice: number | null,
             maxPrice: number | null,
@@ -133,7 +134,8 @@ export default function Catalog() {
 
             queryArgs.fuzzy = true;
             queryArgs.markMatchingVariants = true;
-            client
+            console.log('catalog');
+            const getProdApi = await client
                 .productProjections()
                 .search()
                 .get({
@@ -153,14 +155,16 @@ export default function Catalog() {
 
                     setProducts(response);
                     setLoading(false);
+                    setIsCatalogCalled(true);
                 })
                 .catch((err) => {
                     console.error(err);
                     setLoading(false);
                     CustomToast('error', 'Server problem!');
                 });
+            return getProdApi;
         },
-        [],
+        [setIsCatalogCalled],
     );
 
     useEffect(() => {

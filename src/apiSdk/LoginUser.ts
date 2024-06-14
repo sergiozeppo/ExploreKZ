@@ -27,6 +27,9 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 const userStorage = localStorage.getItem('userToken');
 const refreshTokenStoraged = userStorage ? JSON.parse(userStorage).refreshToken : '';
 export const loginFn = (email: string, password: string) => {
+    const cartData = localStorage.getItem('user-cart');
+    const parsedCartData = JSON.parse(cartData!);
+    token.reset();
     const options: PasswordAuthMiddlewareOptions = {
         host: import.meta.env.VITE_CTP_AUTH_URL,
         projectKey: import.meta.env.VITE_CTP_PROJECT_KEY,
@@ -47,12 +50,15 @@ export const loginFn = (email: string, password: string) => {
         .withProjectKey({
             projectKey: import.meta.env.VITE_CTP_PROJECT_KEY,
         })
-        .me()
         .login()
         .post({
             body: {
                 email,
                 password,
+                updateProductData: true,
+                anonymousId: localStorage.getItem('anonId') || '',
+                anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+                anonymousCart: { typeId: 'cart', id: parsedCartData.id },
             },
         })
         .execute();

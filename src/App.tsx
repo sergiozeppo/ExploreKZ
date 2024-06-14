@@ -5,10 +5,8 @@ import Registration from './pages/registration';
 import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
-import { anonUser } from './apiSdk/anonimClient';
-import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
-import { GlobalProvider } from './context/Global';
+import { GlobalContext, GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
 import { Profile } from './pages/profile/Profile';
 import About from './pages/about/About';
@@ -17,30 +15,21 @@ import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
 import ChangePassword from './pages/changePassword';
 import Footer from './components/Footer/Footer';
+import { useContext, useEffect } from 'react';
+// import { initCartState } from './apiSdk/Cart';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
 function App() {
-    if (localStorage.getItem('isLogin')) {
-        console.log('token flow');
-        tokenClient()
-            .categories()
-            .get()
-            .execute()
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => console.error(err));
-    } else {
-        console.log('anonim flow');
-        anonUser()
-            .categories()
-            .get()
-            .execute()
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
-    }
-
+    const { setIsCatalogCalled } = useContext(GlobalContext);
+    useEffect(() => {
+        // setIsCatalogCalled(false);
+        // initCartState();
+        // const cartData = localStorage.getItem('user-cart');
+        // if (!cartData) {
+        //     anonimCartCreate();
+        // }
+    }, [setIsCatalogCalled]);
     return (
         <>
             <GlobalProvider>
