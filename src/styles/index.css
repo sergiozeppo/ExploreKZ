@@ -557,6 +557,8 @@ footer {
         border-color: #1f4aa8;
         background-color: #1f4aa838;
         cursor: pointer;
+        transition: transform 0.7s;
+        transform: scale(1.05);
     }
 }
 
@@ -630,5 +632,42 @@ footer {
     transition: all 0.5s ease-in-out;
     &:hover {
         fill: #aca8a8;
+    }
+}
+.RSS-block {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    display: flex;
+    max-width: 1000px;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+    gap: 50px;
+    color: #fff;
+}
+.h2.RSS {
+    text-align: center;
+}
+.h3.RSS {
+    font-size: 15px;
+    text-align: center;
+}
+.rss-logo {
+    background: url('../../images/RSS-logo.svg') no-repeat center / contain;
+    width: 150px;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px 10px #aca8a8;
+    border-radius: 5px;
+    &:hover {
+        box-shadow:
+            rgba(6, 127, 187, 0.347) 0px 6px 24px 0px,
+            rgba(44, 103, 220, 0.731) 0px 0px 0px 1px;
+        border-color: #1f4aa8;
+        background-color: #1f4aa838;
+        cursor: pointer;
+        transition: transform 0.7s;
+        transform: scale(1.05);
     }
 }

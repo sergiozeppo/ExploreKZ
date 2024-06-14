@@ -1,5 +1,6 @@
 import { Text } from '../../components';
 import DevCard from './DevCard';
+import RSS from './RSS';
 
 export default function About() {
     return (
@@ -67,6 +68,7 @@ export default function About() {
                         github="izeevens"
                     />
                 </div>
+                <RSS />
             </div>
         </>
     );

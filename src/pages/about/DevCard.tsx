@@ -21,8 +21,12 @@ export default function DevCard(dev: DevCardProps) {
             <p className="dev-title">{dev.title}</p>
             <p className="dev-bio">{dev.bio}</p>
             <ul className="contributions">
-                {dev.contributions.map((li) => {
-                    return <li className="contributions-item">{li}</li>;
+                {dev.contributions.map((li, index: number) => {
+                    return (
+                        <li className="contributions-item" key={index}>
+                            {li}
+                        </li>
+                    );
                 })}
             </ul>
             <a href={'https://github.com/' + dev.github} target="_blank">
