@@ -11,7 +11,8 @@ import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GlobalContext } from '../../context/Global';
-import { Pagination } from '@mui/material';
+import { Pagination, ThemeProvider, createTheme } from '@mui/material';
+import { styled } from '@mui/system';
 
 type QueryParam = string | string[] | boolean | number | undefined;
 interface QUERYARGS {
@@ -19,9 +20,37 @@ interface QUERYARGS {
     'text.en'?: string;
     fuzzy?: boolean;
     limit?: number;
+    offset?: number;
     markMatchingVariants?: boolean;
     where?: string;
 }
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#1f4aa8',
+        },
+        secondary: {
+            main: '#516eada7',
+        },
+        text: {
+            primary: '#ffffff',
+        },
+    },
+});
+
+const CustomPagination = styled(Pagination)(({ theme }) => ({
+    '& .MuiPaginationItem-root': {
+        color: theme.palette.text.primary,
+    },
+    '& .Mui-selected': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.text.primary,
+    },
+    '& .MuiPaginationItem-page:hover': {
+        backgroundColor: theme.palette.secondary.main,
+    },
+}));
 
 export default function Catalog() {
     const navigate = useNavigate();
@@ -92,6 +121,8 @@ export default function Catalog() {
             maxPrice: number | null,
             sortType: string | null,
             searchValue: string,
+            page: number,
+            limit: number,
         ) => {
             setLoading(true);
             const userToken = localStorage.getItem('userToken');
@@ -156,9 +187,9 @@ export default function Catalog() {
                             product.masterVariant?.prices?.some((price) => price.discounted),
                         );
                     }
-                    if (minPrice && maxPrice) {
-                        response = response.filter((product) => product?.masterVariant.isMatchingVariant);
-                    }
+                    // if (minPrice && maxPrice) {
+                    //     response = response.filter((product) => product?.masterVariant.isMatchingVariant);
+                    // }
                     if (res.body.count && res.body.count !== 0) {
                         if (res.body.total && res.body.results.length !== 0) {
                             setShowPagination(true);
@@ -179,19 +210,19 @@ export default function Catalog() {
                 });
             return getProdApi;
         },
-        [page, setIsCatalogCalled],
+        [setIsCatalogCalled],
     );
 
     useEffect(() => {
-        getProducts(currItem, minPrice, maxPrice, sortType, '');
-    }, [currItem, minPrice, maxPrice, sortType, getProducts]);
+        getProducts(currItem, minPrice, maxPrice, sortType, '', page, limit);
+    }, [currItem, minPrice, maxPrice, sortType, getProducts, page]);
 
     useEffect(() => {
         if (triggerSearch) {
-            getProducts(currItem, minPrice, maxPrice, sortType, searchValue);
+            getProducts(currItem, minPrice, maxPrice, sortType, searchValue, page, limit);
             setTriggerSearch(false);
         }
-    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue, getProducts]);
+    }, [triggerSearch, currItem, minPrice, maxPrice, sortType, searchValue, getProducts, page]);
 
     const handleClick = () => {
         setOpen(!open);
@@ -222,6 +253,7 @@ export default function Catalog() {
         e.stopPropagation();
         const target = e.target as HTMLLIElement;
         const currentIndex = target.getAttribute('id');
+        setPage(1);
         if (currentIndex !== null && !target.classList.contains('price-menu')) {
             switch (currentIndex) {
                 case '0':
@@ -465,17 +497,16 @@ export default function Catalog() {
                         </div>
                         {showPagination && (
                             <div className="pagination">
-                                <Pagination
-                                    page={page}
-                                    count={pageCount}
-                                    // variant="outlined"
-
-                                    color="primary"
-                                    onChange={(_, num): void => {
-                                        console.log(num);
-                                        setPage(num);
-                                    }}
-                                />
+                                <ThemeProvider theme={theme}>
+                                    <CustomPagination
+                                        page={page}
+                                        count={pageCount}
+                                        color="primary"
+                                        onChange={(_, num): void => {
+                                            setPage(num);
+                                        }}
+                                    />
+                                </ThemeProvider>
                             </div>
                         )}
                     </>

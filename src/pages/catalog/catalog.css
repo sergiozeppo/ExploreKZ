@@ -156,3 +156,11 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.MuiPaginationItem-textPrimary {
+    color: #fff;
+    background-color: #fff;
+}
+.MuiPaginationItem-textSecondary {
+    color: #fff;
+    background-color: #fff;
+}
