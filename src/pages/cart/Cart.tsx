@@ -76,7 +76,7 @@ export default function Cart() {
                                             price={fixedPrice}
                                             quantity={item.quantity}
                                             totalPrice={fixedTotalPrice}
-                                            id={item.productId}
+                                            id={item.id}
                                             version={cart.version}
                                             cartId={cart.id}
                                         />
@@ -93,7 +93,7 @@ export default function Cart() {
                         <button className="cart-clear-btn button">Clear Cart</button>
                         <span className="cart-total">
                             Total Price: ${' '}
-                            {cart?.totalPrice.centAmount && (cart?.totalPrice?.centAmount / 100).toFixed(2)}
+                            {cart && cart?.totalPrice?.centAmount && (cart?.totalPrice?.centAmount / 100).toFixed(2)}
                         </span>
                     </div>
                 </>

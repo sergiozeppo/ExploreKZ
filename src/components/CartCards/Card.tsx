@@ -1,10 +1,12 @@
 import './card.css';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { getActualCart } from '../../apiSdk/Cart';
+import { GlobalContext } from '../../context/Global';
+import BtnLoader from '../Loader/btnLoader';
 
 type CARD_PROPS = {
     name: string;
@@ -19,16 +21,50 @@ type CARD_PROPS = {
 };
 
 const CartCard = (cartData: CARD_PROPS) => {
-    const { cartId, id, version, images, name, price, quantity, totalPrice } = cartData;
+    const { cartId, id, images, name, price, quantity, totalPrice } = cartData;
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
+    const { setCart, cart } = useContext(GlobalContext);
+    const [actualCart, setActualCart] = useState(cart);
+    const [btnLoader, setBtnLoader] = useState(false);
+
+    useEffect(() => {
+        setActualCart(cart);
+    }, [cart]);
 
     const updateCart = async (quantity: number) => {
-        console.log(version);
+        setBtnLoader(true);
         const userToken = localStorage.getItem('userToken');
         const actualCartVersion = await getActualCart(cartId);
-        console.log(actualCartVersion, version);
-        if (localStorage.getItem('isLogin') && userToken) {
+        if (localStorage.getItem('isLogin') && userToken && actualCart) {
             tokenClient()
+                .me()
+                .carts()
+                .withId({ ID: actualCart?.id })
+                .post({
+                    body: {
+                        version: actualCartVersion!,
+                        actions: [
+                            {
+                                action: 'changeLineItemQuantity',
+                                lineItemId: id,
+                                quantity,
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((res) => {
+                    const cartDataS = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    setCart(cartDataS);
+                    setBtnLoader(false);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setBtnLoader(false);
+                });
+        } else {
+            anonUser()
                 .me()
                 .carts()
                 .withId({ ID: cartId })
@@ -46,56 +82,48 @@ const CartCard = (cartData: CARD_PROPS) => {
                 })
                 .execute()
                 .then((res) => {
-                    console.log(res);
+                    const cartDataS = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    setCart(cartDataS);
+                    setBtnLoader(false);
                 })
-                .catch(console.error);
-        } else {
-            anonUser()
-                .carts()
-                .withId({ ID: cartId })
-                .post({
-                    body: {
-                        version,
-                        actions: [
-                            {
-                                action: 'changeLineItemQuantity',
-                                lineItemId: id,
-                                quantity,
-                            },
-                        ],
-                    },
-                })
-                .execute()
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch(console.error);
+                .catch((err) => {
+                    console.error(err);
+                    setBtnLoader(false);
+                });
         }
     };
 
-    const handleIncrease = () => {
-        if (currentQuantity > 0) {
+    const handleIncrease = (e: React.MouseEvent<SVGElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (currentQuantity >= 1) {
             const newQuantity = currentQuantity + 1;
             setCurrentQuantity(newQuantity);
             updateCart(newQuantity);
         }
     };
 
-    const handleDecrease = () => {
-        if (currentQuantity > 0) {
-            const newQuantity = currentQuantity - 1;
-            setCurrentQuantity(newQuantity);
-            updateCart(newQuantity);
+    const handleDecrease = (e: React.MouseEvent<SVGElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.currentTarget.classList.contains('cart-IncDec')) {
+            if (currentQuantity > 1) {
+                const newQuantity = currentQuantity - 1;
+                setCurrentQuantity(newQuantity);
+                updateCart(newQuantity);
+            }
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value);
-        if (!isNaN(value) && value > 0) {
-            setCurrentQuantity(value);
-            updateCart(value);
-        }
-    };
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const value = parseInt(e.target.value);
+    //     console.log(value);
+    //     if (!isNaN(value) && value > 0) {
+    //         setCurrentQuantity(value);
+    //         updateCart(value);
+    //     }
+    // };
 
     return (
         <tr className="card-cart">
@@ -106,7 +134,9 @@ const CartCard = (cartData: CARD_PROPS) => {
             <td className="cart-info">{price.toFixed(2)} USD</td>
             <td
                 className="cart-info"
+                aria-disabled={btnLoader}
                 style={{
+                    position: 'relative',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -114,9 +144,15 @@ const CartCard = (cartData: CARD_PROPS) => {
                     cursor: 'pointer',
                 }}
             >
-                <FaMinus onClick={handleDecrease} className="cart-IncDec" />
-                <input className="cart-info-quantity" type="text" value={currentQuantity} onChange={handleChange} />
-                <FaPlus onClick={handleIncrease} className="cart-IncDec" />
+                {btnLoader && <BtnLoader />}
+                <button disabled={btnLoader} className="inc-decr-btn">
+                    <FaMinus onClick={handleDecrease} className="cart-IncDec" />
+                </button>
+                {/* <input className="cart-info-quantity" type="text" value={currentQuantity} onChange={handleChange} /> */}
+                <span className="cart-info-quantity">{currentQuantity}</span>
+                <button disabled={btnLoader} className="inc-decr-btn">
+                    <FaPlus onClick={handleIncrease} className="cart-IncDec" />
+                </button>
             </td>
             <td className="cart-info">{totalPrice.toFixed(2)} USD</td>
             <td className="cart-trash">
