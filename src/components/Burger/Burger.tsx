@@ -10,9 +10,18 @@ import { initAnonId } from '../../apiSdk/anonimClient';
 
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isLogin, setIsLogin, setCart } = useContext(GlobalContext);
+    const { isLogin, setIsLogin, setCart, cart } = useContext(GlobalContext);
     const [loginStatus, setLoginStatus] = useState(isLogin);
     const navigate = useNavigate();
+    const [cartProductCount, setCartProductCount] = useState(0);
+
+    useEffect(() => {
+        if (cart && cart?.lineItems && cart?.lineItems?.length > 0) {
+            setCartProductCount(cart?.lineItems.length);
+        } else {
+            setCartProductCount(0);
+        }
+    }, [cart]);
 
     useEffect(() => {
         setLoginStatus(isLogin);
@@ -92,7 +101,8 @@ export default function Burger() {
                             </Link>
                         </li>
                     )}
-                    <li>
+                    <li className="cart-link">
+                        {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
                         <Link to="/cart" onClick={closeMenu}>
                             <Text as="p" className="nav-item">
                                 Cart
