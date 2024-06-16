@@ -7,7 +7,7 @@ import CartCard from '../../components/CartCards/Card';
 import './cart.css';
 
 export default function Cart() {
-    const { cart } = useContext(GlobalContext);
+    const { setCart, cart } = useContext(GlobalContext);
     const [currentCartProd, setCurrentCartProd] = useState(cart?.lineItems);
     useEffect(() => {
         setCurrentCartProd(cart?.lineItems);
@@ -39,6 +39,9 @@ export default function Cart() {
                 })
                 .execute()
                 .then((res) => {
+                    const cartDataS = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    setCart(cartDataS);
                     console.log(res);
                 })
                 .catch((err) => {
@@ -63,6 +66,9 @@ export default function Cart() {
                 })
                 .execute()
                 .then((res) => {
+                    const cartDataS = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    setCart(cartDataS);
                     console.log(res);
                 })
                 .catch((err) => {
