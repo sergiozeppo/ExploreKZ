@@ -180,14 +180,16 @@ const CartCard = (cartData: CARD_PROPS) => {
                     <FaPlus onClick={handleIncrease} className="cart-IncDec" />
                 </button>
             </td>
-            <td className="cart-info">
+            <td className="cart-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {pricePromo ? (
                     <>
                         <span className="product-price-original">
                             {(totalPrice + pricePromo * quantity).toFixed(2)}
                         </span>
                         USD
-                        <span className="product-price-discount">{totalPrice.toFixed(2)}</span>
+                        <span className="product-price-discount" style={{ marginTop: '10px' }}>
+                            {totalPrice.toFixed(2)}
+                        </span>
                         USD
                     </>
                 ) : (
