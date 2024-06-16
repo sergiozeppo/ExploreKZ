@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/Global';
 import CartCard from '../../components/CartCards/Card';
 import './cart.css';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
     const { cart } = useContext(GlobalContext);
@@ -38,7 +39,16 @@ export default function Cart() {
                                 })
                             ) : (
                                 <tr>
-                                    <td className="nothing-title nothing-cart">Shopping cart is empty!</td>
+                                    <td className="nothing-title nothing-cart">
+                                        <span className="h2">Shopping cart is empty!</span>
+                                        <br />
+                                        <Link to="/catalog">
+                                            <span className="h2">
+                                                Now You can choose your perfect
+                                                <strong className="h2 link"> tour around of Kazakhstan</strong>
+                                            </span>
+                                        </Link>
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
