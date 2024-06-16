@@ -26,6 +26,7 @@ const CartCard = (cartData: CARD_PROPS) => {
     const { setCart, cart } = useContext(GlobalContext);
     const [actualCart, setActualCart] = useState(cart);
     const [btnLoader, setBtnLoader] = useState(false);
+    const [removeBtnLoader, setRemoveBtnLoader] = useState(false);
 
     useEffect(() => {
         setActualCart(cart);
@@ -116,14 +117,38 @@ const CartCard = (cartData: CARD_PROPS) => {
         }
     };
 
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const value = parseInt(e.target.value);
-    //     console.log(value);
-    //     if (!isNaN(value) && value > 0) {
-    //         setCurrentQuantity(value);
-    //         updateCart(value);
-    //     }
-    // };
+    const handleRemove = async () => {
+        setRemoveBtnLoader(true);
+        const userToken = localStorage.getItem('userToken');
+        const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+        const actualVersion = await getActualCart(cartId);
+        client
+            .me()
+            .carts()
+            .withId({ ID: cartId })
+            .post({
+                body: {
+                    version: +actualVersion!,
+                    actions: [
+                        {
+                            action: 'removeLineItem',
+                            lineItemId: id,
+                        },
+                    ],
+                },
+            })
+            .execute()
+            .then((res) => {
+                const cartDataS = res.body;
+                localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                setCart(cartDataS);
+                setRemoveBtnLoader(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setRemoveBtnLoader(false);
+            });
+    };
 
     return (
         <tr className="card-cart">
@@ -156,7 +181,10 @@ const CartCard = (cartData: CARD_PROPS) => {
             </td>
             <td className="cart-info">{totalPrice.toFixed(2)} USD</td>
             <td className="cart-trash">
-                <FaTrashAlt className="cart-trash" />
+                <button className="cart-remove-btn" onClick={handleRemove} disabled={removeBtnLoader}>
+                    {removeBtnLoader && <BtnLoader />}
+                    <FaTrashAlt className="cart-trash" />
+                </button>
             </td>
             {/* <FaTrashAlt className="cart-trash" /> */}
         </tr>
