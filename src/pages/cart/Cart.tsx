@@ -48,7 +48,7 @@ export default function Cart() {
                 })
                 .catch((err) => {
                     console.error(err);
-                    CustomToast('error', err.message || 'Error detected');
+                    CustomToast('error', err.statusCode === 400 ? err.message : 'Error detected');
                 });
         } else {
             anonUser()
@@ -76,7 +76,7 @@ export default function Cart() {
                 })
                 .catch((err) => {
                     console.error(err);
-                    CustomToast('error', err.message || 'Error detected');
+                    CustomToast('error', err.statusCode === 400 ? err.message : 'Error detected');
                 });
         }
     };
