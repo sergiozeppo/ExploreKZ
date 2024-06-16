@@ -53,6 +53,9 @@
     color: white;
     font-weight: 700;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .product-price-original {
