@@ -81,6 +81,20 @@ export default function Cart() {
         }
     };
 
+    const calcPromoPrice = () => {
+        let totalPriceWithoutDiscount = 0;
+
+        if (cart) {
+            for (const lineItem of cart.lineItems) {
+                totalPriceWithoutDiscount +=
+                    lineItem.discountedPricePerQuantity[0].discountedPrice.includedDiscounts[0].discountedAmount
+                        .centAmount * lineItem.quantity;
+            }
+        }
+
+        return totalPriceWithoutDiscount / 100;
+    };
+
     return (
         // <>
         //     <table className="container-cart">
@@ -190,7 +204,7 @@ export default function Cart() {
                                         {(cart?.totalPrice?.centAmount / 100).toFixed(2)}
                                     </span>
                                     <span className="product-price-original">
-                                        {(cart?.totalPrice?.centAmount / 100).toFixed(2)}
+                                        {(cart?.totalPrice?.centAmount / 100 + calcPromoPrice()).toFixed(2)}
                                     </span>
                                 </>
                             ) : (
