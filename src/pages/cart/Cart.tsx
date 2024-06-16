@@ -60,10 +60,6 @@ export default function Cart() {
             {cart && (
                 <>
                     <table className="container-cart">
-                        <div className="cart-promo">
-                            <input className="cart-promo-input" type="text" placeholder="Promo Code" />
-                            <button className="cart-promo-btn btn">Apply</button>
-                        </div>
                         <tbody className="cart-wrapper">
                             {currentCartProd && currentCartProd.length > 0 ? (
                                 currentCartProd.map((item) => {
@@ -93,6 +89,10 @@ export default function Cart() {
                             )}
                         </tbody>
                     </table>
+                    <div className="cart-promo">
+                        <input className="cart-promo-input" type="text" placeholder="Promo Code" />
+                        <button className="cart-promo-btn btn">Apply</button>
+                    </div>
                     <div className="container-cart-bottom">
                         <button className="cart-clear-btn button">Clear Cart</button>
                         <span className="cart-total">

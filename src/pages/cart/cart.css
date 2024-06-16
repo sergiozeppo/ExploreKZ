@@ -51,9 +51,20 @@
     align-items: center;
 }
 
-
-
 .cart-promo {
     display: flex;
-    
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cart-promo-input {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding-left: 10px;
+    max-width: 200px;
+    color: white;
+
+    &::placeholder {
+        color: white
+    }
 }
