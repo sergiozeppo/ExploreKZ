@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/Global';
+import { getActualCart } from '../../apiSdk/Cart';
+import { anonUser } from '../../apiSdk/anonimClient';
+import { tokenClient } from '../../apiSdk/TokenClient';
 import CartCard from '../../components/CartCards/Card';
 import './cart.css';
 
@@ -9,6 +12,66 @@ export default function Cart() {
     useEffect(() => {
         setCurrentCartProd(cart?.lineItems);
     }, [cart?.lineItems, cart]);
+
+    const [promoCode, setPromoCode] = useState('');
+    const [promoCodeError, setPromoCodeError] = useState('');
+
+    const promoCodeHandler = async () => {
+        const userToken = localStorage.getItem('userToken');
+        const id = cart?.id;
+
+        const actualCartVersion = await getActualCart(id!);
+        if (localStorage.getItem('isLogin') && userToken && cart) {
+            tokenClient()
+                .me()
+                .carts()
+                .withId({ ID: id! })
+                .post({
+                    body: {
+                        version: actualCartVersion!,
+                        actions: [
+                            {
+                                action: 'addDiscountCode',
+                                code: promoCode,
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    setPromoCodeError(err.message || 'Error detected');
+                    console.error(err);
+                });
+        } else {
+            anonUser()
+                .me()
+                .carts()
+                .withId({ ID: id! })
+                .post({
+                    body: {
+                        version: actualCartVersion!,
+                        actions: [
+                            {
+                                action: 'addDiscountCode',
+                                code: promoCode,
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    setPromoCodeError(err.message || 'Error detected');
+                    console.error(err);
+                });
+        }
+    };
+
     return (
         // <>
         //     <table className="container-cart">
@@ -90,9 +153,17 @@ export default function Cart() {
                         </tbody>
                     </table>
                     <div className="cart-promo">
-                        <input className="cart-promo-input" type="text" placeholder="Promo Code" />
-                        <button className="cart-promo-btn btn">Apply</button>
+                        <input
+                            className="cart-promo-input"
+                            type="text"
+                            placeholder="Promo Code"
+                            onChange={(e) => setPromoCode(e.target.value)}
+                        />
+                        <button className="cart-promo-btn btn" onClick={promoCodeHandler}>
+                            Apply
+                        </button>
                     </div>
+                    {promoCodeError ? <span className="cart-promo-error">{promoCodeError}</span> : ''}
                     <div className="container-cart-bottom">
                         <button className="cart-clear-btn button">Clear Cart</button>
                         <span className="cart-total">

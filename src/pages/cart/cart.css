@@ -68,3 +68,10 @@
         color: white;
     }
 }
+
+.cart-promo-error {
+    display: flex;
+    justify-content: flex-end;
+    color: red;
+    margin-top: 10px;
+}
