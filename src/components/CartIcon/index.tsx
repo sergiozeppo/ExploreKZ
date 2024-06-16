@@ -5,7 +5,6 @@ import { GlobalContext } from '../../context/Global';
 const CartIcon = () => {
     const { cart } = useContext(GlobalContext);
     const quantity = cart?.totalLineItemQuantity || 0;
-    console.log(quantity);
 
     return (
         <div className={`cart-icon`}>
