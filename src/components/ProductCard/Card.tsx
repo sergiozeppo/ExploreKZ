@@ -68,8 +68,8 @@ export const Card = (product: CARD_PROPS) => {
                         localStorage.setItem('user-cart', JSON.stringify(cartDataS));
                         setCart(cartDataS);
                     })
-                    .catch((err) => {
-                        console.error(err);
+                    .catch(() => {
+                        console.log('одновременно нажимаете на кнопку');
                         setBtnLoader(false);
                     });
             }
