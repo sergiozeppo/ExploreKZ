@@ -32,24 +32,28 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="link-wrapper sale-banner">
-                            <span className="h2 sale-title">Summer Sale</span>
-                            <span className="h2 sale-title">
-                                Discount 30% <br />
-                                <img
-                                    className="sale-banner-icon"
-                                    src="/images/icons8-discount-48.png"
-                                    alt="discount-icon"
-                                />
-                            </span>
-                            <span className="h2 sale-title" style={{ flexDirection: 'row' }}>
-                                Discount 10%{' '}
-                                <img
-                                    className="sale-banner-icon"
-                                    src="/images/icons8-discount-48.png"
-                                    alt="discount-icon"
-                                />
-                            </span>
-                            <span style={{ fontSize: '12px', marginBottom: '10px' }}>promocode "summer-sale"</span>
+                            <div>
+                                <span className="h2 sale-title">Summer Sale</span>
+                                <span className="h2 sale-title">
+                                    Discount 30% <br />
+                                    <img
+                                        className="sale-banner-icon"
+                                        src="/images/icons8-discount-48.png"
+                                        alt="discount-icon"
+                                    />
+                                </span>
+                                <span className="h2 sale-title" style={{ flexDirection: 'row' }}>
+                                    Discount 10%{' '}
+                                    <img
+                                        className="sale-banner-icon"
+                                        src="/images/icons8-discount-48.png"
+                                        alt="discount-icon"
+                                    />
+                                </span>
+                            </div>
+                            <div className="promo-code">
+                                <span className="h2 sale-title">promocode "summer-sale"</span>
+                            </div>
                             <Link to="/catalog/discounted" className="button banner-link">
                                 <span className="h2">Go</span>
                             </Link>
