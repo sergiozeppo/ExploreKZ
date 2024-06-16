@@ -392,7 +392,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import './product.css';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { baseClient } from '../../apiSdk/BaseClient';
-import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import { MdOutlineAddShoppingCart, MdOutlineRemoveShoppingCart } from 'react-icons/md';
 import { GlobalContext } from '../../context/Global';
 import { tokenClient } from '../../apiSdk/TokenClient';
 import { anonUser } from '../../apiSdk/anonimClient';
@@ -442,6 +442,7 @@ export default function Product() {
     const [cartProducts, setCartProducts] = useState(cart?.lineItems);
     const [isInCart, setIsInCart] = useState(false);
     const [btnLoader, setBtnLoader] = useState(false);
+    const [removeLoader, setremoveLoader] = useState(false);
 
     useEffect(() => {
         setCartProducts(cart?.lineItems);
@@ -547,6 +548,44 @@ export default function Product() {
             });
     };
 
+    const handleRemove = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setremoveLoader(true);
+        e.currentTarget.setAttribute('disabled', 'true');
+        const cartData = JSON.parse(localStorage.getItem('user-cart')!);
+        const userToken = localStorage.getItem('userToken');
+        const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+        const actualVersionCart = await getActualCart(cartData.id);
+        const lineItemId = cartProducts?.find((el) => el.productId === id);
+        if (lineItemId) {
+            client
+                .me()
+                .carts()
+                .withId({ ID: cartData.id! })
+                .post({
+                    body: {
+                        version: +actualVersionCart!,
+                        actions: [
+                            {
+                                action: 'removeLineItem',
+                                lineItemId: lineItemId.id,
+                            },
+                        ],
+                    },
+                })
+                .execute()
+                .then((res) => {
+                    setremoveLoader(false);
+                    const cartDataS = res.body;
+                    localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                    setCart(cartDataS);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setremoveLoader(false);
+                });
+        }
+    };
+
     const renderContent = () => (
         <>
             <Crumbs />
@@ -628,19 +667,35 @@ export default function Product() {
                                                 </span>
                                             )}
                                         </div>
-                                        <button
-                                            onClick={handleAddBtnClick}
-                                            disabled={isInCart}
-                                            className={
-                                                !isInCart
-                                                    ? 'button add-to-cart-btn'
-                                                    : 'button add-to-cart-btn add-to-cart-btn-disabled'
-                                            }
-                                        >
-                                            {btnLoader && <BtnLoader />}
-                                            {isInCart ? 'In Cart' : 'Add'}
-                                            <MdOutlineAddShoppingCart />
-                                        </button>
+                                        <div className="bottom-btn-wrapper">
+                                            <button
+                                                onClick={handleAddBtnClick}
+                                                disabled={isInCart}
+                                                className={
+                                                    !isInCart
+                                                        ? 'button add-to-cart-btn'
+                                                        : 'button add-to-cart-btn add-to-cart-btn-disabled'
+                                                }
+                                            >
+                                                {btnLoader && <BtnLoader />}
+                                                {isInCart ? 'In Cart' : 'Add'}
+                                                <MdOutlineAddShoppingCart />
+                                            </button>
+                                            {isInCart && (
+                                                <button
+                                                    onClick={handleRemove}
+                                                    disabled={!isInCart}
+                                                    className={
+                                                        isInCart
+                                                            ? 'button add-to-cart-btn'
+                                                            : 'button add-to-cart-btn add-to-cart-btn-disabled'
+                                                    }
+                                                >
+                                                    Remove <MdOutlineRemoveShoppingCart />
+                                                    {removeLoader && <BtnLoader />}
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </>
