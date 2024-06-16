@@ -124,14 +124,19 @@ footer {
     background-color: #00000059;
 }
 .navbar {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     gap: 1.25rem;
     align-items: center;
     width: 100%;
-    max-width: 1242px;
+    /* max-width: 1242px; */
     padding: 10px;
     margin: 0 auto;
+    background-color: #222831;
+    z-index: 2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.128);
 }
 .logo {
     display: flex;
