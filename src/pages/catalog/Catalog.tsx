@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState, useCallback, useContext } from 'react';
-import { tokenClient } from '../../apiSdk/TokenClient';
-import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { Card } from '../../components/ProductCard/Card';
 import './catalog.css';
@@ -10,6 +8,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { FaSearch } from 'react-icons/fa';
 import Crumbs from '../../components/Crumbs/Crumbs';
 import { useNavigate, useParams } from 'react-router-dom';
+import { baseClient } from '../../apiSdk/BaseClient';
 import { GlobalContext } from '../../context/Global';
 import { Pagination, ThemeProvider, createTheme } from '@mui/material';
 import { styled } from '@mui/system';
@@ -55,12 +54,13 @@ const CustomPagination = styled(Pagination)(({ theme }) => ({
 export default function Catalog() {
     const navigate = useNavigate();
     const categoryInfo = useParams();
-    const { setIsCatalogCalled } = useContext(GlobalContext);
+    const { cart } = useContext(GlobalContext);
     const [products, setProducts] = useState<ProductProjection[]>([]);
     const [loading, setLoading] = useState(true);
     const [currItem, setCurrItem] = useState('');
     const [minPrice, setMinPrice] = useState<number | null>(null);
     const [maxPrice, setMaxPrice] = useState<number | null>(null);
+    const [cartProduct, setCartProducts] = useState(cart?.lineItems);
 
     const [open, setOpen] = useState(false);
     const [priceRangeOpen, setPriceRangeOpen] = useState(false);
@@ -91,6 +91,10 @@ export default function Catalog() {
             navigate(path);
         }
     };
+
+    useEffect(() => {
+        setCartProducts(cart?.lineItems);
+    }, [cart]);
 
     useEffect(() => {
         if (categoryInfo.category === 'tours' && !categoryInfo.subcategory) {
@@ -125,8 +129,9 @@ export default function Catalog() {
             limit: number,
         ) => {
             setLoading(true);
-            const userToken = localStorage.getItem('userToken');
-            const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+            // const userToken = localStorage.getItem('userToken');
+            // const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+            const client = baseClient();
             const queryArgs: QUERYARGS = { filter: [] };
             if (Array.isArray(queryArgs.filter)) {
                 if (filter === 'Tours') {
@@ -190,6 +195,9 @@ export default function Catalog() {
                     // if (minPrice && maxPrice) {
                     //     response = response.filter((product) => product?.masterVariant.isMatchingVariant);
                     // }
+// <<<<<<< refactor/cartLogic
+
+// =======
                     if (res.body.count && res.body.count !== 0) {
                         if (res.body.total && res.body.results.length !== 0) {
                             setShowPagination(true);
@@ -199,9 +207,9 @@ export default function Catalog() {
                         }
                     }
                     // setShowPagination(false);
+// >>>>>>> release/basket-about_us
                     setProducts(response);
                     setLoading(false);
-                    setIsCatalogCalled(true);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -210,7 +218,7 @@ export default function Catalog() {
                 });
             return getProdApi;
         },
-        [setIsCatalogCalled],
+        [],
     );
 
     useEffect(() => {
@@ -470,6 +478,26 @@ export default function Catalog() {
                 {loading ? (
                     <Loader />
                 ) : (
+// <<<<<<< refactor/cartLogic
+//                     <div className="catalog-wrapper">
+//                         {products.length > 0 ? (
+//                             products.map((el) => {
+//                                 const imageUrl = el.masterVariant?.images?.[0]?.url || '';
+//                                 const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
+//                                 const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
+//                                 const discountFixed = discount / 100;
+//                                 const fixedPrice = price / 100;
+//                                 return (
+//                                     <Card
+//                                         id={el.id}
+//                                         key={el.id}
+//                                         images={imageUrl}
+//                                         name={el.name['en-US']}
+//                                         description={el.description?.['en-US'] || 'Not provided!'}
+//                                         price={fixedPrice}
+//                                         discount={discountFixed}
+//                                         isInCart={cartProduct?.some((cartProd) => cartProd.productId === el.id)}
+// =======
                     <>
                         <div className="catalog-wrapper">
                             {products.length > 0 ? (
@@ -505,6 +533,7 @@ export default function Catalog() {
                                         onChange={(_, num): void => {
                                             setPage(num);
                                         }}
+<!-- >>>>>>> release/basket-about_us -->
                                     />
                                 </ThemeProvider>
                             </div>

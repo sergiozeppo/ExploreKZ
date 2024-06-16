@@ -1,18 +1,20 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { initCartState } from '../apiSdk/Cart';
+import { initAnonId } from '../apiSdk/anonimClient';
+import { Cart } from '@commercetools/platform-sdk';
 
 interface State {
     isLogin: boolean;
     setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-    isCatalogCalled: boolean;
-    setIsCatalogCalled: React.Dispatch<React.SetStateAction<boolean>>;
+    cart: Cart | null;
+    setCart: React.Dispatch<React.SetStateAction<Cart | null>>;
 }
 
 export const GlobalContext = createContext<State>({
     isLogin: false,
     setIsLogin: () => {},
-    isCatalogCalled: false,
-    setIsCatalogCalled: () => {},
+    cart: null,
+    setCart: () => {},
 });
 
 interface GlobalProviderProps {
@@ -21,38 +23,29 @@ interface GlobalProviderProps {
 
 export function GlobalProvider({ children }: GlobalProviderProps) {
     const [isLogin, setIsLogin] = useState(false);
-    const [isCatalogCalled, setIsCatalogCalled] = useState(false);
+    const [cart, setCart] = useState(() => {
+        const savedCart = localStorage.getItem('user-cart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
 
     useEffect(() => {
-        const loginStatus = localStorage.getItem('isLogin');
-        setIsLogin(!!loginStatus);
-        if (isCatalogCalled) {
+        const initiator = async () => {
+            console.log('initialization');
+            const loginStatus = localStorage.getItem('isLogin');
+            setIsLogin(!!loginStatus);
+            initAnonId();
             initCartState();
-            setIsCatalogCalled(false);
-        }
-        // if (loginStatus) {
-        //     console.log('token');
-        //     tokenClient()
-        //         .me()
-        //         .get()
-        //         .execute()
-        //         .then((res) => {
-        //             console.log(res);
-        //         })
-        //         .catch((err) => console.error(err));
-        // } else {
-        //     anonUser()
-        //         .products()
-        //         .get()
-        //         .execute()
-        //         .then((res) => console.log(res))
-        //         .catch((err) => console.error(err));
-        // }
-    }, [isCatalogCalled]);
+            const savedCart = localStorage.getItem('user-cart');
+            if (savedCart) {
+                setCart(JSON.parse(savedCart));
+            }
+        };
+        initiator();
+    }, []);
 
-    return (
-        <GlobalContext.Provider value={{ isLogin, setIsLogin, isCatalogCalled, setIsCatalogCalled }}>
-            {children}
-        </GlobalContext.Provider>
-    );
+    useEffect(() => {
+        localStorage.setItem('user-cart', JSON.stringify(cart));
+    }, [cart]);
+
+    return <GlobalContext.Provider value={{ isLogin, setIsLogin, cart, setCart }}>{children}</GlobalContext.Provider>;
 }

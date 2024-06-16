@@ -381,8 +381,8 @@
 // }
 
 import { useEffect, useState, useRef, ReactNode } from 'react';
-import { tokenClient } from '../../apiSdk/TokenClient';
-import { anonUser } from '../../apiSdk/anonimClient';
+// import { tokenClient } from '../../apiSdk/TokenClient';
+// import { anonUser } from '../../apiSdk/anonimClient';
 import { ProductData } from '@commercetools/platform-sdk';
 import { Navigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
@@ -391,6 +391,7 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './product.css';
 import Crumbs from '../../components/Crumbs/Crumbs';
+import { baseClient } from '../../apiSdk/BaseClient';
 
 const responsive = {
     0: {
@@ -436,7 +437,8 @@ export default function Product() {
         const fetcher = async () => {
             try {
                 const userToken = localStorage.getItem('userToken');
-                const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+                // const client = localStorage.getItem('isLogin') && userToken ? tokenClient() : anonUser();
+                const client = baseClient();
                 const response = await client
                     .products()
                     .withId({ ID: id })

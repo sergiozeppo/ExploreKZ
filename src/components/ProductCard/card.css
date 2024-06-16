@@ -102,3 +102,8 @@
         }
     }
 }
+
+.add-to-cart-btn-disabled {
+    cursor: auto;
+    background-color: #516eada7;
+}

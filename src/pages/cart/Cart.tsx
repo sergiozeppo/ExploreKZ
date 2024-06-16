@@ -1,51 +1,29 @@
-import { useEffect } from 'react';
-import { tokenClient } from '../../apiSdk/TokenClient';
-import { anonUser } from '../../apiSdk/anonimClient';
-import { initCartState } from '../../apiSdk/Cart';
-// import { GlobalContext } from '../../context/Global';
+import { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '../../context/Global';
 
 export default function Cart() {
-    // const { isCatalogCalled } = useContext(GlobalContext);
+    const { cart } = useContext(GlobalContext);
+    const [currentCartProd, setCurrentCartProd] = useState(cart?.lineItems);
+    //продукты текущей корзины, для отрисовки корзины используй массив currentCartProd
+    console.log(currentCartProd);
     useEffect(() => {
-        const getCart = async () => {
-            const cart = localStorage.getItem('user-cart');
-            const parsedCart = JSON.parse(cart!);
-            console.log(parsedCart);
-            const userToken = localStorage.getItem('userToken');
-            if (localStorage.getItem('isLogin') && userToken) {
-                const output = await tokenClient()
-                    .me()
-                    .activeCart()
-                    .get()
-                    .execute()
-                    .then((res) => {
-                        console.log(res);
-                        const cartDataS = res.body;
-                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));
-                    })
-                    .catch(console.error);
-                return output;
-            } else {
-                initCartState();
-                const output = await anonUser()
-                    .carts()
-                    .withId({ ID: parsedCart.id })
-                    .get()
-                    .execute()
-                    .then((res) => {
-                        console.log(res);
-                        const cartDataS = res.body;
-                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));
-                    })
-                    .catch(console.error);
-                return output;
-            }
-        };
-        if (localStorage.getItem('user-cart')) getCart();
-    }, []);
+        setCurrentCartProd(cart?.lineItems);
+    }, [cart?.lineItems]);
     return (
-        <>
-            <p className="tempr">Cart</p>
-        </>
+        <div className="cart">
+            {/* <h2>Cart</h2>
+            {currentCartProd.lineItems.length > 0 ? (
+                <ul>
+                    {currentCartProd.map(product => (
+                        <li key={product.id}>
+                            <span>{product.name}</span>
+                            <span>Quantity: {product.quantity}</span>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Your cart is empty</p>
+            )} */}
+        </div>
     );
 }
