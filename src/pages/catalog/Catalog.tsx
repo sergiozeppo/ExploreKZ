@@ -192,12 +192,6 @@ export default function Catalog() {
                             product.masterVariant?.prices?.some((price) => price.discounted),
                         );
                     }
-                    // if (minPrice && maxPrice) {
-                    //     response = response.filter((product) => product?.masterVariant.isMatchingVariant);
-                    // }
-// <<<<<<< refactor/cartLogic
-
-// =======
                     if (res.body.count && res.body.count !== 0) {
                         if (res.body.total && res.body.results.length !== 0) {
                             setShowPagination(true);
@@ -207,7 +201,6 @@ export default function Catalog() {
                         }
                     }
                     // setShowPagination(false);
-// >>>>>>> release/basket-about_us
                     setProducts(response);
                     setLoading(false);
                 })
@@ -478,26 +471,6 @@ export default function Catalog() {
                 {loading ? (
                     <Loader />
                 ) : (
-// <<<<<<< refactor/cartLogic
-//                     <div className="catalog-wrapper">
-//                         {products.length > 0 ? (
-//                             products.map((el) => {
-//                                 const imageUrl = el.masterVariant?.images?.[0]?.url || '';
-//                                 const price = el.masterVariant?.prices?.[0]?.value?.centAmount ?? 0;
-//                                 const discount = el.masterVariant?.prices?.[0]?.discounted?.value.centAmount ?? 0;
-//                                 const discountFixed = discount / 100;
-//                                 const fixedPrice = price / 100;
-//                                 return (
-//                                     <Card
-//                                         id={el.id}
-//                                         key={el.id}
-//                                         images={imageUrl}
-//                                         name={el.name['en-US']}
-//                                         description={el.description?.['en-US'] || 'Not provided!'}
-//                                         price={fixedPrice}
-//                                         discount={discountFixed}
-//                                         isInCart={cartProduct?.some((cartProd) => cartProd.productId === el.id)}
-// =======
                     <>
                         <div className="catalog-wrapper">
                             {products.length > 0 ? (
@@ -516,6 +489,7 @@ export default function Catalog() {
                                             description={el.description?.['en-US'] || 'Not provided!'}
                                             price={fixedPrice}
                                             discount={discountFixed}
+                                            isInCart={cartProduct?.some((cartProd) => cartProd.productId === el.id)}
                                         />
                                     );
                                 })
@@ -533,7 +507,6 @@ export default function Catalog() {
                                         onChange={(_, num): void => {
                                             setPage(num);
                                         }}
-<!-- >>>>>>> release/basket-about_us -->
                                     />
                                 </ThemeProvider>
                             </div>
