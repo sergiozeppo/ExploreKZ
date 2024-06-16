@@ -84,18 +84,24 @@ export default function Cart() {
                                 })
                             ) : (
                                 <tr>
-                                    <td className="nothing-title">Nothing Found!</td>
+                                    <td className="nothing-title nothing-cart">Shopping cart is empty!</td>
                                 </tr>
                             )}
                         </tbody>
                     </table>
-                    <div className="container-cart-bottom">
-                        <button className="cart-clear-btn button">Clear Cart</button>
-                        <span className="cart-total">
-                            Total Price: ${' '}
-                            {cart && cart?.totalPrice?.centAmount && (cart?.totalPrice?.centAmount / 100).toFixed(2)}
-                        </span>
-                    </div>
+                    {currentCartProd && currentCartProd.length > 0 ? (
+                        <div className="container-cart-bottom">
+                            <button className="cart-clear-btn button">Clear Cart</button>
+                            <span className="cart-total">
+                                Total Price: ${' '}
+                                {cart &&
+                                    cart?.totalPrice?.centAmount &&
+                                    (cart?.totalPrice?.centAmount / 100).toFixed(2)}
+                            </span>
+                        </div>
+                    ) : (
+                        ''
+                    )}
                 </>
             )}
         </>
