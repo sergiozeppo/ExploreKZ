@@ -3,22 +3,23 @@ import { GlobalContext } from '../../context/Global';
 import { getActualCart } from '../../apiSdk/Cart';
 import { anonUser } from '../../apiSdk/anonimClient';
 import { tokenClient } from '../../apiSdk/TokenClient';
+import { CustomToast } from '../../components/Toast';
 import CartCard from '../../components/CartCards/Card';
 import './cart.css';
 
 export default function Cart() {
     const { setCart, cart } = useContext(GlobalContext);
     const [currentCartProd, setCurrentCartProd] = useState(cart?.lineItems);
+    const [promoCode, setPromoCode] = useState('');
     useEffect(() => {
         setCurrentCartProd(cart?.lineItems);
     }, [cart?.lineItems, cart]);
 
-    const [promoCode, setPromoCode] = useState('');
-    const [promoCodeError, setPromoCodeError] = useState('');
-
     const promoCodeHandler = async () => {
         const userToken = localStorage.getItem('userToken');
         const id = cart?.id;
+
+        if (promoCode === '') return CustomToast('error', 'You need input code before submit');
 
         const actualCartVersion = await getActualCart(id!);
         if (localStorage.getItem('isLogin') && userToken && cart) {
@@ -43,10 +44,11 @@ export default function Cart() {
                     localStorage.setItem('user-cart', JSON.stringify(cartDataS));
                     setCart(cartDataS);
                     console.log(res);
+                    CustomToast('success', 'Promo code applied');
                 })
                 .catch((err) => {
-                    setPromoCodeError(err.message || 'Error detected');
                     console.error(err);
+                    CustomToast('error', err.message || 'Error detected');
                 });
         } else {
             anonUser()
@@ -70,10 +72,11 @@ export default function Cart() {
                     localStorage.setItem('user-cart', JSON.stringify(cartDataS));
                     setCart(cartDataS);
                     console.log(res);
+                    CustomToast('success', 'Promo code applied');
                 })
                 .catch((err) => {
-                    setPromoCodeError(err.message || 'Error detected');
                     console.error(err);
+                    CustomToast('error', err.message || 'Error detected');
                 });
         }
     };
@@ -175,7 +178,6 @@ export default function Cart() {
                             Apply
                         </button>
                     </div>
-                    {promoCodeError ? <span className="cart-promo-error">{promoCodeError}</span> : ''}
                     <div className="container-cart-bottom">
                         <button className="cart-clear-btn button">Clear Cart</button>
                         <span className="cart-total">
