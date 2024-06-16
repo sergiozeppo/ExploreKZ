@@ -58,6 +58,22 @@
     font-size: 18px;
 }
 
+.cart-link {
+    position: relative;
+}
+
+.cart-indicator {
+    position: absolute;
+    top: -5px;
+    right: -18px;
+    color: white;
+    padding: 3px;
+    background-color: #1f4aa8;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
 @media screen and (max-width: 768px) {
     .burger-icon {
         display: flex;
@@ -80,5 +96,8 @@
     }
     .menu a {
         text-align: center;
+    }
+    .cart-indicator {
+        right: 0;
     }
 }

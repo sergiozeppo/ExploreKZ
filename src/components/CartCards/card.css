@@ -83,6 +83,21 @@
     color: white;
 }
 
+.cart-remove-btn {
+    position: relative;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.221);
+    transition: all 0.5s ease-in-out;
+    color: white;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    &:hover {
+        background-color: #1f4aa8;
+        cursor: pointer;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .card-cart {
         flex-direction: column;
