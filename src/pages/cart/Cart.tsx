@@ -136,12 +136,14 @@ export default function Cart() {
                             {currentCartProd && currentCartProd.length > 0 ? (
                                 currentCartProd.map((item) => {
                                     const imageUrl = item.variant?.images?.[0]?.url || '';
-                                    const price = item.variant?.prices?.[0]?.value?.centAmount ?? 0;
+                                    const price =
+                                        item.variant?.prices?.[0]?.discounted?.value.centAmount ||
+                                        item.variant?.prices?.[0]?.value?.centAmount;
                                     const promoCode =
                                         item.discountedPricePerQuantity[0]?.discountedPrice?.includedDiscounts[0]
                                             .discountedAmount.centAmount || 0;
                                     const totalPrice = item.totalPrice.centAmount;
-                                    const fixedPrice = price / 100;
+                                    const fixedPrice = price! / 100;
                                     const fixedTotalPrice = totalPrice / 100;
                                     const fixedPromoCode = promoCode / 100;
 
@@ -188,7 +190,7 @@ export default function Cart() {
                                         {(cart?.totalPrice?.centAmount / 100).toFixed(2)}
                                     </span>
                                     <span className="product-price-original">
-                                        {((cart?.totalPrice?.centAmount / 100) * 1.1).toFixed(2)}
+                                        {(cart?.totalPrice?.centAmount / 100).toFixed(2)}
                                     </span>
                                 </>
                             ) : (
