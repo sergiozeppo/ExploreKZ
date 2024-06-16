@@ -102,14 +102,16 @@ export default function Burger() {
                             </Link>
                         </li>
                     )}
-                    <li className="cart-link">
-                        {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
-                        <Link to="/cart" onClick={closeMenu}>
-                            <Text as="p" className="nav-item">
-                                Cart
-                            </Text>
-                        </Link>
-                    </li>
+                    {isOpen && (
+                        <li className="cart-link">
+                            {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
+                            <Link to="/cart" onClick={closeMenu}>
+                                <Text as="p" className="nav-item">
+                                    Cart
+                                </Text>
+                            </Link>
+                        </li>
+                    )}
                     <li>
                         <Link to="/about" onClick={closeMenu}>
                             <Text as="p" className="nav-item">
@@ -121,9 +123,11 @@ export default function Burger() {
                 <div className="buttons" onClick={closeMenu}>
                     {loginStatus ? (
                         <>
-                            <Link to="/cart">
-                                <CartIcon />
-                            </Link>
+                            {!isOpen && (
+                                <Link to="/cart">
+                                    <CartIcon />
+                                </Link>
+                            )}
 
                             <button className="button" onClick={handleLogout}>
                                 Logout
@@ -131,9 +135,11 @@ export default function Burger() {
                         </>
                     ) : (
                         <>
-                            <Link to="/cart">
-                                <CartIcon />
-                            </Link>
+                            {!isOpen && (
+                                <Link to="/cart">
+                                    <CartIcon />
+                                </Link>
+                            )}
                             <Link to="/login">
                                 <Button className="button">Login</Button>
                             </Link>
