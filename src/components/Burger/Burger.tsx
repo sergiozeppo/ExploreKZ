@@ -7,6 +7,7 @@ import { GlobalContext } from '../../context/Global';
 import { token as MyToken } from '../../apiSdk/token';
 import { initCartState } from '../../apiSdk/Cart';
 import { initAnonId } from '../../apiSdk/anonimClient';
+import CartIcon from '../CartIcon';
 
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
@@ -101,14 +102,16 @@ export default function Burger() {
                             </Link>
                         </li>
                     )}
-                    <li className="cart-link">
-                        {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
-                        <Link to="/cart" onClick={closeMenu}>
-                            <Text as="p" className="nav-item">
-                                Cart
-                            </Text>
-                        </Link>
-                    </li>
+                    {isOpen && (
+                        <li className="cart-link">
+                            {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
+                            <Link to="/cart" onClick={closeMenu}>
+                                <Text as="p" className="nav-item">
+                                    Cart
+                                </Text>
+                            </Link>
+                        </li>
+                    )}
                     <li>
                         <Link to="/about" onClick={closeMenu}>
                             <Text as="p" className="nav-item">
@@ -119,11 +122,24 @@ export default function Burger() {
                 </ul>
                 <div className="buttons" onClick={closeMenu}>
                     {loginStatus ? (
-                        <button className="button" onClick={handleLogout}>
-                            Logout
-                        </button>
+                        <>
+                            {!isOpen && (
+                                <Link to="/cart">
+                                    <CartIcon />
+                                </Link>
+                            )}
+
+                            <button className="button" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </>
                     ) : (
                         <>
+                            {!isOpen && (
+                                <Link to="/cart">
+                                    <CartIcon />
+                                </Link>
+                            )}
                             <Link to="/login">
                                 <Button className="button">Login</Button>
                             </Link>

@@ -1,0 +1,20 @@
+.cart-icon {
+    position: relative;
+    background-image: url('../../../images/suitcase.png');
+    background-size: cover;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+}
+.indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 22px;
+    background-color: #ed5c5c;
+    color: white;
+    padding: 2px;
+    text-align: center;
+    border-radius: 5px;
+}

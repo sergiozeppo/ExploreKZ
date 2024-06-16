@@ -133,7 +133,7 @@
 
 .btn-prev {
     left: 5%;
-    z-index: 5;
+    z-index: 1;
     background-image: url('/images/left-arrow.png');
     background-size: cover;
     background-color: transparent;
@@ -144,7 +144,7 @@
 
 .btn-next {
     right: 5%;
-    z-index: 5;
+    z-index: 1;
     background-image: url('/images/right-arrow.png');
     background-size: cover;
     background-color: transparent;
@@ -234,4 +234,18 @@
     height: 100%;
     object-fit: scale-down;
     margin: auto;
+}
+
+.bottom-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bottom-btn-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: end;
 }

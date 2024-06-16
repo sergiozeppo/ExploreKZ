@@ -32,6 +32,7 @@ export default function About() {
                             'Set up Jest and perform test suites for entire project',
                             'Developed Main, About Us, Product details, Cart pages',
                             'Implemented Slider and Zoom in Product details page',
+                            'Implemented Pagination on the Catalog page',
                             'Added Pull Request Template',
                         ]}
                         github="sergiozeppo"
@@ -62,7 +63,7 @@ export default function About() {
                             'Set up Commerce Tools Profile for project',
                             'Developed Registration, Profile, Password change and Cart pages',
                             'Set up inputs validation',
-                            'Implemented Infinite Scroll on the Catalog page',
+                            'Implemented Promo Code Application Feature',
                             'Set up Routing',
                         ]}
                         github="izeevens"

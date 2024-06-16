@@ -49,6 +49,10 @@
     padding: 30px;
     justify-content: center;
     align-items: center;
+    min-height: 85vh;
+}
+.link {
+    color: #ed5c5c;
 }
 
 .cart-promo {
