@@ -5,10 +5,12 @@ import { Button, Text } from './..';
 import { CustomToast } from '../Toast';
 import { GlobalContext } from '../../context/Global';
 import { token as MyToken } from '../../apiSdk/token';
+import { initCartState } from '../../apiSdk/Cart';
+import { initAnonId } from '../../apiSdk/anonimClient';
 
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isLogin, setIsLogin } = useContext(GlobalContext);
+    const { isLogin, setIsLogin, setCart } = useContext(GlobalContext);
     const [loginStatus, setLoginStatus] = useState(isLogin);
     const navigate = useNavigate();
 
@@ -24,14 +26,17 @@ export default function Burger() {
         setIsOpen(false);
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         localStorage.clear();
         const userToken = MyToken;
         userToken.reset();
+        await initAnonId();
+        await initCartState();
+        const currentCart = localStorage.getItem('user-cart');
+        setCart(JSON.parse(currentCart!));
         setIsLogin(false);
-        navigate('/catalog');
+        navigate('/');
         CustomToast('info', 'Successful Logged out!');
-        location.reload();
     };
 
     useEffect(() => {

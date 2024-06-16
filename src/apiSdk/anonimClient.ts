@@ -70,16 +70,19 @@ type AnonymousAuthMiddlewareOptions = {
     tokenCache?: TokenCache;
 };
 
-const anonID = crypto.randomUUID();
-const anonimUser = () => {
+export const initAnonId = async () => {
+    const anonID = crypto.randomUUID();
     localStorage.setItem('anonId', anonID);
+};
+
+const anonimUser = () => {
     const options: AnonymousAuthMiddlewareOptions = {
         host: import.meta.env.VITE_CTP_AUTH_URL,
         projectKey,
         credentials: {
             clientId: import.meta.env.VITE_CTP_CLIENT_ID,
             clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
-            anonymousId: anonID,
+            anonymousId: localStorage.getItem('anonId') || '',
         },
         scopes: [`manage_project:${projectKey}`],
         fetch,
@@ -89,7 +92,5 @@ const anonimUser = () => {
     return new ClientBuilder().withAnonymousSessionFlow(options).withHttpMiddleware(httpMiddlewareOptions).build();
 };
 export const anonUser = () => {
-    // const anonData = JSON.parse(localStorage.getItem('user-cart') || '');
-    // console.log(anonData);
     return createApiBuilderFromCtpClient(anonimUser()).withProjectKey({ projectKey });
 };

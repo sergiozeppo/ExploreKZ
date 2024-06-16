@@ -24,11 +24,13 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
     host: import.meta.env.VITE_CTP_API_URL,
     fetch,
 };
-const userStorage = localStorage.getItem('userToken');
-const refreshTokenStoraged = userStorage ? JSON.parse(userStorage).refreshToken : '';
 export const loginFn = (email: string, password: string) => {
+    const userStorage = localStorage.getItem('userToken');
+    const refreshTokenStoraged = userStorage ? JSON.parse(userStorage).refreshToken : '';
+
     const cartData = localStorage.getItem('user-cart');
     const parsedCartData = JSON.parse(cartData!);
+    console.log(parsedCartData);
     token.reset();
     const options: PasswordAuthMiddlewareOptions = {
         host: import.meta.env.VITE_CTP_AUTH_URL,
