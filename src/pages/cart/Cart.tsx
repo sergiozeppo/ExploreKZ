@@ -198,7 +198,7 @@ export default function Cart() {
                         <button className="cart-clear-btn button">Clear Cart</button>
                         <span className="cart-total">
                             Total Price: ${' '}
-                            {cart.discountCodes.length > 0 ? (
+                            {cart.discountCodes && cart.discountCodes.length > 0 ? (
                                 <>
                                     <span className="product-price-discount">
                                         {(cart?.totalPrice?.centAmount / 100).toFixed(2)}
