@@ -134,15 +134,21 @@ export default function Cart() {
                                 currentCartProd.map((item) => {
                                     const imageUrl = item.variant?.images?.[0]?.url || '';
                                     const price = item.variant?.prices?.[0]?.value?.centAmount ?? 0;
+                                    const promoCode =
+                                        item.discountedPricePerQuantity[0]?.discountedPrice?.includedDiscounts[0]
+                                            .discountedAmount.centAmount || 0;
                                     const totalPrice = item.totalPrice.centAmount;
                                     const fixedPrice = price / 100;
                                     const fixedTotalPrice = totalPrice / 100;
+                                    const fixedPromoCode = promoCode / 100;
+
                                     return (
                                         <CartCard
                                             key={item.id}
                                             images={imageUrl}
                                             name={item.name['en-US']}
                                             price={fixedPrice}
+                                            pricePromo={fixedPromoCode}
                                             quantity={item.quantity}
                                             totalPrice={fixedTotalPrice}
                                             id={item.id}

@@ -14,6 +14,7 @@ type CARD_PROPS = {
     price: number;
     quantity: number;
     totalPrice: number;
+    pricePromo: number;
 
     id: string;
     version: number;
@@ -21,7 +22,7 @@ type CARD_PROPS = {
 };
 
 const CartCard = (cartData: CARD_PROPS) => {
-    const { cartId, id, images, name, price, quantity, totalPrice } = cartData;
+    const { pricePromo, cartId, id, images, name, price, quantity, totalPrice } = cartData;
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
     const { setCart, cart } = useContext(GlobalContext);
     const [actualCart, setActualCart] = useState(cart);
@@ -179,7 +180,20 @@ const CartCard = (cartData: CARD_PROPS) => {
                     <FaPlus onClick={handleIncrease} className="cart-IncDec" />
                 </button>
             </td>
-            <td className="cart-info">{totalPrice.toFixed(2)} USD</td>
+            <td className="cart-info">
+                {pricePromo ? (
+                    <>
+                        <span className="product-price-original">
+                            {(totalPrice + pricePromo * quantity).toFixed(2)}
+                        </span>
+                        USD
+                        <span className="product-price-discount">{totalPrice.toFixed(2)}</span>
+                        USD
+                    </>
+                ) : (
+                    totalPrice.toFixed(2) + 'USD'
+                )}
+            </td>
             <td className="cart-trash">
                 <button className="cart-remove-btn" onClick={handleRemove} disabled={removeBtnLoader}>
                     {removeBtnLoader && <BtnLoader />}
