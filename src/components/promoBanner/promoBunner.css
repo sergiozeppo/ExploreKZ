@@ -21,12 +21,12 @@
 .promo-code {
     position: relative;
     font-weight: bold;
-    color: #1f4aa8;
+    color: white;
     padding: 1px 5px;
-    text-decoration: underline;
-    border-radius: 10px;
-    background-color: rgb(246, 251, 255);
+    border-radius: 4px;
+    background-color: #800404c4;
     text-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.226);
 }
 
 .promo-text {
