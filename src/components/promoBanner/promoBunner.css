@@ -1,0 +1,38 @@
+.promo-banner {
+    max-width: 1242px;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+    background-color: #e6dfe247;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    font-weight: 700;
+    background-image: url('/images/gus.jpg');
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.promo-code {
+    position: relative;
+    font-weight: bold;
+    color: #1f4aa8;
+    padding: 1px 5px;
+    text-decoration: underline;
+    border-radius: 10px;
+    background-color: rgb(246, 251, 255);
+    text-shadow: none;
+}
+
+.promo-text {
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-shadow: 0px 10px 15px black;
+    color: aliceblue;
+}

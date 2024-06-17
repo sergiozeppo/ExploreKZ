@@ -54,7 +54,8 @@ const CustomPagination = styled(Pagination)(({ theme }) => ({
 export default function Catalog() {
     const navigate = useNavigate();
     const categoryInfo = useParams();
-    const { cart } = useContext(GlobalContext);
+    const { cart, isRequestComing } = useContext(GlobalContext);
+    const [addToCartLoader, setAddToCartLoader] = useState(isRequestComing);
     const [products, setProducts] = useState<ProductProjection[]>([]);
     const [loading, setLoading] = useState(true);
     const [currItem, setCurrItem] = useState('');
@@ -91,6 +92,10 @@ export default function Catalog() {
             navigate(path);
         }
     };
+
+    useEffect(() => {
+        setAddToCartLoader(isRequestComing);
+    }, [isRequestComing]);
 
     useEffect(() => {
         setCartProducts(cart?.lineItems);
@@ -513,6 +518,7 @@ export default function Catalog() {
                         )}
                     </>
                 )}
+                {addToCartLoader && <Loader />}
             </div>
         </>
     );

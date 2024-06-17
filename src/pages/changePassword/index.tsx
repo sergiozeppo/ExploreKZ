@@ -9,7 +9,7 @@ import { validate } from '../../components/Validation';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../../context/Global';
-import { loginFn } from '../../apiSdk/LoginUser';
+import { loginFnAfterChangePassword } from '../../apiSdk/LoginUser';
 import { token as MyToken } from '../../apiSdk/token';
 import { tokenClient } from '../../apiSdk/TokenClient';
 
@@ -56,10 +56,9 @@ export default function ChangePassword() {
                     })
                     .execute()
                     .then((response) => {
-                        console.log(response);
                         const userToken = MyToken;
                         userToken.reset();
-                        loginFn(response.body.email, date.newPassword)
+                        loginFnAfterChangePassword(response.body.email, date.newPassword)
                             .then((res) => {
                                 console.log(res);
                                 localStorage.setItem('isLogin', 'true');
