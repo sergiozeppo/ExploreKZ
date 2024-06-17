@@ -8,7 +8,7 @@ const CartIcon = () => {
 
     return (
         <div className={`cart-icon`}>
-            <div className={`${quantity === 0 ? '' : 'indicator'}`}>{`${quantity > 0 ? quantity : ''}`}</div>
+            <span className={`${quantity === 0 ? '' : 'indicator'}`}>{`${quantity > 0 ? quantity : ''}`}</span>
         </div>
     );
 };
