@@ -3,15 +3,6 @@ import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from '../App';
 
-jest.mock('../apiSdk/TokenClient', () => ({
-    tokenClient: jest.fn().mockImplementation(() => ({
-        me: jest.fn().mockReturnThis(),
-        carts: jest.fn().mockReturnThis(),
-        get: jest.fn().mockReturnThis(),
-        execute: jest.fn().mockResolvedValue({}),
-    })),
-}));
-
 jest.mock('../apiSdk/BaseClient', () => ({
     authMiddlewareOptions: jest.fn().mockImplementation(() => ({
         projectKey: jest.fn().mockReturnThis(),
@@ -23,41 +14,24 @@ jest.mock('../apiSdk/BaseClient', () => ({
         scopes: jest.fn().mockReturnThis(),
         fetch: jest.fn().mockReturnThis(),
     })),
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
 }));
-
+jest.mock('../apiSdk/TokenClient', () => ({
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
+}));
+jest.mock('../apiSdk/anonimClient', () => ({
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
+}));
 jest.mock('../apiSdk/LoginUser', () => ({
     httpMiddlewareOptions: jest.fn().mockImplementation(() => ({
         host: jest.fn().mockReturnThis(),
         fetch: jest.fn().mockReturnThis(),
     })),
-}));
-
-jest.mock('../apiSdk/anonimClient', () => ({
-    anonUser: jest.fn().mockImplementation(() => ({
-        customers: jest.fn().mockReturnThis(),
-        get: jest.fn().mockReturnThis(),
-        execute: jest.fn().mockResolvedValue({}),
-    })),
-}));
-
-jest.mock('../App', () => ({
-    tokenClient: jest.fn().mockImplementation(() => ({
-        me: jest.fn().mockReturnThis(),
-        get: jest.fn().mockReturnThis(),
-        execute: jest.fn().mockResolvedValue({}),
-    })),
-
-    anonUser: jest.fn().mockImplementation(() => ({
-        products: jest.fn().mockReturnThis(),
-        get: jest.fn().mockReturnThis(),
-        execute: jest.fn().mockResolvedValue({}),
-    })),
-}));
-
-jest.mock('react-router-dom', () => ({
-    Link: jest.fn().mockImplementation(({ children }) => {
-        return children;
-    }),
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
 }));
 
 describe('App component', () => {
