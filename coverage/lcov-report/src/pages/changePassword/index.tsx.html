@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/136</span>
+                <span class='fraction'>0/139</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/136</span>
+                <span class='fraction'>0/139</span>
             </div>
         
             
@@ -199,7 +199,13 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -336,7 +342,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import './index.css';</span></span></span>
-<span class="cstat-no" title="statement not covered" >import { baseClient } from '../../apiSdk/BaseClient';</span>
+<span class="cstat-no" title="statement not covered" >// import { baseClient } from '../../apiSdk/BaseClient';</span>
 <span class="cstat-no" title="statement not covered" >import { ProfileApi } from '../profile/Profile';</span>
 <span class="cstat-no" title="statement not covered" >import CustomError from '../../components/Validation/error';</span>
 <span class="cstat-no" title="statement not covered" >import { CustomToast } from '../../components/Toast';</span>
@@ -344,9 +350,11 @@
 <span class="cstat-no" title="statement not covered" >import { useForm, SubmitHandler } from 'react-hook-form';</span>
 <span class="cstat-no" title="statement not covered" >import { validate } from '../../components/Validation';</span>
 <span class="cstat-no" title="statement not covered" >import { FiEye, FiEyeOff } from 'react-icons/fi';</span>
-<span class="cstat-no" title="statement not covered" >import { useEffect, useState } from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import { useEffect, useState, useContext } from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import { GlobalContext } from '../../context/Global';</span>
 <span class="cstat-no" title="statement not covered" >import { loginFn } from '../../apiSdk/LoginUser';</span>
-<span class="cstat-no" title="statement not covered" >import { token as tokenCache } from '../../apiSdk/token';</span>
+<span class="cstat-no" title="statement not covered" >import { token as MyToken } from '../../apiSdk/token';</span>
+<span class="cstat-no" title="statement not covered" >import { tokenClient } from '../../apiSdk/TokenClient';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface Passwords {</span>
 <span class="cstat-no" title="statement not covered" >    currentPassword: string;</span>
@@ -365,6 +373,7 @@
 <span class="cstat-no" title="statement not covered" >        mode: 'onChange',</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >    const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;</span>
+<span class="cstat-no" title="statement not covered" >    const { setIsLogin } = useContext(GlobalContext);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (!token) {</span>
@@ -377,44 +386,44 @@
 <span class="cstat-no" title="statement not covered" >        const userInfo = ProfileApi();</span>
 <span class="cstat-no" title="statement not covered" >        userInfo.then((result) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            if (!(result instanceof Error)) {</span>
-<span class="cstat-no" title="statement not covered" >                const api = baseClient();</span>
-<span class="cstat-no" title="statement not covered" >                try {</span>
-<span class="cstat-no" title="statement not covered" >                    api.customers()</span>
-<span class="cstat-no" title="statement not covered" >                        .password()</span>
-<span class="cstat-no" title="statement not covered" >                        .post({</span>
-<span class="cstat-no" title="statement not covered" >                            body: {</span>
-<span class="cstat-no" title="statement not covered" >                                id: result.id,</span>
-<span class="cstat-no" title="statement not covered" >                                version: result.version,</span>
-<span class="cstat-no" title="statement not covered" >                                currentPassword: date.currentPassword,</span>
-<span class="cstat-no" title="statement not covered" >                                newPassword: date.newPassword,</span>
-<span class="cstat-no" title="statement not covered" >                            },</span>
-<span class="cstat-no" title="statement not covered" >                        })</span>
-<span class="cstat-no" title="statement not covered" >                        .execute()</span>
-<span class="cstat-no" title="statement not covered" >                        .then((response) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                            CustomToast('success', 'Password successfully changed');</span>
-<span class="cstat-no" title="statement not covered" >                            console.log(response.body.email, date.newPassword);</span>
-<span class="cstat-no" title="statement not covered" >                            loginFn(response.body.email, date.newPassword)</span>
-<span class="cstat-no" title="statement not covered" >                                .then(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                                    localStorage.clear();</span>
-<span class="cstat-no" title="statement not covered" >                                    const userToken = tokenCache.get();</span>
-<span class="cstat-no" title="statement not covered" >                                    localStorage.setItem('isLogin', 'true');</span>
-<span class="cstat-no" title="statement not covered" >                                    localStorage.setItem('userToken', JSON.stringify(userToken));</span>
-<span class="cstat-no" title="statement not covered" >                                    navigate('/profile');</span>
-<span class="cstat-no" title="statement not covered" >                                    location.reload();</span>
-<span class="cstat-no" title="statement not covered" >                                })</span>
-<span class="cstat-no" title="statement not covered" >                                .catch((err) =&gt; console.error(err));</span>
-<span class="cstat-no" title="statement not covered" >                            console.log(response);</span>
-<span class="cstat-no" title="statement not covered" >                        })</span>
-<span class="cstat-no" title="statement not covered" >                        .catch((error) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                            if (error.body) {</span>
-<span class="cstat-no" title="statement not covered" >                                CustomToast('error', error.body.message);</span>
-<span class="cstat-no" title="statement not covered" >                            } else {</span>
-<span class="cstat-no" title="statement not covered" >                                CustomToast('error', 'An error occurred, please try again later');</span>
-<span class="cstat-no" title="statement not covered" >                            }</span>
-<span class="cstat-no" title="statement not covered" >                        });</span>
-<span class="cstat-no" title="statement not covered" >                } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >                    return error as Error;</span>
-<span class="cstat-no" title="statement not covered" >                }</span>
+<span class="cstat-no" title="statement not covered" >                const api = tokenClient();</span>
+<span class="cstat-no" title="statement not covered" >                api.customers()</span>
+<span class="cstat-no" title="statement not covered" >                    .password()</span>
+<span class="cstat-no" title="statement not covered" >                    .post({</span>
+<span class="cstat-no" title="statement not covered" >                        body: {</span>
+<span class="cstat-no" title="statement not covered" >                            id: result.id,</span>
+<span class="cstat-no" title="statement not covered" >                            version: result.version,</span>
+<span class="cstat-no" title="statement not covered" >                            currentPassword: date.currentPassword,</span>
+<span class="cstat-no" title="statement not covered" >                            newPassword: date.newPassword,</span>
+<span class="cstat-no" title="statement not covered" >                        },</span>
+<span class="cstat-no" title="statement not covered" >                    })</span>
+<span class="cstat-no" title="statement not covered" >                    .execute()</span>
+<span class="cstat-no" title="statement not covered" >                    .then((response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        console.log(response);</span>
+<span class="cstat-no" title="statement not covered" >                        const userToken = MyToken;</span>
+<span class="cstat-no" title="statement not covered" >                        userToken.reset();</span>
+<span class="cstat-no" title="statement not covered" >                        loginFn(response.body.email, date.newPassword)</span>
+<span class="cstat-no" title="statement not covered" >                            .then((res) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                                console.log(res);</span>
+<span class="cstat-no" title="statement not covered" >                                localStorage.setItem('isLogin', 'true');</span>
+<span class="cstat-no" title="statement not covered" >                                localStorage.setItem('userToken', JSON.stringify(userToken.get()));</span>
+<span class="cstat-no" title="statement not covered" >                                navigate('/profile');</span>
+<span class="cstat-no" title="statement not covered" >                                setIsLogin(true);</span>
+<span class="cstat-no" title="statement not covered" >                            })</span>
+<span class="cstat-no" title="statement not covered" >                            .catch((err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                                console.log(err);</span>
+<span class="cstat-no" title="statement not covered" >                            });</span>
+<span class="cstat-no" title="statement not covered" >                        CustomToast('success', 'Password successfully changed');</span>
+<span class="cstat-no" title="statement not covered" >                        // CustomToast('info', 'You need authorization again');</span>
+<span class="cstat-no" title="statement not covered" >                        // setIsLogin(false);</span>
+<span class="cstat-no" title="statement not covered" >                    })</span>
+<span class="cstat-no" title="statement not covered" >                    .catch((error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        if (error.body) {</span>
+<span class="cstat-no" title="statement not covered" >                            CustomToast('error', error.body.message);</span>
+<span class="cstat-no" title="statement not covered" >                        } else {</span>
+<span class="cstat-no" title="statement not covered" >                            CustomToast('error', 'An error occurred, please try again later');</span>
+<span class="cstat-no" title="statement not covered" >                        }</span>
+<span class="cstat-no" title="statement not covered" >                    });</span>
 <span class="cstat-no" title="statement not covered" >            }</span>
 <span class="cstat-no" title="statement not covered" >        });</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
@@ -478,7 +487,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-04T11:39:20.115Z
+                at 2024-06-17T11:30:30.810Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

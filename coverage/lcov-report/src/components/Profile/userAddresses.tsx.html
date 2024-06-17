@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/288</span>
+                <span class='fraction'>0/297</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/288</span>
+                <span class='fraction'>0/297</span>
             </div>
         
             
@@ -351,7 +351,25 @@
 <a name='L286'></a><a href='#L286'>286</a>
 <a name='L287'></a><a href='#L287'>287</a>
 <a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -796,20 +814,29 @@
 <span class="cstat-no" title="statement not covered" >                    &lt;GiConfirmed</span>
 <span class="cstat-no" title="statement not covered" >                        color="white"</span>
 <span class="cstat-no" title="statement not covered" >                        className="user-addresses-confirmed-icon icons"</span>
-<span class="cstat-no" title="statement not covered" >                        onClick={</span>
-<span class="cstat-no" title="statement not covered" >                            !isNewAddress ? handleSubmit(handleNewAddress) : handleSubmit(handleSaveChangesAddress)</span>
-<span class="cstat-no" title="statement not covered" >                        }</span>
+<span class="cstat-no" title="statement not covered" >                        onClick={isNewAddress ? handleSubmit(handleNewAddress) : handleSubmit(handleSaveChangesAddress)}</span>
+<span class="cstat-no" title="statement not covered" >                        style={isNewAddress ? { right: '40px' } : undefined}</span>
 <span class="cstat-no" title="statement not covered" >                    /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;MdCancel</span>
-<span class="cstat-no" title="statement not covered" >                        color="white"</span>
-<span class="cstat-no" title="statement not covered" >                        className="user-addresses-cancel-icon icons"</span>
-<span class="cstat-no" title="statement not covered" >                        onClick={() =&gt; setIsChange(false)}</span>
-<span class="cstat-no" title="statement not covered" >                    /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    {isNewAddress ? (</span>
+<span class="cstat-no" title="statement not covered" >                        ''</span>
+<span class="cstat-no" title="statement not covered" >                    ) : (</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;MdCancel</span>
+<span class="cstat-no" title="statement not covered" >                            color="white"</span>
+<span class="cstat-no" title="statement not covered" >                            className="user-addresses-cancel-icon icons"</span>
+<span class="cstat-no" title="statement not covered" >                            onClick={() =&gt; setIsChange(false)}</span>
+<span class="cstat-no" title="statement not covered" >                        /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    )}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >            ) : (</span>
 <span class="cstat-no" title="statement not covered" >                &lt;FaEdit color="white" className="user-addresses-edit-icon icons" onClick={() =&gt; setIsChange(true)} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >            )}</span>
-<span class="cstat-no" title="statement not covered" >            &lt;MdDelete color="white" className="user-addresses-delete-icon icons" onClick={handleRemoveAddress} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;MdDelete</span>
+<span class="cstat-no" title="statement not covered" >                color="white"</span>
+<span class="cstat-no" title="statement not covered" >                className="user-addresses-delete-icon icons"</span>
+<span class="cstat-no" title="statement not covered" >                onClick={() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    isNewAddress ? onRemoveAddress(address.id || '') : handleRemoveAddress();</span>
+<span class="cstat-no" title="statement not covered" >                }}</span>
+<span class="cstat-no" title="statement not covered" >            /&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;legend&gt;Address&lt;/legend&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="user-addresses-row"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;div className="user-addresses-col"&gt;</span>
@@ -901,7 +928,7 @@
 <span class="cstat-no" title="statement not covered" >                        },</span>
 <span class="cstat-no" title="statement not covered" >                        color: 'white',</span>
 <span class="cstat-no" title="statement not covered" >                    }}</span>
-<span class="cstat-no" title="statement not covered" >                    disabled={isChange &amp;&amp; isNewAddress ? false : true}</span>
+<span class="cstat-no" title="statement not covered" >                    disabled={isChange &amp;&amp; !isNewAddress ? false : true}</span>
 <span class="cstat-no" title="statement not covered" >                /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;FormControlLabel</span>
 <span class="cstat-no" title="statement not covered" >                    control={</span>
@@ -919,7 +946,7 @@
 <span class="cstat-no" title="statement not covered" >                        },</span>
 <span class="cstat-no" title="statement not covered" >                        color: 'white',</span>
 <span class="cstat-no" title="statement not covered" >                    }}</span>
-<span class="cstat-no" title="statement not covered" >                    disabled={isChange &amp;&amp; isNewAddress ? false : true}</span>
+<span class="cstat-no" title="statement not covered" >                    disabled={isChange &amp;&amp; !isNewAddress ? false : true}</span>
 <span class="cstat-no" title="statement not covered" >                /&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/fieldset&gt;</span>
@@ -934,7 +961,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-03T20:07:50.897Z
+                at 2024-06-17T11:30:30.810Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

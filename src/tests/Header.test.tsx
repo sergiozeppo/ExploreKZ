@@ -15,6 +15,32 @@ jest.mock('../apiSdk/BaseClient', () => ({
         fetch: jest.fn().mockReturnThis(),
     })),
 }));
+jest.mock('../apiSdk/TokenClient', () => ({
+    authMiddlewareOptions: jest.fn().mockImplementation(() => ({
+        projectKey: jest.fn().mockReturnThis(),
+        host: jest.fn().mockReturnThis(),
+        credentials: {
+            clientId: jest.fn().mockReturnThis(),
+            clientSecret: jest.fn().mockReturnThis(),
+        },
+        scopes: jest.fn().mockReturnThis(),
+        fetch: jest.fn().mockReturnThis(),
+    })),
+    projectKey: jest.fn().mockReturnThis(),
+}));
+jest.mock('../apiSdk/anonimClient', () => ({
+    authMiddlewareOptions: jest.fn().mockImplementation(() => ({
+        projectKey: jest.fn().mockReturnThis(),
+        host: jest.fn().mockReturnThis(),
+        credentials: {
+            clientId: jest.fn().mockReturnThis(),
+            clientSecret: jest.fn().mockReturnThis(),
+        },
+        scopes: jest.fn().mockReturnThis(),
+        fetch: jest.fn().mockReturnThis(),
+    })),
+    projectKey: jest.fn().mockReturnThis(),
+}));
 
 describe('Testing Header component', () => {
     it('renders logo and navigation links and buttons', () => {
