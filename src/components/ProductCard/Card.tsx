@@ -21,7 +21,7 @@ type CARD_PROPS = {
 };
 
 export const Card = (product: CARD_PROPS) => {
-    const { setCart } = useContext(GlobalContext);
+    const { setCart, setIsRequestComing } = useContext(GlobalContext);
     const [btnLoader, setBtnLoader] = useState(false);
     const [path, setPath] = useState('');
     useEffect(() => {
@@ -34,8 +34,12 @@ export const Card = (product: CARD_PROPS) => {
         };
         handlePath();
     });
+    // useEffect(() => {
+    //     setIsRequestComing(btnLoader);
+    // }, [btnLoader, setIsRequestComing]);
     const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setBtnLoader(true);
+        setIsRequestComing(true);
         e.stopPropagation();
         e.preventDefault();
         const currentProduct = e.target as HTMLElement;
@@ -67,10 +71,12 @@ export const Card = (product: CARD_PROPS) => {
                         const cartDataS = res.body;
                         localStorage.setItem('user-cart', JSON.stringify(cartDataS));
                         setCart(cartDataS);
+                        setIsRequestComing(false);
                     })
                     .catch(() => {
                         console.log('одновременно нажимаете на кнопку');
                         setBtnLoader(false);
+                        setIsRequestComing(false);
                     });
             }
         }
