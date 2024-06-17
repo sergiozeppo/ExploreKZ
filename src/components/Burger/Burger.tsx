@@ -11,18 +11,18 @@ import CartIcon from '../CartIcon';
 
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isLogin, setIsLogin, setCart, cart } = useContext(GlobalContext);
+    const { isLogin, setIsLogin, setCart } = useContext(GlobalContext);
     const [loginStatus, setLoginStatus] = useState(isLogin);
     const navigate = useNavigate();
-    const [cartProductCount, setCartProductCount] = useState(0);
+    // const [cartProductCount, setCartProductCount] = useState(0);
 
-    useEffect(() => {
-        if (cart && cart?.lineItems && cart?.lineItems?.length > 0) {
-            setCartProductCount(cart?.lineItems.length);
-        } else {
-            setCartProductCount(0);
-        }
-    }, [cart]);
+    // useEffect(() => {
+    //     if (cart && cart?.lineItems && cart?.lineItems?.length > 0) {
+    //         setCartProductCount(cart?.lineItems.length);
+    //     } else {
+    //         setCartProductCount(0);
+    //     }
+    // }, [cart]);
 
     useEffect(() => {
         setLoginStatus(isLogin);
@@ -102,16 +102,23 @@ export default function Burger() {
                             </Link>
                         </li>
                     )}
-                    {isOpen && (
+                    {/* {isOpen && (
                         <li className="cart-link">
-                            {cartProductCount > 0 && <span className="cart-indicator">{cartProductCount}</span>}
                             <Link to="/cart" onClick={closeMenu}>
                                 <Text as="p" className="nav-item">
                                     Cart
                                 </Text>
+                                <CartIcon />
                             </Link>
                         </li>
-                    )}
+                    )} */}
+                    <li>
+                        <Link to="/cart" onClick={closeMenu}>
+                            <div className="cat-icon-wrapper nav-item">
+                                Cart <CartIcon />
+                            </div>
+                        </Link>
+                    </li>
                     <li>
                         <Link to="/about" onClick={closeMenu}>
                             <Text as="p" className="nav-item">
@@ -123,11 +130,18 @@ export default function Burger() {
                 <div className="buttons" onClick={closeMenu}>
                     {loginStatus ? (
                         <>
-                            {!isOpen && (
+                            {/* {!isOpen && (
                                 <Link to="/cart">
-                                    <CartIcon />
+                                    <div className="cat-icon-wrapper">
+                                        Cart <CartIcon />
+                                    </div>
                                 </Link>
-                            )}
+                            )} */}
+                            {/* <Link to="/cart" onClick={closeMenu}>
+                                <div className="cat-icon-wrapper nav-item">
+                                    Cart <CartIcon />
+                                </div>
+                            </Link> */}
 
                             <button className="button" onClick={handleLogout}>
                                 Logout
@@ -135,11 +149,13 @@ export default function Burger() {
                         </>
                     ) : (
                         <>
-                            {!isOpen && (
+                            {/* {isOpen && (
                                 <Link to="/cart">
-                                    <CartIcon />
+                                    <div className="cat-icon-wrapper">
+                                        Cart <CartIcon />
+                                    </div>
                                 </Link>
-                            )}
+                            )} */}
                             <Link to="/login">
                                 <Button className="button">Login</Button>
                             </Link>

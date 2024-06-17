@@ -11,7 +11,7 @@ export const PromoBanner = () => {
         <div className="promo-banner">
             <p className="promo-text">
                 Special summer’s gift! Use the promo code{' '}
-                <span className="promo-code" onClick={copyToClipboard}>
+                <span className="promo-code" onClick={copyToClipboard} title="Click to copy promo-code!">
                     summer-sale
                 </span>{' '}
                 and get a 10% discount on all your purchases! Just click on the promo code to copy it!

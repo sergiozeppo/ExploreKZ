@@ -58,21 +58,6 @@
     font-size: 18px;
 }
 
-.cart-link {
-    position: relative;
-}
-
-.cart-indicator {
-    position: absolute;
-    top: -5px;
-    right: -18px;
-    color: white;
-    padding: 3px;
-    background-color: #1f4aa8;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 700;
-}
 
 @media screen and (max-width: 768px) {
     .burger-icon {
@@ -100,4 +85,11 @@
     .cart-indicator {
         right: 0;
     }
+}
+
+.cat-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
