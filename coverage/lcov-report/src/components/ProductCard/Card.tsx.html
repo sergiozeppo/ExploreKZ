@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/127</span>
+                <span class='fraction'>0/133</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/127</span>
+                <span class='fraction'>0/133</span>
             </div>
         
             
@@ -190,7 +190,19 @@
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -340,7 +352,7 @@
 <span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export const Card = (product: CARD_PROPS) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { setCart } = useContext(GlobalContext);</span>
+<span class="cstat-no" title="statement not covered" >    const { setCart, setIsRequestComing } = useContext(GlobalContext);</span>
 <span class="cstat-no" title="statement not covered" >    const [btnLoader, setBtnLoader] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [path, setPath] = useState('');</span>
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
@@ -353,8 +365,12 @@
 <span class="cstat-no" title="statement not covered" >        };</span>
 <span class="cstat-no" title="statement not covered" >        handlePath();</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
+<span class="cstat-no" title="statement not covered" >    // useEffect(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    //     setIsRequestComing(btnLoader);</span>
+<span class="cstat-no" title="statement not covered" >    // }, [btnLoader, setIsRequestComing]);</span>
 <span class="cstat-no" title="statement not covered" >    const handleAddToCart = async (e: React.MouseEvent&lt;HTMLButtonElement, MouseEvent&gt;) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        setBtnLoader(true);</span>
+<span class="cstat-no" title="statement not covered" >        setIsRequestComing(true);</span>
 <span class="cstat-no" title="statement not covered" >        e.stopPropagation();</span>
 <span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
 <span class="cstat-no" title="statement not covered" >        const currentProduct = e.target as HTMLElement;</span>
@@ -386,10 +402,12 @@
 <span class="cstat-no" title="statement not covered" >                        const cartDataS = res.body;</span>
 <span class="cstat-no" title="statement not covered" >                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));</span>
 <span class="cstat-no" title="statement not covered" >                        setCart(cartDataS);</span>
+<span class="cstat-no" title="statement not covered" >                        setIsRequestComing(false);</span>
 <span class="cstat-no" title="statement not covered" >                    })</span>
 <span class="cstat-no" title="statement not covered" >                    .catch(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                        console.log('одновременно нажимаете на кнопку');</span>
 <span class="cstat-no" title="statement not covered" >                        setBtnLoader(false);</span>
+<span class="cstat-no" title="statement not covered" >                        setIsRequestComing(false);</span>
 <span class="cstat-no" title="statement not covered" >                    });</span>
 <span class="cstat-no" title="statement not covered" >            }</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
@@ -451,7 +469,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T11:49:57.868Z
+                at 2024-06-17T18:40:14.764Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

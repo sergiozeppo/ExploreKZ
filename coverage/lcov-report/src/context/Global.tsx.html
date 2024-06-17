@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.09% </span>
+                <span class="strong">42.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/51</span>
+                <span class='fraction'>27/64</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.09% </span>
+                <span class="strong">42.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/51</span>
+                <span class='fraction'>27/64</span>
             </div>
         
             
@@ -114,7 +114,20 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,6 +150,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -175,6 +201,8 @@ interface State {
     setIsLogin: React.Dispatch&lt;React.SetStateAction&lt;boolean&gt;&gt;;
     cart: Cart | null;
     setCart: React.Dispatch&lt;React.SetStateAction&lt;Cart | null&gt;&gt;;
+    isRequestComing: boolean;
+    setIsRequestComing: React.Dispatch&lt;React.SetStateAction&lt;boolean&gt;&gt;;
 }
 &nbsp;
 export const GlobalContext = createContext&lt;State&gt;({
@@ -182,6 +210,8 @@ export const GlobalContext = createContext&lt;State&gt;({
     setIsLogin: <span class="fstat-no" title="function not covered" >() =&gt; {},</span>
     cart: null,
     setCart: <span class="fstat-no" title="function not covered" >() =&gt; {},</span>
+    isRequestComing: false,
+    setIsRequestComing: <span class="fstat-no" title="function not covered" >() =&gt; {},</span>
 });
 &nbsp;
 interface GlobalProviderProps {
@@ -190,10 +220,15 @@ interface GlobalProviderProps {
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export function GlobalProvider({ children }: GlobalProviderProps) {</span></span>
 <span class="cstat-no" title="statement not covered" >    const [isLogin, setIsLogin] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >    const [isRequestComing, setIsRequestComing] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [cart, setCart] = useState(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const savedCart = localStorage.getItem('user-cart');</span>
 <span class="cstat-no" title="statement not covered" >        return savedCart ? JSON.parse(savedCart) : [];</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setIsRequestComing(isRequestComing);</span>
+<span class="cstat-no" title="statement not covered" >    }, [isRequestComing]);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const initiator = async () =&gt; {</span>
@@ -214,7 +249,11 @@ interface GlobalProviderProps {
 <span class="cstat-no" title="statement not covered" >        localStorage.setItem('user-cart', JSON.stringify(cart));</span>
 <span class="cstat-no" title="statement not covered" >    }, [cart]);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return &lt;GlobalContext.Provider value={{ isLogin, setIsLogin, cart, setCart }}&gt;{children}&lt;/GlobalContext.Provider&gt;;</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;GlobalContext.Provider value={{ isLogin, setIsLogin, cart, setCart, setIsRequestComing, isRequestComing }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            {children}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/GlobalContext.Provider&gt;</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
@@ -223,7 +262,7 @@ interface GlobalProviderProps {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T11:49:57.868Z
+                at 2024-06-17T18:40:14.764Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

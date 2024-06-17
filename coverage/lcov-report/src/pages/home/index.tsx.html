@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>70/70</span>
+                <span class='fraction'>72/72</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>70/70</span>
+                <span class='fraction'>72/72</span>
             </div>
         
             
@@ -133,7 +133,11 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -207,6 +211,7 @@
 import { Img, Text } from '../../components';
 import DownloadApp from '../../components/DownloadApp';
 import TopDestinations from '../../components/TopDestinations';
+import { PromoBanner } from '../../components/promoBanner/PromoBanner';
 &nbsp;
 export default function Home() {
     return (
@@ -236,35 +241,36 @@ export default function Home() {
                                 &lt;Img src="images/img_rectangle.png" alt="gradient" className="hero-gradient" /&gt;
                             &lt;/div&gt;
                         &lt;/div&gt;
+                        {/* top destinations section */}
+                        &lt;TopDestinations /&gt;
                         &lt;div className="link-wrapper sale-banner"&gt;
-                            &lt;div&gt;
-                                &lt;span className="h2 sale-title"&gt;Summer Sale&lt;/span&gt;
-                                &lt;span className="h2 sale-title"&gt;
+                            &lt;img
+                                className="sale-banner-icon"
+                                src="/images/icons8-discount-48.png"
+                                alt="discount-icon"
+                            /&gt;
+                            &lt;div className="titles-wrapper"&gt;
+                                &lt;span className="h2 sale-title main-d-title"&gt;Summer Sale! Discount 30%&lt;/span&gt;
+                                {/* &lt;span className="h2 sale-title"&gt;
                                     Discount 30% &lt;br /&gt;
-                                    &lt;img
-                                        className="sale-banner-icon"
-                                        src="/images/icons8-discount-48.png"
-                                        alt="discount-icon"
-                                    /&gt;
-                                &lt;/span&gt;
-                                &lt;span className="h2 sale-title" style={{ flexDirection: 'row' }}&gt;
+                                &lt;/span&gt; */}
+                                {/* &lt;span className="h2 sale-title" style={{ flexDirection: 'row' }}&gt;
                                     Discount 10%{' '}
                                     &lt;img
                                         className="sale-banner-icon"
                                         src="/images/icons8-discount-48.png"
                                         alt="discount-icon"
                                     /&gt;
-                                &lt;/span&gt;
+                                &lt;/span&gt; */}
                             &lt;/div&gt;
-                            &lt;div className="promo-code"&gt;
+                            {/* &lt;div className="promo-code"&gt;
                                 &lt;span className="h2 sale-title"&gt;promocode "summer-sale"&lt;/span&gt;
-                            &lt;/div&gt;
+                            &lt;/div&gt; */}
                             &lt;Link to="/catalog/discounted" className="button banner-link"&gt;
                                 &lt;span className="h2"&gt;Go&lt;/span&gt;
                             &lt;/Link&gt;
                         &lt;/div&gt;
-                        {/* top destinations section */}
-                        &lt;TopDestinations /&gt;
+                        &lt;PromoBanner /&gt;
                         {/* app download section */}
                         &lt;DownloadApp /&gt;
                     &lt;/div&gt;
@@ -280,7 +286,7 @@ export default function Home() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-17T11:49:57.868Z
+                at 2024-06-17T18:40:14.764Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
