@@ -274,6 +274,7 @@ footer {
 
 .sale-title {
     display: flex;
+    justify-content: space-between;
 }
 
 .banner-link {
