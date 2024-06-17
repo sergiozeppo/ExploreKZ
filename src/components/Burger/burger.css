@@ -58,7 +58,6 @@
     font-size: 18px;
 }
 
-
 @media screen and (max-width: 768px) {
     .burger-icon {
         display: flex;
