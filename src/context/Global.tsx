@@ -8,6 +8,8 @@ interface State {
     setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
     cart: Cart | null;
     setCart: React.Dispatch<React.SetStateAction<Cart | null>>;
+    isRequestComing: boolean;
+    setIsRequestComing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GlobalContext = createContext<State>({
@@ -15,6 +17,8 @@ export const GlobalContext = createContext<State>({
     setIsLogin: () => {},
     cart: null,
     setCart: () => {},
+    isRequestComing: false,
+    setIsRequestComing: () => {},
 });
 
 interface GlobalProviderProps {
@@ -23,10 +27,15 @@ interface GlobalProviderProps {
 
 export function GlobalProvider({ children }: GlobalProviderProps) {
     const [isLogin, setIsLogin] = useState(false);
+    const [isRequestComing, setIsRequestComing] = useState(false);
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem('user-cart');
         return savedCart ? JSON.parse(savedCart) : [];
     });
+
+    useEffect(() => {
+        setIsRequestComing(isRequestComing);
+    }, [isRequestComing]);
 
     useEffect(() => {
         const initiator = async () => {
@@ -47,5 +56,9 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         localStorage.setItem('user-cart', JSON.stringify(cart));
     }, [cart]);
 
-    return <GlobalContext.Provider value={{ isLogin, setIsLogin, cart, setCart }}>{children}</GlobalContext.Provider>;
+    return (
+        <GlobalContext.Provider value={{ isLogin, setIsLogin, cart, setCart, setIsRequestComing, isRequestComing }}>
+            {children}
+        </GlobalContext.Provider>
+    );
 }

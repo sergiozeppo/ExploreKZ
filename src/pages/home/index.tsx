@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Img, Text } from '../../components';
 import DownloadApp from '../../components/DownloadApp';
 import TopDestinations from '../../components/TopDestinations';
+import { PromoBanner } from '../../components/promoBanner/PromoBanner';
 
 export default function Home() {
     return (
@@ -31,35 +32,36 @@ export default function Home() {
                                 <Img src="images/img_rectangle.png" alt="gradient" className="hero-gradient" />
                             </div>
                         </div>
+                        {/* top destinations section */}
+                        <TopDestinations />
                         <div className="link-wrapper sale-banner">
-                            <div>
-                                <span className="h2 sale-title">Summer Sale</span>
-                                <span className="h2 sale-title">
+                            <img
+                                className="sale-banner-icon"
+                                src="/images/icons8-discount-48.png"
+                                alt="discount-icon"
+                            />
+                            <div className="titles-wrapper">
+                                <span className="h2 sale-title main-d-title">Summer Sale! Discount 30%</span>
+                                {/* <span className="h2 sale-title">
                                     Discount 30% <br />
-                                    <img
-                                        className="sale-banner-icon"
-                                        src="/images/icons8-discount-48.png"
-                                        alt="discount-icon"
-                                    />
-                                </span>
-                                <span className="h2 sale-title" style={{ flexDirection: 'row' }}>
+                                </span> */}
+                                {/* <span className="h2 sale-title" style={{ flexDirection: 'row' }}>
                                     Discount 10%{' '}
                                     <img
                                         className="sale-banner-icon"
                                         src="/images/icons8-discount-48.png"
                                         alt="discount-icon"
                                     />
-                                </span>
+                                </span> */}
                             </div>
-                            <div className="promo-code">
+                            {/* <div className="promo-code">
                                 <span className="h2 sale-title">promocode "summer-sale"</span>
-                            </div>
+                            </div> */}
                             <Link to="/catalog/discounted" className="button banner-link">
                                 <span className="h2">Go</span>
                             </Link>
                         </div>
-                        {/* top destinations section */}
-                        <TopDestinations />
+                        <PromoBanner />
                         {/* app download section */}
                         <DownloadApp />
                     </div>

@@ -39,16 +39,17 @@ export default function About() {
                     />
                     <DevCard
                         imgURL="../../images/dev-2.jpg"
-                        name="Vitaly Kim"
+                        name="Vitaliy Kim"
                         title="Frontend Developer"
-                        bio="I graduated with a degree in Computer Science. I have been studying frontend development
-                            since May 2023"
+                        bio="Graduate with a humanities degree, passionate about exploration and continuous learning. Enjoys science fiction and the challenge of solving conundrums. Always in pursuit of new knowledge and intellectual adventures"
                         contributions={[
                             'Added development scripts and set up repository',
                             'Translated Commerce Tools Docs for normal people',
+                            'Complete setup of Commerce Tools SDK clients',
+                            'Setting up a global state (useContext) for managing the tokens lifecycle and interactions with cart requests',
                             'Added comphensive README to the project',
-                            'Developed Catalog, Login, Cart pages',
-                            'Set up products filtering, sorting and searching',
+                            'Developed Catalog, Login, Cart pages, 404',
+                            'Set up products filtering, sorting, searching and breadcrumbs',
                         ]}
                         github="ki8vi"
                     />
