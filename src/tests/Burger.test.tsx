@@ -1,16 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Burger from '../components/Burger/Burger';
-// import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import { renderHook, act } from '@testing-library/react';
-
-// const setState = jest.fn();
-// const useStateSpy = jest.spyOn(React, 'useState');
-// useStateSpy.mockImplementation((initialState: string) => [(initialState, setState)] as Dispatch<string>);
-// const wrapper = shallow(<Burger />);
 
 jest.mock('../apiSdk/BaseClient', () => ({
     authMiddlewareOptions: jest.fn().mockImplementation(() => ({
@@ -23,6 +14,14 @@ jest.mock('../apiSdk/BaseClient', () => ({
         scopes: jest.fn().mockReturnThis(),
         fetch: jest.fn().mockReturnThis(),
     })),
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
+}));
+jest.mock('../apiSdk/TokenClient', () => ({
+    projectKey: jest.fn().mockReturnThis(),
+    scopes: jest.fn().mockReturnThis(),
+}));
+jest.mock('../apiSdk/anonimClient', () => ({
     projectKey: jest.fn().mockReturnThis(),
     scopes: jest.fn().mockReturnThis(),
 }));
@@ -61,31 +60,30 @@ describe('toggleMenu', () => {
         expect(aboutLink).toBeInTheDocument();
         expect(aboutLink.closest('a')).toHaveAttribute('href', '/about');
     });
+    test('toggles menu open and close', () => {
+        const { container } = render(
+            <BrowserRouter>
+                <Burger />
+            </BrowserRouter>,
+        );
+        const burgerIcon = container.querySelector('.burger-icon') as Element;
+        fireEvent.click(burgerIcon);
+        expect(container.querySelector('.open')).toBeInTheDocument();
+        fireEvent.click(burgerIcon);
+        expect(container.querySelector('.open')).not.toBeInTheDocument();
+    });
+    test('closes menu when clicking outside', () => {
+        const { container } = render(
+            <BrowserRouter>
+                <Burger />
+            </BrowserRouter>,
+        );
+        const burgerIcon = container.querySelector('.burger-icon') as Element;
+        fireEvent.click(burgerIcon);
 
-    // it('should toggle the isOpen state', () => {
-    //     render(
-    //         <BrowserRouter>
-    //             <Burger />
-    //         </BrowserRouter>,
-    //     );
-    //     const [isOpen, setIsOpen] = useState(false);
-    //     const toggleMenu = () => {
-    //         setIsOpen(!isOpen);
-    //     };
-    //     toggleMenu();
-    //     expect(isOpen).toBe(true);
-    // });
-    // it('should update state on input change', () => {
-    //     const newInputValue = 'React is Awesome';
-    //     wrapper.find('.input').simulate('change', { target: { value: newInputValue } });
-    //     expect(setState).toHaveBeenCalledWith(newInputValue);
-    // });
+        // Simulate clicking outside
+        fireEvent.click(document);
+
+        expect(container.querySelector('.menu.open')).toBeVisible();
+    });
 });
-// describe('useInputChange', () => {
-//     it('1', () => {
-//         const { result } = renderHook(() => useState(''));
-//         const [text, setText] = result.current;
-//         act(() => setText('123123'));
-//         expect(result.current[0]).toBe('123123');
-//     });
-// });

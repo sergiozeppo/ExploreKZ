@@ -14,15 +14,6 @@ export default function Burger() {
     const { isLogin, setIsLogin, setCart } = useContext(GlobalContext);
     const [loginStatus, setLoginStatus] = useState(isLogin);
     const navigate = useNavigate();
-    // const [cartProductCount, setCartProductCount] = useState(0);
-
-    // useEffect(() => {
-    //     if (cart && cart?.lineItems && cart?.lineItems?.length > 0) {
-    //         setCartProductCount(cart?.lineItems.length);
-    //     } else {
-    //         setCartProductCount(0);
-    //     }
-    // }, [cart]);
 
     useEffect(() => {
         setLoginStatus(isLogin);
@@ -102,16 +93,6 @@ export default function Burger() {
                             </Link>
                         </li>
                     )}
-                    {/* {isOpen && (
-                        <li className="cart-link">
-                            <Link to="/cart" onClick={closeMenu}>
-                                <Text as="p" className="nav-item">
-                                    Cart
-                                </Text>
-                                <CartIcon />
-                            </Link>
-                        </li>
-                    )} */}
                     <li>
                         <Link to="/cart" onClick={closeMenu}>
                             <div className="cat-icon-wrapper nav-item">
@@ -130,32 +111,12 @@ export default function Burger() {
                 <div className="buttons" onClick={closeMenu}>
                     {loginStatus ? (
                         <>
-                            {/* {!isOpen && (
-                                <Link to="/cart">
-                                    <div className="cat-icon-wrapper">
-                                        Cart <CartIcon />
-                                    </div>
-                                </Link>
-                            )} */}
-                            {/* <Link to="/cart" onClick={closeMenu}>
-                                <div className="cat-icon-wrapper nav-item">
-                                    Cart <CartIcon />
-                                </div>
-                            </Link> */}
-
                             <button className="button" onClick={handleLogout}>
                                 Logout
                             </button>
                         </>
                     ) : (
                         <>
-                            {/* {isOpen && (
-                                <Link to="/cart">
-                                    <div className="cat-icon-wrapper">
-                                        Cart <CartIcon />
-                                    </div>
-                                </Link>
-                            )} */}
                             <Link to="/login">
                                 <Button className="button">Login</Button>
                             </Link>

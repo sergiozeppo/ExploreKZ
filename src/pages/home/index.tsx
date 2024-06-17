@@ -42,21 +42,8 @@ export default function Home() {
                             />
                             <div className="titles-wrapper">
                                 <span className="h2 sale-title main-d-title">Summer Sale! Discount 30%</span>
-                                {/* <span className="h2 sale-title">
-                                    Discount 30% <br />
-                                </span> */}
-                                {/* <span className="h2 sale-title" style={{ flexDirection: 'row' }}>
-                                    Discount 10%{' '}
-                                    <img
-                                        className="sale-banner-icon"
-                                        src="/images/icons8-discount-48.png"
-                                        alt="discount-icon"
-                                    />
-                                </span> */}
                             </div>
-                            {/* <div className="promo-code">
-                                <span className="h2 sale-title">promocode "summer-sale"</span>
-                            </div> */}
+
                             <Link to="/catalog/discounted" className="button banner-link">
                                 <span className="h2">Go</span>
                             </Link>
