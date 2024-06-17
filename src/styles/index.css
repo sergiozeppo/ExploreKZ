@@ -740,11 +740,11 @@ footer {
     width: 100%;
     font-weight: 700;
     font-size: 30px;
-    color: #800404c4;
+    color: #fff;
     text-shadow: 10px 10px 10px rgba(14, 107, 188, 0.121);
     text-decoration: underline;
     padding: 20px;
-    background-color: rgba(89, 174, 248, 0.484);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .titles-wrapper {

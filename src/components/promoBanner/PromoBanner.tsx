@@ -14,7 +14,7 @@ export const PromoBanner = () => {
                 <span className="promo-code" onClick={copyToClipboard} title="Click to copy promo-code!">
                     summer-sale
                 </span>{' '}
-                and get a 10% discount on all your purchases! Just click on the promo code to copy it!
+                and get a 10% discount <br /> on all your purchases! Just click on the promo code to copy it!
             </p>
         </div>
     );
