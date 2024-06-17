@@ -316,9 +316,21 @@ footer {
 }
 
 @keyframes vibrate {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70% { transform: translateX(-10px); }
-    20%, 40%, 60% { transform: translateX(10px); }
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+        transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60% {
+        transform: translateX(10px);
+    }
 }
 
 ::-webkit-scrollbar {
@@ -599,7 +611,7 @@ footer {
         margin-top: 7px;
         margin-bottom: 7px;
     }
-    
+
     &:hover {
         box-shadow:
             rgba(6, 127, 187, 0.347) 0px 6px 24px 0px,
