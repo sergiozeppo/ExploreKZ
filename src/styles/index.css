@@ -161,6 +161,7 @@ footer {
     display: flex;
     gap: 35px;
     margin: 0 auto;
+    align-items: center;
 }
 .nav-item {
     font-family: 'Poppins';
