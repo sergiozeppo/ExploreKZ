@@ -7,7 +7,7 @@ import { CustomToast } from '../../components/Toast';
 import CartCard from '../../components/CartCards/Card';
 import './cart.css';
 import './promptModal.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/loader';
 import { SlClose } from 'react-icons/sl';
 
@@ -18,6 +18,8 @@ export default function Cart() {
     const [removeLoader, setRemoveLoader] = useState(false);
     const [isPrompt, setIsPrompt] = useState(false);
     const [usePromo, setUsePromo] = useState(false);
+    const navigate = useNavigate();
+
     useEffect(() => {
         setCurrentCartProd(cart?.lineItems);
     }, [cart?.lineItems, cart]);
@@ -189,6 +191,11 @@ export default function Cart() {
         setUsePromo(false);
     };
 
+    const handleCheckout = () => {
+        console.log('checkout');
+        navigate('/cart/checkout');
+    };
+
     return (
         <>
             {cart && (
@@ -297,6 +304,9 @@ export default function Cart() {
                                         onClick={handleUsePromo}
                                     >
                                         Use Promo
+                                    </button>
+                                    <button className="button" onClick={handleCheckout}>
+                                        Checkout
                                     </button>
                                 </div>
                                 <span className="cart-total">

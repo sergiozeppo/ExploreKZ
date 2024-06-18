@@ -15,6 +15,7 @@ import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
 import ChangePassword from './pages/changePassword';
 import Footer from './components/Footer/Footer';
+import { CheckoutPage } from './pages/CheckoutPage/CheckoutPage';
 // import { initCartState } from './apiSdk/Cart';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
@@ -39,6 +40,7 @@ function App() {
                         {/* <Route path="/products/*" element={<Product />} /> */}
                         <Route path="/catalog/:category/:subcategory/*" element={<Product />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/cart/checkout" element={<CheckoutPage />} />
                         <Route path="/changePassword" element={<ChangePassword />} />
                     </Routes>
                     <Footer />
