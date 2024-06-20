@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/234</span>
+                <span class='fraction'>0/237</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/234</span>
+                <span class='fraction'>0/237</span>
             </div>
         
             
@@ -297,7 +297,13 @@
 <a name='L232'></a><a href='#L232'>232</a>
 <a name='L233'></a><a href='#L233'>233</a>
 <a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -538,26 +544,29 @@
 <span class="cstat-no" title="statement not covered" >import { baseClient } from '../../apiSdk/BaseClient';</span>
 <span class="cstat-no" title="statement not covered" >import { toast } from 'react-toastify';</span>
 <span class="cstat-no" title="statement not covered" >import { useNavigate } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import UserAddresses from '../../components/ProfileComponent/userAddresses';</span>
-<span class="cstat-no" title="statement not covered" >import UserInfo from '../../components/ProfileComponent/userInfo';</span>
-<span class="cstat-no" title="statement not covered" >import { IUser, IErrorProfile } from '../../components/ProfileComponent/typesProfile';</span>
-<span class="cstat-no" title="statement not covered" >import { CustomerUpdateAction } from '../../components/ProfileComponent/typesAction';</span>
+<span class="cstat-no" title="statement not covered" >import UserAddresses from '../../components/Profile/userAddresses';</span>
+<span class="cstat-no" title="statement not covered" >import UserInfo from '../../components/Profile/userInfo';</span>
+<span class="cstat-no" title="statement not covered" >import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';</span>
+<span class="cstat-no" title="statement not covered" >import { CustomerUpdateAction } from '../../components/Profile/typesAction';</span>
 <span class="cstat-no" title="statement not covered" >import { CustomToast } from '../../components/Toast';</span>
-<span class="cstat-no" title="statement not covered" >import { UserPersonalInfo } from '../../components/ProfileComponent/typesProfile';</span>
+<span class="cstat-no" title="statement not covered" >import { UserPersonalInfo } from '../../components/Profile/typesProfile';</span>
+<span class="cstat-no" title="statement not covered" >// import { token } from '../../apiSdk/token';</span>
+<span class="cstat-no" title="statement not covered" >import { tokenClient } from '../../apiSdk/TokenClient';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export async function ProfileApi(): Promise&lt;IUser | Error&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;</span>
+<span class="cstat-no" title="statement not covered" >    // const myToken = token.get().token;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const api = baseClient();</span>
+<span class="cstat-no" title="statement not covered" >    // const api = baseClient();</span>
+<span class="cstat-no" title="statement not covered" >    const api = tokenClient();</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        const response = await api</span>
-<span class="cstat-no" title="statement not covered" >            .me()</span>
-<span class="cstat-no" title="statement not covered" >            .get({</span>
-<span class="cstat-no" title="statement not covered" >                headers: {</span>
-<span class="cstat-no" title="statement not covered" >                    Authorization: `Bearer ${token}`,</span>
-<span class="cstat-no" title="statement not covered" >                },</span>
-<span class="cstat-no" title="statement not covered" >            })</span>
-<span class="cstat-no" title="statement not covered" >            .execute();</span>
+<span class="cstat-no" title="statement not covered" >        const response = await api.me().get().execute();</span>
+<span class="cstat-no" title="statement not covered" >        // .me()</span>
+<span class="cstat-no" title="statement not covered" >        // .get({</span>
+<span class="cstat-no" title="statement not covered" >        //     headers: {</span>
+<span class="cstat-no" title="statement not covered" >        //         Authorization: `Bearer ${myToken}`,</span>
+<span class="cstat-no" title="statement not covered" >        //     },</span>
+<span class="cstat-no" title="statement not covered" >        // })</span>
+<span class="cstat-no" title="statement not covered" >        // .execute();</span>
 <span class="cstat-no" title="statement not covered" >        return response.body as IUser;</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >        return error as Error;</span>
@@ -692,7 +701,7 @@
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const handleNewAddress = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '' };</span>
+<span class="cstat-no" title="statement not covered" >        const emptyAddress = { country: 'KZ', city: '', streetName: '', postalCode: '', id: crypto.randomUUID() };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >        setUser((prevUser) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            if (!prevUser) return prevUser;</span>
@@ -750,7 +759,7 @@
 <span class="cstat-no" title="statement not covered" >                                defaultShippingAddressId={defaultShippingAddressId}</span>
 <span class="cstat-no" title="statement not covered" >                                setDefaultBillingAddressId={setDefaultBillingAddressId}</span>
 <span class="cstat-no" title="statement not covered" >                                setDefaultShippingAddressId={setDefaultShippingAddressId}</span>
-<span class="cstat-no" title="statement not covered" >                                isNewAddress={Boolean(user.addresses[index].city)}</span>
+<span class="cstat-no" title="statement not covered" >                                isNewAddress={Boolean(!user.addresses[index].city)}</span>
 <span class="cstat-no" title="statement not covered" >                            /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        ))}</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
@@ -772,7 +781,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-04T11:39:20.115Z
+                at 2024-06-17T19:51:29.610Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

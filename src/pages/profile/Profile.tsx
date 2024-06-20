@@ -11,20 +11,23 @@ import { IUser, IErrorProfile } from '../../components/Profile/typesProfile';
 import { CustomerUpdateAction } from '../../components/Profile/typesAction';
 import { CustomToast } from '../../components/Toast';
 import { UserPersonalInfo } from '../../components/Profile/typesProfile';
+// import { token } from '../../apiSdk/token';
+import { tokenClient } from '../../apiSdk/TokenClient';
 
 export async function ProfileApi(): Promise<IUser | Error> {
-    const token = JSON.parse(localStorage.getItem('userToken') || '[]').token;
+    // const myToken = token.get().token;
 
-    const api = baseClient();
+    // const api = baseClient();
+    const api = tokenClient();
     try {
-        const response = await api
-            .me()
-            .get({
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .execute();
+        const response = await api.me().get().execute();
+        // .me()
+        // .get({
+        //     headers: {
+        //         Authorization: `Bearer ${myToken}`,
+        //     },
+        // })
+        // .execute();
         return response.body as IUser;
     } catch (error) {
         return error as Error;

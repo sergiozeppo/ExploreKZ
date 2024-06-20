@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.46% </span>
+                <span class="strong">64.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>89/130</span>
+                <span class='fraction'>91/142</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.46% </span>
+                <span class="strong">64.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>89/130</span>
+                <span class='fraction'>91/142</span>
             </div>
         
             
@@ -193,7 +193,21 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -225,6 +239,16 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -335,13 +359,15 @@ import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import Loader from '../../components/Loader/loader';
 import { validate } from '../../components/Validation';
+import { tokenClient } from '../../apiSdk/TokenClient';
+&nbsp;
 type Inputs = {
     email: string;
     password: string;
 };
 &nbsp;
 export default function Login() {
-    const { setIsLogin } = useContext(GlobalContext);
+    const { setIsLogin, setCart } = useContext(GlobalContext);
     const isUserExist = localStorage.getItem('isLogin');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState&lt;string | null&gt;(null);
@@ -361,15 +387,25 @@ export default function Login() {
 <span class="cstat-no" title="statement not covered" >                setLoginError('');</span>
 <span class="cstat-no" title="statement not covered" >                setPasswordError('');</span>
 <span class="cstat-no" title="statement not covered" >                setLoading(false);</span>
-<span class="cstat-no" title="statement not covered" >                navigate('/');</span>
-<span class="cstat-no" title="statement not covered" >                location.reload();</span>
-<span class="cstat-no" title="statement not covered" >                const userToken = token.get();</span>
+<span class="cstat-no" title="statement not covered" >                const userToken = token;</span>
 <span class="cstat-no" title="statement not covered" >                localStorage.setItem('isLogin', 'true');</span>
-<span class="cstat-no" title="statement not covered" >                localStorage.setItem('userToken', JSON.stringify(userToken));</span>
+<span class="cstat-no" title="statement not covered" >                localStorage.setItem('userToken', JSON.stringify(userToken.get()));</span>
 <span class="cstat-no" title="statement not covered" >                setIsLogin(true);</span>
 <span class="cstat-no" title="statement not covered" >                CustomToast('success', 'Successful Logged in!');</span>
+<span class="cstat-no" title="statement not covered" >                tokenClient()</span>
+<span class="cstat-no" title="statement not covered" >                    .me()</span>
+<span class="cstat-no" title="statement not covered" >                    .activeCart()</span>
+<span class="cstat-no" title="statement not covered" >                    .get()</span>
+<span class="cstat-no" title="statement not covered" >                    .execute()</span>
+<span class="cstat-no" title="statement not covered" >                    .then((res) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                        console.log(res);</span>
+<span class="cstat-no" title="statement not covered" >                        const cartDataS = res.body;</span>
+<span class="cstat-no" title="statement not covered" >                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));</span>
+<span class="cstat-no" title="statement not covered" >                        setCart(cartDataS);</span>
+<span class="cstat-no" title="statement not covered" >                    })</span>
+<span class="cstat-no" title="statement not covered" >                    .catch(console.error);</span>
 <span class="cstat-no" title="statement not covered" >            })</span>
-<span class="cstat-no" title="statement not covered" >            .catch((err) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            .catch((err: Error) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                console.error(err);</span>
 <span class="cstat-no" title="statement not covered" >                setLoading(false);</span>
 <span class="cstat-no" title="statement not covered" >                baseClient()</span>
@@ -399,7 +435,7 @@ export default function Login() {
         if (isUserExist) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >            navigate('/');</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-    });
+    }, [navigate, isUserExist]);
     return (
         &lt;div className="login-form-wrapper"&gt;
             &lt;form onSubmit={handleSubmit(onSubmit)} className="login-form"&gt;
@@ -460,7 +496,7 @@ export default function Login() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-04T11:39:20.115Z
+                at 2024-06-17T19:51:29.610Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

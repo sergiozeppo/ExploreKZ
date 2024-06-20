@@ -5,8 +5,6 @@ import Registration from './pages/registration';
 import NotFound from './pages/notFound';
 import './styles/index.css';
 import './styles/font.css';
-import { anonUser } from './apiSdk/anonimClient';
-import { tokenClient } from './apiSdk/TokenClient';
 import Header from './components/Header';
 import { GlobalProvider } from './context/Global';
 import { CustomToastContainer } from './components/Toast';
@@ -16,31 +14,13 @@ import Catalog from './pages/catalog/Catalog';
 import Cart from './pages/cart/Cart';
 import Product from './pages/product/Product';
 import ChangePassword from './pages/changePassword';
-// import Footer from './components/Footer/Footer';
+import Footer from './components/Footer/Footer';
+import { CheckoutPage } from './pages/CheckoutPage/CheckoutPage';
+// import { initCartState } from './apiSdk/Cart';
 
 // Главный компонент внутри которого будут распологаться остальные компоненты
 
 function App() {
-    if (localStorage.getItem('isLogin')) {
-        console.log('token flow');
-        tokenClient()
-            .categories()
-            .get()
-            .execute()
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => console.error(err));
-    } else {
-        console.log('anonim flow');
-        anonUser()
-            .categories()
-            .get()
-            .execute()
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
-    }
-
     return (
         <>
             <GlobalProvider>
@@ -60,9 +40,10 @@ function App() {
                         {/* <Route path="/products/*" element={<Product />} /> */}
                         <Route path="/catalog/:category/:subcategory/*" element={<Product />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/cart/checkout" element={<CheckoutPage />} />
                         <Route path="/changePassword" element={<ChangePassword />} />
                     </Routes>
-                    {/* <Footer /> */}
+                    <Footer />
                 </BrowserRouter>
             </GlobalProvider>
         </>

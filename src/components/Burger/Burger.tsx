@@ -2,13 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import './burger.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Text } from './..';
-import { baseClient } from '../../apiSdk/BaseClient';
 import { CustomToast } from '../Toast';
 import { GlobalContext } from '../../context/Global';
 import { token as MyToken } from '../../apiSdk/token';
+import { initCartState } from '../../apiSdk/Cart';
+import { initAnonId } from '../../apiSdk/anonimClient';
+import CartIcon from '../CartIcon';
+
 export default function Burger() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isLogin, setIsLogin } = useContext(GlobalContext);
+    const { isLogin, setIsLogin, setCart } = useContext(GlobalContext);
     const [loginStatus, setLoginStatus] = useState(isLogin);
     const navigate = useNavigate();
 
@@ -24,16 +27,14 @@ export default function Burger() {
         setIsOpen(false);
     };
 
-    const handleLogout = () => {
-        baseClient()
-            .products()
-            .get()
-            .execute()
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err));
+    const handleLogout = async () => {
         localStorage.clear();
         const userToken = MyToken;
         userToken.reset();
+        await initAnonId();
+        await initCartState();
+        const currentCart = localStorage.getItem('user-cart');
+        setCart(JSON.parse(currentCart!));
         setIsLogin(false);
         navigate('/');
         CustomToast('info', 'Successful Logged out!');
@@ -94,9 +95,9 @@ export default function Burger() {
                     )}
                     <li>
                         <Link to="/cart" onClick={closeMenu}>
-                            <Text as="p" className="nav-item">
-                                Cart
-                            </Text>
+                            <div className="cat-icon-wrapper nav-item">
+                                Cart <CartIcon />
+                            </div>
                         </Link>
                     </li>
                     <li>
@@ -109,9 +110,11 @@ export default function Burger() {
                 </ul>
                 <div className="buttons" onClick={closeMenu}>
                     {loginStatus ? (
-                        <button className="button" onClick={handleLogout}>
-                            Logout
-                        </button>
+                        <>
+                            <button className="button" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </>
                     ) : (
                         <>
                             <Link to="/login">

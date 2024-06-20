@@ -10,6 +10,7 @@ import { GlobalContext } from '../../context/Global';
 import { CustomToast } from '../../components/Toast';
 import Loader from '../../components/Loader/loader';
 import { validate } from '../../components/Validation';
+import { tokenClient } from '../../apiSdk/TokenClient';
 
 type Inputs = {
     email: string;
@@ -17,7 +18,7 @@ type Inputs = {
 };
 
 export default function Login() {
-    const { setIsLogin } = useContext(GlobalContext);
+    const { setIsLogin, setCart } = useContext(GlobalContext);
     const isUserExist = localStorage.getItem('isLogin');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState<string | null>(null);
@@ -42,9 +43,20 @@ export default function Login() {
                 localStorage.setItem('userToken', JSON.stringify(userToken.get()));
                 setIsLogin(true);
                 CustomToast('success', 'Successful Logged in!');
-                // location.reload();
+                tokenClient()
+                    .me()
+                    .activeCart()
+                    .get()
+                    .execute()
+                    .then((res) => {
+                        console.log(res);
+                        const cartDataS = res.body;
+                        localStorage.setItem('user-cart', JSON.stringify(cartDataS));
+                        setCart(cartDataS);
+                    })
+                    .catch(console.error);
             })
-            .catch((err) => {
+            .catch((err: Error) => {
                 console.error(err);
                 setLoading(false);
                 baseClient()

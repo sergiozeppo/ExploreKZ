@@ -81,4 +81,14 @@
     .menu a {
         text-align: center;
     }
+    .cart-indicator {
+        right: 0;
+    }
+}
+
+.cat-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }

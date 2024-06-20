@@ -1,0 +1,12 @@
+.checkout-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100dvh - 145px);
+}
+
+.checkout-title {
+    text-align: center;
+    color: white;
+}
