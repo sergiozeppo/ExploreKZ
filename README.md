@@ -15,7 +15,6 @@ The purpose of this project is to create a user-friendly platform where customer
 ## Technology Stack
 
 -   React
--   Redux
 -   TypeScript
 -   Vite
 -   HTML
