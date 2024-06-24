@@ -41,13 +41,13 @@ Before you begin, ensure you have the following installed:
 -   First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/sergiozeppo/RSS-ECOMM.git
+git clone https://github.com/sergiozeppo/ExploreKZ.git
 ```
 
 -   Navigate into the cloned repository directory and install the project dependencies:
 
 ```bash
-cd RSS-ECOMM
+cd ExploreKZ
 npm install
 ```
 
