@@ -5,6 +5,9 @@
 **Explore KZ** is a comprehensive eCommerce application designed to simplify online order tours inside Kazakhstan. From browsing tour to checkout, it provides a seamless order experience for users.
 The purpose of this project is to create a user-friendly platform where customers can shop tours from the comfort of their homes.
 
+## Deploy
+The working deploy is [here](https://scientia-appetitus-explorekz-sprint4.netlify.app/)
+
 ## Features
 
 -   **Tours Browsing**: Browse through our extensive catalog of tours across multiple categories.
