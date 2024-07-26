@@ -8,6 +8,11 @@ The purpose of this project is to create a user-friendly platform where customer
 ## Deploy
 The working deploy is [here](https://scientia-appetitus-explorekz-sprint4.netlify.app/)
 
+## Video of deploy
+We can't keep the deploy running. 
+In case of server errors or any other circumstances you can watch the video below
+Recording [video](https://www.youtube.com/watch?v=DJc4uejJX4s) of a working deploy
+
 ## Features
 
 -   **Tours Browsing**: Browse through our extensive catalog of tours across multiple categories.
